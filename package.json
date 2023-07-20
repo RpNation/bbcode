@@ -1,0 +1,10 @@
+{
+  "name": "rpn-bbcode",
+  "version": "0.0.1",
+  "repository": "TODO",
+  "author": "RpNation",
+  "license": "GPL",
+  "devDependencies": {
+    "eslint-config-discourse": "^3.1.0"
+  }
+}
