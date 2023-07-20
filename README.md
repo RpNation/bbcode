@@ -2,7 +2,7 @@
 
 # BBCode
 
-RpNation's Offical BBCode Implementation for Discourse
+RpNation's Official BBCode Implementation for Discourse
 
 See: [https://www.rpnation.com]
 
