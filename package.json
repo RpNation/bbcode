@@ -4,7 +4,17 @@
   "repository": "TODO",
   "author": "RpNation",
   "license": "GPL",
+  "type": "module",
   "devDependencies": {
-    "eslint-config-discourse": "^3.1.0"
+    "@rollup/plugin-node-resolve": "^15.1.0",
+    "@rollup/plugin-terser": "^0.4.3",
+    "eslint-config-discourse": "^3.1.0",
+    "rollup": "^3.26.3"
+  },
+  "dependencies": {
+    "@bbob/core": "^2.9.0",
+    "@bbob/html": "^2.9.0",
+    "@bbob/preset": "^2.9.0",
+    "@bbob/preset-html5": "^2.9.0"
   }
 }
