@@ -25,6 +25,8 @@ const options = {
 
 // console.log(html); // <span style="font-style: italic;">Text</span>
 
+console.warn("hello world!");
+
 export const RpNBBCode = (code) =>
   bbob([preset(), lineBreakPlugin()]).process(code, {
     render,

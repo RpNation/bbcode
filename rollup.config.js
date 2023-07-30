@@ -10,7 +10,7 @@ export default {
   },
   plugins: [
     nodeResolve(),
-    terser({ format: { preamble: "/* Source code in bbcode-src */" } }),
+    // terser({ format: { preamble: "/* Source code in bbcode-src */" } }),
   ],
   watch: {
     include: "bbcode-src/**",
