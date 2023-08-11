@@ -1,4 +1,9 @@
 en:
   js:
     bbcode:
-      placeholder: placeholder
+      title: "BBCode"
+      resetDesc: "The following resets the Markdown-It engine in the backend. This allows the engine to load in the latest code from the custom parser."
+      reset: "Reset BBCode Engine"
+      reseting: "Resetting BBCode Engine..."
+      success: "Successfully reset."
+      error: "Failed to reset. Please check logs."

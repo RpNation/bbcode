@@ -7,9 +7,21 @@
 # url: https://github.com/RpNation/BBCode
 # required_version: 2.7.0
 
-enabled_site_setting :discourse_bbcode_enabled
+enabled_site_setting :bbcode_enabled
 
 register_asset "javascripts/bbcode-parser.min.js", :vendored_pretty_text
+
+add_admin_route 'bbcode.title', 'bbcode'
+
+Discourse::Application.routes.append do
+  get '/admin/plugins/bbcode' => 'admin/plugins#index', constraints: StaffConstraint.new
+end
+
+module ::BbCode
+  PLUGIN_NAME = "BbCode"
+end
+
+require_relative "lib/bb_code/engine"
 
 after_initialize do
   # Code which should run after Rails has finished booting

@@ -41,8 +41,8 @@ export function setup(helper) {
   // console.log(globalThis);
 
   helper.registerOptions((opts, siteSettings) => {
-    opts.features["bbcode-parser"] = siteSettings.discourse_bbcode_enabled;
-    if (opts.engine || !siteSettings.discourse_bbcode_enabled) {
+    opts.features["bbcode-parser"] = siteSettings.bbcode_enabled;
+    if (opts.engine || !siteSettings.bbcode_enabled) {
       return;
     }
 

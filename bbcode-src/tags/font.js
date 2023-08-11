@@ -9,6 +9,6 @@ export const font = (node, options) => {
   console.log(options);
   return {
     tag: "span",
-    content: node.content,
+    content: "test" + node.content,
   };
 };

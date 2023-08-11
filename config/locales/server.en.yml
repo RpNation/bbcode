@@ -1,1 +1,3 @@
 en:
+  site_settings:
+    bbcode_enabled: "Enable Custom BBCode parser"
