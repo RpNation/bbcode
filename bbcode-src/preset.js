@@ -1,10 +1,8 @@
 import { createPreset } from "@bbob/preset";
-import { bold } from "./tags/bold";
 import { font } from "./tags/font";
 import { nobr } from "./tags/nobr";
 
 const tags = {
-  b: bold,
   font,
   nobr,
 };
