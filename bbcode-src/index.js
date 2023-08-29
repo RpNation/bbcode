@@ -5,7 +5,7 @@ import { lineBreakPlugin } from "./plugins/lineBreak";
 
 const data = [];
 
-// const code = `[i][b]Text[/b][/i][font]test[/font][font=default attrtest]default[/font]`;
+// TODO: Change error handling so active editing doesn't spam the console
 const options = {
   onlyAllowTags: [...availableTags, "nobr"],
   enableEscapeTags: true,
@@ -15,21 +15,8 @@ const options = {
   data,
 };
 
-// const bbobOutput = bbob(preset()).process(code, { render, ...options });
-
-// console.log(bbobOutput);
-
-// const html = bbobOutput.html;
-
-// console.log(data);
-
-// console.log(html); // <span style="font-style: italic;">Text</span>
-
-console.warn("hello world!");
-
 export const RpNBBCode = (code) =>
   bbob([preset(), lineBreakPlugin()]).process(code, {
     render,
     ...options,
   });
-// export default RpNBBCode;
