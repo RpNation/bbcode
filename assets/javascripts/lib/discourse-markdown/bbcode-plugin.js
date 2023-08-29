@@ -7,6 +7,7 @@ function preprocessor(raw) {
   if (!bbcodeParser) {
     // parser doesn't exist. Something horrible has happened and somehow the parser wasn't imported/initialized
     // give up and send it straight back.
+    // eslint-disable-next-line no-console
     console.warn(
       "Attempted to get the bbcode parser: does not exist. Defaulting to standard markdown-it.",
       "\ncalled on: \n",
