@@ -11,6 +11,7 @@ import { border } from "./tags/border";
 import { divide } from "./tags/divide";
 import { ooc } from "./tags/ooc";
 import { side } from "./tags/side";
+import { pindent } from "./tags/pindent";
 
 const tags = {
   font,
@@ -26,6 +27,7 @@ const tags = {
   divide,
   ooc,
   side,
+  ...pindent,
 };
 
 const availableTags = Object.keys(tags);
