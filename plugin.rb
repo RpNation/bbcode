@@ -12,6 +12,8 @@ enabled_site_setting :bbcode_enabled
 register_asset "javascripts/bbcode-parser.min.js", :vendored_pretty_text
 register_asset "stylesheets/common/index.scss"
 
+register_asset "stylesheets/bbcode.scss"
+
 add_admin_route 'bbcode.title', 'bbcode'
 
 Discourse::Application.routes.append do

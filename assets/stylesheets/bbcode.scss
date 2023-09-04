@@ -1,0 +1,1134 @@
+/*
+Image Float...............BBCODE-001
+Border....................BBCODE-002
+Background................BBCODE-003
+Fieldset..................BBCODE-004
+Side......................BBCODE-005
+Divider...................BBCODE-006
+Rows & Columns............BBCODE-007
+Inline Spoiler............BBCODE-008
+Justify...................BBCODE-009
+Print.....................BBCODE-010
+Email.....................BBCODE-011
+Check.....................BBCODE-012
+Newspaper.................BBCODE-013
+Note......................BBCODE-014
+Tabs......................BBCODE-015
+Blockquotes...............BBCODE-016
+Highlight.................BBCODE-017
+Progress Bar..............BBCODE-018
+Accordion.................BBCODE-019
+OOC.......................BBCODE-020
+LEFT, CENTER, RIGHT.......BBCODE-021
+SIZE......................BBCODE-022
+Spoiler...................BBCODE-023
+Block.....................BBCODE-024
+Text Message..............BBCODE-025
+Height Restrict...........BBCODE-026
+ISpoiler..................BBCODE-027
+*/
+
+@import "common/foundation/variables";
+
+// Edits the <p> tags that markdown-it auto generates
+// This will allow for easier CSS implementation
+.cooked {
+  p {
+    margin: 0;
+    margin-bottom: 15px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &:only-child {
+      margin-bottom: 0;
+    }
+  }
+
+  br + ul {
+    margin-top: 1em !important;
+  }
+
+  li > br:first-of-type {
+    display: none;
+  }
+
+  .bbcode-inline {
+    display: inline;
+  }
+  .bbcode-inline-block {
+    display: inline-block;
+  }
+
+  .lightbox {
+    img {
+      max-width: 100% !important;
+      height: auto;
+    }
+  }
+}
+
+/*************************************************
+*** Image Float                      BBCODE-001***
+*************************************************/
+.float-left,
+.float-right {
+  display: block;
+  margin: 0 10px;
+  max-width: calc(50% + 40px);
+}
+.float-left {
+  float: left;
+}
+.float-right {
+  float: right;
+}
+
+/*************************************************
+*** Border                           BBCODE-002***
+*************************************************/
+.bbcode-border {
+  padding: 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #2980b9;
+  > .bbcode-background {
+    margin: -10px;
+  }
+}
+
+/*************************************************
+*** Background                       BBCODE-003***
+*************************************************/
+.bbcode-background {
+  padding: 10px;
+  color: black;
+}
+
+/*************************************************
+*** Fieldset                         BBCODE-004***
+*************************************************/
+
+.bbcode-fieldset {
+  width: 95%;
+  margin: 0 auto;
+  clear: both;
+  border: 1px solid #2980b9;
+  padding: 10px;
+  > legend {
+    margin-left: 3%;
+    font-weight: 700;
+    color: #2980b9;
+    padding: 0 10px;
+  }
+  > span {
+    color: #2980b9;
+  }
+  @media screen and (max-width: 800px) {
+    width: 90%;
+  }
+}
+
+/*************************************************
+*** Side                             BBCODE-005***
+*************************************************/
+
+.bbcode-side,
+%bbcode-side {
+  clear: both;
+  width: 21%;
+  border-left: 3px dotted #2980b9;
+  border-right: 3px dotted #2980b9;
+  padding: 2%;
+  font-size: 75%;
+
+  &-left {
+    @extend %bbcode-side;
+    float: left;
+    margin: 1em 1em 1em 0;
+    clear: left;
+  }
+
+  &-right {
+    @extend %bbcode-side;
+    float: right;
+    margin: 1em 0 1em 1em;
+    clear: right;
+  }
+
+  @media screen and (max-width: 800px) {
+    width: 80%;
+    float: none;
+    clear: both;
+  }
+}
+
+/*************************************************
+*** Divider                          BBCODE-006***
+*************************************************/
+
+.bbcode-horizontal-rule {
+  border-bottom: 1px solid #2980b9;
+  color: #2980b9;
+  font-size: 75%;
+  width: 100%;
+  display: block;
+  text-align: center;
+  &-thick {
+    @extend .bbcode-horizontal-rule;
+    border-bottom: 3px solid #2980b9;
+  }
+
+  &-dotted {
+    @extend .bbcode-horizontal-rule;
+    border-bottom: 1px dotted #2980b9;
+  }
+
+  &-dotted-thick,
+  &-thick-dotted {
+    @extend .bbcode-horizontal-rule;
+    border-bottom: 3px dotted #2980b9;
+  }
+}
+
+/*************************************************
+*** Rows & Columns                   BBCODE-007***
+*************************************************/
+
+.bbcode-row {
+  width: 100%;
+  clear: both;
+  overflow: hidden;
+  margin: 0;
+}
+
+.bbcode-row .bbcode-column {
+  margin: 0 0.5%;
+  padding: 0 0.5%;
+  float: left;
+}
+
+.bbcode-row .column-width-span1 {
+  width: 10.5%;
+} /*12.5*/
+.bbcode-row .column-width-span2 {
+  width: 23%;
+} /*25*/
+.bbcode-row .column-width-span3 {
+  width: 35.5%;
+} /*37.5*/
+.bbcode-row .column-width-span4 {
+  width: 48%;
+} /*50*/
+.bbcode-row .column-width-span5 {
+  width: 60.5%;
+} /*62.5*/
+.bbcode-row .column-width-span6 {
+  width: 73%;
+} /*75*/
+.bbcode-row .column-width-span7 {
+  width: 85.5%;
+} /*87.5*/
+.bbcode-row .column-width-span8 {
+  width: 98%;
+} /*100*/
+
+@media screen and (max-width: 900px) {
+  .bbcode-row .column-width-span1,
+  .bbcode-row .column-width-span2,
+  .bbcode-row .column-width-span3,
+  .bbcode-row .column-width-span4,
+  .bbcode-row .column-width-span5,
+  .bbcode-row .column-width-span6,
+  .bbcode-row .column-width-span7,
+  .bbcode-row .column-width-span8 {
+    width: 100%;
+  } /*12.5*/
+
+  .bbcode-row .bbcode-column {
+    margin: 0;
+    padding: 0;
+    float: none;
+  }
+}
+
+/*************************************************
+*** Inline Spoiler                   BBCODE-008***
+*************************************************/
+.inlineSpoiler {
+  background-color: currentColor;
+  padding: 0 5px;
+  &:hover {
+    background: #2980b9;
+  }
+}
+
+/*************************************************
+*** Justifiy                         BBCODE-009***
+*************************************************/
+.bbcode-justify {
+  display: block;
+  text-align: justify;
+}
+
+/*************************************************
+*** Print                            BBCODE-010***
+*************************************************/
+
+.bbcode-print {
+  font-family: "Coming Soon", "Architects Daughter", cursive;
+  font-size: 16px;
+  width: auto;
+  margin: 0 auto;
+  background-image: url("/plugins/discourse-rpn-bbcode/images/paper-top3.png"),
+    url("/plugins/discourse-rpn-bbcode/images/paper-bottom3.png"),
+    url("/plugins/discourse-rpn-bbcode/images/paper.jpg");
+  background-position: 50% 0, 50% 100%, center;
+  background-repeat: no-repeat, no-repeat, repeat;
+  background-size: auto 65px, auto 65px, 400px 400px;
+  padding: calc(15px + 65px) 25px;
+  line-height: 25px;
+
+  &-line {
+    @extend .bbcode-print;
+    background-image: url("/plugins/discourse-rpn-bbcode/images/paper-top3.png"),
+      url("/plugins/discourse-rpn-bbcode/images/paper-bottom3.png"),
+      url("/plugins/discourse-rpn-bbcode/images/paperlined.jpg");
+  }
+  &-graph {
+    @extend .bbcode-print;
+    background-image: url("/plugins/discourse-rpn-bbcode/images/paper-top3.png"),
+      url("/plugins/discourse-rpn-bbcode/images/paper-bottom3.png"),
+      url("/plugins/discourse-rpn-bbcode/images/papergraph.jpg");
+  }
+  &-parchment {
+    @extend .bbcode-print;
+    background-image: url("/plugins/discourse-rpn-bbcode/images/paper-top3.png"),
+      url("/plugins/discourse-rpn-bbcode/images/paper-bottom.png"),
+      url("/plugins/discourse-rpn-bbcode/images/paperparchment");
+  }
+}
+
+/*************************************************
+*** Email                            BBCODE-011***
+*************************************************/
+.bbcode-email {
+  border: 1px solid #2980b9;
+  width: calc(100% - 2px);
+  position: relative;
+
+  .bbcode-email-top {
+    height: 30px;
+    line-height: 30px;
+    background-color: #2980b9;
+    background-image: url("/plugins/discourse-rpn-bbcode/images/email-top.png");
+    background-repeat: no-repeat;
+    background-position: 100%;
+    color: white;
+    padding: 0 10px;
+    display: block;
+  }
+
+  .bbcode-email-address,
+  .bbcode-email-subject {
+    color: currentColor;
+    height: 35px;
+    line-height: 35px;
+    padding: 0 10px;
+    border-bottom: 1px solid #2980b9;
+    &::before {
+      color: #2980b9;
+    }
+  }
+  .bbcode-email-address::after {
+    content: "Cc    Bcc";
+    position: absolute;
+    right: 10px;
+    color: #2980b9;
+  }
+  .bbcode-email-subject::before {
+    content: "Subject: ";
+  }
+
+  .bbcode-email-content {
+    padding: 10px;
+  }
+
+  &[data-bbcode-email="send"] {
+    .bbcode-email-top::before {
+      content: "Send New Email";
+    }
+    .bbcode-email-address::before {
+      content: "To: ";
+    }
+    .bbcode-email-button::before {
+      content: "Send";
+    }
+  }
+  &[data-bbcode-email="receive"] {
+    .bbcode-email-top::before {
+      content: "New Email Received";
+    }
+    .bbcode-email-address::before {
+      content: "From: ";
+    }
+    .bbcode-email-button::before {
+      content: "Reply";
+    }
+  }
+
+  .bbcode-email-footer {
+    height: 40px;
+    line-height: 40px;
+    background: #2980b9;
+    border-top: 1px solid #2980b9;
+  }
+
+  .bbcode-email-button {
+    background: white;
+    color: #2980b9;
+    border-radius: 8px;
+    width: 80px;
+    margin: 5px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+  }
+}
+
+/*************************************************
+*** Check                            BBCODE-012***
+*************************************************/
+
+.bbcode-check {
+  width: 30px;
+  display: inline-block;
+  text-align: center;
+}
+.bbcode-check-dot:before {
+  content: "◉";
+  color: #3498db;
+  @extend .bbcode-check;
+}
+.bbcode-check-check:before {
+  content: "✓";
+  color: #00b300;
+  @extend .bbcode-check;
+}
+.bbcode-check-cross:before {
+  content: "✘";
+  color: #b30000;
+  @extend .bbcode-check;
+}
+
+/*************************************************
+*** Newspaper                        BBCODE-013***
+*************************************************/
+.bbcode-newspaper {
+  font-family: "Times New Roman", Georgia, Serif;
+  text-align: justify;
+  -webkit-column-count: 3; /* Chrome, Safari, Opera */
+  -moz-column-count: 3; /* Firefox */
+  column-count: 3;
+  padding: 10px;
+  background: url("/plugins/discourse-rpn-bbcode/images/paper.jpg");
+  border: 1px solid #2980b9;
+  color: black;
+
+  .post-heading,
+  .post-sub-heading {
+    font-family: "Times New Roman", Georgia, Serif;
+  }
+
+  @media screen and (max-width: 1000px) {
+    -webkit-column-count: 2; /* Chrome, Safari, Opera */
+    -moz-column-count: 2; /* Firefox */
+    column-count: 2;
+  }
+  @media screen and (max-width: 750px) {
+    -webkit-column-count: 1; /* Chrome, Safari, Opera */
+    -moz-column-count: 1; /* Firefox */
+    column-count: 1;
+  }
+}
+
+/*************************************************
+*** Note                             BBCODE-014***
+*************************************************/
+
+.bbcode-note {
+  max-width: 450px;
+  padding: 20px;
+  line-height: 1.75em;
+  margin: 0 auto;
+  margin-top: 25px !important;
+  font-family: "Coming Soon", "Architects Daughter", cursive;
+  background: #fcf0ad url("/plugins/discourse-rpn-bbcode/images/notecorner.jpg") 100% 100% no-repeat;
+  position: relative;
+  color: black;
+
+  .bbcode-note-content {
+    overflow: hidden;
+  }
+
+  .bbcode-note-footer {
+    height: 50px;
+    width: 50px;
+    float: right;
+  }
+
+  .bbcode-note-tape {
+    background-color: hsla(0, 0%, 100%, 0.5);
+    box-shadow: inset 0 0 1em 0.5em hsla(0, 0%, 100%, 0.1);
+    height: 3em;
+    position: absolute;
+    transform: rotate(-4deg);
+    width: 9em;
+    -webkit-filter: drop-shadow(0 1px 1px hsla(0, 0%, 0%, 0.3));
+    top: -1.5em;
+    left: 50%;
+    margin-left: -4.5em;
+
+    &:after,
+    &:before {
+      background-size: 0.4em 0.4em;
+      bottom: 0;
+      content: "";
+      position: absolute;
+      top: 0;
+      width: 0.2em;
+    }
+    &:after {
+      background-image: linear-gradient(45deg, transparent 50%, hsla(0, 0%, 100%, 0.3) 50%),
+        linear-gradient(-45deg, transparent 50%, hsla(0, 0%, 100%, 0.3) 50%);
+      background-position: 0 100%;
+      left: -0.2em;
+    }
+    &:before {
+      background-image: linear-gradient(135deg, transparent 50%, hsla(0, 0%, 100%, 0.3) 50%),
+        linear-gradient(-135deg, transparent 50%, hsla(0, 0%, 100%, 0.3) 50%);
+      background-position: 100% 100%;
+      right: -0.2em;
+    }
+  }
+}
+
+/*************************************************
+*** Tabs                             BBCODE-015***
+*************************************************/
+
+/* Style the tab */
+.bbcode-tab {
+  overflow: hidden;
+  background-color: transparent;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: start;
+
+  & > div:first-of-type {
+    display: block;
+  }
+
+  /* Style the buttons inside the tab */
+  button {
+    background-color: white;
+    outline: none;
+    cursor: pointer;
+    padding: 4px 10px;
+    transition: 0.3s;
+    font-size: 17px;
+    order: 1;
+    margin: 5px;
+    border: 1px solid #2980b9;
+    color: black;
+
+    /* Change background color of buttons on hover */
+    &:hover {
+      background-color: white;
+      color: #2980b9;
+    }
+
+    /* Create an active/current tablink class */
+    &.active {
+      background-color: #2980b9;
+      color: white;
+    }
+  }
+}
+
+/* Style the tab content */
+.bbcode-tab-content {
+  display: none;
+  padding: 10px;
+  border: 0px solid #ccc;
+  border-top: 3px solid #28669a;
+  border-bottom: 1px solid #28669a;
+  order: 2;
+  flex: 1 0 100%;
+  width: 100%;
+}
+
+/*************************************************
+*** Blockquote                       BBCODE-016***
+*************************************************/
+
+.bbcode-blockquote {
+  position: relative;
+  overflow: hidden;
+  min-height: 50px;
+  margin: 0 auto;
+  clear: both;
+  display: flex;
+  flex-flow: row wrap;
+
+  .bbcode-blockquote-content {
+    border-left: 3px dotted #2980b9;
+    border-right: 3px dotted #2980b9;
+    flex: 1;
+    padding: 0 5px;
+    margin: 0 5px;
+
+    .bbcode-blockquote-speaker {
+      clear: both;
+      width: 100%;
+      text-align: right;
+      color: #2980b9;
+      &::before {
+        content: "~";
+        margin: 0 10px;
+      }
+    }
+  }
+
+  .bbcode-blockquote-left {
+    width: 50px;
+    height: 50px;
+    background: url("/plugins/discourse-rpn-bbcode/images/greyleftquote.png") 50% 0 no-repeat;
+  }
+
+  .bbcode-blockquote-right {
+    width: 50px;
+    height: 50px;
+    background: url("/plugins/discourse-rpn-bbcode/images/greyrightquote.png") 50% 100% no-repeat;
+  }
+}
+
+/*************************************************
+*** Highlight                        BBCODE-017***
+*************************************************/
+
+.bbcodeHighlight {
+  background: #2980b9;
+  padding: 0 5px;
+}
+
+/*************************************************
+*** Progress Bar                     BBCODE-018***
+*************************************************/
+
+.bbcode-progress {
+  height: 30px;
+  font-size: 15px;
+  color: white;
+  border: 1px solid #2980b9;
+  position: relative;
+
+  .bbcode-progress-bar {
+    background: #66d36b;
+    height: 24px;
+    margin: 3px;
+    position: absolute;
+    z-index: 20;
+  }
+
+  .bbcode-progress-bar-other {
+    background: #808080;
+    margin: 3px;
+    height: 24px;
+  }
+
+  .bbcode-progress-text {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    margin: 3px;
+    padding-left: 5px;
+    z-index: 21;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+  }
+}
+
+.bbcode-progress-thin {
+  color: #7897ba;
+  position: relative;
+
+  .bbcode-progress-text {
+    margin-left: 15px;
+    margin-bottom: 3px;
+  }
+  .bbcode-progress-bar {
+    background: #66d36b;
+    margin-left: 3px;
+    height: 6px;
+    position: absolute;
+    z-index: 20;
+  }
+
+  .bbcode-progress-bar-other {
+    background: #8592a9;
+    margin: 3px;
+    height: 6px;
+  }
+}
+
+/*************************************************
+*** Accordion                        BBCODE-019***
+*************************************************/
+
+.bbcode-accordion {
+  position: relative;
+  width: 100%;
+  height: auto;
+
+  .bbcode-slide-title {
+    all: unset;
+    width: 100%;
+    height: auto;
+    position: relative;
+    cursor: pointer;
+    padding: 10px;
+    background-color: lightgray;
+    color: black;
+    box-sizing: border-box;
+
+    &:hover {
+      background-color: gray;
+    }
+
+    &[data-bbcode-slide-align="left" i] {
+      text-align: left;
+    }
+    &[data-bbcode-slide-align="right" i] {
+      text-align: right;
+    }
+    &[data-bbcode-slide-align="center" i] {
+      text-align: center;
+    }
+
+    &[data-bbcode-slide-new]:after {
+      content: "\02795";
+      font-size: 13px;
+      color: #777;
+      float: right;
+      margin-left: 5px;
+    }
+  }
+
+  .bbcode-slide-title.active[data-bbcode-slide-new]:after,
+  .bbcode-slide-title[data-bbcode-slide-open][data-bbcode-slide-new]:after {
+    content: "\2796";
+  }
+
+  .bbcode-slide-content {
+    box-sizing: border-box;
+    padding: 0 10px;
+    display: none;
+  }
+}
+
+/*************************************************
+*** OOC                              BBCODE-020***
+*************************************************/
+
+.bbcode-ooc {
+  color: #7897ba;
+  font-style: italic;
+  padding: 0;
+  border: 1px solid #7897ba;
+
+  > div {
+    font-style: normal;
+    font-weight: 600;
+    color: white;
+    background: #7897ba;
+    text-align: center;
+    width: 50px;
+    float: left;
+    margin-right: 15px;
+  }
+}
+
+/*************************************************
+*** LEFT, CENTER, RIGHT              BBCODE-021***
+*************************************************/
+
+.bbcode-content-left {
+  text-align: left;
+}
+
+.bbcode-content-center {
+  text-align: center;
+}
+
+.bbcode-content-right {
+  text-align: right;
+}
+
+/*************************************************
+*** SIZE              				 BBCODE-022***
+*************************************************/
+.bbcode-size-1 {
+  font-size: 9px;
+}
+
+.bbcode-size-2 {
+  font-size: 10px;
+}
+
+.bbcode-size-3 {
+  font-size: 12px;
+}
+
+.bbcode-size-4 {
+  font-size: 15px;
+}
+
+.bbcode-size-5 {
+  font-size: 18px;
+}
+
+.bbcode-size-6 {
+  font-size: 22px;
+}
+
+.bbcode-size-7 {
+  font-size: 26px;
+}
+
+/*************************************************
+*** Spoiler           				 BBCODE-023***
+*************************************************/
+.bbcode-spoiler {
+  margin: 0.75em 0;
+
+  .bbcode-spoiler-button {
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    font-size: 12px;
+    border-radius: 4px;
+    padding-top: 7px;
+    padding-right: 10px;
+    padding-bottom: 7px;
+    padding-left: 10px;
+    text-align: center;
+    color: #f2f5f8;
+    background: #2980b9;
+    overflow: hidden;
+    white-space: nowrap;
+    word-wrap: normal;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    display: inline-block;
+    border-color: #216693;
+  }
+
+  .bbcode-spoiler-content {
+    display: none;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 12px;
+    border-left: 5px solid #2980b9;
+    background-color: #f9f9f9;
+  }
+}
+
+/*************************************************
+*** Block                   				 BBCODE-024***
+*************************************************/
+
+.bbcode-block {
+  width: 100%;
+  height: 125px;
+  position: relative;
+  display: flex;
+  flex-flow: row wrap;
+
+  .bbcode-block-content {
+    border-left-width: 3px;
+    border-right-width: 3px;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-style: dotted;
+    padding: 0 21px;
+    width: auto;
+    flex: 1;
+    // margin-top: 20px;
+  }
+
+  .bbcode-block-icon {
+    height: 100%;
+    width: 100px;
+    background-position: 0 25px;
+    background-repeat: no-repeat;
+    background-image: url("/plugins/discourse-rpn-bbcode/images/block.png");
+    margin-right: 7px;
+    &::before {
+      padding: 0 10px;
+      display: block;
+      height: 20px;
+      width: 110px;
+      line-height: 20px;
+      font-size: 16px;
+      text-align: center;
+      color: white;
+      position: absolute;
+      top: 0;
+      left: 0;
+      content: "Block";
+      background-color: #2c2c2c;
+    }
+
+    &::after {
+      position: absolute;
+      top: 20px;
+      left: 114px;
+      content: "";
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 15px 15px 0 0;
+      border-color: #2c2c2c transparent transparent transparent;
+    }
+  }
+
+  /// Creates the content needed for a block
+  ///
+  /// @param {String} $name
+  ///   The name of the block that will be called from the bbcode
+  /// @param {String} $title
+  ///   The displayed title of the block that will appear alongside the image
+  /// @param {color} $color
+  ///   The color to use for the block
+  /// @param {URL} $image
+  ///   The image URL
+  @mixin block-builder(
+    $name: "block",
+    $title: "Block",
+    $color: #2c2c2c,
+    $image: "/plugins/discourse-rpn-bbcode/images/block.png"
+  ) {
+    &[data-bbcode-block="#{$name}"] {
+      .bbcode-block-content {
+        border-color: $color;
+      }
+      .bbcode-block-icon {
+        background-image: url($image);
+        &::before {
+          content: $title;
+          background: $color;
+        }
+        &::after {
+          border-color: $color transparent transparent transparent;
+        }
+      }
+    }
+  }
+
+  @include block-builder(
+    "dice",
+    "Dice",
+    #0a941d,
+    "/plugins/discourse-rpn-bbcode/images/colordice.png"
+  );
+
+  @include block-builder(
+    "dice10",
+    "Dice",
+    #0a941d,
+    "/plugins/discourse-rpn-bbcode/images/colordice10.png"
+  );
+
+  @include block-builder(
+    "setting",
+    "Setting",
+    #0a941d,
+    "/plugins/discourse-rpn-bbcode/images/colorsetting.png"
+  );
+
+  @include block-builder(
+    "important",
+    "Important",
+    #94920a,
+    "/plugins/discourse-rpn-bbcode/images/colorexclaim.png"
+  );
+
+  @include block-builder(
+    "treasure",
+    "Treasure",
+    #cbc939,
+    "/plugins/discourse-rpn-bbcode/images/colortreasure.png"
+  );
+
+  @include block-builder(
+    "announcement",
+    "Announcement",
+    #940a0a,
+    "/plugins/discourse-rpn-bbcode/images/colorannounce.png"
+  );
+
+  @include block-builder(
+    "warning",
+    "Warning",
+    #940a0a,
+    "/plugins/discourse-rpn-bbcode/images/colorwarning.png"
+  );
+
+  @include block-builder(
+    "encounter",
+    "Encounter",
+    #940a0a,
+    "/plugins/discourse-rpn-bbcode/images/colorencounter.png"
+  );
+
+  @include block-builder(
+    "storyteller",
+    "Storyteller",
+    #bf7e00,
+    "/plugins/discourse-rpn-bbcode/images/colorpencil.png"
+  );
+
+  @include block-builder(
+    "question",
+    "Question",
+    #5e0a94,
+    "/plugins/discourse-rpn-bbcode/images/colorquestion.png"
+  );
+  @include block-builder(
+    "information",
+    "Information",
+    #0a1694,
+    "/plugins/discourse-rpn-bbcode/images/colorinfo.png"
+  );
+  @include block-builder(
+    "character",
+    "Character",
+    #e05353,
+    "/plugins/discourse-rpn-bbcode/images/colorcharacter.png"
+  );
+}
+
+@media screen and (max-width: 600px) {
+  .bbcode-block .bbcode-block-icon {
+    height: 75px;
+    background-size: 50px;
+    background-position: 25px center;
+  }
+}
+
+/*************************************************
+*** Text Message                     BBCODE-025***
+*************************************************/
+
+.bbcode-textmessage {
+  background: url("/plugins/discourse-rpn-bbcode/images/textmessagebox.png");
+  width: 227px;
+  height: 450px;
+  line-height: 14px;
+  position: relative;
+  margin: 0 auto;
+  overflow: hidden;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, sans-serif;
+
+  > .bbcode-textmessage-name {
+    width: 227px;
+    text-align: center;
+    font-size: 10px;
+    position: absolute;
+    top: 95px;
+  }
+  > .bbcode-textmessage-overflow {
+    position: absolute;
+    top: 114px;
+    left: 18px;
+    width: 194px;
+    height: 235px;
+    overflow-x: hidden;
+  }
+
+  .bbcode-textmessage-content {
+    margin-top: 10px;
+
+    .bbcode-message-them,
+    .bbcode-message-me {
+      font-size: 12px;
+      position: relative;
+      width: 150px;
+      clear: both;
+      padding: 5px;
+      margin: 0 5px 10px;
+      border-radius: 8px;
+
+      &::before {
+        content: "";
+        height: 10px;
+        width: 9px;
+        position: absolute;
+        bottom: 0;
+      }
+    }
+
+    .bbcode-message-me {
+      background: #30c61f;
+      color: white;
+      float: right;
+
+      &::before {
+        background: url("/plugins/discourse-rpn-bbcode/images/textmessagecolorarrow.png");
+        right: -4px;
+      }
+    }
+
+    .bbcode-message-them {
+      background: blue;
+      color: white;
+      float: left;
+
+      &::before {
+        background: url("/plugins/discourse-rpn-bbcode/images/textmessagegreyarrow.png");
+        left: -4px;
+      }
+    }
+  }
+}
+
+/*************************************************
+*** Height Restrict                  BBCODE-026***
+*************************************************/
+.bbcode-height-restrict {
+  & > *,
+  .lightbox,
+  .image-wrapper,
+  img {
+    height: 100% !important; //this is needed in order to overcome the sizing that discourse does on its own to images
+    width: auto !important;
+  }
+}
+
+/*************************************************
+*** ISpoiler                         BBCODE-027***
+*************************************************/
+span.ispoiler {
+  background-color: rgba(0, 0, 0, 0);
+  color: rgba(0, 0, 0, 0);
+  text-shadow: #8592a9 0 0 14px;
+  cursor: pointer;
+}
