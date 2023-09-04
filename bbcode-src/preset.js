@@ -1,12 +1,12 @@
 import { createPreset } from "@bbob/preset";
 import { font } from "./tags/font";
 import { nobr } from "./tags/nobr";
-import { leftCenterRight } from './tags/leftCenterRight';
+import { alignmenttags } from './tags/alignment';
 
 const tags = {
   font,
   nobr,
-  ...leftCenterRight
+  ...alignmenttags
 };
 
 const availableTags = Object.keys(tags);
