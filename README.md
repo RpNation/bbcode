@@ -21,7 +21,7 @@ See: [https://www.rpnation.com]
 | Text Formatting                           | Layout & Design | Media & Embeds   | Aesthetics         |
 |:-----------------------------------------:|:---------------:|:----------------:|:------------------:|
 | Headers & Sub-Headers Ⓜ️                  | Dividers        | Google Docs(PDF) | Print              |
-| Highlights                                | Image Float     | Height Restrict  | Text Message       |
+| Highlights ✔️                               | Image Float     | Height Restrict  | Text Message       |
 | Justified Text                            | Fieldsets       | Challonge        | Blocks             |
 | Blockquotes                               | Sides           |                  | Progress Bar       |
 | Sub Script ⌨️                             | Tabs            |                  | Sticky Note        |
