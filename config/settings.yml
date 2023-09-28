@@ -2,3 +2,9 @@ plugins:
   bbcode_enabled:
     default: true
     client: true
+  enable_markdown_typographer:
+    client: false
+    default: false
+  markdown_typographer_quotation_marks:
+    client: false
+    default: false

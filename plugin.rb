@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-# name: BBCode
+# name: bbcode
 # about: RpN BBCode Parser Plugin
 # version: 0.0.1
 # authors: RpNation
-# url: https://github.com/RpNation/BBCode
+# url: https://github.com/RpNation/bbcode
 # required_version: 2.7.0
 
 enabled_site_setting :bbcode_enabled
