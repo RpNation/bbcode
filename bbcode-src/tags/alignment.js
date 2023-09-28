@@ -9,7 +9,7 @@ const toNode = (tag, attrs, content) => ({
 });
 
 export const alignmenttags = {
-    left: (node) => toNode('span', { class: 'bbcode-content-left' }, node.content),
-    center: (node) => toNode('span', { class: 'bbcode-content-center' }, node.content),
-    right: (node) => toNode('span', { class: 'bbcode-content-right' }, node.content)
+    left: (node) => toNode('div', { class: 'bbcode-content-left' }, node.content),
+    center: (node) => toNode('div', { class: 'bbcode-content-center' }, node.content),
+    right: (node) => toNode('div', { class: 'bbcode-content-right' }, node.content)
 };
