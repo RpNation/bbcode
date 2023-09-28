@@ -268,45 +268,45 @@
     "@babel/helper-validator-identifier" "^7.19.1"
     to-fast-properties "^2.0.0"
 
-"@bbob/core@^2.9.0":
-  version "2.9.0"
-  resolved "https://registry.npmjs.org/@bbob/core/-/core-2.9.0.tgz"
-  integrity sha512-+yF9cGacdu9seI/F6kcqoZxfKC03WJcoj2F+2VUP/8iMdvWjalb6UcLNGU0f9+tspVb1ZsgSyNhbEuBDQWMkJQ==
+"@bbob/core@^3.0.2":
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@bbob/core/-/core-3.0.2.tgz#36cf1e02b0b70e5237df7752b9040c6a3a7b397a"
+  integrity sha512-ru0Jd+jPGxiwyMR3hNgYqbVx9sJ4L8Hv3VoqW0svzC+rZpgKnorkCkwxIj2nlq5+z+0C1hS4lho5pn4Vandlag==
   dependencies:
-    "@bbob/parser" "^2.9.0"
+    "@bbob/parser" "^3.0.2"
 
-"@bbob/html@^2.9.0":
-  version "2.9.0"
-  resolved "https://registry.npmjs.org/@bbob/html/-/html-2.9.0.tgz"
-  integrity sha512-L/WGMKQun34XFQN2ubq03+UUi9Qvwx+IwygH5cPqeqTTJkCCIIRkz/yyJ9DTBxLzbR6oMsaJQPfN+Nk4m+AjLg==
+"@bbob/html@^3.0.2":
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@bbob/html/-/html-3.0.2.tgz#dc4ef3f3346a3b7cd7994b7174bfba364fad96b3"
+  integrity sha512-ILvlTUlmaM89bW7agZOmyiE9O+qY212YeFNWH7s9MzLmwykUMEtq4O5DTzawbLlyOhf2fbP8OHV4ljgGf8Cq0A==
   dependencies:
-    "@bbob/core" "^2.9.0"
-    "@bbob/plugin-helper" "^2.9.0"
+    "@bbob/core" "^3.0.2"
+    "@bbob/plugin-helper" "^3.0.2"
 
-"@bbob/parser@^2.9.0":
-  version "2.9.0"
-  resolved "https://registry.npmjs.org/@bbob/parser/-/parser-2.9.0.tgz"
-  integrity sha512-tldSYsMoEclke/B1nqL7+HbYMWZHTKvpbEHRSHuY+sZvS1o7Jpdfjb+KPpwP9wLI3p3r7GPv69/wGy+Xibs9yA==
+"@bbob/parser@^3.0.2":
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@bbob/parser/-/parser-3.0.2.tgz#e05db310ac498376755ebf7cc945d1a34f9fca64"
+  integrity sha512-3emLznDJWFJky+06AaTMpJ0IjY/mVpPN5+cnzwDKQgZ3wSFPbeEmdJhfh+gbiR30/UCWgwI1Ts+WUNJtUx1eaw==
   dependencies:
-    "@bbob/plugin-helper" "^2.9.0"
+    "@bbob/plugin-helper" "^3.0.2"
 
-"@bbob/plugin-helper@^2.9.0":
-  version "2.9.0"
-  resolved "https://registry.npmjs.org/@bbob/plugin-helper/-/plugin-helper-2.9.0.tgz"
-  integrity sha512-idpUcNQ2co6T1oU/7/DG/ZRfipSSkTn9Ozw9f5vaXH7nzV3qhqZnhFVlHTzGGnRlzKlBwWOBzOdWi4Zeqg1c5A==
+"@bbob/plugin-helper@^3.0.2":
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@bbob/plugin-helper/-/plugin-helper-3.0.2.tgz#1bdf978b0e81d9567a4e919351537eaa73863648"
+  integrity sha512-t1wFB3hbUg3pKq7TXk+mnnMcKjX6D29HxTAxU/+2mIbsWXaqgHLfH9FFxhZ8s/sGaLH4qgOSH+lgynpF3zy62Q==
 
-"@bbob/preset-html5@^2.9.0":
-  version "2.9.0"
-  resolved "https://registry.npmjs.org/@bbob/preset-html5/-/preset-html5-2.9.0.tgz"
-  integrity sha512-tgEZrqwykXV67GdwaubhD0HRuvZlDwo5A2st3TBYggrfq1LJ/yHEIjR4r7RfEEPmy/oS7QX31Cxz8lbSRZOuzw==
+"@bbob/preset-html5@^3.0.2":
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@bbob/preset-html5/-/preset-html5-3.0.2.tgz#547b2b0c422f5bac661c11b5d120fd4d257921c0"
+  integrity sha512-J+c3aOQKD6n1HXGxB+o3tQuRTeqHLXBifBMFY4rT/y19tU3dZySI8TT/07pDqJVeh1PAa1KPaCww7m3O4QS0oQ==
   dependencies:
-    "@bbob/plugin-helper" "^2.9.0"
-    "@bbob/preset" "^2.9.0"
+    "@bbob/plugin-helper" "^3.0.2"
+    "@bbob/preset" "^3.0.2"
 
-"@bbob/preset@^2.9.0":
-  version "2.9.0"
-  resolved "https://registry.npmjs.org/@bbob/preset/-/preset-2.9.0.tgz"
-  integrity sha512-VLZS37C77I9zwGm1h0NIjvtaVKTJqvYHCKgHtrj8sIXFGg/dEEq6eNo/Jd2Pndu+aPYkIlW7YM7plwA3OM/o0Q==
+"@bbob/preset@^3.0.2":
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@bbob/preset/-/preset-3.0.2.tgz#9a468989711607f5131202c68dad7b51c0662921"
+  integrity sha512-ZsHowFvvOx1tpem76SjYirsnO3bhaWnuh44Huj82YZBSftCgTaaH5WBleWk0TfNAu1gv44L1mHZyUBDLz3wgEg==
 
 "@ember-data/rfc395-data@^0.0.4":
   version "0.0.4"
