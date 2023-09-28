@@ -62,5 +62,8 @@ export function setup(helper) {
     };
   });
 
-  helper.allowList(["div.mermaid", "span.bbcodeHighlight"]);
+  helper.allowList([
+    "div.mermaid",
+    "span.bbcodeHighlight"
+  ]);
 }
