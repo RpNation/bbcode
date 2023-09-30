@@ -4,6 +4,7 @@
  * @returns processed HTML string to pass into markdown-it
  */
 function preprocessor(raw) {
+  // eslint-disable-next-line no-undef
   if (!bbcodeParser) {
     // parser doesn't exist. Something horrible has happened and somehow the parser wasn't imported/initialized
     // give up and send it straight back.
@@ -62,8 +63,5 @@ export function setup(helper) {
     };
   });
 
-  helper.allowList([
-    "div.mermaid",
-    "span.bbcodeHighlight"
-  ]);
+  helper.allowList(["div.mermaid", "span.bbcodeHighlight"]);
 }
