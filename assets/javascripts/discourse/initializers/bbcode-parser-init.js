@@ -1,4 +1,4 @@
-import "discourse/plugins/BBCode/bbcode-parser.min";
+import "discourse/plugins/bbcode/bbcode-parser.min";
 
 export default {
   name: "bbcode-parser-init",
