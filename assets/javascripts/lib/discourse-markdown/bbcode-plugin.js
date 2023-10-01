@@ -66,9 +66,9 @@ export function setup(helper) {
 
   helper.allowList([
     "div.mermaid",
-    "div.bbcode-content-center",
-    "div.bbcode-content-left",
-    "div.bbcode-content-right",
+    "div.bb-center",
+    "div.bb-left",
+    "div.bb-right",
     "span.bb-highlight"
 ]);
 }
