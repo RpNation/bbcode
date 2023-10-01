@@ -69,6 +69,6 @@ export function setup(helper) {
     "div.bbcode-content-center",
     "div.bbcode-content-left",
     "div.bbcode-content-right",
-    "span.bbcodeHighlight"
+    "span.bb-highlight"
 ]);
 }
