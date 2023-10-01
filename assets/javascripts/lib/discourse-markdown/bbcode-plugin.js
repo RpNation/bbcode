@@ -4,6 +4,7 @@
  * @returns processed HTML string to pass into markdown-it
  */
 function preprocessor(raw) {
+  // eslint-disable-next-line no-undef
   if (!bbcodeParser) {
     // parser doesn't exist. Something horrible has happened and somehow the parser wasn't imported/initialized
     // give up and send it straight back.
@@ -36,9 +37,11 @@ export function setup(helper) {
       configurable: true,
       set(engine) {
         const md = engine.render;
+        engine.set({ breaks: false }); // disable breaks. Let BBob handle line breaks.
         engine.render = function (raw) {
           const preprocessed = preprocessor(raw);
-          return md.apply(this, [preprocessed]);
+          const processed = md.apply(this, [preprocessed]);
+          return processed;
         };
         Object.defineProperty(opts, "engine", {
           configurable: true,
@@ -49,6 +52,17 @@ export function setup(helper) {
       },
     });
   });
+
+  helper.registerPlugin((md) => {
+    // disable paragraph rendering
+    md.renderer.rules.paragraph_open = function () {
+      return "";
+    };
+    md.renderer.rules.paragraph_close = function () {
+      return "";
+    };
+  });
+
 
   helper.allowList([
     "div.mermaid",
