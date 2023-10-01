@@ -87,6 +87,7 @@ export function setup(helper) {
     "span.bb-divide",
     "div.bb-ooc",
     "div.bb-side",
+    "span.bb-pindent"
   ]);
 
   /**
