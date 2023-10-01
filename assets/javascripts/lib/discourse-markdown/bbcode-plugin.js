@@ -63,5 +63,12 @@ export function setup(helper) {
     };
   });
 
-  helper.allowList(["div.mermaid", "span.bb-highlight"]);
+
+  helper.allowList([
+    "div.mermaid",
+    "div.bb-center",
+    "div.bb-left",
+    "div.bb-right",
+    "span.bb-highlight"
+]);
 }

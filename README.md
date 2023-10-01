@@ -32,7 +32,7 @@ See: [https://www.rpnation.com]
 | Bold, Italic, Underline, Strikethrough Ⓜ️✔️| Accordions      |                  | OOC                |
 | Color                                     | Scroll Box      |                  |                    |
 | Font Size                                 | Div Box         |                  |                    |
-| Left, Center, Right                       | Anchors         |                  |                    |
+| Left, Center, Right ✔️                      | Anchors         |                  |                    |
 | Spoiler                                   | Rows & Columns  |                  |                    |
 | NOBR                                      | Chapters        |                  |                    |
 | Inline Spoiler                            | No Line Break   |                  |                    |
