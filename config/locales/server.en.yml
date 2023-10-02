@@ -1,3 +1,4 @@
 en:
   site_settings:
     bbcode_enabled: "Enable Custom BBCode parser"
+    discourse_normalize_whitespace: "Activate to set all whitespace to the default space character (U+0020)"
