@@ -8,3 +8,8 @@ plugins:
   markdown_typographer_quotation_marks:
     client: false
     default: false
+  discourse_normalize_whitespace:
+    default: false
+    client: true
+    description:
+      en: "Activate to set all whitespace to the default space character (U+0020)"
