@@ -1,3 +1,6 @@
 en:
   site_settings:
     bbcode_enabled: "Enable Custom BBCode parser"
+    discourse_normalize_whitespace: "Activate to set all whitespace to the default space character (U+0020)"
+    preserve_whitespace: "Activate to set repeating spaces (U+0020) to non-breaking spaces (U+00A0).
+      Note that discourse_normalize_whitespace must be disabled to preserve non-breaking spaces."

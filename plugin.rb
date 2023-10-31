@@ -28,4 +28,26 @@ after_initialize do
   # Code which should run after Rails has finished booting
   # should clear out the context so the initial setup logic for bbcode parser runs
   PrettyText.reset_context()
+
+  # overrides the default normalize_whitespaces function in discourse/lib/text_cleaner.rb
+  # adds discourse_normalize_whitespace setting (defaults to false)
+  # when true, normalize_whitespace runs as normal
+  # when false, it does nothing, which allows for persistence of non-default whitespace.
+  class ::TextCleaner
+    module Optional_normalize_whitespace
+      def title_options
+        options = super
+        options[:normalize_whitespace_opt] = SiteSetting.discourse_normalize_whitespace
+        options
+      end
+      def normalize_whitespaces(text)
+        options = title_options
+        if(options[:normalize_whitespace_opt])
+          text = super(text)
+        end
+        text
+      end
+    end
+    singleton_class.prepend Optional_normalize_whitespace
+  end
 end

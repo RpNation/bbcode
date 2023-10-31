@@ -1,6 +1,7 @@
 import { availableTags, preset } from "./preset";
 import bbob from "@bbob/core";
 import { render } from "@bbob/html";
+import { preserveWhitespace } from "./plugins/preserveWhitespace";
 import { lineBreakPlugin } from "./plugins/lineBreak";
 
 const data = [];
@@ -15,8 +16,14 @@ const options = {
   data,
 };
 
-export const RpNBBCode = (code) =>
-  bbob([preset(), lineBreakPlugin()]).process(code, {
+export const RpNBBCode = (code, opts) => {
+  const plugins = [preset()];
+  if (opts.preserveWhitespace){
+    plugins.push(preserveWhitespace());
+  }
+  plugins.push(lineBreakPlugin());
+  return bbob(plugins).process(code,{
     render,
     ...options,
-  });
+    });
+};
