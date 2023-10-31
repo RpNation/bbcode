@@ -16,8 +16,14 @@ const options = {
   data,
 };
 
-export const RpNBBCode = (code) =>
-  bbob([preset(), preserveWhitespace(), lineBreakPlugin()]).process(code, {
+export const RpNBBCode = (code, opts) => {
+  const plugins = [preset()];
+  if (opts.preserveWhitespace){
+    plugins.push(preserveWhitespace());
+  }
+  plugins.push(lineBreakPlugin());
+  return bbob(plugins).process(code,{
     render,
     ...options,
-  });
+    });
+};

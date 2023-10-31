@@ -3,7 +3,7 @@
  * @param {string} raw content to preprocess into HTML
  * @returns processed HTML string to pass into markdown-it
  */
-function preprocessor(raw) {
+function preprocessor(raw,opts) {
   // eslint-disable-next-line no-undef
   if (!bbcodeParser) {
     // parser doesn't exist. Something horrible has happened and somehow the parser wasn't imported/initialized
@@ -18,7 +18,7 @@ function preprocessor(raw) {
   }
   const parser = globalThis.bbcodeParser.RpNBBCode;
 
-  const processed = parser(raw);
+  const processed = parser(raw, opts);
   return processed.html;
 }
 
@@ -33,13 +33,18 @@ export function setup(helper) {
       return;
     }
 
+    //Add check site settings for options to send to RpNBBCode
+    let preprocessor_options = {
+      preserveWhitespace: (siteSettings.preserve_whitespace && !siteSettings.discourse_normalize_whitespace)
+    };
+
     Object.defineProperty(opts, "engine", {
       configurable: true,
       set(engine) {
         const md = engine.render;
         engine.set({ breaks: false }); // disable breaks. Let BBob handle line breaks.
         engine.render = function (raw) {
-          const preprocessed = preprocessor(raw);
+          const preprocessed = preprocessor(raw, preprocessor_options);
           const processed = md.apply(this, [preprocessed]);
           return processed;
         };
