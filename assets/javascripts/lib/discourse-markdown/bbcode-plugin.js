@@ -68,12 +68,26 @@ export function setup(helper) {
     };
   });
 
-
   helper.allowList([
-    "div.mermaid",
     "div.bb-center",
     "div.bb-left",
     "div.bb-right",
-    "span.bb-highlight"
-]);
+    "div.bb-*",
+    "span.bb-highlight",
+    "span[style=*]",
+    // "style",
+  ]);
+
+  /**
+   * Allow lister for google fonts
+   */
+  // helper.allowList({
+  //   custom(tag, name, value) {
+  //     console.error(tag, name, value);
+  //     if (tag === "link" && name === "href") {
+  //       return false;
+  //     }
+  //     return false;
+  //   },
+  // });
 }

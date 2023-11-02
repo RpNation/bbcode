@@ -4,8 +4,6 @@ import { render } from "@bbob/html";
 import { preserveWhitespace } from "./plugins/preserveWhitespace";
 import { lineBreakPlugin } from "./plugins/lineBreak";
 
-const data = [];
-
 // TODO: Change error handling so active editing doesn't spam the console
 const options = {
   onlyAllowTags: [...availableTags, "nobr"],
@@ -13,17 +11,19 @@ const options = {
   onError: (err) =>
     // eslint-disable-next-line no-console
     console.warn(err.message, err.lineNumber, err.columnNumber),
-  data,
 };
 
 export const RpNBBCode = (code, opts) => {
   const plugins = [preset()];
-  if (opts.preserveWhitespace){
+  if (opts.preserveWhitespace) {
     plugins.push(preserveWhitespace());
   }
   plugins.push(lineBreakPlugin());
-  return bbob(plugins).process(code,{
+  return bbob(plugins).process(code, {
     render,
     ...options,
-    });
+    data: {
+      fonts: new Set(),
+    },
+  });
 };
