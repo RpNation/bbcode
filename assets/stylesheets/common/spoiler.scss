@@ -1,0 +1,19 @@
+content.bb-spoiler {
+  display: block;
+  position: relative;
+  summary {
+    &::before {
+    }
+  }
+  .bb-spoiler-content {
+  }
+}
+
+span.bb-inline-spoiler {
+  display: inline;
+  background-color: currentColor;
+  cursor: pointer;
+  &:focus {
+    background-color: darkblue;
+  }
+}
