@@ -9,18 +9,19 @@ import { preprocessAttr, toNode } from "../utils/common";
  */
 
 export const spoiler = (node) => {
-  const title = preprocessAttr(node.attrs) || "Spoiler";
+  const providedTitle = preprocessAttr(node.attrs)._default;
+  const title = "Spoiler" + (providedTitle ? `: ${providedTitle}` : "");
 
   /**
-   * <content class="bb-spoiler">
+   * <details class="bb-spoiler">
    *  <summary>Title</summary>
    *  <div class="bb-spoiler-content">
    *    lorem ipsum
    *  </div>
-   * </content>
+   * </details>
    */
   return {
-    tag: "content",
+    tag: "details",
     attrs: {
       class: "bb-spoiler",
     },
