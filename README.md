@@ -6,6 +6,10 @@ RpNation's Official BBCode Implementation for Discourse
 
 See: [https://www.rpnation.com]
 
+The goal of this repo and plugin is to provide users with the BBCode suite that they have grown accustomed to when it comes to using our site before our migration to Discourse and make sure that old posts rebake correctly. Above in the chart is marked our status on each BBCode which will hopefully co-exist in tandom even with the markdown/htlm versions provided in the box experience by the Discourse Software.
+
+## Features/Planned
+
 Ⓜ️ = The BBCode also has a markdown version
 
 🚧 = In progress or needs CSS.
@@ -18,28 +22,65 @@ See: [https://www.rpnation.com]
 
 ☠️ = Do not proceed. BBob, Markdown, and/or Discourse do not like this code. Unable to be rebaked.
 
-|               Text Formatting               | Layout & Design |  Media & Embeds  |     Aesthetics     |
-| :-----------------------------------------: | :-------------: | :--------------: | :----------------: |
-|          Headers & Sub-Headers Ⓜ️           |    Dividers     | Google Docs(PDF) |       Print        |
-|                Highlights ✔️                |   Image Float   | Height Restrict  |    Text Message    |
-|               Justified Text                |    Fieldsets    |    Challonge     |       Blocks       |
-|                 Blockquotes                 |      Sides      |                  |    Progress Bar    |
-|                Sub Script ⌨️                |      Tabs       |                  |    Sticky Note     |
-|               Super Script ⌨️               |     Tables      |                  |        Mail        |
-|           Google Font Library ✔️            |  Center Block   |                  |     Newspaper      |
-|               HTML Comment⌨️                |   Background    |                  |       Checks       |
-|              Paragraph Indent               |     Border      |                  | Font Awesome Icons |
-| Bold, Italic, Underline, Strikethrough Ⓜ️✔️ |   Accordions    |                  |        OOC         |
-|                    Color                    |   Scroll Box    |                  |                    |
-|                  Font Size                  |     Div Box     |                  |                    |
-|           Left, Center, Right ✔️            |     Anchors     |                  |                    |
-|                 Spoiler ✔️                  | Rows & Columns  |                  |                    |
-|                    NOBR                     |    Chapters     |                  |                    |
-|              Inline Spoiler ✔️              |  No Line Break  |                  |                    |
-|              Paragraph Indent               |   Line Break    |                  |                    |
-|                HTML Comment                 |                 |                  |                    |
+**General**
 
-The goal of this repo and plugin is to provide users with the BBCode suite that they have grown accustomed to when it comes to using our site before our migration to Discourse and make sure that old posts rebake correctly. Above in the chart is marked our status on each BBCode which will hopefully co-exist in tandom even with the markdown/htlm versions provided in the box experience by the Discourse Software.
+- [ ] Refactor stylesheets to fit common discourse styling variables
+
+## Text Formatting
+
+- [x] Headers & Sub-Headers Ⓜ️
+- [x] Highlights ✔️
+- [ ] Justified Text
+- [ ] Blockquotes
+- [ ] Sub Script ⌨️
+- [ ] Super Script ⌨️
+- [x] Google Font Library ✔️
+- [ ] HTML Comment⌨️
+- [ ] Paragraph Indent
+- [x] Bold, Italic, Underline, Strikethrough Ⓜ️✔️
+- [ ] Color
+- [ ] Font Size
+- [x] Left, Center, Right ✔️
+- [x] Spoiler ✔️
+- [ ] Line Break
+- [ ] NOBR/No Line Break
+- [x] Inline Spoiler ✔️
+
+## Layout & Design
+
+- [ ] Dividers
+- [ ] Image Float
+- [ ] Fieldsets
+- [ ] Sides
+- [ ] Tabs
+- [ ] Tables
+- [ ] Center Block
+- [ ] Background
+- [ ] Border
+- [ ] Scroll Box
+- [ ] Div Box
+- [ ] Anchors
+- [ ] Rows & Columns
+- [ ] Chapters
+
+## Media & Embeds
+
+- [ ] Google Docs(PDF)
+- [ ] Height Restrict
+- [ ] Challonge
+
+## Aesthetics
+
+- [ ] Print
+- [ ] Text Message
+- [ ] Blocks
+- [ ] Progress Bar
+- [ ] Sticky Note
+- [ ] Mail
+- [ ] Newspaper
+- [ ] Checks
+- [ ] Font Awesome Icons
+- [ ] OOC
 
 ## Credit
 
