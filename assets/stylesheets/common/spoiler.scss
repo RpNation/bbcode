@@ -44,7 +44,7 @@ span.bb-inline-spoiler {
   display: inline;
   background-color: currentColor;
   cursor: pointer;
-  &:focus {
-    background-color: darkblue;
+  &[data-displayed='true'] {
+    background-color: skyblue;
   }
 }

@@ -42,8 +42,5 @@ export const spoiler = (node) => {
 };
 
 export const inlinespoiler = (node) => {
-  return toNode("span", { class: "bb-inline-spoiler" }, [
-    { tag: "input", attrs: { type: "checkbox", class: "bb-inline-spoiler" } },
-    ...node.content,
-  ]);
+  return toNode("span", { class: "bb-inline-spoiler" }, node.content);
 };
