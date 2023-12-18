@@ -4,6 +4,7 @@ import { nobr } from "./tags/nobr";
 import { highlight } from "./tags/highlight";
 import { alignmenttags } from "./tags/alignment";
 import { inlinespoiler, spoiler } from "./tags/spoiler";
+import { color } from "./tags/color";
 
 const tags = {
   font,
@@ -12,6 +13,7 @@ const tags = {
   ...highlight,
   spoiler,
   inlinespoiler,
+  color,
 };
 
 const availableTags = Object.keys(tags);
