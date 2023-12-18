@@ -3,7 +3,7 @@
  * @param {string} raw content to preprocess into HTML
  * @returns processed HTML string to pass into markdown-it
  */
-function preprocessor(raw,opts) {
+function preprocessor(raw, opts) {
   // eslint-disable-next-line no-undef
   if (!bbcodeParser) {
     // parser doesn't exist. Something horrible has happened and somehow the parser wasn't imported/initialized
@@ -35,7 +35,9 @@ export function setup(helper) {
 
     //Add check site settings for options to send to RpNBBCode
     let preprocessor_options = {
-      preserveWhitespace: (siteSettings.preserve_whitespace && !siteSettings.discourse_normalize_whitespace)
+      preserveWhitespace:
+        siteSettings.preserve_whitespace &&
+        !siteSettings.discourse_normalize_whitespace,
     };
 
     Object.defineProperty(opts, "engine", {
@@ -75,7 +77,10 @@ export function setup(helper) {
     "div.bb-*",
     "span.bb-highlight",
     "span[style=*]",
-    // "style",
+    "details.bb-spoiler",
+    "summary",
+    "div.bb-spoiler-content",
+    "span.bb-inline-spoiler",
   ]);
 
   /**

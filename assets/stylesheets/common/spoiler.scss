@@ -1,0 +1,50 @@
+details.bb-spoiler {
+  margin: 0.75em 0;
+
+  summary {
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    font-size: 12px;
+    border-radius: 4px;
+    padding-top: 7px;
+    padding-right: 10px;
+    padding-bottom: 7px;
+    padding-left: 10px;
+    text-align: center;
+    color: #f2f5f8;
+    background: #2980b9;
+    overflow: hidden;
+    white-space: nowrap;
+    word-wrap: normal;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    display: inline-block;
+    border-color: #216693;
+    &::before {
+      display: none;
+    }
+  }
+
+  > div.bb-spoiler-content {
+    display: none;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 12px;
+    border-left: 5px solid #2980b9;
+    background-color: #f9f9f9;
+  }
+}
+
+span.bb-inline-spoiler {
+  display: inline;
+  background-color: currentColor;
+  cursor: pointer;
+  &[data-displayed='true'] {
+    background-color: skyblue;
+  }
+}
