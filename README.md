@@ -39,7 +39,7 @@ The goal of this repo and plugin is to provide users with the BBCode suite that 
 - [ ] Paragraph Indent
 - [x] Bold, Italic, Underline, Strikethrough Ⓜ️✔️
 - [x] Color
-- [ ] Font Size
+- [x] Font Size
 - [x] Left, Center, Right ✔️
 - [x] Spoiler ✔️
 - [ ] Line Break
