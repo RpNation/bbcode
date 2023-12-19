@@ -75,12 +75,15 @@ export function setup(helper) {
     "div.bb-left",
     "div.bb-right",
     "div.bb-*",
+    "div[style=*]",
     "span.bb-highlight",
     "span[style=*]",
     "details.bb-spoiler",
     "summary",
     "div.bb-spoiler-content",
     "span.bb-inline-spoiler",
+    "div.bb-background",
+    "div.bb-border",
   ]);
 
   /**
