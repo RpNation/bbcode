@@ -1,0 +1,14 @@
+.bb-border {
+  padding: 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #2980b9;
+  > .bb-background {
+    margin: -10px;
+  }
+}
+
+.bb-background {
+  padding: 10px;
+  color: currentColor;
+}
