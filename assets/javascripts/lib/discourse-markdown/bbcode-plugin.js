@@ -85,6 +85,7 @@ export function setup(helper) {
     "div.bb-background",
     "div.bb-border",
     "span.bb-divide",
+    "div.bb-ooc",
   ]);
 
   /**

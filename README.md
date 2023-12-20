@@ -80,7 +80,7 @@ The goal of this repo and plugin is to provide users with the BBCode suite that 
 - [ ] Newspaper
 - [ ] Checks
 - [ ] Font Awesome Icons
-- [ ] OOC
+- [x] OOC
 
 ## Credit
 
