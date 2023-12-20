@@ -48,7 +48,7 @@ The goal of this repo and plugin is to provide users with the BBCode suite that 
 
 ## Layout & Design
 
-- [ ] Dividers
+- [x] Dividers
 - [ ] Image Float
 - [ ] Fieldsets
 - [ ] Sides

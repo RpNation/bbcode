@@ -1,0 +1,20 @@
+span.bb-divide {
+  border-bottom: 1px solid #2980b9;
+  color: #2980b9;
+  font-size: 75%;
+  width: 100%;
+  display: block;
+  text-align: center;
+  &[data-type='thick'] {
+    border-bottom: 3px solid #2980b9;
+  }
+
+  &[data-type='dotted'] {
+    border-bottom: 1px dotted #2980b9;
+  }
+
+  &[data-type='dotted-thick'],
+  &[data-type='thick-dotted'] {
+    border-bottom: 3px dotted #2980b9;
+  }
+}

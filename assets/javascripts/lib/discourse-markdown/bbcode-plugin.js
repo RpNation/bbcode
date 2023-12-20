@@ -84,6 +84,7 @@ export function setup(helper) {
     "span.bb-inline-spoiler",
     "div.bb-background",
     "div.bb-border",
+    "span.bb-divide",
   ]);
 
   /**
