@@ -1,0 +1,17 @@
+div.bb-ooc {
+  color: #7897ba;
+  font-style: italic;
+  padding: 0;
+  border: 1px solid #7897ba;
+  &::before {
+    font-style: normal;
+    font-weight: 600;
+    color: white;
+    background: #7897ba;
+    text-align: center;
+    width: 50px;
+    float: left;
+    margin-right: 15px;
+    content: 'OOC';
+  }
+}
