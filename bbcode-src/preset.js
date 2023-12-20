@@ -8,6 +8,7 @@ import { color } from "./tags/color";
 import { size } from "./tags/size";
 import { bg } from "./tags/background";
 import { border } from "./tags/border";
+import { divide } from "./tags/divide";
 
 const tags = {
   font,
@@ -20,6 +21,7 @@ const tags = {
   size,
   bg,
   border,
+  divide,
 };
 
 const availableTags = Object.keys(tags);
