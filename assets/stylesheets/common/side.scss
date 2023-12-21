@@ -1,0 +1,29 @@
+div.bb-side {
+  clear: both;
+  width: 21%;
+  border-left: 3px dotted #2980b9;
+  border-right: 3px dotted #2980b9;
+  padding: 2%;
+  font-size: 75%;
+  float: left;
+  margin: 1em 1em 1em 0;
+  clear: left;
+
+  &[data-side='left'] {
+    float: left;
+    margin: 1em 1em 1em 0;
+    clear: left;
+  }
+
+  &[data-side='right'] {
+    float: right;
+    margin: 1em 0 1em 1em;
+    clear: right;
+  }
+
+  @media screen and (max-width: 800px) {
+    width: 80%;
+    float: none;
+    clear: both;
+  }
+}
