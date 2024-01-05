@@ -36,7 +36,7 @@ The goal of this repo and plugin is to provide users with the BBCode suite that 
 - [ ] Super Script ⌨️
 - [x] Google Font Library ✔️
 - [ ] HTML Comment⌨️
-- [ ] Paragraph Indent
+- [x] Paragraph Indent
 - [x] Bold, Italic, Underline, Strikethrough Ⓜ️✔️
 - [x] Color
 - [x] Font Size
