@@ -27,7 +27,7 @@ const tags = {
   divide,
   ooc,
   side,
-  ...pindent,
+  pindent,
 };
 
 const availableTags = Object.keys(tags);
