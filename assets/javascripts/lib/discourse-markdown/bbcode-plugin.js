@@ -88,7 +88,7 @@ export function setup(helper) {
     "div.bb-ooc",
     "div.bb-side",
     "span.bb-pindent",
-    "div.bbcode-justify",
+    "div.bb-justify",
   ]);
 
   /**
