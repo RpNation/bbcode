@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "repository": "TODO",
   "author": "RpNation",
-  "license": "GPL",
+  "license": "GPL-3.0-or-later",
   "type": "module",
   "scripts": {
     "start": "rollup -c -w",
