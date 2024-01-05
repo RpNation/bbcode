@@ -28,8 +28,8 @@ const tags = {
   divide,
   ooc,
   side,
+  justify,
   pindent,
-  ...justify,
 };
 
 const availableTags = Object.keys(tags);

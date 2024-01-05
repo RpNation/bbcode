@@ -30,13 +30,13 @@ The goal of this repo and plugin is to provide users with the BBCode suite that 
 
 - [x] Headers & Sub-Headers Ⓜ️
 - [x] Highlights ✔️
-- [ ] Justified Text
+- [x] Justified Text ✔️
 - [ ] Blockquotes
 - [ ] Sub Script ⌨️
 - [ ] Super Script ⌨️
 - [x] Google Font Library ✔️
 - [ ] HTML Comment⌨️
-- [x] Paragraph Indent
+- [x] Paragraph Indent ✔️
 - [x] Bold, Italic, Underline, Strikethrough Ⓜ️✔️
 - [x] Color
 - [x] Font Size
