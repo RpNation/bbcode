@@ -9,7 +9,8 @@ export const check = (node) => {
   return toNode(
         "div", 
         { 
-            class: `bb-check bb-check-${type}`
+            class: `bb-check`
+            //class: `bb-check bb-check-${type}`
         }, 
         node.content
     );

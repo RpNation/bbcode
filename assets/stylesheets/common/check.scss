@@ -2,19 +2,23 @@ div.bb-check {
     width: 30px;
     display: inline-block;
     text-align: center;
+    &::before {
+        content:"◉";
+        color: rgb(70, 161, 222);
+    }
 }
 
-.bb-check-dot {
+span.bb-check-dot {
     content:"◉";
     color: rgb(70, 161, 222);
 }
 
-.bb-check-check {
+span.bb-check-check {
     content: "✓";
     color: rgb(79, 255, 79);
 }
 
-.bb-check-cross {
+span.bb-check-cross {
     content: "✘";
     color: rgb(255, 79, 79);
 }
