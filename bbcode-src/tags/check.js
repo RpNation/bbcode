@@ -5,11 +5,11 @@ import { preprocessAttr, toNode } from "../utils/common";
  * @example [check]content[/check]
  */
 export const check = (node) => {
-  const attrs = preprocessAttr(node.attrs)._default;
+  const type = preprocessAttr(node.attrs)._default;
   return toNode(
         "div", 
         { 
-            class: `bb-check bb-check-${attrs}`
+            class: `bb-check bb-check-${type}`
         }, 
         node.content
     );
