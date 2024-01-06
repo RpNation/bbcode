@@ -1,24 +1,30 @@
 div.bb-check {
-    width: 30px;
-    display: inline-block;
-    text-align: center;
     &::before {
-        content:"◉";
-        color: rgb(70, 161, 222);
+        width: 30px;
+        display: inline-block;
+        text-align: center;
+        content: "◉";
+        color: #3498DB;
     }
 }
 
 span.bb-check-dot {
-    content:"◉";
-    color: rgb(70, 161, 222);
+    &::before {
+        content:"◉";
+        color: #3498DB;
+    }
 }
 
 span.bb-check-check {
-    content: "✓";
-    color: rgb(79, 255, 79);
+    &::before {
+        content: "✓";
+        color: #00b300;
+    }
 }
 
 span.bb-check-cross {
-    content: "✘";
-    color: rgb(255, 79, 79);
+    &::before {
+        content: "✘";
+        color: #b30000;
+    }
 }
