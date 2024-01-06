@@ -1,0 +1,13 @@
+// .bb-height-restrict { 
+//     max-height: 100%;
+//     width: auto;
+// }
+
+div.bb-img-wrapper {
+    display: inline-block;
+    max-width: 100%;
+}
+
+div.bb-height-restrict {
+    height: 100%;
+}

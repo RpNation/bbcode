@@ -62,5 +62,5 @@ export const size = (node) => {
   } else {
     outputAttr = { "data-size": fontSize.value };
   }
-  return toNode("span", outputAttr, node.content);
+  return toNode("div", outputAttr, node.content);
 };

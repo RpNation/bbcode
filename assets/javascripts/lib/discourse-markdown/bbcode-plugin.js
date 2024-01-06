@@ -89,6 +89,8 @@ export function setup(helper) {
     "div.bb-side",
     "span.bb-pindent",
     "div.bb-justify",
+    "div.bb-img-wrapper",
+    "div.bb-height-restrict"
   ]);
 
   /**
