@@ -90,9 +90,6 @@ export function setup(helper) {
     "span.bb-pindent",
     "div.bb-justify",
     "div.bb-check",
-    "span.bb-check-dot",
-    "span.bb-check-check",
-    "span.bb-check-cross"
   ]);
 
   /**
