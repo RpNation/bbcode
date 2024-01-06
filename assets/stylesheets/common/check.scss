@@ -3,8 +3,6 @@ div.bb-check {
         width: 30px;
         display: inline-block;
         text-align: center;
-        content: "◉";
-        color: #3498DB;
         &[data-type='dot'] {
             content: "◉";
             color: #3498DB;
