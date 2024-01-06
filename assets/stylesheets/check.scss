@@ -1,0 +1,21 @@
+div.bb-check {
+    width: 30px;
+    display: inline-block;
+    text-align: center;
+    &::before {
+        &[data-check='dot'] {
+            content:"◉";
+            color: rgb(70, 161, 222);
+        }
+
+        &[data-check='check'] {
+            content: "✓";
+            color: rgb(79, 255, 79);
+        }
+
+        &[data-check='cross'] {
+            content: "✘";
+            color: rgb(255, 79, 79);
+        }
+    }
+  }

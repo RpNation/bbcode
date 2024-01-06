@@ -13,6 +13,7 @@ import { ooc } from "./tags/ooc";
 import { side } from "./tags/side";
 import { pindent } from "./tags/pindent";
 import { justify } from "./tags/justify";
+import { check } from "./tags/check";
 
 const tags = {
   font,
@@ -30,6 +31,7 @@ const tags = {
   side,
   justify,
   pindent,
+  check,
 };
 
 const availableTags = Object.keys(tags);
