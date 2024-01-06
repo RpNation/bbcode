@@ -9,9 +9,7 @@ export const check = (node) => {
   return toNode(
         "div", 
         { 
-            // style: `content: ${val}`,
-            class: "bb-check",
-            "data-check": attrs 
+            class: `bb-check bb-check-${attrs}`
         }, 
         node.content
     );
