@@ -89,7 +89,7 @@ export function setup(helper) {
     "div.bb-side",
     "span.bb-pindent",
     "div.bb-justify",
-    "div.check",
+    "div.bb-check",
   ]);
 
   /**
