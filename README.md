@@ -78,7 +78,7 @@ The goal of this repo and plugin is to provide users with the BBCode suite that 
 - [ ] Sticky Note
 - [ ] Mail
 - [ ] Newspaper
-- [ ] Checks
+- [x] Checks
 - [ ] Font Awesome Icons
 - [x] OOC
 
