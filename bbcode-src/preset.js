@@ -17,21 +17,21 @@ import { check } from "./tags/check";
 
 const tags = {
   ...alignment,
-  font,
-  nobr,
-  highlight,
-  spoiler,
-  inlinespoiler,
-  color,
-  size,
   bg,
   border,
-  divide,
-  ooc,
-  side,
-  justify,
-  pindent,
   check,
+  color,
+  divide,
+  font,
+  highlight,
+  inlinespoiler,
+  justify,
+  nobr,
+  ooc,
+  pindent,
+  side,
+  size,
+  spoiler,
 };
 
 const availableTags = Object.keys(tags);
