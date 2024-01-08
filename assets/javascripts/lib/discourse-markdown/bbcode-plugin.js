@@ -74,7 +74,6 @@ export function setup(helper) {
     "div.bb-center",
     "div.bb-left",
     "div.bb-right",
-    "div.bb-*",
     "div[style=*]",
     "span.bb-highlight",
     "span[style=*]",
