@@ -71,37 +71,23 @@ export function setup(helper) {
   });
 
   helper.allowList([
-    "div.bb-center",
-    "div.bb-left",
-    "div.bb-right",
-    "div.bb-*",
-    "div[style=*]",
-    "span.bb-highlight",
-    "span[style=*]",
-    "details.bb-spoiler",
-    "summary",
-    "div.bb-spoiler-content",
-    "span.bb-inline-spoiler",
     "div.bb-background",
     "div.bb-border",
-    "span.bb-divide",
-    "div.bb-ooc",
-    "div.bb-side",
-    "span.bb-pindent",
-    "div.bb-justify",
+    "div.bb-center",
     "div.bb-check",
+    "div.bb-justify",
+    "div.bb-left",
+    "div.bb-ooc",
+    "div.bb-right",
+    "div.bb-side",
+    "div.bb-spoiler-content",
+    "div[style=*]",
+    "details.bb-spoiler",
+    "span.bb-divide",
+    "span.bb-inline-spoiler",
+    "span.bb-highlight",
+    "span.bb-pindent",
+    "span[style=*]",
+    "summary",
   ]);
-
-  /**
-   * Allow lister for google fonts
-   */
-  // helper.allowList({
-  //   custom(tag, name, value) {
-  //     console.error(tag, name, value);
-  //     if (tag === "link" && name === "href") {
-  //       return false;
-  //     }
-  //     return false;
-  //   },
-  // });
 }
