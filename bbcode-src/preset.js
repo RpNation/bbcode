@@ -19,7 +19,7 @@ const tags = {
   font,
   nobr,
   ...alignmenttags,
-  ...highlight,
+  highlight,
   spoiler,
   inlinespoiler,
   color,
