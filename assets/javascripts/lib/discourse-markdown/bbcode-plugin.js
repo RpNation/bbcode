@@ -77,6 +77,7 @@ export function setup(helper) {
     "div.bb-check",
     "div.bb-justify",
     "div.bb-left",
+    "div.bb-newspaper",
     "div.bb-ooc",
     "div.bb-right",
     "div.bb-side",
