@@ -1,13 +1,13 @@
-// .bb-height-restrict { 
-//     max-height: 100%;
-//     width: auto;
-// }
-
-div.bb-img-wrapper {
-    display: inline-block;
-    max-width: 100%;
-}
 
 div.bb-height-restrict {
-    height: 100%;
-}
+    & > *,
+    .lightbox,
+    .image-wrapper,
+    .lightbox-wrapper,
+    img {
+      $hr: var(--data-type);
+      height: $hr!important;
+      //height: 100% !important; //this is needed in order to overcome the sizing that discourse does on its own to images
+      width: auto !important;
+    }
+  }
