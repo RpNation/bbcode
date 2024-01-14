@@ -15,6 +15,7 @@ import { pindent } from "./tags/pindent";
 import { justify } from "./tags/justify";
 import { check } from "./tags/check";
 import { h } from "./tags/header";
+import { sh } from "./tags/subheader";
 
 const tags = {
   ...alignment,
@@ -31,6 +32,7 @@ const tags = {
   nobr,
   ooc,
   pindent,
+  sh,
   side,
   size,
   spoiler,

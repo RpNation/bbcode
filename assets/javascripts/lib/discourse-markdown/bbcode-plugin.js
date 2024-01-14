@@ -84,10 +84,11 @@ export function setup(helper) {
     "div[style=*]",
     "details.bb-spoiler",
     "span.bb-divide",
-    "span.bb-inline-spoiler",
     "span.bb-header",
     "span.bb-highlight",
+    "span.bb-inline-spoiler",
     "span.bb-pindent",
+    "span.bb-sub-header",
     "span[style=*]",
     "summary",
   ]);
