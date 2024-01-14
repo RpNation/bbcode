@@ -21,52 +21,45 @@ import { preprocessAttr, toNode } from "../utils/common";
         }
     }
 
-    /**
+   /**
      * Prase out specific attributes to prevent them from passing and formatting into strings (i.e. [img])
      * @param {*} content obtains the user input
      * @param {*} tag obtains the attribute tag that requires extracting and formatting
      * @returns Formatting string
      */
-    function parseImg(content, tag, heightInput) {
-        if(!content) return false;
-        const prepContent = Object.values(content).join("");
-        const regexExpressions = {
-            "[img]":                /\[img[^\]]*\](.*?)\[\/img\]/g,///\[img(.*?)\]([^\[]*)\[\/img\]/g,
-            "contentWith[img]":     /(.*?)\[img(.*?)\]([^\[]*)\[\/img\](.*)/g,
-            "alt":                  /\balt=/,
-        };
+   function parseImg(content, heightInput) {
+    if(!content) return content;
+    const prepContent = Object.values(content).join("");
+    const imgRegex = /\[img[^\]]*\](.*?)\[\/img\]/g ;
 
-        if(tag.toLowerCase() === "[img]") {
-                let formattedContent = "";
-                let imgFound = false;
-                const imageUrls = [];
-                while ((imgFound = regexExpressions[tag].exec(prepContent)) !== null) {
-                    //const imgParts = regexExpressions[`contentWith${tag}`].exec(imgFound[0].trim());
-                    const imageUrl = imgFound[1].trim();
-                    //if (imageUrls.indexOf(imageUrl) === -1) 
-                    imageUrls.push(imageUrl);
-                    
-                }
+    let formattedContent = "";
+    let imgFound = false;
+    const imageUrls = [];
 
-                if(imageUrls) {
-                    imageUrls.forEach((match, idx) => {
-
-                        const imgSrcParts = match.split('/');
-                        const imgSrc = `<img src="${match}" alt=\"${imgSrcParts[imgSrcParts.length - 1]}\" data-zoom-target="1" loading="lazy" style="height:${heightInput}px;"/>`;
-
-                        const finalContent = idx > 1 
-                            ? formattedContent.replace(`[img]${match}[/img]`, imgSrc)
-                            : prepContent.replace(`[img]${match}[/img]`, imgSrc);
-                        formattedContent = finalContent;
-                    });
-                }
-                return formattedContent === "" 
-                    ? content
-                    : formattedContent;
-        } else {
-            return prepContent;
-        }
+    // In the event there are multiple images, capture them
+    while ((imgFound = imgRegex.exec(prepContent)) !== null) {
+        const imageUrl = imgFound[1].trim();
+        imageUrls.push(imageUrl);
     }
+
+    if(imageUrls.length > 0) {
+        imageUrls.forEach((match, idx) => {
+            const imgSrcParts = match.split('/');
+            const imgHTML = `<img src="${match}" alt="${imgSrcParts[imgSrcParts.length - 1]}" data-zoom-target="1" loading="lazy" style="height:${heightInput}px;"/>`;
+
+            // If index exceeds 0, we are restricting multiple image heights
+            const finalContent = idx > 0
+                ? formattedContent.replace(`[img]${match}[/img]`, imgHTML)
+                : prepContent.replace(`[img]${match}[/img]`, imgHTML);
+
+            formattedContent = finalContent;
+        });
+    }
+
+    return formattedContent === "" 
+        ? content
+        : formattedContent;
+}
 
     /**
      * @file Adds [heightrestrict] to bbcode
@@ -75,27 +68,7 @@ import { preprocessAttr, toNode } from "../utils/common";
     export const heightrestrict = (node) => {
         const attrs = preprocessAttr(node.attrs)._default;
         const heightInput = parseHeight(attrs).toString();
+        const parsedBody = parseImg(node.content, heightInput);
 
-        const parsedBody = parseImg(node.content,"[img]", heightInput);
-
-        // return {
-        //     tag: "div",
-        //     attrs: {
-        //         class: "bb-height-restrict",
-        //         style: `height: ${input}px`
-        //     },
-        //     content: [
-        //         {
-        //             tag: "div",
-        //             attrs: {
-        //                 class: "img",
-        //                 style: "cursor:pointer;"
-        //             },
-        //             content: parsedBody,
-        //         },
-        //     ]
-                
-        // };
-        
-        return toNode("div", { class: "bb-height-restrict", style: `--data-type: ${heightInput}px`  }, parsedBody);        //return toNode("div", { class: "div.bb-img-wrapper", style: `height: ${input}px` }, node.content);
+        return toNode("div", { class: "bb-height-restrict", style: `height: ${heightInput}px;`  }, parsedBody);        //return toNode("div", { class: "div.bb-img-wrapper", style: `height: ${input}px` }, node.content);
     }
