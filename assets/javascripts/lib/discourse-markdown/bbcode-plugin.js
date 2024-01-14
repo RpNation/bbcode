@@ -85,9 +85,9 @@ export function setup(helper) {
     "details.bb-spoiler",
     "span.bb-divide",
     "span.bb-inline-spoiler",
+    "span.bb-header",
     "span.bb-highlight",
     "span.bb-pindent",
-    "span.bb-header",
     "span[style=*]",
     "summary",
   ]);
