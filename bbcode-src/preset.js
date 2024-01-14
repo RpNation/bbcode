@@ -15,6 +15,7 @@ import { pindent } from "./tags/pindent";
 import { justify } from "./tags/justify";
 import { check } from "./tags/check";
 import { newspaper } from "./tags/newspaper";
+import { mail } from "./tags/mail";
 
 const tags = {
   ...alignment,
@@ -27,6 +28,7 @@ const tags = {
   highlight,
   inlinespoiler,
   justify,
+  mail,
   newspaper,
   nobr,
   ooc,
