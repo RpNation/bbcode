@@ -48,15 +48,15 @@ The goal of this repo and plugin is to provide users with the BBCode suite that 
 
 ## Layout & Design
 
-- [x] Dividers
+- [x] Dividers ✔️
 - [ ] Image Float
 - [ ] Fieldsets
-- [x] Sides
+- [x] Sides ✔️
 - [ ] Tabs
 - [ ] Tables
 - [ ] Center Block
-- [x] Background
-- [x] Border
+- [x] Background ✔️
+- [x] Border ✔️
 - [ ] Scroll Box
 - [ ] Div Box
 - [ ] Anchors
@@ -77,10 +77,10 @@ The goal of this repo and plugin is to provide users with the BBCode suite that 
 - [ ] Progress Bar
 - [ ] Sticky Note
 - [ ] Mail
-- [ ] Newspaper
-- [x] Checks
+- [x] Newspaper ✔️
+- [x] Checks ✔️
 - [ ] Font Awesome Icons
-- [x] OOC
+- [x] OOC ✔️
 
 ## Credit
 

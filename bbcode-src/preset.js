@@ -2,7 +2,7 @@ import { createPreset } from "@bbob/preset";
 import { font } from "./tags/font";
 import { nobr } from "./tags/nobr";
 import { highlight } from "./tags/highlight";
-import { alignmenttags } from "./tags/alignment";
+import { alignment } from "./tags/alignment";
 import { inlinespoiler, spoiler } from "./tags/spoiler";
 import { color } from "./tags/color";
 import { size } from "./tags/size";
@@ -15,25 +15,27 @@ import { pindent } from "./tags/pindent";
 import { justify } from "./tags/justify";
 import { heightrestrict } from "./tags/heightrestrict";
 import { check } from "./tags/check";
+import { newspaper } from "./tags/newspaper";
 
 const tags = {
-  font,
-  nobr,
-  ...alignmenttags,
-  ...highlight,
-  spoiler,
-  inlinespoiler,
-  color,
-  size,
+  ...alignment,
   bg,
   border,
-  divide,
-  ooc,
-  side,
-  justify,
-  pindent,
-  heightrestrict,
   check,
+  color,
+  divide,
+  font,
+  heightrestrict,
+  highlight,
+  inlinespoiler,
+  justify,
+  newspaper,
+  nobr,
+  ooc,
+  pindent,
+  side,
+  size,
+  spoiler,
 };
 
 const availableTags = Object.keys(tags);

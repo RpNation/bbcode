@@ -1,0 +1,22 @@
+.bb-newspaper {
+    font-family: "Times New Roman", Georgia, Serif;
+    text-align: justify;
+    -webkit-column-count: 3; /* Chrome, Safari, Opera */
+    -moz-column-count: 3; /* Firefox */
+    column-count: 3;
+    padding: 10px;
+    background: url("/plugins/bbcode/images/paper.jpg");
+    border: 1px solid #2980b9;
+    color: black;
+  
+    @media screen and (max-width: 1000px) {
+      -webkit-column-count: 2; /* Chrome, Safari, Opera */
+      -moz-column-count: 2; /* Firefox */
+      column-count: 2;
+    }
+    @media screen and (max-width: 750px) {
+      -webkit-column-count: 1; /* Chrome, Safari, Opera */
+      -moz-column-count: 1; /* Firefox */
+      column-count: 1;
+    }
+  }
