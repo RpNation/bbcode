@@ -14,6 +14,7 @@ import { side } from "./tags/side";
 import { pindent } from "./tags/pindent";
 import { justify } from "./tags/justify";
 import { check } from "./tags/check";
+import { h } from "./tags/header";
 
 const tags = {
   ...alignment,
@@ -23,6 +24,7 @@ const tags = {
   color,
   divide,
   font,
+  h,
   highlight,
   inlinespoiler,
   justify,
