@@ -1,4 +1,11 @@
 import { preprocessAttr, toNode } from "../utils/common";
+/**
+ * @file Adds [mail] to bbcode
+ * @param {string} [type="send"] Denotes type of mail either send or receive
+ * @param {string} [person="Unknown"] Denotes the person in the To/From field
+ * @param {string} [subject="Empty"] Denotes the subject line of the email
+ * @example [mail type="send" person="John Doe" subject="Hello World"]content[/mail]
+ */
 
 const parseEmailContent = (content) => {
   return toNode("div", { class: "bb-email-content" }, content);
