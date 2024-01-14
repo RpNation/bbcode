@@ -75,7 +75,7 @@ The goal of this repo and plugin is to provide users with the BBCode suite that 
 - [ ] Text Message
 - [ ] Blocks
 - [ ] Progress Bar
-- [ ] Sticky Note
+- [x] Sticky Note ✔️
 - [x] Mail ✔️
 - [x] Newspaper ✔️
 - [x] Checks ✔️
