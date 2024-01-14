@@ -11,6 +11,7 @@ import { justify } from "./tags/justify";
 import { mail } from "./tags/mail";
 import { newspaper } from "./tags/newspaper";
 import { nobr } from "./tags/nobr";
+import { note } from "./tags/note";
 import { ooc } from "./tags/ooc";
 import { pindent } from "./tags/pindent";
 import { side } from "./tags/side";
@@ -31,6 +32,7 @@ const tags = {
   mail,
   newspaper,
   nobr,
+  note,
   ooc,
   pindent,
   side,
