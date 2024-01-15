@@ -14,6 +14,7 @@ import { side } from "./tags/side";
 import { pindent } from "./tags/pindent";
 import { justify } from "./tags/justify";
 import { heightrestrict } from "./tags/heightrestrict";
+import { img } from "./tags/img";
 import { check } from "./tags/check";
 import { newspaper } from "./tags/newspaper";
 
@@ -27,6 +28,7 @@ const tags = {
   font,
   heightrestrict,
   highlight,
+  img,
   inlinespoiler,
   justify,
   newspaper,

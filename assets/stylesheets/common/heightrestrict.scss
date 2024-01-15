@@ -5,8 +5,6 @@ div.bb-height-restrict {
     .image-wrapper,
     .lightbox-wrapper,
     img {
-      // $hr: var(--data-type);
-      // height: $hr!important;
       height: 100% !important; //this is needed in order to overcome the sizing that discourse does on its own to images
       width: auto !important;
     }
