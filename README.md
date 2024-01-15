@@ -66,7 +66,8 @@ The goal of this repo and plugin is to provide users with the BBCode suite that 
 ## Media & Embeds
 
 - [ ] Google Docs(PDF)
-- [ ] Height Restrict
+- [x] Height Restrict
+- [x] Image
 - [ ] Challonge
 
 ## Aesthetics
