@@ -8,5 +8,5 @@ import { toNode } from "../utils/common";
         const imgContent = Object.values(node.content).join("");
         const imgSrcParts = imgContent.split('/');
         const imgHTML = `<img src="${imgContent}" alt="${imgSrcParts[imgSrcParts.length - 1]}" data-zoom-target="1" loading="lazy"/>`;
-        return toNode("div", { class: "bb-height-restrict" }, imgHTML);
+        return toNode("div", { class: "bb-img" }, imgHTML);
     }
