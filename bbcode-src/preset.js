@@ -6,17 +6,10 @@ import { check } from "./tags/check";
 import { color } from "./tags/color";
 import { divide } from "./tags/divide";
 import { font } from "./tags/font";
-import { h } from "./tags/header";
-import { highlight } from "./tags/highlight";
-import { justify } from "./tags/justify";
-import { mail } from "./tags/newspaper";
-import { newspaper } from ".tags/newspaper";
 import { nobr } from "./tags/nobr";
 import { note } from "./tags/note";
 import { ooc } from "./tags/ooc";
 import { pindent } from "./tags/pindent";
-import { size } from "./tags/size";
-import { side } from "./tags/side";
 import { inlinespoiler, spoiler } from "./tags/spoiler";
 
 const tags = {
