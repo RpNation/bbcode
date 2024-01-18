@@ -6,6 +6,7 @@ import { check } from "./tags/check";
 import { color } from "./tags/color";
 import { divide } from "./tags/divide";
 import { font } from "./tags/font";
+import { h, h2, h3, h4, h5, h6 } from "./tags/header";
 import { highlight } from "./tags/highlight";
 import { justify } from "./tags/justify";
 import { mail } from "./tags/mail";
@@ -26,6 +27,12 @@ const tags = {
   color,
   divide,
   font,
+  h,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
   highlight,
   inlinespoiler,
   justify,
