@@ -83,6 +83,7 @@ export function setup(helper) {
     "div.bb-email-header",
     "div.bb-email-subject",
     "div.bb-height-restrict",
+    "div.bb-img",
     "div.bb-justify",
     "div.bb-left",
     "div.bb-newspaper",
