@@ -1,0 +1,36 @@
+.bb-blockquote {
+    position: relative;
+    overflow: hidden;
+    min-height: 50px;
+    margin: 0 auto;
+    clear: both;
+    display: flex;
+    flex-flow: row wrap;
+  
+    .bb-blockquote-content {
+      border-left: 3px dotted #2980b9;
+      border-right: 3px dotted #2980b9;
+      flex: 1;
+      padding: 0 5px;
+      margin: 0 5px;
+  
+      .bb-blockquote-speaker {
+        clear: both;
+        width: 100%;
+        text-align: right;
+        color: #2980b9;
+      }
+    }
+  
+    .bb-blockquote-left {
+      width: 50px;
+      height: 50px;
+      background: url("/plugins/bbcode/images/greyleftquote.png") 50% 0 no-repeat;
+    }
+  
+    .bb-blockquote-right {
+      width: 50px;
+      height: 50px;
+      background: url("/plugins/bbcode/images/greyrightquote.png") 50% 100% no-repeat;
+    }
+  }
