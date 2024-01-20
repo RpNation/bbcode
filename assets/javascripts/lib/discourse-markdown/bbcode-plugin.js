@@ -93,6 +93,7 @@ export function setup(helper) {
     "div.bb-note-tape",
     "div.bb-ooc",
     "div.bb-right",
+    "div.bb-scroll",
     "div.bb-side",
     "div.bb-spoiler-content",
     "div[style=*]",
