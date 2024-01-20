@@ -6,7 +6,9 @@ import { check } from "./tags/check";
 import { color } from "./tags/color";
 import { divide } from "./tags/divide";
 import { font } from "./tags/font";
+import { heightrestrict } from "./tags/heightrestrict";
 import { highlight } from "./tags/highlight";
+import { img } from "./tags/img";
 import { justify } from "./tags/justify";
 import { mail } from "./tags/mail";
 import { newspaper } from "./tags/newspaper";
@@ -26,7 +28,9 @@ const tags = {
   color,
   divide,
   font,
+  heightrestrict,
   highlight,
+  img,
   inlinespoiler,
   justify,
   mail,
