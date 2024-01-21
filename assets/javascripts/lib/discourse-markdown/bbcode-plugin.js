@@ -72,6 +72,11 @@ export function setup(helper) {
 
   helper.allowList([
     "div.bb-background",
+    "div.bb-blockquote",
+    "div.bb-blockquote-content",
+    "div.bb-blockquote-left",
+    "div.bb-blockquote-right",
+    "div.bb-blockquote-speaker",
     "div.bb-border",
     "div.bb-center",
     "div.bb-check",
@@ -82,6 +87,8 @@ export function setup(helper) {
     "div.bb-email-footer",
     "div.bb-email-header",
     "div.bb-email-subject",
+    "div.bb-height-restrict",
+    "div.bb-img",
     "div.bb-justify",
     "div.bb-left",
     "div.bb-newspaper",
