@@ -31,7 +31,7 @@ The goal of this repo and plugin is to provide users with the BBCode suite that 
 - [x] Headers & Sub-Headers Ⓜ️
 - [x] Highlights ✔️
 - [x] Justified Text ✔️
-- [ ] Blockquotes
+- [x] Blockquotes
 - [ ] Sub Script ⌨️
 - [ ] Super Script ⌨️
 - [x] Google Font Library ✔️
