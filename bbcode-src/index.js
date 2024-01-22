@@ -2,6 +2,7 @@ import { availableTags, preset } from "./preset";
 import bbob from "@bbob/core";
 import { render } from "@bbob/html";
 import { preserveWhitespace } from "./plugins/preserveWhitespace";
+import { postMdProcess } from "./utils/postMdProcess";
 import { lineBreakPlugin } from "./plugins/lineBreak";
 
 // TODO: Change error handling so active editing doesn't spam the console
@@ -27,3 +28,5 @@ export const RpNBBCode = (code, opts) => {
     },
   });
 };
+
+export { postMdProcess };

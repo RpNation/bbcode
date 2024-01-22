@@ -22,6 +22,22 @@ function preprocessor(raw, opts) {
   return processed.html;
 }
 
+function postprocessor(raw) {
+  // eslint-disable-next-line no-undef
+  if (!bbcodeParser) {
+    // parser doesn't exist. Something horrible has happened and somehow the parser wasn't imported/initialized
+    // give up and send it straight back.
+    // eslint-disable-next-line no-console
+    console.warn(
+      "Attempted to get the bbcode parser: does not exist. Defaulting to standard markdown-it.",
+      "\ncalled on: \n",
+      raw
+    );
+    return raw;
+  }
+  return globalThis.bbcodeParser.postMdProcess(raw);
+}
+
 export function setup(helper) {
   if (!helper.markdownIt) {
     return;
@@ -48,7 +64,8 @@ export function setup(helper) {
         engine.render = function (raw) {
           const preprocessed = preprocessor(raw, preprocessor_options);
           const processed = md.apply(this, [preprocessed]);
-          return processed;
+          const postprocessed = postprocessor(processed);
+          return postprocessed;
         };
         Object.defineProperty(opts, "engine", {
           configurable: true,
@@ -95,6 +112,7 @@ export function setup(helper) {
     "div.bb-spoiler-content",
     "div[style=*]",
     "details.bb-spoiler",
+    "PreventLineBreak",
     "span.bb-divide",
     "span.bb-inline-spoiler",
     "span.bb-highlight",

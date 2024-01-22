@@ -10,7 +10,7 @@ import { highlight } from "./tags/highlight";
 import { justify } from "./tags/justify";
 import { mail } from "./tags/mail";
 import { newspaper } from "./tags/newspaper";
-import { nobr } from "./tags/nobr";
+import { br, nobr } from "./tags/lineBreak";
 import { note } from "./tags/note";
 import { ooc } from "./tags/ooc";
 import { pindent } from "./tags/pindent";
@@ -22,6 +22,7 @@ const tags = {
   ...alignment,
   bg,
   border,
+  br,
   check,
   color,
   divide,
