@@ -18,6 +18,7 @@ import { nobr } from "./tags/nobr";
 import { note } from "./tags/note";
 import { ooc } from "./tags/ooc";
 import { pindent } from "./tags/pindent";
+import { scroll } from "./tags/scroll";
 import { side } from "./tags/side";
 import { size } from "./tags/size";
 import { inlinespoiler, spoiler } from "./tags/spoiler";
@@ -50,6 +51,7 @@ const tags = {
   ooc,
   pindent,
   sh,
+  scroll,
   side,
   size,
   spoiler,
