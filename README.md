@@ -31,7 +31,7 @@ The goal of this repo and plugin is to provide users with the BBCode suite that 
 - [x] Headers & Sub-Headers Ⓜ️
 - [x] Highlights ✔️
 - [x] Justified Text ✔️
-- [ ] Blockquotes
+- [x] Blockquotes
 - [ ] Sub Script ⌨️
 - [ ] Super Script ⌨️
 - [x] Google Font Library ✔️
@@ -57,7 +57,7 @@ The goal of this repo and plugin is to provide users with the BBCode suite that 
 - [ ] Center Block
 - [x] Background ✔️
 - [x] Border ✔️
-- [ ] Scroll Box
+- [x] Scroll Box
 - [ ] Div Box
 - [ ] Anchors
 - [ ] Rows & Columns
@@ -66,7 +66,8 @@ The goal of this repo and plugin is to provide users with the BBCode suite that 
 ## Media & Embeds
 
 - [ ] Google Docs(PDF)
-- [ ] Height Restrict
+- [x] Height Restrict
+- [x] Image
 - [ ] Challonge
 
 ## Aesthetics
