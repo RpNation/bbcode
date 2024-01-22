@@ -7,6 +7,7 @@ import { check } from "./tags/check";
 import { color } from "./tags/color";
 import { divide } from "./tags/divide";
 import { font } from "./tags/font";
+import { h, h1, h2, h3, h4, h5, h6, sh } from "./tags/header";
 import { heightrestrict } from "./tags/heightrestrict";
 import { highlight } from "./tags/highlight";
 import { img } from "./tags/img";
@@ -31,6 +32,13 @@ const tags = {
   color,
   divide,
   font,
+  h,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
   heightrestrict,
   highlight,
   img,
@@ -42,6 +50,7 @@ const tags = {
   note,
   ooc,
   pindent,
+  sh,
   scroll,
   side,
   size,
