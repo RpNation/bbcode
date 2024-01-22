@@ -30,6 +30,7 @@ const walk = (t, disableLineBreakConversion = false) => {
     if (tree.some(isString)) {
       // array contains strings. Might be md compatible
       tree.unshift(MD_NEWLINE_INJECT);
+      tree.push(MD_NEWLINE_INJECT);
     }
     for (let idx = 0; idx < tree.length; idx++) {
       const child = walk(tree[idx], disableLineBreakConversion);
@@ -45,11 +46,17 @@ const walk = (t, disableLineBreakConversion = false) => {
     //   // stop walk. children won't be parsed to have <br>
     //   return tree.tag ? tree : tree.content;
     // }
-    walk(tree.content, tree.disableLineBreakConversion);
+    if (tree.disableLineBreakConversion) {
+      disableLineBreakConversion = true;
+    }
+    walk(tree.content, disableLineBreakConversion);
+    return tree.tag ? tree : tree.content;
   }
 
-  if (!disableLineBreakConversion && isEOL(tree)) {
-    return [{ tag: "br", content: null }, "\n", MD_NEWLINE_INJECT];
+  if (isEOL(tree)) {
+    return disableLineBreakConversion
+      ? ["\n", MD_NEWLINE_INJECT]
+      : [{ tag: "br", content: null }, MD_NEWLINE_INJECT];
   }
 
   return tree;

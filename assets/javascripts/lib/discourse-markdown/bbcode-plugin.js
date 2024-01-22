@@ -112,7 +112,6 @@ export function setup(helper) {
     "div.bb-spoiler-content",
     "div[style=*]",
     "details.bb-spoiler",
-    "PreventLineBreak",
     "span.bb-divide",
     "span.bb-inline-spoiler",
     "span.bb-highlight",

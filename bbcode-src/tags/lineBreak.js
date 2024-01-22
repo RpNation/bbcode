@@ -20,6 +20,5 @@ export const br = () => {
  * ```
  */
 export const nobr = (node) => {
-  // return { disableLineBreakConversion: true, content: node.content };
-  return toNode("PreventLineBreak", {}, node.content);
+  return { disableLineBreakConversion: true, content: node.content };
 };
