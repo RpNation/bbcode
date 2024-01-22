@@ -106,7 +106,7 @@ export function setup(helper) {
     "span.bb-divide",
     "span.bb-highlight",
     "span.bb-inline-spoiler",
-    "span.bb-pindent"
+    "span.bb-pindent",
     "span[style=*]",
     "summary",
   ]);
