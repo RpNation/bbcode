@@ -1,3 +1,12 @@
+import { toNode } from "../utils/common";
+
+/**
+ * Creates a line break html <br/> tag
+ */
+export const br = () => {
+  return toNode("br", {}, null);
+};
+
 /**
  * Disables line breaks for given content
  * @example

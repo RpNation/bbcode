@@ -23,4 +23,6 @@ const preprocessAttr = (attrs) => {
   }
 };
 
-export { toNode, preprocessAttr };
+const MD_NEWLINE_INJECT = "<!-- bbcode injected newlines -->\n\n";
+
+export { toNode, preprocessAttr, MD_NEWLINE_INJECT };
