@@ -1,4 +1,4 @@
-import { availableTags, preset } from "./preset";
+import { availableTags, preset, preventParsing } from "./preset";
 import bbob from "@bbob/core";
 import { render } from "@bbob/html";
 import { preserveWhitespace } from "./plugins/preserveWhitespace";
@@ -7,7 +7,8 @@ import { lineBreakPlugin } from "./plugins/lineBreak";
 
 // TODO: Change error handling so active editing doesn't spam the console
 const options = {
-  onlyAllowTags: [...availableTags, "nobr"],
+  onlyAllowTags: [...availableTags],
+  contextFreeTags: preventParsing, // prevent parsing of children
   enableEscapeTags: true,
   onError: (err) =>
     // eslint-disable-next-line no-console

@@ -42,8 +42,8 @@ The goal of this repo and plugin is to provide users with the BBCode suite that 
 - [x] Font Size
 - [x] Left, Center, Right ✔️
 - [x] Spoiler ✔️
-- [ ] Line Break
-- [ ] NOBR/No Line Break
+- [x] Line Break
+- [x] NOBR/No Line Break
 - [x] Inline Spoiler ✔️
 
 ## Layout & Design

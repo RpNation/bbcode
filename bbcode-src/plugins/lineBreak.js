@@ -46,10 +46,11 @@ const walk = (t, disableLineBreakConversion = false) => {
       }
     }
   } else if (tree && isObj(tree) && tree.content) {
-    // if (tree.disableLineBreakConversion) {
-    //   // stop walk. children won't be parsed to have <br>
-    //   return tree.tag ? tree : tree.content;
-    // }
+    if (tree.isWhitespaceSensitive) {
+      // applies only to [code] and [icode]
+      // stop walk. children won't be parsed to have <br>
+      return tree.tag ? tree : tree.content;
+    }
     if (tree.disableLineBreakConversion) {
       disableLineBreakConversion = true;
     }
