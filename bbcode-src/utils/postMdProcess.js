@@ -1,4 +1,4 @@
-import { MD_NEWLINE_INJECT } from "./common";
+import { MD_NEWLINE_INJECT, MD_NEWLINE_PRE_INJECT } from "./common";
 
 /**
  * Post Processing designed to fix issues with Markdown and BBCode that the parser can't fix.
@@ -8,7 +8,9 @@ import { MD_NEWLINE_INJECT } from "./common";
  * @returns post processed string
  */
 export function postMdProcess(raw) {
-  const processed = raw.replaceAll(MD_NEWLINE_INJECT, ""); // Remove all instances of the injected newline
+  const processed = raw
+    .replaceAll(MD_NEWLINE_INJECT, "")
+    .replaceAll(MD_NEWLINE_PRE_INJECT, ""); // Remove all instances of the injected newline
 
   return processed;
 }
