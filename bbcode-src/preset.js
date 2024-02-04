@@ -10,7 +10,6 @@ import { font } from "./tags/font";
 import { h, h1, h2, h3, h4, h5, h6, sh } from "./tags/header";
 import { heightrestrict } from "./tags/heightrestrict";
 import { highlight } from "./tags/highlight";
-import { img } from "./tags/img";
 import { justify } from "./tags/justify";
 import { mail } from "./tags/mail";
 import { newspaper } from "./tags/newspaper";
@@ -42,7 +41,6 @@ const tags = {
   h6,
   heightrestrict,
   highlight,
-  img,
   inlinespoiler,
   justify,
   mail,

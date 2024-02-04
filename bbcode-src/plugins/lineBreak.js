@@ -10,7 +10,11 @@
  * ```
  */
 import { isEOL } from "@bbob/plugin-helper";
-import { MD_NEWLINE_INJECT } from "../utils/common";
+import {
+  MD_NEWLINE_INJECT,
+  MD_NEWLINE_PRE_INJECT,
+  URL_REGEX_SINGLE_LINE,
+} from "../utils/common";
 
 const isObj = (value) => typeof value === "object";
 const isString = (value) => typeof value === "string";
@@ -51,6 +55,12 @@ const walk = (t, disableLineBreakConversion = false) => {
     }
     walk(tree.content, disableLineBreakConversion);
     return tree.tag ? tree : tree.content;
+  } else if (isString(tree) && URL_REGEX_SINGLE_LINE.test(tree.trim())) {
+    // if the entire string is a URL, then it should be prepared for onebox.
+    // BBob separates strings by newlines anyway, so we can already assume this is sitting on its own line
+    // MD_NEWLINE_INJECT is already replacing newline came before or the start of the array,
+    // so we only need to make sure \n\n is added after the URL
+    return [tree, MD_NEWLINE_PRE_INJECT];
   }
 
   if (isEOL(tree)) {

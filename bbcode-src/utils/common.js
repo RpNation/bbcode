@@ -24,5 +24,22 @@ const preprocessAttr = (attrs) => {
 };
 
 const MD_NEWLINE_INJECT = "<!-- bbcode injected newlines -->\n\n";
+const MD_NEWLINE_PRE_INJECT = "\n\n<!-- bbcode pre injected newlines -->";
 
-export { toNode, preprocessAttr, MD_NEWLINE_INJECT };
+const URL_REGEX =
+  /(http|ftp|https|upload):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])/;
+const MD_URL_REGEX =
+  /\!?\[.*\]\((http|ftp|https|upload):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])\)/;
+const URL_REGEX_SINGLE_LINE = new RegExp(
+  `^${URL_REGEX.source}|${MD_URL_REGEX.source}$`
+);
+
+export {
+  toNode,
+  preprocessAttr,
+  MD_NEWLINE_INJECT,
+  MD_NEWLINE_PRE_INJECT,
+  URL_REGEX,
+  MD_URL_REGEX,
+  URL_REGEX_SINGLE_LINE,
+};
