@@ -48,7 +48,6 @@ export function setup(helper) {
     if (opts.engine || !siteSettings.bbcode_enabled) {
       return;
     }
-
     //Add check site settings for options to send to RpNBBCode
     let preprocessor_options = {
       preserveWhitespace:
@@ -62,6 +61,10 @@ export function setup(helper) {
         const md = engine.render;
         engine.set({ breaks: false }); // disable breaks. Let BBob handle line breaks.
         engine.render = function (raw) {
+          if (engine.options?.discourse?.featuresOverride !== undefined) {
+            // if featuresOverride is set, we're in a chat message and should not preprocess
+            return md.apply(this, [raw]);
+          }
           const preprocessed = preprocessor(raw, preprocessor_options);
           const processed = md.apply(this, [preprocessed]);
           const postprocessed = postprocessor(processed);
