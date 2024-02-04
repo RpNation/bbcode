@@ -4,7 +4,7 @@ import terser from "@rollup/plugin-terser";
 export default {
   input: "bbcode-src/index.js",
   output: {
-    file: "assets/javascripts/bbcode-parser.min.js",
+    file: "assets/bundled/bbcode-parser.min.js",
     name: "bbcodeParser",
     format: "umd",
   },
