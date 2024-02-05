@@ -50,7 +50,7 @@ The goal of this repo and plugin is to provide users with the BBCode suite that 
 
 - [x] Dividers ✔️
 - [x] Image Float
-- [ ] Fieldsets
+- [x] Fieldsets
 - [x] Sides ✔️
 - [ ] Tabs
 - [ ] Tables
