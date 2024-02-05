@@ -22,7 +22,7 @@ function preprocessor(raw, opts) {
   return processed.html;
 }
 
-function postprocessor(raw) {
+function postprocessor(raw, previewing = false) {
   // eslint-disable-next-line no-undef
   if (!bbcodeParser) {
     // parser doesn't exist. Something horrible has happened and somehow the parser wasn't imported/initialized
@@ -35,7 +35,10 @@ function postprocessor(raw) {
     );
     return raw;
   }
-  return globalThis.bbcodeParser.postMdProcess(raw);
+  // preview auto clear doesn't check against the live dom, so if a onebox is at the end of the post,
+  // it won't be cleared and could cause a fatal error
+  const append = previewing ? '<div style="display:none;"></div>' : "";
+  return globalThis.bbcodeParser.postMdProcess(raw) + append;
 }
 
 export function setup(helper) {
@@ -67,7 +70,10 @@ export function setup(helper) {
           }
           const preprocessed = preprocessor(raw, preprocessor_options);
           const processed = md.apply(this, [preprocessed]);
-          const postprocessed = postprocessor(processed);
+          const postprocessed = postprocessor(
+            processed,
+            engine.options?.discourse?.previewing
+          );
           return postprocessed;
         };
         Object.defineProperty(opts, "engine", {
