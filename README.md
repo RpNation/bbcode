@@ -49,7 +49,7 @@ The goal of this repo and plugin is to provide users with the BBCode suite that 
 ## Layout & Design
 
 - [x] Dividers ✔️
-- [ ] Image Float
+- [x] Image Float
 - [ ] Fieldsets
 - [x] Sides ✔️
 - [ ] Tabs
