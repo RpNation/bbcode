@@ -8,9 +8,7 @@ import { MD_NEWLINE_INJECT, MD_NEWLINE_PRE_INJECT } from "./common";
  * @returns post processed string
  */
 function removeNewlineInjects(raw) {
-  const processed = raw
-    .replaceAll(MD_NEWLINE_INJECT, "")
-    .replaceAll(MD_NEWLINE_PRE_INJECT, ""); // Remove all instances of the injected newline
+  const processed = raw.replaceAll(MD_NEWLINE_INJECT, "").replaceAll(MD_NEWLINE_PRE_INJECT, ""); // Remove all instances of the injected newline
 
   return processed;
 }

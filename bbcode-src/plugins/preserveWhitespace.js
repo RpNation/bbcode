@@ -40,14 +40,13 @@ const walk = (t) => {
       }
     }
   } else if (tree && isObj(tree) && tree.content) {
-
     walk(tree.content);
   }
 
   //Bbob breaks up nodes by the presence of normal spaces.
   //So a node with a normal space can only have normal spaces in that node.
   if (isStringNode(tree)) {
-    if(tree.length > 1 && tree[0] === " ") {
+    if (tree.length > 1 && tree[0] === " ") {
       let numSpaces = tree.length;
       return [String.fromCharCode(160).repeat(numSpaces)];
     }

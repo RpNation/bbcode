@@ -6,19 +6,16 @@ import { preprocessAttr, toNode } from "../utils/common";
  * @returns A validated number less than 0.
  */
 function parseHeight(heightValue) {
-    const maxHeight = 700;
-    const parsedHeight = heightValue && heightValue.trim() !== ""
-        ? heightValue.replace ( /[^\d.]/g, '' )
-        : 0;
-    
-    if(parsedHeight && parsedHeight >= 0 && parsedHeight <= maxHeight) {
-        return parsedHeight;
-    } else {
-        // if the value = 0 then nothing will be returned
-        return parsedHeight === 0
-            ? 0
-            : maxHeight;
-    }
+  const maxHeight = 700;
+  const parsedHeight =
+    heightValue && heightValue.trim() !== "" ? heightValue.replace(/[^\d.]/g, "") : 0;
+
+  if (parsedHeight && parsedHeight >= 0 && parsedHeight <= maxHeight) {
+    return parsedHeight;
+  } else {
+    // if the value = 0 then nothing will be returned
+    return parsedHeight === 0 ? 0 : maxHeight;
+  }
 }
 
 /**
@@ -26,7 +23,7 @@ function parseHeight(heightValue) {
  * @example [scroll]content[/scroll]
  */
 export const scroll = (node) => {
-    const attrs = preprocessAttr(node.attrs)._default;
-    const heightInput = parseHeight(attrs);
-    return toNode("div", { class: "bb-scroll",style: `height: ${heightInput}px` }, node.content);
-}
+  const attrs = preprocessAttr(node.attrs)._default;
+  const heightInput = parseHeight(attrs);
+  return toNode("div", { class: "bb-scroll", style: `height: ${heightInput}px` }, node.content);
+};
