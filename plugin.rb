@@ -13,10 +13,10 @@ register_asset "bundled/bbcode-parser.min.js", :vendored_pretty_text
 register_asset "bundled/bbcode-parser.min.js"
 register_asset "stylesheets/common/index.scss"
 
-add_admin_route 'bbcode.title', 'bbcode'
+add_admin_route "bbcode.title", "bbcode"
 
 Discourse::Application.routes.append do
-  get '/admin/plugins/bbcode' => 'admin/plugins#index', constraints: StaffConstraint.new
+  get "/admin/plugins/bbcode" => "admin/plugins#index", :constraints => StaffConstraint.new
 end
 
 module ::BbCode
@@ -43,9 +43,7 @@ after_initialize do
       end
       def normalize_whitespaces(text)
         options = title_options
-        if(options[:normalize_whitespace_opt])
-          text = super(text)
-        end
+        text = super(text) if (options[:normalize_whitespace_opt])
         text
       end
     end
