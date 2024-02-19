@@ -20,3 +20,13 @@ export const icode = (node) => {
     content: ["`", node.content, "`"],
   };
 };
+
+/**
+ * Special tag to save newlines in code blocks. Used for hoisting code blocks
+ */
+export const savenl = (node) => {
+  return {
+    isWhitespaceSensitive: true,
+    content: node.content,
+  };
+};

@@ -4,7 +4,7 @@ import { bg } from "./tags/background";
 import { blockquote } from "./tags/blockquote";
 import { border } from "./tags/border";
 import { check } from "./tags/check";
-import { code, icode } from "./tags/code";
+import { code, icode, savenl } from "./tags/code";
 import { color } from "./tags/color";
 import { divide } from "./tags/divide";
 import { font } from "./tags/font";
@@ -56,6 +56,7 @@ const tags = {
   ooc,
   pindent,
   plain,
+  savenl,
   sh,
   scroll,
   side,

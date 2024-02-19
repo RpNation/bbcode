@@ -23,6 +23,18 @@ const preprocessAttr = (attrs) => {
   }
 };
 
+/**
+ * Given a string, find the first position of a regex match
+ * @param {string} string to test against
+ * @param {RegExp} regex to test with
+ * @param {number} startpos starting position. Defaults to 0
+ * @returns index of the first match of the regex in the string
+ */
+const regexIndexOf = (string, regex, startpos) => {
+  const indexOf = string.substring(startpos || 0).search(regex);
+  return indexOf >= 0 ? indexOf + (startpos || 0) : indexOf;
+};
+
 const MD_NEWLINE_INJECT = "<!-- bbcode injected newlines -->\n\n";
 const MD_NEWLINE_PRE_INJECT = "\n\n<!-- bbcode pre injected newlines -->";
 
@@ -33,13 +45,17 @@ const MD_URL_REGEX =
 const URL_REGEX_SINGLE_LINE = new RegExp(
   `^${URL_REGEX.source}|${MD_URL_REGEX.source}$`
 );
+const ESCAPABLES_REGEX =
+  /((\n|^)(?<fence>```+|~~~+)(?<fenceInfo>.*\n))|(?<bbcode>\[(?<bbcodeTag>i?code|plain)(=.*)?\]|(.*?(?<backtick>(?<tickStart>`{1,2})(.*)(?<tickEnd>\k<tickStart>)).*?))/m;
 
 export {
   toNode,
   preprocessAttr,
+  regexIndexOf,
   MD_NEWLINE_INJECT,
   MD_NEWLINE_PRE_INJECT,
   URL_REGEX,
   MD_URL_REGEX,
   URL_REGEX_SINGLE_LINE,
+  ESCAPABLES_REGEX,
 };
