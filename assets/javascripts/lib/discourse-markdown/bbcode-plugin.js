@@ -12,7 +12,7 @@ function preprocessor(raw, opts) {
     console.warn(
       "Attempted to get the bbcode parser: does not exist. Defaulting to standard markdown-it.",
       "\ncalled on: \n",
-      raw
+      raw,
     );
     return [raw, {}];
   }
@@ -31,7 +31,7 @@ function postprocessor(raw, previewing = false, data = {}) {
     console.warn(
       "Attempted to get the bbcode parser: does not exist. Defaulting to standard markdown-it.",
       "\ncalled on: \n",
-      raw
+      raw,
     );
     return raw;
   }
@@ -54,8 +54,7 @@ export function setup(helper) {
     //Add check site settings for options to send to RpNBBCode
     let preprocessor_options = {
       preserveWhitespace:
-        siteSettings.preserve_whitespace &&
-        !siteSettings.discourse_normalize_whitespace,
+        siteSettings.preserve_whitespace && !siteSettings.discourse_normalize_whitespace,
     };
 
     Object.defineProperty(opts, "engine", {
@@ -73,7 +72,7 @@ export function setup(helper) {
           const postprocessed = postprocessor(
             processed,
             engine.options?.discourse?.previewing,
-            data
+            data,
           );
           return postprocessed;
         };

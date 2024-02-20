@@ -3,7 +3,6 @@
 module ::BbCode
   module Admin
     class RefreshController < ::Admin::AdminController
-      
       def index
         PrettyText.reset_context
         begin
