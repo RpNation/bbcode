@@ -46,8 +46,29 @@ const URL_REGEX_SINGLE_LINE = new RegExp(`^${URL_REGEX.source}|${MD_URL_REGEX.so
 const ESCAPABLES_REGEX =
   /((\n|^)(?<fence>```+|~~~+)(?<fenceInfo>.*\n))|(?<bbcode>\[(?<bbcodeTag>i?code|plain)(=.*)?\]|(.*?(?<backtick>(?<tickStart>`{1,2})(.*)(?<tickEnd>\k<tickStart>)).*?))/m;
 
+/**
+ * Generates a random GUID.
+ *
+ * Mini Racer doesn't have the crypto module, so we can't use the built-in `crypto.randomUUID` function.
+ * @returns {string} a GUID
+ */
+function generateGUID() {
+  let d = new Date().getTime();
+  if (window.performance && typeof window.performance.now === "function") {
+    d += performance.now(); //use high-precision timer if available
+  }
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+    // eslint-disable-next-line no-bitwise
+    const r = (d + Math.random() * 16) % 16 | 0;
+    d = Math.floor(d / 16);
+    // eslint-disable-next-line no-bitwise
+    return (c === "x" ? r : (r & 0x3) | 0x8).toString(16);
+  });
+}
+
 export {
   toNode,
+  generateGUID,
   preprocessAttr,
   regexIndexOf,
   MD_NEWLINE_INJECT,

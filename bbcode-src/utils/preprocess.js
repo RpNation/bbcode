@@ -1,4 +1,4 @@
-import { ESCAPABLES_REGEX, regexIndexOf } from "./common";
+import { ESCAPABLES_REGEX, generateGUID, regexIndexOf } from "./common";
 
 /**
  * Find all code blocks and hoist them out of the content and into a map for later insertion
@@ -11,7 +11,7 @@ function fenceCodeBlockPreprocess(content, data) {
   let index = 0;
 
   const addHoistAndReturnNewStartPoint = (cutOffStart, cutOffEnd, expected) => {
-    const uuid = crypto.randomUUID();
+    const uuid = generateGUID();
     if (cutOffEnd !== -1) {
       hoistMap[uuid] = content.substring(cutOffStart, cutOffEnd);
       content = content.substring(0, cutOffStart) + uuid + content.substring(cutOffEnd);
@@ -30,7 +30,7 @@ function fenceCodeBlockPreprocess(content, data) {
       const closingFenceRegex = new RegExp("\n" + fence + "(\n|$)"); // Find the next fence. By commonmark spec, it should be the same fence length and type
       const nextIndex = regexIndexOf(content, closingFenceRegex, index + fence.length);
 
-      const uuid = crypto.randomUUID();
+      const uuid = generateGUID();
       if (nextIndex !== -1) {
         hoistMap[uuid] = content.substring(index + fence.length + fenceInfo.length + 1, nextIndex);
       } else {
