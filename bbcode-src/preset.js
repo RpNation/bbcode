@@ -23,6 +23,8 @@ import { plain } from "./tags/plain";
 import { scroll } from "./tags/scroll";
 import { side } from "./tags/side";
 import { size } from "./tags/size";
+import { sub } from "./tags/subscript";
+import { sup } from "./tags/superscript";
 import { inlinespoiler, spoiler } from "./tags/spoiler";
 
 const tags = {
@@ -62,6 +64,8 @@ const tags = {
   side,
   size,
   spoiler,
+  sub,
+  sup,
 };
 
 const availableTags = Object.keys(tags);
