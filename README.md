@@ -61,14 +61,13 @@ The goal of this repo and plugin is to provide users with the BBCode suite that 
 - [ ] Div Box
 - [ ] Anchors
 - [ ] Rows & Columns
-- [ ] Chapters
 
 ## Media & Embeds
 
 - [ ] Google Docs(PDF)
 - [x] Height Restrict
 - [x] Image
-- [ ] Challonge
+- [ ] ~~Challonge - Add as an iframe supported site in settings instead.~~
 
 ## Aesthetics
 
