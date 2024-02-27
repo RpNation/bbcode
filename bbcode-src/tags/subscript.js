@@ -5,12 +5,8 @@ import { toNode } from "../utils/common";
  * @example [sub]content[/sub]
  */
 
-const sub = (node) => {
-  return toNode(
-    "sub",
-    { style: "font-variant-position: sub;" },
-    node.content
-  );
+const sub = () => {
+  return tonode("sub", {}, null);
 };
 
 export { sub };
