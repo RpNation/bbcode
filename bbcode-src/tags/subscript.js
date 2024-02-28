@@ -6,7 +6,7 @@ import { toNode } from "../utils/common";
  */
 
 const sub = () => {
-  return tonode("sub", {}, null);
+  return toNode("sub", {}, null);
 };
 
 export { sub };
