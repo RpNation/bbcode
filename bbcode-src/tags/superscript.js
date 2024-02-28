@@ -6,7 +6,7 @@ import { toNode } from "../utils/common";
  */
 
 const sup = () => {
-  return tonode("sup", {}, null);
+  return toNode("sup", {}, null);
 };
 
 export { sup };
