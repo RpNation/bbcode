@@ -20,10 +20,7 @@ function addGoogleFont(post) {
   const gFonts = [];
   Array.from(elements).map((e) => {
     const data = e.getAttribute("data-font");
-    if (
-      !gFonts.includes(data) &&
-      data.startsWith("https://fonts.googleapis.com")
-    ) {
+    if (!gFonts.includes(data) && data.startsWith("https://fonts.googleapis.com")) {
       frag.appendChild(linkBuilder(data));
       gFonts.push(data);
     }

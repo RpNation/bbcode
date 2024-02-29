@@ -1,22 +1,22 @@
 div.bb-check {
-    &::before {
-        width: 30px;
-        display: inline-block;
-        text-align: center;
-    }
-    
-    &[data-type='dot']::before {
-        content: "◉";
-        color: #3498DB;
-    }
+  &::before {
+    width: 30px;
+    display: inline-block;
+    text-align: center;
+  }
 
-    &[data-type='cross']::before {
-        content: "✘";
-        color: #b30000;
-    }
+  &[data-type="dot"]::before {
+    content: "◉";
+    color: #3498db;
+  }
 
-    &[data-type='check']::before {
-        content: "✓";
-        color: #00b300;
-    }
+  &[data-type="cross"]::before {
+    content: "✘";
+    color: #b30000;
+  }
+
+  &[data-type="check"]::before {
+    content: "✓";
+    color: #00b300;
+  }
 }

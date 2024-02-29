@@ -12,17 +12,17 @@ function preprocessor(raw, opts) {
     console.warn(
       "Attempted to get the bbcode parser: does not exist. Defaulting to standard markdown-it.",
       "\ncalled on: \n",
-      raw
+      raw,
     );
-    return raw;
+    return [raw, {}];
   }
   const parser = globalThis.bbcodeParser.RpNBBCode;
 
   const processed = parser(raw, opts);
-  return processed.html;
+  return [processed.html, processed.tree.options.data];
 }
 
-function postprocessor(raw, previewing = false) {
+function postprocessor(raw, previewing = false, data = {}) {
   // eslint-disable-next-line no-undef
   if (!bbcodeParser) {
     // parser doesn't exist. Something horrible has happened and somehow the parser wasn't imported/initialized
@@ -31,14 +31,14 @@ function postprocessor(raw, previewing = false) {
     console.warn(
       "Attempted to get the bbcode parser: does not exist. Defaulting to standard markdown-it.",
       "\ncalled on: \n",
-      raw
+      raw,
     );
     return raw;
   }
   // preview auto clear doesn't check against the live dom, so if a onebox is at the end of the post,
   // it won't be cleared and could cause a fatal error
   const append = previewing ? '<div style="display:none;"></div>' : "";
-  return globalThis.bbcodeParser.postMdProcess(raw) + append;
+  return globalThis.bbcodeParser.postprocess(raw, data) + append;
 }
 
 export function setup(helper) {
@@ -54,8 +54,7 @@ export function setup(helper) {
     //Add check site settings for options to send to RpNBBCode
     let preprocessor_options = {
       preserveWhitespace:
-        siteSettings.preserve_whitespace &&
-        !siteSettings.discourse_normalize_whitespace,
+        siteSettings.preserve_whitespace && !siteSettings.discourse_normalize_whitespace,
     };
 
     Object.defineProperty(opts, "engine", {
@@ -68,11 +67,12 @@ export function setup(helper) {
             // if featuresOverride is set, we're in a chat message and should not preprocess
             return md.apply(this, [raw]);
           }
-          const preprocessed = preprocessor(raw, preprocessor_options);
+          const [preprocessed, data] = preprocessor(raw, preprocessor_options);
           const processed = md.apply(this, [preprocessed]);
           const postprocessed = postprocessor(
             processed,
-            engine.options?.discourse?.previewing
+            engine.options?.discourse?.previewing,
+            data,
           );
           return postprocessed;
         };

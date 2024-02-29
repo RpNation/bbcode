@@ -9,13 +9,13 @@ div.bb-side {
   margin: 1em 1em 1em 0;
   clear: left;
 
-  &[data-side='left'] {
+  &[data-side="left"] {
     float: left;
     margin: 1em 1em 1em 0;
     clear: left;
   }
 
-  &[data-side='right'] {
+  &[data-side="right"] {
     float: right;
     margin: 1em 0 1em 1em;
     clear: right;
