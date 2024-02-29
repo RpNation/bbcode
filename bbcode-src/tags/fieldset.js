@@ -20,7 +20,7 @@ export const fieldset = (node) => {
                 content: title
             },
             {
-                tag: "span",
+                tag: "div",
                 attrs: {
                     class: "bb-fieldset"
                 },
