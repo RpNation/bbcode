@@ -4,15 +4,18 @@
   clear: both;
   border: 1px solid #2980b9;
   padding: 10px;
-  > .bb-fieldset-legend {
+
+  > div.bb-fieldset-legend {
     margin-left: 3%;
     font-weight: 700;
     color: #2980b9;
     padding: 0 10px;
   }
+
   > div {
     color: #2980b9;
   }
+
   @media screen and (max-width: 800px) {
     width: 90%;
   }
