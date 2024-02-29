@@ -1,4 +1,4 @@
-import { preprocessAttr, toNode } from "../utils/common";
+import { preprocessAttr } from "../utils/common";
     
 /**
  * @file Adds [fieldset] to bbcode

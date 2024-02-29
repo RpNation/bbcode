@@ -7,7 +7,7 @@ import { check } from "./tags/check";
 import { code, icode, savenl } from "./tags/code";
 import { color } from "./tags/color";
 import { divide } from "./tags/divide";
-import { fieldset, legend } from "./tags/fieldset";
+import { fieldset } from "./tags/fieldset";
 import { font } from "./tags/font";
 import { h, h1, h2, h3, h4, h5, h6, sh } from "./tags/header";
 import { heightrestrict } from "./tags/heightrestrict";
@@ -51,7 +51,6 @@ const tags = {
   imagefloat,
   inlinespoiler,
   justify,
-  legend,
   mail,
   newspaper,
   nobr,
