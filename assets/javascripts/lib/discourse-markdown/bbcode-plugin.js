@@ -124,6 +124,8 @@ export function setup(helper) {
     "div.bb-note-content",
     "div.bb-note-footer",
     "div.bb-note-tape",
+    "div.bb-progress",
+    "div.bb-progress-thin",
     "div.bb-ooc",
     "div.bb-right",
     "div.bb-scroll",

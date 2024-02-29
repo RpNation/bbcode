@@ -1,0 +1,57 @@
+.bb-progress {
+    height: 30px;
+    font-size: 15px;
+    color: white;
+    border: 1px solid #2980b9;
+    position: relative;
+  
+    .bb-progress-bar {
+      background: #66d36b;
+      height: 24px;
+      margin: 3px;
+      position: absolute;
+      z-index: 20;
+    }
+  
+    .bb-progress-bar-other {
+      background: #808080;
+      margin: 3px;
+      height: 24px;
+    }
+  
+    .bb-progress-text {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      margin: 3px;
+      padding-left: 5px;
+      z-index: 21;
+      display: flex;
+      flex-flow: column;
+      justify-content: center;
+    }
+  }
+  
+  .bb-progress-thin {
+    color: #7897ba;
+    position: relative;
+  
+    .bb-progress-text {
+      margin-left: 15px;
+      margin-bottom: 3px;
+    }
+    .bb-progress-bar {
+      background: #66d36b;
+      margin-left: 3px;
+      height: 6px;
+      position: absolute;
+      z-index: 20;
+    }
+  
+    .bb-progress-bar-other {
+      background: #8592a9;
+      margin: 3px;
+      height: 6px;
+    }
+  }

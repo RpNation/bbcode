@@ -18,6 +18,8 @@ import { br, nobr } from "./tags/lineBreak";
 import { note } from "./tags/note";
 import { ooc } from "./tags/ooc";
 import { pindent } from "./tags/pindent";
+import { progress } from "./tags/progress";
+import { progressthin } from "./tags/progressthin";
 import { scroll } from "./tags/scroll";
 import { side } from "./tags/side";
 import { size } from "./tags/size";
@@ -51,6 +53,8 @@ const tags = {
   note,
   ooc,
   pindent,
+  progress,
+  progressthin,
   sh,
   scroll,
   side,
