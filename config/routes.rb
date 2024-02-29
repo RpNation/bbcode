@@ -6,6 +6,4 @@ BbCode::Engine.routes.draw do
   end
 end
 
-Discourse::Application.routes.draw do
-  mount ::BbCode::Engine, at: 'BbCode'
-end
+Discourse::Application.routes.draw { mount ::BbCode::Engine, at: "BbCode" }

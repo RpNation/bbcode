@@ -5,16 +5,16 @@ span.bb-divide {
   width: 100%;
   display: block;
   text-align: center;
-  &[data-type='thick'] {
+  &[data-type="thick"] {
     border-bottom: 3px solid #2980b9;
   }
 
-  &[data-type='dotted'] {
+  &[data-type="dotted"] {
     border-bottom: 1px dotted #2980b9;
   }
 
-  &[data-type='dotted-thick'],
-  &[data-type='thick-dotted'] {
+  &[data-type="dotted-thick"],
+  &[data-type="thick-dotted"] {
     border-bottom: 3px dotted #2980b9;
   }
 }

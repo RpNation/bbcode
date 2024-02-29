@@ -4,6 +4,7 @@ import { bg } from "./tags/background";
 import { blockquote } from "./tags/blockquote";
 import { border } from "./tags/border";
 import { check } from "./tags/check";
+import { code, icode, savenl } from "./tags/code";
 import { color } from "./tags/color";
 import { divide } from "./tags/divide";
 import { fieldset } from "./tags/fieldset";
@@ -19,6 +20,7 @@ import { br, nobr } from "./tags/lineBreak";
 import { note } from "./tags/note";
 import { ooc } from "./tags/ooc";
 import { pindent } from "./tags/pindent";
+import { plain } from "./tags/plain";
 import { scroll } from "./tags/scroll";
 import { side } from "./tags/side";
 import { size } from "./tags/size";
@@ -31,6 +33,7 @@ const tags = {
   border,
   br,
   check,
+  code,
   color,
   divide,
   fieldset,
@@ -44,6 +47,7 @@ const tags = {
   h6,
   heightrestrict,
   highlight,
+  icode,
   imagefloat,
   inlinespoiler,
   justify,
@@ -53,6 +57,8 @@ const tags = {
   note,
   ooc,
   pindent,
+  plain,
+  savenl,
   sh,
   scroll,
   side,
@@ -61,8 +67,9 @@ const tags = {
 };
 
 const availableTags = Object.keys(tags);
+const preventParsing = ["plain", "code", "icode"];
 
 const preset = createPreset(tags);
 
-export { availableTags, tags, preset };
+export { availableTags, tags, preset, preventParsing };
 export default preset;

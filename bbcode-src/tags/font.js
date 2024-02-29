@@ -24,8 +24,7 @@ const VALID_FONT_STYLES = {
 // registered axis tags https://learn.microsoft.com/en-us/typography/opentype/spec/dvaraxisreg#registered-axis-tags
 const REGISTERED_AXIS = ["ital", "opsz", "slnt", "wdth", "wght"];
 
-const AXES_REGEX =
-  /(?<named_weight>[a-zA-Z]*)?\s?(?<weight>[0-9]*)?\s?(?<italic>italic)?/;
+const AXES_REGEX = /(?<named_weight>[a-zA-Z]*)?\s?(?<weight>[0-9]*)?\s?(?<italic>italic)?/;
 
 const axesParser = (attrs) => {
   let axes = {
@@ -44,17 +43,13 @@ const axesParser = (attrs) => {
     const weight = matches.weight;
     if (weight && weight >= 0 && weight <= 900) {
       axes.wght = weight;
-    } else if (
-      Object.keys(VALID_FONT_STYLES).includes(matches.named_weight || "")
-    ) {
+    } else if (Object.keys(VALID_FONT_STYLES).includes(matches.named_weight || "")) {
       axes.wght = VALID_FONT_STYLES[matches.named_weight];
     }
 
     axes = {
       ...axes,
-      ...Object.fromEntries(
-        Object.entries(attrs).filter(([key]) => REGISTERED_AXIS.includes(key))
-      ),
+      ...Object.fromEntries(Object.entries(attrs).filter(([key]) => REGISTERED_AXIS.includes(key))),
     };
   }
   return axes;
@@ -74,8 +69,7 @@ const googleFontApiBuild = (family, axes) => {
       obj[key] = axes[key];
       return obj;
     }, {});
-  const axesList =
-    Object.keys(axes).join(",") + "@" + Object.values(axes).join(",");
+  const axesList = Object.keys(axes).join(",") + "@" + Object.values(axes).join(",");
   return "https://fonts.googleapis.com/css2?family=" + family + ":" + axesList;
 };
 
@@ -86,11 +80,7 @@ export const font = (node, options) => {
     return node.content;
   }
   if (WEB_FONTS.includes(fontFamily.trim().toLowerCase())) {
-    return toNode(
-      "span",
-      { style: "font-family: " + fontFamily },
-      node.content
-    );
+    return toNode("span", { style: "font-family: " + fontFamily }, node.content);
   }
 
   const axes = axesParser(attrs);
@@ -99,15 +89,11 @@ export const font = (node, options) => {
 
   const italic = axes.ital === 1 ? "italic" : "normal";
 
-  const custom = Object.entries(axes).filter(
-    ([key]) => key !== "wght" && key !== "ital"
-  );
+  const custom = Object.entries(axes).filter(([key]) => key !== "wght" && key !== "ital");
   let fontVar = "";
   if (custom.length) {
     fontVar =
-      "font-variation-settings: " +
-      custom.map(([key, val]) => `'${key}' ${val}`).join(", ") +
-      ";";
+      "font-variation-settings: " + custom.map(([key, val]) => `'${key}' ${val}`).join(", ") + ";";
   }
 
   return toNode(
@@ -116,6 +102,6 @@ export const font = (node, options) => {
       style: `font-family: ${fontFamily}; font-weight: ${axes.wght}; font-style: ${italic}; ${fontVar}`,
       "data-font": url,
     },
-    node.content
+    node.content,
   );
 };

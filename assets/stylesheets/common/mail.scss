@@ -1,83 +1,83 @@
 .bb-email {
-    border: 1px solid #2980b9;
-    width: calc(100% - 2px);
-    position: relative;
-  
-    .bb-email-header {
-      height: 30px;
-      line-height: 30px;
-      background-color: #2980b9;
-      background-image: url("/plugins/bbcode/images/email-top.png");
-      background-repeat: no-repeat;
-      background-position: 100%;
-      color: white;
-      padding: 0 10px;
-      display: block;
-    }
-  
-    .bb-email-address,
-    .bb-email-subject {
-      color: currentColor;
-      height: 35px;
-      line-height: 35px;
-      padding: 0 10px;
-      border-bottom: 1px solid #2980b9;
-      &::before {
-        color: #2980b9;
-      }
-    }
-    .bb-email-address::after {
-      content: "Cc    Bcc";
-      position: absolute;
-      right: 10px;
+  border: 1px solid #2980b9;
+  width: calc(100% - 2px);
+  position: relative;
+
+  .bb-email-header {
+    height: 30px;
+    line-height: 30px;
+    background-color: #2980b9;
+    background-image: url("/plugins/bbcode/images/email-top.png");
+    background-repeat: no-repeat;
+    background-position: 100%;
+    color: white;
+    padding: 0 10px;
+    display: block;
+  }
+
+  .bb-email-address,
+  .bb-email-subject {
+    color: currentColor;
+    height: 35px;
+    line-height: 35px;
+    padding: 0 10px;
+    border-bottom: 1px solid #2980b9;
+    &::before {
       color: #2980b9;
-    }
-    .bb-email-subject::before {
-      content: "Subject: ";
-    }
-  
-    .bb-email-content {
-      padding: 10px;
-    }
-  
-    &[data-bb-email="send"] {
-      .bb-email-header::before {
-        content: "Send New Email";
-      }
-      .bb-email-address::before {
-        content: "To: ";
-      }
-      .bb-email-button::before {
-        content: "Send";
-      }
-    }
-    &[data-bb-email="receive"] {
-      .bb-email-header::before {
-        content: "New Email Received";
-      }
-      .bb-email-address::before {
-        content: "From: ";
-      }
-      .bb-email-button::before {
-        content: "Reply";
-      }
-    }
-  
-    .bb-email-footer {
-      height: 40px;
-      line-height: 40px;
-      background: #2980b9;
-      border-top: 1px solid #2980b9;
-    }
-  
-    .bb-email-button {
-      background: white;
-      color: #2980b9;
-      border-radius: 8px;
-      width: 80px;
-      margin: 5px;
-      height: 30px;
-      line-height: 30px;
-      text-align: center;
     }
   }
+  .bb-email-address::after {
+    content: "Cc    Bcc";
+    position: absolute;
+    right: 10px;
+    color: #2980b9;
+  }
+  .bb-email-subject::before {
+    content: "Subject: ";
+  }
+
+  .bb-email-content {
+    padding: 10px;
+  }
+
+  &[data-bb-email="send"] {
+    .bb-email-header::before {
+      content: "Send New Email";
+    }
+    .bb-email-address::before {
+      content: "To: ";
+    }
+    .bb-email-button::before {
+      content: "Send";
+    }
+  }
+  &[data-bb-email="receive"] {
+    .bb-email-header::before {
+      content: "New Email Received";
+    }
+    .bb-email-address::before {
+      content: "From: ";
+    }
+    .bb-email-button::before {
+      content: "Reply";
+    }
+  }
+
+  .bb-email-footer {
+    height: 40px;
+    line-height: 40px;
+    background: #2980b9;
+    border-top: 1px solid #2980b9;
+  }
+
+  .bb-email-button {
+    background: white;
+    color: #2980b9;
+    border-radius: 8px;
+    width: 80px;
+    margin: 5px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+  }
+}
