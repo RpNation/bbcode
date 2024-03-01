@@ -5,8 +5,8 @@ import { toNode } from "../utils/common";
  * @example [sup]content[/sup]
  */
 
-const sup = () => {
-  return toNode("sup", {}, null);
+const sup = (node) => {
+  return toNode("sup", {}, node.content);
 };
 
 export { sup };
