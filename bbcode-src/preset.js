@@ -7,6 +7,7 @@ import { check } from "./tags/check";
 import { code, icode, savenl } from "./tags/code";
 import { color } from "./tags/color";
 import { divide } from "./tags/divide";
+import { fieldset } from "./tags/fieldset";
 import { font } from "./tags/font";
 import { h, h1, h2, h3, h4, h5, h6, sh } from "./tags/header";
 import { heightrestrict } from "./tags/heightrestrict";
@@ -25,6 +26,8 @@ import { progressthin } from "./tags/progressthin";
 import { scroll } from "./tags/scroll";
 import { side } from "./tags/side";
 import { size } from "./tags/size";
+import { sub } from "./tags/subscript";
+import { sup } from "./tags/superscript";
 import { inlinespoiler, spoiler } from "./tags/spoiler";
 
 const tags = {
@@ -37,6 +40,7 @@ const tags = {
   code,
   color,
   divide,
+  fieldset,
   font,
   h,
   h1,
@@ -66,6 +70,8 @@ const tags = {
   side,
   size,
   spoiler,
+  sub,
+  sup,
 };
 
 const availableTags = Object.keys(tags);

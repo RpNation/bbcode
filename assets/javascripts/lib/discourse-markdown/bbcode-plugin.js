@@ -132,6 +132,8 @@ export function setup(helper) {
     "div.bb-side",
     "div.bb-spoiler-content",
     "div[style=*]",
+    "fieldset.bb-fieldset",
+    "legend.bb-fieldset-legend",
     "details.bb-spoiler",
     "span.bb-divide",
     "span.bb-highlight",

@@ -32,8 +32,8 @@ The goal of this repo and plugin is to provide users with the BBCode suite that 
 - [x] Highlights ✔️
 - [x] Justified Text ✔️
 - [x] Blockquotes
-- [ ] Sub Script ⌨️
-- [ ] Super Script ⌨️
+- [x] Sub Script ⌨️
+- [x] Super Script ⌨️
 - [x] Google Font Library ✔️
 - [ ] HTML Comment⌨️
 - [x] Paragraph Indent ✔️
@@ -50,7 +50,7 @@ The goal of this repo and plugin is to provide users with the BBCode suite that 
 
 - [x] Dividers ✔️
 - [x] Image Float
-- [ ] Fieldsets
+- [x] Fieldsets
 - [x] Sides ✔️
 - [ ] Tabs
 - [ ] Tables
