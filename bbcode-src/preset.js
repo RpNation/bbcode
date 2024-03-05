@@ -22,7 +22,7 @@ import { ooc } from "./tags/ooc";
 import { pindent } from "./tags/pindent";
 import { plain } from "./tags/plain";
 import { progress } from "./tags/progress";
-import { progressthin } from "./tags/progressthin";
+import { thinprogress } from "./tags/thinprogress";
 import { scroll } from "./tags/scroll";
 import { side } from "./tags/side";
 import { size } from "./tags/size";
@@ -63,7 +63,7 @@ const tags = {
   pindent,
   plain,
   progress,
-  progressthin,
+  thinprogress,
   savenl,
   sh,
   scroll,

@@ -2,10 +2,10 @@
 import { preprocessAttr, toNode } from "../utils/common";
 
 /**
- * @file Adds [progress] to bbcode
- * @exmaple [progress=percentageInt]content[/progress]
+ * @file Adds [thinprogress] to bbcode
+ * @exmaple [thinprogress=percentageInt]content[/progthinprogressress]
  */
-export const progressthin = (node) => {
+export const thinprogress = (node) => {
     const percentageInt = preprocessAttr(node.attrs)._default;
     return {
         tag: "div",
