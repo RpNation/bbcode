@@ -1,0 +1,178 @@
+.bb-block {
+    width: 100%;
+    height: 125px;
+    position: relative;
+    display: flex;
+    flex-flow: row wrap;
+  
+    .bb-block-content {
+      border-left-width: 3px;
+      border-right-width: 3px;
+      border-top-width: 0;
+      border-bottom-width: 0;
+      border-style: dotted;
+      padding: 0 21px;
+      width: auto;
+      flex: 1;
+      // margin-top: 20px;
+    }
+  
+    .bb-block-icon {
+      height: 100%;
+      width: 100px;
+      background-position: 0 25px;
+      background-repeat: no-repeat;
+      background-image: url("/plugins/bbcode/images/block.jpg");
+      margin-right: 7px;
+      &::before {
+        padding: 0 10px;
+        display: block;
+        height: 20px;
+        width: 110px;
+        line-height: 20px;
+        font-size: 16px;
+        text-align: center;
+        color: white;
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: "Block";
+        background-color: #2c2c2c;
+      }
+  
+      &::after {
+        position: absolute;
+        top: 20px;
+        left: 114px;
+        content: "";
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 15px 15px 0 0;
+        border-color: #2c2c2c transparent transparent transparent;
+      }
+    }
+  
+    /// Creates the content needed for a block
+    ///
+    /// @param {String} $name
+    ///   The name of the block that will be called from the bbcode
+    /// @param {String} $title
+    ///   The displayed title of the block that will appear alongside the image
+    /// @param {color} $color
+    ///   The color to use for the block
+    /// @param {URL} $image
+    ///   The image URL
+    @mixin block-builder(
+      $name: "block",
+      $title: "Block",
+      $color: #2c2c2c,
+      $image: "/plugins/bbcode/images/block.jpg"
+    ) {
+      &[data-bbcode-block="#{$name}"] {
+        .bb-block-content {
+          border-color: $color;
+        }
+        .bb-block-icon {
+          background-image: url($image);
+          &::before {
+            content: $title;
+            background: $color;
+          }
+          &::after {
+            border-color: $color transparent transparent transparent;
+          }
+        }
+      }
+    }
+  
+    @include block-builder(
+      "dice",
+      "Dice",
+      #0a941d,
+      "/plugins/bbcode/images/colordice.png"
+    );
+  
+    @include block-builder(
+      "dice10",
+      "Dice",
+      #0a941d,
+      "/plugins/bbcode/images/colordice10.png"
+    );
+  
+    @include block-builder(
+      "setting",
+      "Setting",
+      #0a941d,
+      "/plugins/bbcode/images/colorsetting.png"
+    );
+  
+    @include block-builder(
+      "important",
+      "Important",
+      #94920a,
+      "/plugins/bbcode/images/colorexclaim.png"
+    );
+  
+    @include block-builder(
+      "treasure",
+      "Treasure",
+      #cbc939,
+      "/plugins/bbcode/images/colortreasure.png"
+    );
+  
+    @include block-builder(
+      "announcement",
+      "Announcement",
+      #940a0a,
+      "/plugins/bbcode/images/colorannounce.png"
+    );
+  
+    @include block-builder(
+      "warning",
+      "Warning",
+      #940a0a,
+      "/plugins/bbcode/images/colorwarning.png"
+    );
+  
+    @include block-builder(
+      "encounter",
+      "Encounter",
+      #940a0a,
+      "/plugins/bbcode/images/colorencounter.png"
+    );
+  
+    @include block-builder(
+      "storyteller",
+      "Storyteller",
+      #bf7e00,
+      "/plugins/bbcode/images/colorpencil.png"
+    );
+  
+    @include block-builder(
+      "question",
+      "Question",
+      #5e0a94,
+      "/plugins/bbcode/images/colorquestion.png"
+    );
+    @include block-builder(
+      "information",
+      "Information",
+      #0a1694,
+      "/plugins/bbcode/images/colorinfo.png"
+    );
+    @include block-builder(
+      "character",
+      "Character",
+      #e05353,
+      "/plugins/bbcode/images/colorcharacter.png"
+    );
+  }
+  
+  @media screen and (max-width: 600px) {
+    .bb-block .bb-block-icon {
+      height: 75px;
+      background-size: 50px;
+      background-position: 25px center;
+    }
+  }
