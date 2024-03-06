@@ -4,7 +4,7 @@ table.bb-block {
     position: relative;
     display: flex;
     flex-flow: row wrap;
-    border-color:transparent!important;
+    border-color: transparent !important;
   
     td.bb-block-content {
       border-left-width: 3px;
@@ -114,7 +114,7 @@ table.bb-block {
       background-position: 25px center;
     }
   }
-
+  
   .bb-block td {
     border-style: none;
   }
