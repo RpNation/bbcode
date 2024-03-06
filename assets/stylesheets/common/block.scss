@@ -103,7 +103,9 @@ table.bb-block {
     @include block-builder("storyteller", "Storyteller", #bf7e00, "/plugins/bbcode/images/colorpencil.png");
   
     @include block-builder("question", "Question", #5e0a94, "/plugins/bbcode/images/colorquestion.png");
+
     @include block-builder("information", "Information", #0a1694, "/plugins/bbcode/images/colorinfo.png");
+    
     @include block-builder("character", "Character", #e05353, "/plugins/bbcode/images/colorcharacter.png");
   }
   
