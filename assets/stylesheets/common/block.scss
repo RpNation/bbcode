@@ -12,7 +12,7 @@ table.bb-block {
       border-top-width: 0;
       border-bottom-width: 0;
       border-style: dotted;
-      padding: 0 21px;
+      padding: 21px;
       width: auto;
       flex: 1;
     }
@@ -113,5 +113,9 @@ table.bb-block {
       background-size: 50px;
       background-position: 25px center;
     }
+  }
+
+  .bb-block td {
+    border-style: none;
   }
   
