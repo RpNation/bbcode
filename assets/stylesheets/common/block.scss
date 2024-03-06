@@ -12,7 +12,7 @@ table.bb-block {
       border-top-width: 0;
       border-bottom-width: 0;
       border-style: dotted;
-      padding: 21px;
+      padding: 30px;
       width: auto;
       flex: 1;
     }
@@ -38,7 +38,7 @@ table.bb-block {
         top: 0;
         left: 0;
         content: "Block";
-        background-color: #2c2c2c;
+        background-color: transparent;
       }
   
       &::after {
@@ -50,7 +50,7 @@ table.bb-block {
         height: 0;
         border-style: solid;
         border-width: 15px 15px 0 0;
-        border-color: #2c2c2c transparent transparent transparent;
+        border-color: transparent transparent transparent transparent;
       }
     }
   
@@ -64,7 +64,7 @@ table.bb-block {
     ///   The color to use for the block
     /// @param {URL} $image
     ///   The image URL
-    @mixin block-builder($name: "block", $title: "Block", $color: #2c2c2c, $image: "/plugins/bbcode/images/block.png") {
+    @mixin block-builder($name: "block", $title: "Block", $color: transparent, $image: "/plugins/bbcode/images/block.png") {
       &[data-bb-block="#{$name}"] {
         td.bb-block-content {
           border-color: $color;
