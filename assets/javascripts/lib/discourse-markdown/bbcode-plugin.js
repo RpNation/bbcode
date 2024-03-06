@@ -98,9 +98,10 @@ export function setup(helper) {
 
   helper.allowList([
     "div.bb-background",
-    "div.bb-block",
-    "div.bb-block-content",
-    "div.bb-block-icon",
+    "table.bb-block",
+    "td.bb-block-content",
+    "td.bb-block-icon",
+    "table[data-bb-block=*]",
     "div.bb-blockquote",
     "div.bb-blockquote-content",
     "div.bb-blockquote-left",
