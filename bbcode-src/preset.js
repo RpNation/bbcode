@@ -22,6 +22,8 @@ import { note } from "./tags/note";
 import { ooc } from "./tags/ooc";
 import { pindent } from "./tags/pindent";
 import { plain } from "./tags/plain";
+import { progress } from "./tags/progress";
+import { thinprogress } from "./tags/thinprogress";
 import { scroll } from "./tags/scroll";
 import { side } from "./tags/side";
 import { size } from "./tags/size";
@@ -62,6 +64,8 @@ const tags = {
   ooc,
   pindent,
   plain,
+  progress,
+  thinprogress,
   savenl,
   sh,
   scroll,
