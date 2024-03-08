@@ -3,6 +3,7 @@ import { alignment } from "./tags/alignment";
 import { bg } from "./tags/background";
 import { blockquote } from "./tags/blockquote";
 import { border } from "./tags/border";
+import { centerblock } from "/tags/centerblock";
 import { check } from "./tags/check";
 import { code, icode, savenl } from "./tags/code";
 import { color } from "./tags/color";
@@ -36,6 +37,7 @@ const tags = {
   blockquote,
   border,
   br,
+  centerblock,
   check,
   code,
   color,
