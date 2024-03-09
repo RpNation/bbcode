@@ -54,7 +54,7 @@ The goal of this repo and plugin is to provide users with the BBCode suite that 
 - [x] Sides ✔️
 - [ ] Tabs
 - [ ] Tables
-- [ ] Center Block
+- [x] Center Block
 - [x] Background ✔️
 - [x] Border ✔️
 - [x] Scroll Box
