@@ -7,7 +7,7 @@ import { preprocessAttr } from "../utils/common";
  * @example [block=treasure]content[/block]
  */
 export const block = (node) => {
-    const blockAttr = preprocessAttr(node.attrs)._default.toLowerCase() || "block";
+    const blockAttr = preprocessAttr(node.attrs)._default ? preprocessAttr(node.attrs)._default.toLowerCase() : "block";
 
     const OPTIONS = [
         "block",
