@@ -7,7 +7,7 @@ import { preprocessAttr } from "../utils/common";
  * @example [block=treasure]content[/block]
  */
 export const block = (node) => {
-    const block = preprocessAttr(node.attrs)._default || "block";
+    const blockAttr = preprocessAttr(node.attrs)._default.toLowerCase() || "block";
 
     const OPTIONS = [
         "block",
@@ -26,12 +26,12 @@ export const block = (node) => {
     ];
 
     // Default to block option if user did not provide anything valid
-    const blockOption = OPTIONS.includes(block.toLowerCase()) ? block : "block";
+    const blockOption = OPTIONS.includes(blockAttr) ? blockAttr : "block";
 
     return {
         tag: "table",
         attrs: {
-        class: "bb-block", 
+        class: "bb-block",
         "data-bb-block": blockOption
         },
         content: [
@@ -59,5 +59,5 @@ export const block = (node) => {
             ]
         }
         ]
-    }
-}
+    };
+};
