@@ -7,7 +7,8 @@ import { preprocessAttr } from "../utils/common";
  * @example [block=treasure]content[/block]
  */
 export const block = (node) => {
-    const blockAttr = preprocessAttr(node.attrs)._default ? preprocessAttr(node.attrs)._default.toLowerCase() : "block";
+    const defaultOp = "block";
+    const blockAttr = (preprocessAttr(node.attrs)._default || defaultOp).toLowerCase();
 
     const OPTIONS = [
         "block",
@@ -26,7 +27,7 @@ export const block = (node) => {
     ];
 
     // Default to block option if user did not provide anything valid
-    const blockOption = OPTIONS.includes(blockAttr) ? blockAttr : "block";
+    const blockOption = OPTIONS.includes(blockAttr) ? blockAttr : defaultOp;
 
     return {
         tag: "table",
