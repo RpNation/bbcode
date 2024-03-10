@@ -59,7 +59,7 @@ The goal of this repo and plugin is to provide users with the BBCode suite that 
 - [x] Border ✔️
 - [x] Scroll Box
 - [ ] Div Box
-- [ ] Anchors
+- [x] Anchors
 - [ ] Rows & Columns
 
 ## Media & Embeds

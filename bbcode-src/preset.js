@@ -5,7 +5,7 @@ import { bg } from "./tags/background";
 import { block } from "./tags/block";
 import { blockquote } from "./tags/blockquote";
 import { border } from "./tags/border";
-import { centerblock } from "/tags/centerblock";
+import { centerblock } from "./tags/centerblock";
 import { check } from "./tags/check";
 import { code, icode, savenl } from "./tags/code";
 import { color } from "./tags/color";
