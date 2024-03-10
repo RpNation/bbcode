@@ -60,7 +60,7 @@ The goal of this repo and plugin is to provide users with the BBCode suite that 
 - [x] Scroll Box
 - [ ] Div Box
 - [ ] Anchors
-- [ ] Rows & Columns
+- [x] Rows & Columns
 
 ## Media & Embeds
 
