@@ -2,8 +2,10 @@ import { createPreset } from "@bbob/preset";
 import { alignment } from "./tags/alignment";
 import { anchor } from "./tags/anchor";
 import { bg } from "./tags/background";
+import { block } from "./tags/block";
 import { blockquote } from "./tags/blockquote";
 import { border } from "./tags/border";
+import { centerblock } from "/tags/centerblock";
 import { check } from "./tags/check";
 import { code, icode, savenl } from "./tags/code";
 import { color } from "./tags/color";
@@ -35,9 +37,11 @@ const tags = {
   ...alignment,
   ...anchor,
   bg,
+  block,
   blockquote,
   border,
   br,
+  centerblock,
   check,
   code,
   color,
