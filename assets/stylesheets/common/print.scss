@@ -11,4 +11,23 @@ div.bb-print {
     background-size: auto 65px, auto 65px, 400px 400px;
     padding: calc(15px + 65px) 25px;
     line-height: 25px;
+
+    &-line {
+        @extend .bb-print;
+        background-image: url("/plugins/bbcode/images/paper-top3.png"),
+          url("/plugins/bbcode/images/paper-bottom3.png"),
+          url("/plugins/bbcode/images/paperlined.jpg");
+      }
+      &-graph {
+        @extend .bb-print;
+        background-image: url("/plugins/bbcode/images/paper-top3.png"),
+          url("/plugins/bbcode/images/paper-bottom3.png"),
+          url("/plugins/bbcode/images/papergraph.jpg");
+      }
+      &-parchment {
+        @extend .bb-print;
+        background-image: url("/plugins/bbcode/images/paper-top3.png"),
+          url("/plugins/bbcode/images/paper-bottom.png"),
+          url("/plugins/bbcode/images/paperparchment.jpg");
+      }
 }
