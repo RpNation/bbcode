@@ -4,7 +4,7 @@ import { bg } from "./tags/background";
 import { block } from "./tags/block";
 import { blockquote } from "./tags/blockquote";
 import { border } from "./tags/border";
-import { centerblock } from "/tags/centerblock";
+import { centerblock } from "./tags/centerblock";
 import { check } from "./tags/check";
 import { code, icode, savenl } from "./tags/code";
 import { color } from "./tags/color";
@@ -23,6 +23,7 @@ import { note } from "./tags/note";
 import { ooc } from "./tags/ooc";
 import { pindent } from "./tags/pindent";
 import { plain } from "./tags/plain";
+import { print } from "./tags/print";
 import { progress } from "./tags/progress";
 import { thinprogress } from "./tags/thinprogress";
 import { scroll } from "./tags/scroll";
@@ -66,6 +67,7 @@ const tags = {
   ooc,
   pindent,
   plain,
+  print,
   progress,
   thinprogress,
   savenl,
