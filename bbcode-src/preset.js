@@ -4,7 +4,7 @@ import { bg } from "./tags/background";
 import { block } from "./tags/block";
 import { blockquote } from "./tags/blockquote";
 import { border } from "./tags/border";
-import { centerblock } from "/tags/centerblock";
+import { centerblock } from "./tags/centerblock";
 import { check } from "./tags/check";
 import { code, icode, savenl } from "./tags/code";
 import { color } from "./tags/color";
@@ -31,6 +31,7 @@ import { size } from "./tags/size";
 import { sub } from "./tags/subscript";
 import { sup } from "./tags/superscript";
 import { inlinespoiler, spoiler } from "./tags/spoiler";
+import { textmessage } from "./tags/textmessage";
 
 const tags = {
   ...alignment,
@@ -76,6 +77,7 @@ const tags = {
   spoiler,
   sub,
   sup,
+  ...textmessage
 };
 
 const availableTags = Object.keys(tags);

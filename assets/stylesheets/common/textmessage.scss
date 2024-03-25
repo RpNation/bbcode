@@ -1,0 +1,85 @@
+.bb-textmessage {
+  background: url("/plugins/bbcode/images/textmessagebox.png");
+  width: 227px;
+  height: 450px;
+  line-height: 14px;
+  position: relative;
+  margin: 0 auto;
+  overflow: hidden;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, sans-serif;
+}
+
+.bb-textmessage .bb-textmessage-name {
+  width: 227px;
+  text-align: center;
+  font-size: 10px;
+  position: absolute;
+  top: 95px;
+}
+
+.bb-textmessage .bb-textmessage-overflow {
+  position: absolute;
+  top: 114px;
+  left: 18px;
+  width: 194px;
+  height: 235px;
+  overflow-x: hidden;
+}
+
+.bb-textmessage .bb-textmessage-content {
+  margin-top: 10px;
+}
+
+.bb-textmessage .bb-textmessage-content .bb-message-author {
+  display: none;
+}
+
+.bb-textmessage .bb-textmessage-content .bb-message-left,
+.bb-textmessage .bb-textmessage-content .bb-message-right,
+.bb-textmessage .bb-textmessage-content .bb-message-them,
+.bb-textmessage .bb-textmessage-content .bb-message-me {
+  font-size: 12px;
+  position: relative;
+  width: 150px;
+  clear: both;
+  padding: 5px;
+  margin: 0 5px 10px;
+  border-radius: 8px;
+}
+
+.bb-textmessage .bb-textmessage-content .bb-message-right,
+.bb-textmessage .bb-textmessage-content .bb-message-me {
+  background: #30c61f;
+  color: white;
+  float: right;
+}
+
+.bb-textmessage .bb-textmessage-content .bb-message-left,
+.bb-textmessage .bb-textmessage-content .bb-message-them {
+  background: blue;
+  color: white;
+  float: left;
+}
+
+.bb-textmessage .bb-textmessage-content .bb-message-right:before,
+.bb-textmessage .bb-textmessage-content .bb-message-left:before,
+.bb-textmessage .bb-textmessage-content .bb-message-me:before,
+.bb-textmessage .bb-textmessage-content .bb-message-them:before {
+  content: "";
+  height: 10px;
+  width: 9px;
+  position: absolute;
+  bottom: 0;
+}
+
+.bb-textmessage .bb-textmessage-content .bb-message-right:before,
+.bb-textmessage .bb-textmessage-content .bb-message-me:before {
+  background: url("/plugins/bbcode/images/textmessagecolorarrow.png");
+  right: -4px;
+}
+
+.bb-textmessage .bb-textmessage-content .bb-message-left:before,
+.bb-textmessage .bb-textmessage-content .bb-message-them:before {
+  background: url("/plugins/bbcode/images/textmessagegreyarrow.png");
+  left: -4px;
+}
