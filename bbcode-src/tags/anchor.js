@@ -5,6 +5,12 @@ import { preprocessAttr, toNode } from "../utils/common";
  */
 export const anchor = {
     // name is not valid in HTML5; however, it correctly displays back while id does not
-    a: (node) => toNode("a", { id: `user-anchor-${preprocessAttr(node.attrs)._default}`, name: `user-anchor-${preprocessAttr(node.attrs)._default}` }, node.content),
-    goto: (node) => toNode("a", { href: `#user-anchor-${preprocessAttr(node.attrs)._default}` }, node.content)
+    a: (node) => {
+        const attrs = preprocessAttr(node.attrs)._default || "";
+        return toNode("a", { id: `user-anchor-${attrs.trim()}`, name: `user-anchor-${attrs.trim()}` }, node.content);
+      },
+      goto: (node) => {
+        const attrs = preprocessAttr(node.attrs)._default || "";
+        toNode("a", { href: `#user-anchor-${attrs.trim()}` }, node.content);
+      }
 };
