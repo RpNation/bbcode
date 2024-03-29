@@ -65,7 +65,7 @@ The goal of this repo and plugin is to provide users with the BBCode suite that 
 - [ ] Google Docs(PDF)
 - [x] Height Restrict
 - [x] Image
-- [ ] ~~Challonge - Add as an iframe supported site in settings instead.~~
+- [x] ~~Challonge - Add as an iframe supported site in settings instead.~~
 
 ## Aesthetics
 
