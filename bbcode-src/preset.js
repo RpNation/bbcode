@@ -1,5 +1,6 @@
 import { createPreset } from "@bbob/preset";
 import { alignment } from "./tags/alignment";
+import { anchor } from "./tags/anchor";
 import { bg } from "./tags/background";
 import { block } from "./tags/block";
 import { blockquote } from "./tags/blockquote";
@@ -35,6 +36,7 @@ import { inlinespoiler, spoiler } from "./tags/spoiler";
 
 const tags = {
   ...alignment,
+  ...anchor,
   bg,
   block,
   blockquote,
