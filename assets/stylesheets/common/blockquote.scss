@@ -8,8 +8,8 @@
   flex-flow: row wrap;
 
   .bb-blockquote-content {
-    border-left: 3px dotted #2980b9;
-    border-right: 3px dotted #2980b9;
+    border-left: 3px dotted var(--tertiary);
+    border-right: 3px dotted var(--tertiary);
     flex: 1;
     padding: 0 5px;
     margin: 0 5px;
@@ -18,7 +18,7 @@
       clear: both;
       width: 100%;
       text-align: right;
-      color: #2980b9;
+      color: var(--tertiary);
     }
   }
 

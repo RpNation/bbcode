@@ -2,18 +2,18 @@
   width: 95%;
   margin: 0 auto;
   clear: both;
-  border: 1px solid #2980b9;
+  border: 1px solid var(--tertiary);
   padding: 10px;
 
   > div.bb-fieldset-legend {
     margin-left: 3%;
     font-weight: 700;
-    color: #2980b9;
+    color: var(--tertiary);
     padding: 0 10px;
   }
 
   > div {
-    color: #2980b9;
+    color: var(--tertiary);
   }
 
   @media screen and (max-width: 800px) {
@@ -25,13 +25,13 @@ fieldset {
   width: 95%;
   margin: 0 auto;
   clear: both;
-  border: 1px solid #2980b9;
+  border: 1px solid var(--tertiary);
   padding: 10px;
 }
 
 legend {
   margin-left: 3%;
   font-weight: 700;
-  color: #2980b9;
+  color: var(--tertiary);
   padding: 0 10px;
 }

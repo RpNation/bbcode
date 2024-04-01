@@ -1,8 +1,8 @@
 div.bb-side {
   clear: both;
   width: 21%;
-  border-left: 3px dotted #2980b9;
-  border-right: 3px dotted #2980b9;
+  border-left: 3px dotted var(--tertiary);
+  border-right: 3px dotted var(--tertiary);
   padding: 2%;
   font-size: 75%;
   float: left;
