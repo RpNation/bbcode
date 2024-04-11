@@ -1,12 +1,12 @@
 .bb-email {
-  border: 1px solid #2980b9;
+  border: 1px solid var(--tertiary);
   width: calc(100% - 2px);
   position: relative;
 
   .bb-email-header {
     height: 30px;
     line-height: 30px;
-    background-color: #2980b9;
+    background-color: var(--tertiary);
     background-image: url("/plugins/bbcode/images/email-top.png");
     background-repeat: no-repeat;
     background-position: 100%;
@@ -21,16 +21,16 @@
     height: 35px;
     line-height: 35px;
     padding: 0 10px;
-    border-bottom: 1px solid #2980b9;
+    border-bottom: 1px solid var(--tertiary);
     &::before {
-      color: #2980b9;
+      color: var(--tertiary);
     }
   }
   .bb-email-address::after {
     content: "Cc    Bcc";
     position: absolute;
     right: 10px;
-    color: #2980b9;
+    color: var(--tertiary);
   }
   .bb-email-subject::before {
     content: "Subject: ";
@@ -66,13 +66,13 @@
   .bb-email-footer {
     height: 40px;
     line-height: 40px;
-    background: #2980b9;
-    border-top: 1px solid #2980b9;
+    background: var(--tertiary);
+    border-top: 1px solid var(--tertiary);
   }
 
   .bb-email-button {
     background: white;
-    color: #2980b9;
+    color: var(--tertiary);
     border-radius: 8px;
     width: 80px;
     margin: 5px;

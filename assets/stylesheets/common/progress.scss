@@ -1,8 +1,8 @@
 .bb-progress {
   height: 30px;
   font-size: 15px;
-  color: white;
-  border: 1px solid #2980b9;
+  color: var(--primary);
+  border: 1px solid var(--tertiary);
   position: relative;
 
   > .bb-progress-bar {

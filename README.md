@@ -14,8 +14,6 @@ The goal of this repo and plugin is to provide users with the BBCode suite that 
 
 🚧 = In progress or needs CSS.
 
-✔️ = Complete.
-
 ⌨️ = BBCode also has an HTML equivalent.
 
 🎉 = Powered by official Discourse Addon.
@@ -29,37 +27,37 @@ The goal of this repo and plugin is to provide users with the BBCode suite that 
 ## Text Formatting
 
 - [x] Headers & Sub-Headers Ⓜ️
-- [x] Highlights ✔️
-- [x] Justified Text ✔️
+- [x] Highlights
+- [x] Justified Text
 - [x] Blockquotes
 - [x] Sub Script ⌨️
 - [x] Super Script ⌨️
-- [x] Google Font Library ✔️
+- [x] Google Font Library
 - [ ] HTML Comment⌨️
-- [x] Paragraph Indent ✔️
-- [x] Bold, Italic, Underline, Strikethrough Ⓜ️✔️
+- [x] Paragraph Indent
+- [x] Bold, Italic, Underline, Strikethrough Ⓜ️
 - [x] Color
 - [x] Font Size
-- [x] Left, Center, Right ✔️
-- [x] Spoiler ✔️
+- [x] Left, Center, Right
+- [x] Spoiler
 - [x] Line Break
 - [x] NOBR/No Line Break
-- [x] Inline Spoiler ✔️
+- [x] Inline Spoiler
 
 ## Layout & Design
 
-- [x] Dividers ✔️
+- [x] Dividers
 - [x] Image Float
 - [x] Fieldsets
-- [x] Sides ✔️
+- [x] Sides
 - [ ] Tabs
 - [ ] Tables
 - [x] Center Block
-- [x] Background ✔️
-- [x] Border ✔️
+- [x] Background
+- [x] Border
 - [x] Scroll Box
 - [ ] Div Box
-- [ ] Anchors
+- [x] Anchors
 - [ ] Rows & Columns
 
 ## Media & Embeds
@@ -67,20 +65,20 @@ The goal of this repo and plugin is to provide users with the BBCode suite that 
 - [ ] Google Docs(PDF)
 - [x] Height Restrict
 - [x] Image
-- [ ] ~~Challonge - Add as an iframe supported site in settings instead.~~
+- [x] ~~Challonge - Add as an iframe supported site in settings instead.~~
 
 ## Aesthetics
 
-- [ ] Print
+- [x] Print
 - [ ] Text Message
 - [x] Blocks
 - [x] Progress Bar
-- [x] Sticky Note ✔️
-- [x] Mail ✔️
-- [x] Newspaper ✔️
-- [x] Checks ✔️
+- [x] Sticky Note
+- [x] Mail
+- [x] Newspaper
+- [x] Checks
 - [ ] Font Awesome Icons
-- [x] OOC ✔️
+- [x] OOC
 
 ## Credit
 
