@@ -33,6 +33,7 @@ import { size } from "./tags/size";
 import { sub } from "./tags/subscript";
 import { sup } from "./tags/superscript";
 import { inlinespoiler, spoiler } from "./tags/spoiler";
+import { textmessage } from "./tags/textmessage";
 
 const tags = {
   ...alignment,
@@ -80,6 +81,7 @@ const tags = {
   spoiler,
   sub,
   sup,
+  ...textmessage
 };
 
 const availableTags = Object.keys(tags);
