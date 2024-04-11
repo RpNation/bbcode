@@ -1,13 +1,13 @@
 div.bb-ooc {
-  color: #7897ba;
+  color: var(--primary-high);
   font-style: italic;
   padding: 0;
-  border: 1px solid #7897ba;
+  border: 1px solid var(--tertiary-low);
   &::before {
     font-style: normal;
     font-weight: 600;
     color: white;
-    background: #7897ba;
+    background: var(--tertiary-low);
     text-align: center;
     width: 50px;
     float: left;

@@ -1,5 +1,6 @@
 import { createPreset } from "@bbob/preset";
 import { alignment } from "./tags/alignment";
+import { anchor } from "./tags/anchor";
 import { bg } from "./tags/background";
 import { block } from "./tags/block";
 import { blockquote } from "./tags/blockquote";
@@ -23,6 +24,7 @@ import { note } from "./tags/note";
 import { ooc } from "./tags/ooc";
 import { pindent } from "./tags/pindent";
 import { plain } from "./tags/plain";
+import { print } from "./tags/print";
 import { progress } from "./tags/progress";
 import { rowcolumn } from './tags/rowcolumn';
 import { thinprogress } from "./tags/thinprogress";
@@ -35,6 +37,7 @@ import { inlinespoiler, spoiler } from "./tags/spoiler";
 
 const tags = {
   ...alignment,
+  ...anchor,
   bg,
   block,
   blockquote,
@@ -67,6 +70,7 @@ const tags = {
   ooc,
   pindent,
   plain,
+  print,
   progress,
   ...rowcolumn,
   thinprogress,

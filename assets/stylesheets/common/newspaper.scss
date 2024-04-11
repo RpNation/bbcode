@@ -6,7 +6,7 @@
   column-count: 3;
   padding: 10px;
   background: url("/plugins/bbcode/images/paper.jpg");
-  border: 1px solid #2980b9;
+  border: 1px solid var(--tertiary);
   color: black;
 
   @media screen and (max-width: 1000px) {
