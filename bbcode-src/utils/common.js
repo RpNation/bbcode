@@ -44,7 +44,7 @@ const MD_URL_REGEX =
   /\!?\[.*\]\((http|ftp|https|upload):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])\)/;
 const URL_REGEX_SINGLE_LINE = new RegExp(`^${URL_REGEX.source}|${MD_URL_REGEX.source}$`);
 const ESCAPABLES_REGEX =
-  /((\n|^)(?<fence>```+|~~~+)(?<fenceInfo>.*\n))|(?<bbcode>\[(?<bbcodeTag>i?code|plain)(=.*)?\]|(.*?(?<backtick>(?<tickStart>`{1,2})(.*)(?<tickEnd>\k<tickStart>)).*?))/m;
+  /((\n|^)(?<fence>```+|~~~+)(?<fenceInfo>.*\n))|(?<bbcode>\[(?<bbcodeTag>i?code|plain)(=.*)?\]|(.*?(?<backtick>(?<tickStart>`{1,2})(.*)(?<tickEnd>\k<tickStart>)).*?))/im;
 
 /**
  * Generates a random GUID.
