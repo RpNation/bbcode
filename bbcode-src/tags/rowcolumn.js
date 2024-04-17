@@ -7,7 +7,7 @@ import { preprocessAttr, toNode } from "../utils/common";
 export const rowcolumn = {
   row: (node) => toNode("div", { class: "bb-row" }, node.content),
   column: (node) => {
-    const columnAttrs = preprocessAttr(node.attrs)._default || "1";
+    const columnAttrs = preprocessAttr(node.attrs)._default || "8";
     const columnStyle = columnAttrs.startsWith("span")
       ? `column-width-${columnAttrs}`
       : `column-width-span${columnAttrs}`;
