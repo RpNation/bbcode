@@ -183,6 +183,9 @@ export function setup(helper) {
       if (tag === "label" && name === "for" && value.startsWith("tab-")) {
         return true;
       }
+      if (tag === "label" && name === "style") {
+        return true;
+      }
       return false;
     },
   });

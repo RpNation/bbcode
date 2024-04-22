@@ -16,18 +16,25 @@ div.bb-tabs {
     padding: 0 22px;
     text-transform: uppercase;
     white-space: nowrap;
+    border: 1px solid var(--tertiary);
 
     &:first-of-type {
       margin-left: 10px;
     }
 
-    &:hover {
-      color: blue;
+    &:hover,
+    &:focus {
+      color: var(--tertiary-hover);
+      background-color: var(--tertiary-low);
     }
   }
 
   input[type="radio"] {
-    display: none;
+    position: absolute;
+    left: -200vw;
+    &:focus-visible + label.bb-tab-label {
+      outline: 2px solid var(--tertiary);
+    }
   }
 
   .bb-tab-content {
@@ -36,8 +43,8 @@ div.bb-tabs {
     order: 99;
     margin-top: 10px;
     justify-self: stretch;
-    border-top: 3px solid blue;
-    border-bottom: 1px solid blue;
+    border-top: 3px solid var(--tertiary);
+    border-bottom: 1px solid var(--tertiary);
     padding: 10px;
     display: none;
   }
@@ -47,6 +54,6 @@ div.bb-tabs {
   }
 
   input[type="radio"]:checked + label.bb-tab-label {
-    color: blue;
+    color: var(--tertiary);
   }
 }

@@ -29,6 +29,10 @@ export const tabs = (node) => {
   );
 };
 
+/**
+ * [tab=name]content[/tab]
+ * [tab name="name" style="style"]content[/tab]
+ */
 export const tab = (node) => {
   if (!node.isValid) {
     // not inside a [tabs] tag
@@ -36,10 +40,11 @@ export const tab = (node) => {
   }
   const attrs = preprocessAttr(node.attrs);
   const name = attrs._default || attrs.name || "Tab";
+  const tabId = `tab-${name.replace(/\W/g, "_")}-${generateGUID()}`;
   return [
     toNode("input", {
       type: "radio",
-      id: `tab-${name.replace(/\W/g, "_")}-${node.groupId}`,
+      id: tabId,
       name: "tab-group-" + node.groupId,
       class: "bb-tab",
       checked: node.open,
@@ -48,7 +53,8 @@ export const tab = (node) => {
       "label",
       {
         class: "bb-tab-label",
-        for: `tab-${name.replace(/\W/g, "_")}-${node.groupId}`,
+        for: tabId,
+        style: attrs.style,
       },
       name,
     ),
