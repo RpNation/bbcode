@@ -28,7 +28,6 @@
   },
   "lint-staged": {
     "*.js": "eslint --fix",
-    "*.{js,css,md}": "prettier --write",
-    "bbcode-src/*.js": "build"
+    "*.{js,css,md}": "prettier --write"
   }
 }

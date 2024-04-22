@@ -142,6 +142,10 @@ export function setup(helper) {
     "div.bb-scroll",
     "div.bb-side",
     "div.bb-spoiler-content",
+    "div.bb-tabs",
+    "input.bb-tab",
+    "label.bb-tab-label",
+    "div.bb-tab-content",
     "div.bb-textmessage",
     "div.bb-textmessage-name",
     "div.bb-textmessage-overflow",
@@ -160,4 +164,29 @@ export function setup(helper) {
     "span[style=*]",
     "summary",
   ]);
+
+  helper.allowList({
+    custom: (tag, name, value) => {
+      // custom attr allowlist for tabs
+      if (tag === "input" && name === "type" && value === "radio") {
+        return true;
+      }
+      if (tag === "input" && name === "id" && value.startsWith("tab-")) {
+        return true;
+      }
+      if (tag === "input" && name === "name" && value.startsWith("tab-group-")) {
+        return true;
+      }
+      if (tag === "input" && name === "checked") {
+        return true;
+      }
+      if (tag === "label" && name === "for" && value.startsWith("tab-")) {
+        return true;
+      }
+      if (tag === "label" && name === "style") {
+        return true;
+      }
+      return false;
+    },
+  });
 }

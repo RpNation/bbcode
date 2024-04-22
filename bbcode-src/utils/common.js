@@ -24,6 +24,22 @@ const preprocessAttr = (attrs) => {
 };
 
 /**
+ * Attempts to return tag into its original form with proper attributes
+ * @returns string of tag start
+ */
+const toOriginalStartTag = (node) => {
+  if (!node.attrs) {
+    return `[${node.tag}]`;
+  }
+  const attrs = preprocessAttr(node.attrs);
+  if (attrs._default) {
+    return `[${node.tag}=${attrs._default}]`;
+  } else {
+    return node.toTagStart();
+  }
+};
+
+/**
  * Given a string, find the first position of a regex match
  * @param {string} string to test against
  * @param {RegExp} regex to test with
@@ -68,6 +84,7 @@ function generateGUID() {
 
 export {
   toNode,
+  toOriginalStartTag,
   generateGUID,
   preprocessAttr,
   regexIndexOf,
