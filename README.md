@@ -50,7 +50,7 @@ The goal of this repo and plugin is to provide users with the BBCode suite that 
 - [x] Image Float
 - [x] Fieldsets
 - [x] Sides
-- [ ] Tabs
+- [x] Tabs
 - [ ] Tables
 - [x] Center Block
 - [x] Background
