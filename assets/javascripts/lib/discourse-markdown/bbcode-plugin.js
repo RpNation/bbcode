@@ -97,6 +97,7 @@ export function setup(helper) {
   });
 
   helper.allowList([
+    "div.bb-accordion",
     "div.bb-background",
     "table.bb-block",
     "td.bb-block-content",
@@ -141,6 +142,7 @@ export function setup(helper) {
     "div.bb-right",
     "div.bb-scroll",
     "div.bb-side",
+    "div.bb-slide-content",
     "div.bb-spoiler-content",
     "div.bb-tabs",
     "input.bb-tab",
@@ -156,6 +158,7 @@ export function setup(helper) {
     "div[style=*]",
     "fieldset.bb-fieldset",
     "legend.bb-fieldset-legend",
+    "details.bb-slide",
     "details.bb-spoiler",
     "span.bb-divide",
     "span.bb-highlight",
@@ -163,6 +166,7 @@ export function setup(helper) {
     "span.bb-pindent",
     "span[style=*]",
     "summary",
+    "summary.bb-slide-title",
   ]);
 
   helper.allowList({
@@ -186,6 +190,20 @@ export function setup(helper) {
       if (tag === "label" && name === "style") {
         return true;
       }
+
+      // custom attr allowlist for accordions
+      if (tag === "div" && name === "class" && value.startsWith("bb-accordion")) {
+        const validClasses = ["bb-accordion", "bright", "bcenter", "bleft", "fleft", "fright"];
+        const classes = value.split(" ");
+        return classes.every((c) => validClasses.includes(c));
+      }
+      if (tag === "details" && name === "open") {
+        return true;
+      }
+      if (tag === "summary" && name === "style") {
+        return true;
+      }
+
       return false;
     },
   });
