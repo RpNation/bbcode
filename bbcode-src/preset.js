@@ -35,8 +35,11 @@ import { sub } from "./tags/subscript";
 import { sup } from "./tags/superscript";
 import { inlinespoiler, spoiler } from "./tags/spoiler";
 import { textmessage } from "./tags/textmessage";
+import { tab, tabs } from "./tags/tabs";
+import { accordionTags } from "./tags/accordion";
 
 const tags = {
+  ...accordionTags,
   ...alignment,
   ...anchor,
   bg,
@@ -83,7 +86,9 @@ const tags = {
   spoiler,
   sub,
   sup,
-  ...textmessage
+  tab,
+  tabs,
+  ...textmessage,
 };
 
 const availableTags = Object.keys(tags);

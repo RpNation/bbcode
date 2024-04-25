@@ -97,6 +97,7 @@ export function setup(helper) {
   });
 
   helper.allowList([
+    "div.bb-accordion",
     "div.bb-background",
     "table.bb-block",
     "td.bb-block-content",
@@ -143,7 +144,12 @@ export function setup(helper) {
     "div.bb-row",
     "div.bb-scroll",
     "div.bb-side",
+    "div.bb-slide-content",
     "div.bb-spoiler-content",
+    "div.bb-tabs",
+    "input.bb-tab",
+    "label.bb-tab-label",
+    "div.bb-tab-content",
     "div.bb-textmessage",
     "div.bb-textmessage-name",
     "div.bb-textmessage-overflow",
@@ -154,6 +160,7 @@ export function setup(helper) {
     "div[style=*]",
     "fieldset.bb-fieldset",
     "legend.bb-fieldset-legend",
+    "details.bb-slide",
     "details.bb-spoiler",
     "span.bb-divide",
     "span.bb-highlight",
@@ -161,5 +168,45 @@ export function setup(helper) {
     "span.bb-pindent",
     "span[style=*]",
     "summary",
+    "summary.bb-slide-title",
   ]);
+
+  helper.allowList({
+    custom: (tag, name, value) => {
+      // custom attr allowlist for tabs
+      if (tag === "input" && name === "type" && value === "radio") {
+        return true;
+      }
+      if (tag === "input" && name === "id" && value.startsWith("tab-")) {
+        return true;
+      }
+      if (tag === "input" && name === "name" && value.startsWith("tab-group-")) {
+        return true;
+      }
+      if (tag === "input" && name === "checked") {
+        return true;
+      }
+      if (tag === "label" && name === "for" && value.startsWith("tab-")) {
+        return true;
+      }
+      if (tag === "label" && name === "style") {
+        return true;
+      }
+
+      // custom attr allowlist for accordions
+      if (tag === "div" && name === "class" && value.startsWith("bb-accordion")) {
+        const validClasses = ["bb-accordion", "bright", "bcenter", "bleft", "fleft", "fright"];
+        const classes = value.split(" ");
+        return classes.every((c) => validClasses.includes(c));
+      }
+      if (tag === "details" && name === "open") {
+        return true;
+      }
+      if (tag === "summary" && name === "style") {
+        return true;
+      }
+
+      return false;
+    },
+  });
 }

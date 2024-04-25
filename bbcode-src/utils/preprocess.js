@@ -10,7 +10,7 @@ function fenceCodeBlockPreprocess(content, data) {
   const hoistMap = {};
   let index = 0;
 
-  const addHoistAndReturnNewStartPoint = (cutOffStart, cutOffEnd, expected) => {
+  const addHoistAndReturnNewStartPoint = (cutOffStart, cutOffEnd, expected, trim = false) => {
     const uuid = generateGUID();
     if (cutOffEnd !== -1) {
       hoistMap[uuid] = content.substring(cutOffStart, cutOffEnd);
@@ -18,6 +18,14 @@ function fenceCodeBlockPreprocess(content, data) {
     } else {
       hoistMap[uuid] = content.substring(cutOffStart);
       content = content.substring(0, cutOffStart) + uuid + expected;
+    }
+    if (trim) {
+      if (hoistMap[uuid].startsWith("\n")) {
+        hoistMap[uuid] = hoistMap[uuid].substring(1);
+      }
+      if (hoistMap[uuid].endsWith("\n")) {
+        hoistMap[uuid] = hoistMap[uuid].substring(0, hoistMap[uuid].length - 1);
+      }
     }
     return cutOffStart + uuid.length + expected.length;
   };
@@ -27,14 +35,18 @@ function fenceCodeBlockPreprocess(content, data) {
     if (match.groups?.fence) {
       const fence = match.groups.fence;
       const fenceInfo = match.groups.fenceInfo;
+      if (content[index] === "\n") {
+        // Check if the fence is not at the start of the content
+        index += 1;
+      }
       const closingFenceRegex = new RegExp("\n" + fence + "(\n|$)"); // Find the next fence. By commonmark spec, it should be the same fence length and type
       const nextIndex = regexIndexOf(content, closingFenceRegex, index + fence.length);
 
       const uuid = generateGUID();
       if (nextIndex !== -1) {
-        hoistMap[uuid] = content.substring(index + fence.length + fenceInfo.length + 1, nextIndex);
+        hoistMap[uuid] = content.substring(index + fence.length + fenceInfo.length, nextIndex);
       } else {
-        hoistMap[uuid] = content.substring(index + fence.length + fenceInfo.length + 1);
+        hoistMap[uuid] = content.substring(index + fence.length + fenceInfo.length);
       }
       // inject bbcode tag before and after the code block. This is to prevent BBob plugin from injecting newlines
       const replacement = `[saveNL]\n${fence}${fenceInfo}${uuid}\n${fence}\n[/saveNL]`;
@@ -42,14 +54,13 @@ function fenceCodeBlockPreprocess(content, data) {
         content.substring(0, index) +
         replacement +
         (nextIndex !== -1 ? content.substring(nextIndex + 1 + fence.length) : "");
-
-      index = index + replacement.length + fence.length;
+      index = index + replacement.length;
     } else if (match.groups?.bbcode) {
       const bbcode = match.groups.bbcode;
       const bbcodeTag = match.groups.bbcodeTag.toLowerCase(); // coerce to lowercase for caseinsensitive matching
       const closingTag = `[/${bbcodeTag}]`;
       const nextIndex = content.toLowerCase().indexOf(closingTag, index + 1);
-      index = addHoistAndReturnNewStartPoint(index + bbcode.length, nextIndex, closingTag);
+      index = addHoistAndReturnNewStartPoint(index + bbcode.length, nextIndex, closingTag, true);
     } else if (match.groups.backtick) {
       const backtick = match.groups.backtick; // contains whole content
       const tickStart = match.groups.tickStart;
