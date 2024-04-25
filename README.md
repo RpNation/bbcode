@@ -51,6 +51,7 @@ The goal of this repo and plugin is to provide users with the BBCode suite that 
 - [x] Fieldsets
 - [x] Sides
 - [x] Tabs
+- [x] Accordions
 - [ ] Tables
 - [x] Center Block
 - [x] Background
