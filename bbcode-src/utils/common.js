@@ -53,6 +53,7 @@ const regexIndexOf = (string, regex, startpos) => {
 
 const MD_NEWLINE_INJECT = "<!-- bbcode injected newlines -->\n\n";
 const MD_NEWLINE_PRE_INJECT = "\n\n<!-- bbcode pre injected newlines -->";
+const MD_NEWLINE_INJECT_COMMENT = "<!-- bbcode injected newlines -->";
 
 const URL_REGEX =
   /(http|ftp|https|upload):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])/;
@@ -89,6 +90,7 @@ export {
   preprocessAttr,
   regexIndexOf,
   MD_NEWLINE_INJECT,
+  MD_NEWLINE_INJECT_COMMENT,
   MD_NEWLINE_PRE_INJECT,
   URL_REGEX,
   MD_URL_REGEX,
