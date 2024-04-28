@@ -1,4 +1,4 @@
-import { ESCAPABLES_REGEX, generateGUID, regexIndexOf } from "./common";
+import { ESCAPABLES_REGEX, MD_TABLE_REGEX, generateGUID, regexIndexOf } from "./common";
 
 /**
  * Find all code blocks and hoist them out of the content and into a map for later insertion
@@ -78,13 +78,30 @@ function fenceCodeBlockPreprocess(content, data) {
 }
 
 /**
+ * Find all markdown table blocks and mark them to ignore newlines
+ * @param {string} raw input to preprocess
+ * @returns processed string
+ */
+function mdTableBlockPreprocess(content, data) {
+  let index = 0;
+  while ((index = regexIndexOf(content, MD_TABLE_REGEX, index)) !== -1) {
+    const match = MD_TABLE_REGEX.exec(content.substring(index));
+    const table = match[0];
+    const replacement = `[saveNL]\n${table}\n[/saveNL]`;
+    content = content.substring(0, index) + replacement + content.substring(index + table.length);
+    index = index + replacement.length;
+  }
+  return [content, data];
+}
+
+/**
  * Preprocesses input to be formatted for bbob to intake. Handles any necessary functionality that BBob can't handle with a plugin (i.e. hoisting).
  * @param {string} raw input to preprocess
  * @returns formatted input for bbob to intake
  */
 export function preprocessRaw(raw) {
   let data = {};
-  const preprocessors = [fenceCodeBlockPreprocess];
+  const preprocessors = [fenceCodeBlockPreprocess, mdTableBlockPreprocess];
   for (const preprocessor of preprocessors) {
     [raw, data] = preprocessor(raw, data);
   }
