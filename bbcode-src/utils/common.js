@@ -62,6 +62,7 @@ const MD_URL_REGEX =
 const URL_REGEX_SINGLE_LINE = new RegExp(`^${URL_REGEX.source}|${MD_URL_REGEX.source}$`);
 const ESCAPABLES_REGEX =
   /((\n|^)(?<fence>```+|~~~+)(?<fenceInfo>.*\n))|(?<bbcode>\[(?<bbcodeTag>i?code|plain)(=.*)?\])|(?<backtick>(?<tickStart>`{1,2})(.*)(?<tickEnd>\k<tickStart>))/im;
+const MD_TABLE_REGEX = /^(\|[^\n]+\|\r?\n)((?:\|:?[-]+:?)+\|)(\n(?:\|[^\n]+\|\r?\n?)*)?$/m;
 
 /**
  * Generates a random GUID.
@@ -94,6 +95,7 @@ export {
   MD_NEWLINE_PRE_INJECT,
   URL_REGEX,
   MD_URL_REGEX,
+  MD_TABLE_REGEX,
   URL_REGEX_SINGLE_LINE,
   ESCAPABLES_REGEX,
 };
