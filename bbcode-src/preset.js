@@ -9,6 +9,7 @@ import { centerblock } from "./tags/centerblock";
 import { check } from "./tags/check";
 import { code, icode, savenl } from "./tags/code";
 import { color } from "./tags/color";
+import { comment } from "./tags/comment";
 import { divide } from "./tags/divide";
 import { fieldset } from "./tags/fieldset";
 import { font } from "./tags/font";
@@ -50,6 +51,7 @@ const tags = {
   check,
   code,
   color,
+  comment,
   divide,
   fieldset,
   font,
