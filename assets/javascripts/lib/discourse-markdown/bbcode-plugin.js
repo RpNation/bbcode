@@ -121,7 +121,6 @@ export function setup(helper) {
     "div.bb-float-left",
     "div.bb-float-right",
     "div.bb-height-restrict",
-    "div.bb-hidden",
     "div.bb-img",
     "div.bb-justify",
     "div.bb-left",

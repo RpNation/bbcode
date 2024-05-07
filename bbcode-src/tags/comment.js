@@ -7,7 +7,7 @@ import { toNode } from "../utils/common";
 
 const comment = (node) => {
     return toNode(
-        "div", {style: "display: none;", class: "bb-hidden",}, node.content,
+        "span", {class: "hidden" }, node.content,
     );
 };
 
