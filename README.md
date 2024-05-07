@@ -52,7 +52,7 @@ The goal of this repo and plugin is to provide users with the BBCode suite that 
 - [x] Sides
 - [x] Tabs
 - [x] Accordions
-- [ ] Tables
+- [x] ~~Tables~~ now using markdown tables
 - [x] Center Block
 - [x] Background
 - [x] Border
