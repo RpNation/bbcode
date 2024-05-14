@@ -43,7 +43,7 @@ const accordion = (node) => {
 
   if (attrs._default) {
     /** @type {string[]} */
-    const customSettings = attrs._default.split("|");
+    const customSettings = attrs._default.split("|").map((s) => s.trim());
     if (customSettings.includes("bright")) {
       attrs.bright = true;
     }
@@ -205,7 +205,8 @@ const slide = (node) => {
       .filter((t) => typeof t === "string")
       .join("")
       .toLowerCase()
-      .split("|");
+      .split("|")
+      .map((s) => s.trim());
     if (possibleOptions.includes("open")) {
       isOpen = true;
     }
