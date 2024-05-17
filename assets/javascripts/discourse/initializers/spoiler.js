@@ -71,7 +71,7 @@ class Spoiler {
       {
         duration: 200,
         easing: "ease-in-out",
-      },
+      }
     );
 
     // When the animation is complete, call onAnimationFinish()
@@ -112,7 +112,7 @@ class Spoiler {
       {
         duration: 200,
         easing: "ease-in-out",
-      },
+      }
     );
     // When the animation is complete, call onAnimationFinish()
     this.animation.onfinish = () => this.onAnimationFinish(true);
@@ -139,7 +139,7 @@ class Spoiler {
  * @param api
  */
 function initializeSpoiler(api) {
-  api.decorateCookedElement(addSpoilerCode, { id: "add spoilers" });
+  api.decorateCookedElement(addSpoilerCode, { id: "add spoilers", afterAdopt: true });
 }
 
 export default {

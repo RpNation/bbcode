@@ -30,6 +30,7 @@ function toggleInlineSpoiler(event) {
 function initializeSpoiler(api) {
   api.decorateCookedElement(addInlineSpoilerCode, {
     id: "add inline spoilers",
+    afterAdopt: true,
   });
 }
 

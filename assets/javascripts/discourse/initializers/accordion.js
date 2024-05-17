@@ -99,7 +99,7 @@ class Accordion {
       {
         duration: 400,
         easing: "linear",
-      },
+      }
     );
 
     // When the animation is complete, call onAnimationFinish()
@@ -149,7 +149,7 @@ class Accordion {
       {
         duration: 400,
         easing: "linear",
-      },
+      }
     );
     // When the animation is complete, call onAnimationFinish()
     slide.animation.onfinish = () => this.onAnimationFinish(true, slide);
@@ -180,7 +180,7 @@ class Accordion {
  * @param api
  */
 function initializeAccordion(api) {
-  api.decorateCookedElement(addAccordionCode, { id: "add accordions" });
+  api.decorateCookedElement(addAccordionCode, { id: "add accordions", afterAdopt: true });
 }
 
 export default {

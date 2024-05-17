@@ -50,6 +50,7 @@ function linkBuilder(data) {
 function initializeFont(api) {
   api.decorateCookedElement((elem) => addGoogleFont(elem), {
     id: "add google font",
+    afterAdopt: true,
   });
 }
 
