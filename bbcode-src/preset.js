@@ -92,7 +92,7 @@ const tags = {
 };
 
 const availableTags = Object.keys(tags);
-const preventParsing = ["plain", "code", "icode"];
+const preventParsing = ["plain", "code", "icode", "style"];
 
 const preset = createPreset(tags);
 

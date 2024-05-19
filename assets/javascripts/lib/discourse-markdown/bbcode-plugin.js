@@ -3,7 +3,7 @@
  * @param {string} raw content to preprocess into HTML
  * @returns processed HTML string to pass into markdown-it
  */
-function preprocessor(raw, opts) {
+function preprocessor(raw, opts, previewing = false) {
   // eslint-disable-next-line no-undef
   if (!bbcodeParser) {
     // parser doesn't exist. Something horrible has happened and somehow the parser wasn't imported/initialized
@@ -12,11 +12,12 @@ function preprocessor(raw, opts) {
     console.warn(
       "Attempted to get the bbcode parser: does not exist. Defaulting to standard markdown-it.",
       "\ncalled on: \n",
-      raw,
+      raw
     );
     return [raw, {}];
   }
   const parser = globalThis.bbcodeParser.RpNBBCode;
+  opts.previewing = previewing;
 
   const processed = parser(raw, opts);
   return [processed.html, processed.tree.options.data];
@@ -31,7 +32,7 @@ function postprocessor(raw, previewing = false, data = {}) {
     console.warn(
       "Attempted to get the bbcode parser: does not exist. Defaulting to standard markdown-it.",
       "\ncalled on: \n",
-      raw,
+      raw
     );
     return raw;
   }
@@ -67,12 +68,16 @@ export function setup(helper) {
             // if featuresOverride is set, we're in a chat message and should not preprocess
             return md.apply(this, [raw]);
           }
-          const [preprocessed, data] = preprocessor(raw, preprocessor_options);
+          const [preprocessed, data] = preprocessor(
+            raw,
+            preprocessor_options,
+            engine.options?.discourse?.previewing
+          );
           const processed = md.apply(this, [preprocessed]);
           const postprocessed = postprocessor(
             processed,
             engine.options?.discourse?.previewing,
-            data,
+            data
           );
           return postprocessed;
         };
