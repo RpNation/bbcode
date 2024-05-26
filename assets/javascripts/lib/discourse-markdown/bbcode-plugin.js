@@ -164,6 +164,7 @@ export function setup(helper) {
     "span.bb-highlight",
     "span.bb-inline-spoiler",
     "span.bb-pindent",
+    "span.hidden",
     "span[style=*]",
     "summary",
     "summary.bb-slide-title",
