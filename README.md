@@ -63,7 +63,7 @@ The goal of this repo and plugin is to provide users with the BBCode suite that 
 
 ## Media & Embeds
 
-- [ ] Google Docs(PDF)
+- [x] ~~Google Docs(PDF)~~ Switching to native iframes.
 - [x] Height Restrict
 - [x] Image
 - [x] ~~Challonge - Add as an iframe supported site in settings instead.~~
