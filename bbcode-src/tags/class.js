@@ -1,3 +1,4 @@
+import { isStringNode } from "@bbob/plugin-helper";
 import { preprocessAttr } from "../utils/common";
 
 /**
@@ -19,7 +20,9 @@ export const classStyle = (node, options) => {
   }
   const classSuffix = options.data.previewing ? "preview" : options.data.commonGUID;
   const className = nameAttr + "__" + classSuffix;
-  const content = node.content;
+  const content = node.content
+    .filter(isStringNode)
+    .map((s) => s.replaceAll("{post_id}", classSuffix).replaceAll(/[\[\]\{\}]/g, ""));
   let selector = "";
   const mediaQuery = [];
   if (

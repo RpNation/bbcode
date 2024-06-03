@@ -7,9 +7,28 @@ import loadscript from "discourse/lib/load-script";
  * @type {Array<{callback: function, on: string}>}
  */
 let attachedPreviewBBScripts = [];
+/** @type {WeakMap<Element, CallableFunction[]>} */
+const initBBScripts = new WeakMap();
 
-const PARENT_WRAPPER_SELECTOR = "article .cooked";
 const PARENT_PREVIEW_WRAPPER_CLASS = "d-editor-preview";
+
+const documentObserver = new IntersectionObserver(
+  (entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const post = entry.target;
+        const callback = initBBScripts.get(post);
+        callback?.forEach((c) => c());
+        initBBScripts.delete(post);
+        observer.unobserve(post);
+      }
+    });
+  },
+  {
+    threshold: 0,
+    rootMargin: "10px 0px 0px 0px",
+  },
+);
 
 /**
  * Check if the post is a preview. If it is a preview, debounce the function
@@ -31,7 +50,6 @@ function checkIsPreview(post) {
  * @param {HTMLElement} post the post itself
  */
 function addBBScriptLogic(post, isPreview = false) {
-  let wrapperSelector = isPreview ? "." + PARENT_PREVIEW_WRAPPER_CLASS : PARENT_WRAPPER_SELECTOR;
   if (isPreview) {
     attachedPreviewBBScripts.forEach(({ callback, on }) => {
       post.removeEventListener(on, callback, true);
@@ -62,7 +80,14 @@ function addBBScriptLogic(post, isPreview = false) {
       if (callerClass) {
         target = document.querySelectorAll("." + callerClass + "__" + callerId) || undefined;
       }
-      triggerBBScript(callerId, callerClass, astTree, version, target);
+      // only fire when the post is visible
+      if (!initBBScripts.has(post)) {
+        initBBScripts.set(post, []);
+      }
+      initBBScripts.get(post).push(() => {
+        triggerBBScript(callerId, callerClass, astTree, version, target);
+      });
+      documentObserver.observe(post);
     } else {
       const callback = (ev) => {
         const target = ev.target?.closest("." + callerClass + "__" + callerId);
@@ -71,7 +96,7 @@ function addBBScriptLogic(post, isPreview = false) {
         }
       };
       // event delegation
-      el.closest(wrapperSelector)?.addEventListener(on, callback, true);
+      post.addEventListener(on, callback, true);
       if (isPreview) {
         attachedPreviewBBScripts.push({ callback, on });
       }
@@ -103,16 +128,27 @@ const triggerBBScript = (callerId, callerClass, astTree, version, target) => {
 };
 
 function initializeBBScript(api) {
-  api.decorateCookedElement(checkIsPreview, { id: "add bbscript", afterAdopt: true });
+  const siteSettings = api.container.lookup("service:site-settings");
+  if (!siteSettings.enable_bbscript) {
+    return;
+  }
+
+  api.decorateCookedElement(
+    (post) => {
+      loadscript("/assets/bundled/bbscript-parser.min.js").then(() => {
+        checkIsPreview(post);
+      });
+    },
+    {
+      id: "add bbscript",
+      afterAdopt: true,
+    },
+  );
 }
 
 export default {
   name: "bbscript",
-  initialize(app) {
-    if (app.owner.SiteSettings.enable_bbscript) {
-      loadscript("/assets/bundled/bbcode-parser.min.js").then(() => {
-        withPluginApi("0.11.1", initializeBBScript);
-      });
-    }
+  initialize() {
+    withPluginApi("0.11.1", initializeBBScript);
   },
 };

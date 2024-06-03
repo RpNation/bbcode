@@ -40,11 +40,13 @@ import { accordionTags } from "./tags/accordion";
 import { div } from "./tags/div";
 import { classStyle } from "./tags/class";
 import { script } from "./tags/script";
+import { animation, keyframe } from "./tags/animation";
 
 const tags = {
   ...accordionTags,
   ...alignment,
   ...anchor,
+  animation,
   bg,
   block,
   blockquote,
@@ -73,6 +75,7 @@ const tags = {
   imagefloat,
   inlinespoiler,
   justify,
+  keyframe,
   mail,
   newspaper,
   nobr,
