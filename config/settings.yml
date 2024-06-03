@@ -24,8 +24,3 @@ plugins:
     client: true
     description:
       en: "Activate to enable BBScript support. See the github wiki for more information."
-  enable_bbcode_error_reporting:
-    default: true
-    client: true
-    description:
-      en: "Activate to enable BBCode error reporting. This will display a message in the composer window if there is an error in the BBCode."

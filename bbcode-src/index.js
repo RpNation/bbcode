@@ -11,9 +11,12 @@ const options = {
   onlyAllowTags: [...availableTags],
   contextFreeTags: preventParsing, // prevent parsing of children
   enableEscapeTags: true,
-  onError: (err) =>
-    // eslint-disable-next-line no-console
-    console.warn(err.message, err.lineNumber, err.columnNumber),
+  onError: (err) => {
+    if (options.previewing) {
+      // eslint-disable-next-line no-console
+      console.warn(err.message, err.lineNumber, err.columnNumber);
+    }
+  },
 };
 
 export const RpNBBCode = (code, opts) => {
