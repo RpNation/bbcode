@@ -19,3 +19,8 @@ plugins:
     description:
       en: "Activate to set repeating spaces (U+0020) to non-breaking spaces (U+00A0).
       Note that discourse_normalize_whitespace must be disabled to preserve non-breaking spaces."
+  enable_bbscript:
+    default: true
+    client: true
+    description:
+      en: "Activate to enable BBScript support. See the github wiki for more information."

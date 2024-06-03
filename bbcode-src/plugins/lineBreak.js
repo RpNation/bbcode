@@ -60,7 +60,7 @@ const walk = (t, disableLineBreakConversion = false) => {
     return [tree, MD_NEWLINE_PRE_INJECT];
   }
 
-  if (isEOL(tree)) {
+  if (isString(tree) && isEOL(tree)) {
     return disableLineBreakConversion
       ? ["\n", MD_NEWLINE_INJECT]
       : [{ tag: "br", content: null }, MD_NEWLINE_INJECT];

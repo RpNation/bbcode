@@ -37,6 +37,9 @@ import { inlinespoiler, spoiler } from "./tags/spoiler";
 import { textmessage } from "./tags/textmessage";
 import { tab, tabs } from "./tags/tabs";
 import { accordionTags } from "./tags/accordion";
+import { div } from "./tags/div";
+import { classStyle } from "./tags/class";
+import { script } from "./tags/script";
 
 const tags = {
   ...accordionTags,
@@ -49,9 +52,11 @@ const tags = {
   br,
   centerblock,
   check,
+  class: classStyle,
   code,
   color,
   comment,
+  div,
   divide,
   fieldset,
   font,
@@ -80,6 +85,7 @@ const tags = {
   thinprogress,
   savenl,
   sh,
+  script,
   scroll,
   side,
   size,
@@ -92,7 +98,7 @@ const tags = {
 };
 
 const availableTags = Object.keys(tags);
-const preventParsing = ["plain", "code", "icode", "style"];
+const preventParsing = ["plain", "code", "icode", "class"];
 
 const preset = createPreset(tags);
 
