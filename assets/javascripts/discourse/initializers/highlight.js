@@ -311,8 +311,8 @@ function markdownHighlight(hljs) {
   };
 
   return {
-    name: "Markdown",
-    aliases: ["md", "mkdown", "mkd"],
+    name: "markdown-bbcode",
+    aliases: ["md", "mkdown", "mkd", "md-bbcode", "md-bb"],
     contains: [
       HEADER,
       INLINE_HTML,
@@ -341,7 +341,7 @@ function markdownHighlight(hljs) {
  */
 function registerHighlightJs(api) {
   api.registerHighlightJSLanguage("bbcode", bbcodeHighlight);
-  api.registerHighlightJSLanguage("Markdown", markdownHighlight);
+  api.registerHighlightJSLanguage("markdown-bbcode", markdownHighlight);
 }
 
 export default {

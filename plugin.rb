@@ -49,7 +49,4 @@ after_initialize do
     end
     singleton_class.prepend Optional_normalize_whitespace
   end
-
-  # overrides the default markdown language definition in highlightjs so that plugin can register its own languages
-  SiteSetting.highlighted_languages = SiteSetting.highlighted_languages.sub("markdown|", "")
 end
