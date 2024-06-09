@@ -343,26 +343,6 @@ const setText = (options, text, target) => {
 };
 /**
  * @param {BBScriptOptions} options
- * @param {ASTNode | undefined} [target]
- * @returns {any}
- */
-const getVal = (options, target) => {
-  const targetEl = getJQueryEl(options, target);
-  return targetEl.val();
-};
-/**
- * @param {BBScriptOptions} options
- * @param {ASTNode} val
- * @param {ASTNode | undefined} [target]
- * @returns {void}
- */
-const setVal = (options, val, target) => {
-  const targetEl = getJQueryEl(options, target);
-  const newVal = val.resolveValue(options);
-  targetEl.val(newVal);
-};
-/**
- * @param {BBScriptOptions} options
  * @param {ASTNode | undefined} [duration]
  * @param {ASTNode | undefined} [target]
  * @returns {void}
@@ -841,8 +821,6 @@ export const bbscriptFunctions = {
   show,
   getText,
   setText,
-  getVal,
-  setVal,
   slideDown,
   slideUp,
   slideToggle,

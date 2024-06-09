@@ -135,32 +135,6 @@ export const setText = {
     getJQueryEl(target, options).text(input);
   },
 };
-export const getVal = {
-  params: [{ types: [bbscriptParamTypes.Identifier], default: null }],
-  func: (options, target) => {
-    return getJQueryEl(target, options).val();
-  },
-};
-export const setVal = {
-  params: [
-    {
-      types: [
-        bbscriptParamTypes.String,
-        bbscriptParamTypes.Function,
-        bbscriptParamTypes.Identifier,
-      ],
-    },
-    { types: [bbscriptParamTypes.Identifier], default: null },
-  ],
-  func: (options, input, target) => {
-    if (isAstNode(input)) {
-      input = options.processor.exec(input, options);
-    } else {
-      input = getStringVal(input, options);
-    }
-    getJQueryEl(target, options).val(input);
-  },
-};
 export const slideDown = {
   params: [
     { types: [bbscriptParamTypes.Int], default: 1000 },
@@ -406,8 +380,6 @@ export const bbscriptFunctions = {
   show,
   gettext: getText,
   settext: setText,
-  getval: getVal,
-  setVal,
   slidedown: slideDown,
   slideup: slideUp,
   slidetoggle: slideToggle,
