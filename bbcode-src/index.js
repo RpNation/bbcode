@@ -6,7 +6,6 @@ import { postprocess } from "./utils/postprocess";
 import { lineBreakPlugin } from "./plugins/lineBreak";
 import { preprocessRaw } from "./utils/preprocess";
 
-// TODO: Change error handling so active editing doesn't spam the console
 const options = {
   onlyAllowTags: [...availableTags],
   contextFreeTags: preventParsing, // prevent parsing of children

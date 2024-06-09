@@ -73,5 +73,12 @@ export const getStringVal = (str, options) => {
       return str.match(/^_(.*)_$/)?.[1] || str;
     }
   }
+  if (typeof str === "string" && str.match(/\$\{\w+\}/)) {
+    const matches = str.matchAll(/\$\{(\w+)\}/g);
+    for (const match of matches) {
+      const presumedValue = options.data?.[options.callerId]?.["_" + match[1] + "_"] || match[0];
+      str = str.replace(match[0], presumedValue);
+    }
+  }
   return str;
 };

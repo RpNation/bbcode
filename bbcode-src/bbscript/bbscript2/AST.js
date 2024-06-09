@@ -174,7 +174,17 @@ export class ASTQuotedString extends ASTNode {
    * @public
    * @returns {string}
    */
-  resolveValue() {
+  resolveValue(options) {
+    if (this.string.match(/\$\{\w+\}/)) {
+      // string interpolation. carryover from bbscript1
+      let str = this.string;
+      const matches = str.matchAll(/\$\{(\w+)\}/g);
+      for (const match of matches) {
+        const presumedValue = options.data?.[options.callerId]?.["_" + match[1] + "_"] || match[0];
+        str = str.replace(match[0], presumedValue);
+      }
+      return str;
+    }
     return this.string;
   }
 }
