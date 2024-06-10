@@ -153,7 +153,7 @@ export class BBScriptProcessor {
         if (braceVar) {
           [value, idx] = this.getEnclosedParameter(params, ++idx, "}");
         }
-      } else {
+      } else if (params[idx]) {
         // no clue what token is
         value = params.substring(idx).split(/\s+/, 2)[0];
         idx += value.length;

@@ -332,7 +332,11 @@ export const dec = {
   ],
   func: (options, id, amount = 1) => {
     try {
-      options.data[id] -= amount;
+      const callerId = options.callerId || "";
+      if (!(callerId in options.data)) {
+        options.data[callerId] = {};
+      }
+      options.data[callerId][id] -= amount;
     } catch (e) {
       ConsoleLogger.warn(`${id} is not a number`, e);
     }
@@ -346,7 +350,11 @@ export const inc = {
   ],
   func: (options, id, amount = 1) => {
     try {
-      options.data[id] += amount;
+      const callerId = options.callerId || "";
+      if (!(callerId in options.data)) {
+        options.data[callerId] = {};
+      }
+      options.data[callerId][id] += amount;
     } catch (e) {
       ConsoleLogger.warn(`${id} is not a number`, e);
     }
