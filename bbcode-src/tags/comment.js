@@ -6,9 +6,7 @@ import { toNode } from "../utils/common";
  */
 
 const comment = (node) => {
-    return toNode(
-        "span", {class: "hidden" }, node.content,
-    );
+  return toNode("span", { class: "hidden" }, node.content);
 };
 
 export { comment };

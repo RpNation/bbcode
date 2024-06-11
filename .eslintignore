@@ -1,1 +1,3 @@
-/assets/bundled/bbcode-parser.min.js
+/assets/bundled/**.js
+rollup.config.js
+**.gjs

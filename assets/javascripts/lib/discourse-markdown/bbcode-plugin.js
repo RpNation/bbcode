@@ -3,7 +3,7 @@
  * @param {string} raw content to preprocess into HTML
  * @returns processed HTML string to pass into markdown-it
  */
-function preprocessor(raw, opts) {
+function preprocessor(raw, opts, previewing = false) {
   // eslint-disable-next-line no-undef
   if (!bbcodeParser) {
     // parser doesn't exist. Something horrible has happened and somehow the parser wasn't imported/initialized
@@ -17,6 +17,7 @@ function preprocessor(raw, opts) {
     return [raw, {}];
   }
   const parser = globalThis.bbcodeParser.RpNBBCode;
+  opts.previewing = previewing;
 
   const processed = parser(raw, opts);
   return [processed.html, processed.tree.options.data];
@@ -67,7 +68,11 @@ export function setup(helper) {
             // if featuresOverride is set, we're in a chat message and should not preprocess
             return md.apply(this, [raw]);
           }
-          const [preprocessed, data] = preprocessor(raw, preprocessor_options);
+          const [preprocessed, data] = preprocessor(
+            raw,
+            preprocessor_options,
+            engine.options?.discourse?.previewing,
+          );
           const processed = md.apply(this, [preprocessed]);
           const postprocessed = postprocessor(
             processed,
@@ -94,6 +99,10 @@ export function setup(helper) {
     md.renderer.rules.paragraph_close = function () {
       return "";
     };
+
+    // this rule is where an indent (space/indent) is converted to a code block
+    // rarely used in the wild, but it's a common source of confusion
+    md.disable("code");
   });
 
   helper.allowList([
@@ -168,6 +177,12 @@ export function setup(helper) {
     "span[style=*]",
     "summary",
     "summary.bb-slide-title",
+    "template[data-bbcode-plus=class]",
+    "template[data-bbcode-plus=script]",
+    "template[data-bbscript-id=*]",
+    "template[data-bbscript-class=*]",
+    "template[data-bbscript-on=*]",
+    "template[data-bbscript-ver=*]",
   ]);
 
   helper.allowList({
@@ -203,6 +218,14 @@ export function setup(helper) {
       }
       if (tag === "summary" && name === "style") {
         return true;
+      }
+
+      // custom attr allowlist for div style scripts
+      if (tag === "div" && name === "class" && value.includes("__preview")) {
+        return value.split(" ").every((c) => c.endsWith("__preview"));
+      }
+      if (tag === "div" && name === "class" && value.includes("__post-")) {
+        return value.split(" ").every((c) => c.includes("__post-"));
       }
 
       return false;

@@ -92,11 +92,7 @@ Inside the discourse directory, run
 ```bash
 d/boot_dev -p
 
-# In one terminal:
-d/rails s
-
-# And in a separate terminal
-d/ember-cli
+d/ember-cli -u
 ```
 
 To kill the container

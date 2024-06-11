@@ -6,18 +6,21 @@ import { postprocess } from "./utils/postprocess";
 import { lineBreakPlugin } from "./plugins/lineBreak";
 import { preprocessRaw } from "./utils/preprocess";
 
-// TODO: Change error handling so active editing doesn't spam the console
 const options = {
   onlyAllowTags: [...availableTags],
   contextFreeTags: preventParsing, // prevent parsing of children
   enableEscapeTags: true,
-  onError: (err) =>
-    // eslint-disable-next-line no-console
-    console.warn(err.message, err.lineNumber, err.columnNumber),
+  onError: (err) => {
+    if (options.previewing) {
+      // eslint-disable-next-line no-console
+      console.warn(err.message, err.lineNumber, err.columnNumber);
+    }
+  },
 };
+const presetTags = preset();
 
 export const RpNBBCode = (code, opts) => {
-  const plugins = [preset()];
+  const plugins = [presetTags];
   if (opts.preserveWhitespace) {
     plugins.push(preserveWhitespace());
   }
@@ -28,7 +31,10 @@ export const RpNBBCode = (code, opts) => {
     ...options,
     data: {
       ...preprocessedData,
+      previewing: opts.previewing,
       fonts: new Set(),
+      styles: [],
+      bbscripts: [],
     },
   });
 };
