@@ -5,7 +5,7 @@ import { preprocessAttr } from "../utils/common";
  * Class style tag
  *
  * [class=name]content[/class]
- * [class name="className" state="psuedo-class" theme="light|dark" minWidth="" maxWidth=""]content[/class]
+ * [class name="className" state="psuedo-class" minWidth="" maxWidth=""]content[/class]
  * [class name="className" selector=""]content[/class]
  */
 export const classStyle = (node, options) => {

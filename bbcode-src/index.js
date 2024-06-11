@@ -17,9 +17,10 @@ const options = {
     }
   },
 };
+const presetTags = preset();
 
 export const RpNBBCode = (code, opts) => {
-  const plugins = [preset()];
+  const plugins = [presetTags];
   if (opts.preserveWhitespace) {
     plugins.push(preserveWhitespace());
   }
