@@ -16,7 +16,7 @@ const EVENTS = [
  *
  * [script]content[/script]
  *
- * [script class="id" on="event" version=""]content[/script]
+ * [script class="id" on="event" version="2"]content[/script]
  */
 export const script = (node, options) => {
   const attrs = preprocessAttr(node.attrs);
@@ -36,7 +36,7 @@ export const script = (node, options) => {
     id: classSuffix,
     class: attrs.class || "",
     on: onEvent,
-    version: attrs.version || "1",
+    version: attrs.version || "",
     content: node.content.join(""),
   };
   options.data.bbscripts.push(scriptSetup);

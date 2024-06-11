@@ -61,10 +61,15 @@ function addBBScriptLogic(post, isPreview = false) {
   post.querySelectorAll("template[data-bbcode-plus='script']").forEach((el) => {
     const callerId = el.getAttribute("data-bbscript-id") || "";
     const callerClass = el.getAttribute("data-bbscript-class") || "";
+    /** @type {string} */
     const content = el.content.textContent || "";
-    const version = el.getAttribute("data-bbscript-ver") || "1";
+    const version = el.getAttribute("data-bbscript-ver") || "";
     const on = el.getAttribute("data-bbscript-on") || "init"; // valid on events: init, click, mouseover, mouseout, etc.
     let astTree;
+    if (version === "") {
+      // unknown version. check for unique () style of bbscript2
+      version = content.split("\n").some((line) => line.trim().startsWith("(")) ? "2" : "1";
+    }
     if (version === "2") {
       const parsed = bbscriptParser.bbscript2Parser.parse(content);
       astTree = parsed.ast;
