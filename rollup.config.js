@@ -8,11 +8,9 @@ export default [
       file: "assets/bundled/bbcode-parser.min.js",
       name: "bbcodeParser",
       format: "umd",
+      sourcemap: true,
     },
-    plugins: [
-      nodeResolve(),
-      // terser({ format: { preamble: "/* Source code in bbcode-src */" } }),
-    ],
+    plugins: [nodeResolve(), terser({ format: { preamble: "/* Source code in bbcode-src */" } })],
     watch: {
       include: "bbcode-src/**",
       exclude: "bbcode-src/bbscript/**",
@@ -24,10 +22,11 @@ export default [
       file: "assets/bundled/bbscript-parser.min.js",
       name: "bbscriptParser",
       format: "umd",
+      sourcemap: true,
     },
     plugins: [
       nodeResolve(),
-      // terser({ format: { preamble: "/* Source code in bbcode-src/bbscript */" } }),
+      terser({ format: { preamble: "/* Source code in bbcode-src/bbscript */" } }),
     ],
     watch: {
       include: "bbcode-src/bbscript/**",
