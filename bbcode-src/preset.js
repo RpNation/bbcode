@@ -41,6 +41,7 @@ import { div } from "./tags/div";
 import { classStyle } from "./tags/class";
 import { script } from "./tags/script";
 import { animation, keyframe } from "./tags/animation";
+import { bold, italic, strike, underline } from "./tags/discourse-core-replacement";
 
 const tags = {
   ...accordionTags,
@@ -98,6 +99,12 @@ const tags = {
   tab,
   tabs,
   ...textmessage,
+
+  // discourse core replacement tags
+  b: bold,
+  i: italic,
+  u: underline,
+  s: strike,
 };
 
 const availableTags = Object.keys(tags);
