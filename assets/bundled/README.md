@@ -5,4 +5,9 @@ Contents in this file are bundled files that will be manually loaded in discours
 ## Files
 
 - `./bbcode-parser.min.js` - source in [/bbcode-src](/bbcode-src)
-- `./bbscript-parser.min.js` - source in [/bbcode-src/bbscript](/bbcode-src/bbscript)
+
+## Notes
+
+`bbcode-parser.min.js` is in this directory since it is required for server side js.
+
+`bbscript-parser.min.js` is in [/public/javascripts](/public/javascripts) to allow for lazy load/settings check.
