@@ -19,7 +19,7 @@ export default [
   {
     input: "bbcode-src/bbscript/index.js",
     output: {
-      file: "assets/bundled/bbscript-parser.min.js",
+      file: "public/javascripts/bbscript-parser.min.js",
       name: "bbscriptParser",
       format: "umd",
       sourcemap: true,

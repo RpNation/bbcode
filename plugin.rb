@@ -12,8 +12,6 @@ enabled_site_setting :bbcode_enabled
 register_asset "bundled/bbcode-parser.min.js", :vendored_pretty_text
 register_asset "bundled/bbcode-parser.min.js"
 register_asset "bundled/bbcode-parser.min.js.map"
-register_asset "bundled/bbscript-parser.min.js"
-register_asset "bundled/bbscript-parser.min.js.map"
 register_asset "stylesheets/common/index.scss"
 
 add_admin_route "bbcode.title", "bbcode"

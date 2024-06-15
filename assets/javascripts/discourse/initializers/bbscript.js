@@ -140,7 +140,7 @@ function initializeBBScript(api) {
 
   api.decorateCookedElement(
     (post) => {
-      loadscript("/assets/bundled/bbscript-parser.min.js").then(() => {
+      loadscript("/plugins/bbcode/javascripts/bbscript-parser.min.js").then(() => {
         checkIsPreview(post);
       });
     },
