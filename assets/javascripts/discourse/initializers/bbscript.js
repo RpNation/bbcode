@@ -63,7 +63,7 @@ function addBBScriptLogic(post, isPreview = false) {
     const callerClass = el.getAttribute("data-bbscript-class") || "";
     /** @type {string} */
     const content = el.content.textContent || "";
-    const version = el.getAttribute("data-bbscript-ver") || "";
+    let version = el.getAttribute("data-bbscript-ver") || "";
     const on = el.getAttribute("data-bbscript-on") || "init"; // valid on events: init, click, mouseover, mouseout, etc.
     let astTree;
     if (version === "") {
