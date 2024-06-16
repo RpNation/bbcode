@@ -1,11 +1,15 @@
+import loadscript from "discourse/lib/load-script";
+
 export default {
   name: "bbcode-parser-init",
   initialize() {
     if (window.bbcodeParser) {
       return;
     } else {
-      // eslint-disable-next-line no-console
-      console.warn("bbcode parser not found. Expected to be loaded via plugin.rb");
+      loadscript("/assets/bundled/bbcode-parser.min.js").then(() => {
+        // eslint-disable-next-line no-console
+        console.info("BBCode parser loaded for preview.");
+      });
     }
   },
 };
