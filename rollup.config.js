@@ -9,7 +9,11 @@ export default [
       name: "bbcodeParser",
       format: "umd",
       sourcemap: true,
+      globals: {
+        jquery: "$",
+      },
     },
+    external: ["jquery"],
     plugins: [nodeResolve(), terser({ format: { preamble: "/* Source code in bbcode-src */" } })],
     watch: {
       include: "bbcode-src/**",
@@ -23,7 +27,11 @@ export default [
       name: "bbscriptParser",
       format: "umd",
       sourcemap: true,
+      globals: {
+        jquery: "$",
+      },
     },
+    external: ["jquery"],
     plugins: [
       nodeResolve(),
       terser({ format: { preamble: "/* Source code in bbcode-src/bbscript */" } }),

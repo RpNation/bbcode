@@ -2,6 +2,7 @@
 /** @typedef {import('./utils').bbscriptFunc} bbscriptFunc */
 /** @typedef {import('./utils').bbscriptFuncMap} bbscriptFuncMap */
 /** @typedef {import('./processor').bbscriptOptions} bbscriptOptions */
+import $ from "jquery";
 import { bbscriptParamTypes, getStringVal, isAstNode } from "./utils";
 import { ConsoleLogger } from "../logger";
 
