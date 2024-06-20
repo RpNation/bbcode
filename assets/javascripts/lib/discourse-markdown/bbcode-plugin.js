@@ -187,6 +187,11 @@ export function setup(helper) {
 
   helper.allowList({
     custom: (tag, name, value) => {
+      // custom attr allowlist for anchor tags
+      if (tag === "a" && name === "id" && value.startsWith("user-anchor-")) {
+        return true;
+      }
+
       // custom attr allowlist for tabs
       if (tag === "input" && name === "type" && value === "radio") {
         return true;
