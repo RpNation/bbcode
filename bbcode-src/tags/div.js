@@ -6,10 +6,14 @@ import { preprocessAttr, toNode } from "../utils/common";
  * [div class="class" style="css"]Content[/div]
  */
 export const div = (node, options) => {
+  if (node.gen) {
+    // node is actually a generated node "div" made by another tag
+    // don't process it
+    return node;
+  }
   const attrs = preprocessAttr(node.attrs);
   const style = attrs.style || attrs._default;
   const classAttrs = attrs.class;
-
   if (!classAttrs?.trim()) {
     return toNode(
       "div",

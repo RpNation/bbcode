@@ -20,25 +20,10 @@ export const spoiler = (node) => {
    *  </div>
    * </details>
    */
-  return {
-    tag: "details",
-    attrs: {
-      class: "bb-spoiler",
-    },
-    content: [
-      {
-        tag: "summary",
-        content: title,
-      },
-      {
-        tag: "div",
-        attrs: {
-          class: "bb-spoiler-content",
-        },
-        content: node.content,
-      },
-    ],
-  };
+  return toNode("details", { class: "bb-spoiler" }, [
+    toNode("summary", {}, title),
+    toNode("div", { class: "bb-spoiler-content" }, node.content),
+  ]);
 };
 
 export const inlinespoiler = (node) => {

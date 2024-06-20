@@ -227,25 +227,14 @@ const slide = (node) => {
     });
   }
   return [
-    {
-      tag: "details",
-      attrs: { class: "bb-slide", open: isOpen },
-      content: [
-        {
-          tag: "summary",
-          attrs: {
-            class: "bb-slide-title",
-            style: `text-align: ${titleAlign}; ${attrs.style || ""}`,
-          },
-          content: title,
-        },
-        {
-          tag: "div",
-          attrs: { class: "bb-slide-content" },
-          content: node.content,
-        },
-      ],
-    },
+    toNode("details", { class: "bb-slide", open: isOpen }, [
+      toNode(
+        "summary",
+        { class: "bb-slide-title", style: `text-align: ${titleAlign}; ${attrs.style || ""}` },
+        title,
+      ),
+      toNode("div", { class: "bb-slide-content" }, node.content),
+    ]),
   ];
 };
 

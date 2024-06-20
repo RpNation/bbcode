@@ -1,4 +1,4 @@
-import { preprocessAttr } from "../utils/common";
+import { preprocessAttr, toNode } from "../utils/common";
 
 /**
  * @file Adds textmessage to bbcode
@@ -10,36 +10,12 @@ export const textmessage = {
   textmessage: (node) => {
     const attr = preprocessAttr(node.attrs)._default || "Recipient";
     const recipient = attr && attr.trim() !== "" ? attr : "Recipient";
-    return {
-      tag: "div",
-      attrs: {
-        class: "bb-textmessage",
-      },
-      content: [
-        {
-          tag: "div",
-          attrs: {
-            class: "bb-textmessage-name",
-          },
-          content: recipient,
-        },
-        {
-          tag: "div",
-          attrs: {
-            class: "bb-textmessage-overflow",
-          },
-          content: [
-            {
-              tag: "div",
-              attrs: {
-                class: "bb-textmessage-content",
-              },
-              content: node.content,
-            },
-          ],
-        },
-      ],
-    };
+    return toNode("div", { class: "bb-textmessage" }, [
+      toNode("div", { class: "bb-textmessage-name" }, recipient),
+      toNode("div", { class: "bb-textmessage-overflow" }, [
+        toNode("div", { class: "bb-textmessage-content" }, node.content),
+      ]),
+    ]);
   },
   message: (node) => {
     let option = preprocessAttr(node.attrs)._default.toLowerCase();
@@ -51,20 +27,8 @@ export const textmessage = {
     }
 
     const senderAttrs = option === "me" ? "bb-message-me" : "bb-message-them";
-    return {
-      tag: "div",
-      attrs: {
-        class: senderAttrs,
-      },
-      content: [
-        {
-          tag: "div",
-          attrs: {
-            class: "bb-message-content",
-          },
-          content: node.content,
-        },
-      ],
-    };
+    return toNode("div", { class: senderAttrs }, [
+      toNode("div", { class: "bb-message-content" }, node.content),
+    ]);
   },
 };
