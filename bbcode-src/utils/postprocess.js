@@ -1,4 +1,4 @@
-import { MD_NEWLINE_INJECT, MD_NEWLINE_PRE_INJECT } from "./common";
+import { MD_NEWLINE_INJECT, MD_NEWLINE_INJECT_COMMENT, MD_NEWLINE_PRE_INJECT } from "./common";
 
 /**
  * Post Processing designed to fix issues with Markdown and BBCode that the parser can't fix.
@@ -8,8 +8,10 @@ import { MD_NEWLINE_INJECT, MD_NEWLINE_PRE_INJECT } from "./common";
  * @returns post processed string
  */
 function removeNewlineInjects(raw) {
-  const processed = raw.replaceAll(MD_NEWLINE_INJECT, "").replaceAll(MD_NEWLINE_PRE_INJECT, ""); // Remove all instances of the injected newline
-
+  const processed = raw
+    .replaceAll(MD_NEWLINE_INJECT, "")
+    .replaceAll(MD_NEWLINE_PRE_INJECT, "")
+    .replaceAll(MD_NEWLINE_INJECT_COMMENT, ""); // Remove all instances of the injected newline
   return processed;
 }
 
@@ -34,10 +36,10 @@ function renderHoistedCodeBlocks(raw, data) {
  * @returns final processed string
  */
 export function postprocess(raw, data) {
-  let final = "";
+  let final = raw;
   const postprocessors = [removeNewlineInjects, renderHoistedCodeBlocks];
   for (const postprocessor of postprocessors) {
-    final = postprocessor(raw, data);
+    final = postprocessor(final, data);
   }
   return final;
 }

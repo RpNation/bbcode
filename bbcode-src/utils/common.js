@@ -53,6 +53,7 @@ const regexIndexOf = (string, regex, startpos) => {
 
 const MD_NEWLINE_INJECT = "<!-- bbcode injected newlines -->\n\n";
 const MD_NEWLINE_PRE_INJECT = "\n\n<!-- bbcode pre injected newlines -->";
+const MD_NEWLINE_INJECT_COMMENT = "<!-- bbcode injected newlines -->";
 
 const URL_REGEX =
   /(http|ftp|https|upload):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])/;
@@ -61,6 +62,7 @@ const MD_URL_REGEX =
 const URL_REGEX_SINGLE_LINE = new RegExp(`^${URL_REGEX.source}|${MD_URL_REGEX.source}$`);
 const ESCAPABLES_REGEX =
   /((\n|^)(?<fence>```+|~~~+)(?<fenceInfo>.*\n))|(?<bbcode>\[(?<bbcodeTag>i?code|plain)(=.*)?\])|(?<backtick>(?<tickStart>`{1,2})(.*)(?<tickEnd>\k<tickStart>))/im;
+const MD_TABLE_REGEX = /^(\|[^\n]+\|\r?\n)((?:\| ?:?[-]+:? ?)+\|)(\n(?:\|[^\n]+\|\r?\n?)*)?$/m;
 
 /**
  * Generates a random GUID.
@@ -89,9 +91,11 @@ export {
   preprocessAttr,
   regexIndexOf,
   MD_NEWLINE_INJECT,
+  MD_NEWLINE_INJECT_COMMENT,
   MD_NEWLINE_PRE_INJECT,
   URL_REGEX,
   MD_URL_REGEX,
+  MD_TABLE_REGEX,
   URL_REGEX_SINGLE_LINE,
   ESCAPABLES_REGEX,
 };
