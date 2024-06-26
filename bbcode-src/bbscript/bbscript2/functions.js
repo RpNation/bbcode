@@ -3,6 +3,7 @@
 /** @typedef {import('./utils').BBScriptReturnTypes} BBScriptReturnTypes */
 /** @typedef {import('./AST').ASTNode} ASTNode */
 /** @typedef {import('./processor').BBScriptOptions} BBScriptOptions */
+import $ from "jquery";
 import { ASTError } from "./ASTError";
 import { ASTIdentifier } from "./AST";
 import { ConsoleLogger } from "../logger";
@@ -224,7 +225,6 @@ const each = (options, arr, func, token) => {
 /**
  * @param {BBScriptOptions} options
  * @param {ASTNode | undefined} [target]
- * @returns {any}
  */
 const getJQueryEl = (options, target) => {
   if (target !== undefined) {
@@ -257,6 +257,15 @@ const removeClass = (options, oldClass, target) => {
   className &&= className + "__" + options.callerId;
   const targetEl = getJQueryEl(options, target);
   targetEl.removeClass(className);
+};
+/**
+ * Scroll the target element into view
+ * @param {BBScriptOptions} options
+ * @param {ASTNode | undefined} target
+ */
+const scrollIntoView = (options, target) => {
+  const targetEl = getJQueryEl(options, target);
+  targetEl[0].scrollIntoView();
 };
 /**
  * @param {BBScriptOptions} options
@@ -814,6 +823,7 @@ export const bbscriptFunctions = {
   each,
   addClass,
   removeClass,
+  scrollIntoView,
   fadeIn,
   fadeOut,
   fadeToggle,
