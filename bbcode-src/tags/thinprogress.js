@@ -1,4 +1,3 @@
-
 import { preprocessAttr, toNode } from "../utils/common";
 
 /**
@@ -6,33 +5,10 @@ import { preprocessAttr, toNode } from "../utils/common";
  * @exmaple [thinprogress=percentageInt]content[/progthinprogressress]
  */
 export const thinprogress = (node) => {
-    const percentageInt = preprocessAttr(node.attrs)._default;
-    return {
-        tag: "div",
-        attrs: {
-          class: "bb-progress-thin",
-        },
-        content: [
-          {
-            tag: "div",
-            attrs: {
-              class: "bb-progress-text"
-            },
-            content: node.content
-          },
-          {
-            tag: "div",
-            attrs: {
-              class: "bb-progress-bar",
-              style: `width: calc(${percentageInt}% - 6px)`
-            }
-          },
-          {
-            tag: "div",
-            attrs: {
-              class: "bb-progress-bar-other"
-            }
-          }
-        ],
-      };
-}
+  const percentageInt = preprocessAttr(node.attrs)._default;
+  return toNode("div", { class: "bb-progress-thin" }, [
+    toNode("div", { class: "bb-progress-text" }, node.content),
+    toNode("div", { class: "bb-progress-bar", style: `width: calc(${percentageInt}% - 6px)` }, ""),
+    toNode("div", { class: "bb-progress-bar-other" }, ""),
+  ]);
+};
