@@ -38,11 +38,17 @@ import { inlinespoiler, spoiler } from "./tags/spoiler";
 import { textmessage } from "./tags/textmessage";
 import { tab, tabs } from "./tags/tabs";
 import { accordionTags } from "./tags/accordion";
+import { div } from "./tags/div";
+import { classStyle } from "./tags/class";
+import { script } from "./tags/script";
+import { animation, keyframe } from "./tags/animation";
+import { bold, italic, strike, underline } from "./tags/discourse-core-replacement";
 
 const tags = {
   ...accordionTags,
   ...alignment,
   ...anchor,
+  animation,
   bg,
   block,
   blockquote,
@@ -50,9 +56,11 @@ const tags = {
   br,
   centerblock,
   check,
+  class: classStyle,
   code,
   color,
   comment,
+  div,
   divide,
   fieldset,
   font,
@@ -69,6 +77,7 @@ const tags = {
   imagefloat,
   inlinespoiler,
   justify,
+  keyframe,
   mail,
   newspaper,
   nobr,
@@ -82,6 +91,7 @@ const tags = {
   thinprogress,
   savenl,
   sh,
+  script,
   scroll,
   side,
   size,
@@ -91,10 +101,16 @@ const tags = {
   tab,
   tabs,
   ...textmessage,
+
+  // discourse core replacement tags
+  b: bold,
+  i: italic,
+  u: underline,
+  s: strike,
 };
 
 const availableTags = Object.keys(tags);
-const preventParsing = ["plain", "code", "icode"];
+const preventParsing = ["plain", "code", "icode", "class"];
 
 const preset = createPreset(tags);
 

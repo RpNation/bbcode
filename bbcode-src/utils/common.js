@@ -1,7 +1,29 @@
-const toNode = (tag, attrs, content) => ({
+/**
+ * Generate the node object.
+ *
+ * Contains additional logic to help break any unintended side effects of the top down parsing of bbob.
+ * @param {string} tag name of the tag
+ * @param {Object<string, boolean|string|string[]>} attrs attributes of the tag
+ * @param {any} content contents of the tag. `[]` will create an empty tag. `null` will create a self closing tag
+ *
+ * @example
+ * ```
+ * toNode("div", { class: "class" }, "content")
+ * ```
+ * becomes
+ * ```
+ * {
+ *  tag: "div",
+ *  attrs: { class: "class" },
+ *  content: "content",
+ *  gen: true,
+ * }
+ */
+const toNode = (tag, attrs, content = []) => ({
   tag,
   attrs,
   content,
+  gen: true,
 });
 
 /**

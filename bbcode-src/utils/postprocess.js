@@ -11,6 +11,8 @@ function removeNewlineInjects(raw) {
   const processed = raw
     .replaceAll(MD_NEWLINE_INJECT, "")
     .replaceAll(MD_NEWLINE_PRE_INJECT, "")
+    .replaceAll("\n" + MD_NEWLINE_INJECT_COMMENT, "")
+    .replaceAll(MD_NEWLINE_INJECT_COMMENT + "\n", "")
     .replaceAll(MD_NEWLINE_INJECT_COMMENT, ""); // Remove all instances of the injected newline
   return processed;
 }
@@ -30,6 +32,44 @@ function renderHoistedCodeBlocks(raw, data) {
 }
 
 /**
+ * Setups the class style tag template for the post
+ * @param {string} raw
+ * @param {{styles: string[]}} data - contains styles array
+ * @returns string
+ */
+function createClassStyleTagTemplate(raw, data) {
+  if (data.styles.length === 0) {
+    return raw;
+  }
+  const template = '<template data-bbcode-plus="class">' + data.styles.join("\n") + "</template>";
+  return template + raw;
+}
+
+/**
+ * Setups the script tag template for the post
+ * @param {string} raw
+ * @param {{
+ *  bbscripts: {
+ *    id: string,
+ *    class: string,
+ *    on: string,
+ *    version: string,
+ *    content: string
+ *  }[]}} data - contains scripts array
+ * @returns string
+ */
+function createScriptTagTemplate(raw, data) {
+  if (data.bbscripts.length === 0) {
+    return raw;
+  }
+  const templates = data.bbscripts.map(
+    (s) =>
+      `<template data-bbcode-plus="script" data-bbscript-id="${s.id}" data-bbscript-class="${s.class}" data-bbscript-on="${s.on}" data-bbscript-ver="${s.version}">${s.content}</template>`,
+  );
+  return templates.join("") + raw;
+}
+
+/**
  * Performs post processing on the raw string to address any necessary functionality that BBob/MD can't handle with a plugin (i.e. hoisting).
  * @param {string} raw processed input from after bbob and md
  * @param {any} data from bbob data
@@ -37,7 +77,12 @@ function renderHoistedCodeBlocks(raw, data) {
  */
 export function postprocess(raw, data) {
   let final = raw;
-  const postprocessors = [removeNewlineInjects, renderHoistedCodeBlocks];
+  const postprocessors = [
+    removeNewlineInjects,
+    createClassStyleTagTemplate,
+    createScriptTagTemplate,
+    renderHoistedCodeBlocks,
+  ];
   for (const postprocessor of postprocessors) {
     final = postprocessor(final, data);
   }

@@ -1,4 +1,4 @@
-import { preprocessAttr } from "../utils/common";
+import { preprocessAttr, toNode } from "../utils/common";
 
 /**
  * @file Adds [blockquote] to bbcode
@@ -7,40 +7,12 @@ import { preprocessAttr } from "../utils/common";
 export const blockquote = (node) => {
   const author = preprocessAttr(node.attrs)._default || "";
 
-  return {
-    tag: "div",
-    attrs: {
-      class: "bb-blockquote",
-    },
-    content: [
-      {
-        tag: "div",
-        attrs: {
-          class: "bb-blockquote-left",
-        },
-      },
-      {
-        tag: "div",
-        attrs: {
-          class: "bb-blockquote-content",
-        },
-        content: [
-          node.content,
-          {
-            tag: "div",
-            attrs: {
-              class: "bb-blockquote-speaker",
-            },
-            content: `${author !== "" ? `- ${author}` : ""}`,
-          },
-        ],
-      },
-      {
-        tag: "div",
-        attrs: {
-          class: "bb-blockquote-right",
-        },
-      },
-    ],
-  };
+  return toNode("div", { class: "bb-blockquote" }, [
+    toNode("div", { class: "bb-blockquote-left" }),
+    toNode("div", { class: "bb-blockquote-content" }, [
+      node.content,
+      toNode("div", { class: "bb-blockquote-speaker" }, author !== "" ? `- ${author}` : ""),
+    ]),
+    toNode("div", { class: "bb-blockquote-right" }),
+  ]);
 };

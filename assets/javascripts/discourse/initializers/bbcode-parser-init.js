@@ -5,11 +5,11 @@ export default {
   initialize() {
     if (window.bbcodeParser) {
       return;
+    } else {
+      loadscript("/assets/bundled/bbcode-parser.min.js").then(() => {
+        // eslint-disable-next-line no-console
+        console.info("BBCode parser loaded for preview.");
+      });
     }
-
-    loadscript("/assets/bundled/bbcode-parser.min.js").then(() => {
-      // eslint-disable-next-line no-console
-      console.debug("bbcode-parser loaded");
-    });
   },
 };
