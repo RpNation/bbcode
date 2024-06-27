@@ -27,6 +27,7 @@ import { pindent } from "./tags/pindent";
 import { plain } from "./tags/plain";
 import { print } from "./tags/print";
 import { progress } from "./tags/progress";
+import { rowcolumn } from './tags/rowcolumn';
 import { thinprogress } from "./tags/thinprogress";
 import { scroll } from "./tags/scroll";
 import { side } from "./tags/side";
@@ -86,6 +87,7 @@ const tags = {
   plain,
   print,
   progress,
+  ...rowcolumn,
   thinprogress,
   savenl,
   sh,
