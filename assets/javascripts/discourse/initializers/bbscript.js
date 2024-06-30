@@ -1,6 +1,6 @@
 import { debounce } from "@ember/runloop";
-import { withPluginApi } from "discourse/lib/plugin-api";
 import loadscript from "discourse/lib/load-script";
+import { withPluginApi } from "discourse/lib/plugin-api";
 /* global bbscriptParser */
 
 /**
