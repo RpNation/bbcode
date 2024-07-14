@@ -286,7 +286,7 @@
     "@babel/helper-validator-identifier" "^7.24.7"
     to-fast-properties "^2.0.0"
 
-"@bbob/core@*", "@bbob/core@^4.0.1":
+"@bbob/core@*":
   version "4.0.1"
   resolved "https://registry.npmjs.org/@bbob/core/-/core-4.0.1.tgz"
   integrity sha512-FtpiEQB9CD08cReDE+rpLzb2Y/xy+W3QLQ2WkymlNR1R9NMotEM0AwI6xK5ab16w/WYEgPs3+NGOiH37nZT48g==
@@ -295,10 +295,19 @@
     "@bbob/plugin-helper" "*"
     "@bbob/types" "*"
 
-"@bbob/html@^4.0.1":
-  version "4.0.1"
-  resolved "https://registry.npmjs.org/@bbob/html/-/html-4.0.1.tgz"
-  integrity sha512-YVwseKhH6iLi8HQpOtFHQNa2s5S0SCjkTK/cR16vkheWxgnmMrw2MwI+jdcObeNE23Ii95rNcqRiHXsMUDzujg==
+"@bbob/core@^4.0.3":
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/@bbob/core/-/core-4.0.3.tgz#8842f8068c88abc6648a2c714e3d09a0144e1b3e"
+  integrity sha512-vhrOAtqq4aEdcXohl8Lrk3NgcYAbaPsG9dNZfiIIqNLFyf8c95aBE3cE/UeX/jnzpynyg0jv2Wdv9L9Knxs9mA==
+  dependencies:
+    "@bbob/parser" "*"
+    "@bbob/plugin-helper" "*"
+    "@bbob/types" "*"
+
+"@bbob/html@^4.0.3":
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/@bbob/html/-/html-4.0.3.tgz#bd7300e15ed1e1c7ab9e4d812813836facde7c0a"
+  integrity sha512-znuI7OfGzZsmpjE82WjBi6RuPhXf9o1QQH1mZVLHOheXArtc+ePhVj+W29R36MCFIydwlwpBWz8hqf2adoPZQQ==
   dependencies:
     "@bbob/core" "*"
     "@bbob/plugin-helper" "*"
@@ -319,19 +328,27 @@
   dependencies:
     "@bbob/types" "*"
 
-"@bbob/preset-html5@^4.0.1":
-  version "4.0.1"
-  resolved "https://registry.npmjs.org/@bbob/preset-html5/-/preset-html5-4.0.1.tgz"
-  integrity sha512-mxJNkUxwMuEMpeGVZUj3HXQ9O95t0gsf9gkwB/vxcOykcMb9lUyG7ZdK2/WlT2QkTNI19P2DU7SuQf/6Mharyg==
+"@bbob/preset-html5@^4.0.3":
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/@bbob/preset-html5/-/preset-html5-4.0.3.tgz#a2a8454d14e2d3aaa5305fa730362a8c438f08d3"
+  integrity sha512-Hl+UFocu0NA4fi5PBgZL4tFL26zpjqW9fMRw05qbrJE+JSPwE5AEDr80iDb4gJz3/dxUhBf0WnI8l3UixXI3PQ==
   dependencies:
     "@bbob/plugin-helper" "*"
     "@bbob/preset" "*"
     "@bbob/types" "*"
 
-"@bbob/preset@*", "@bbob/preset@^4.0.1":
+"@bbob/preset@*":
   version "4.0.1"
   resolved "https://registry.npmjs.org/@bbob/preset/-/preset-4.0.1.tgz"
   integrity sha512-cvl5xcdvu53mh9GVxzDRBNuE06fJCa/wb8iQJXn224X7JgMhM0o1mgO+uogmqAC7j7cesZqUG6oEvelAFyv5Sw==
+  dependencies:
+    "@bbob/plugin-helper" "*"
+    "@bbob/types" "*"
+
+"@bbob/preset@^4.0.3":
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/@bbob/preset/-/preset-4.0.3.tgz#0fe34523fb3d37971bc0aeb7448a4a03c75aa411"
+  integrity sha512-RC00TRBEGjrkfG8cWsP+aaAMZC2KPGDKly+gv7uF9UufqyOLgOzmq3zlmgKlbnqLGJ8R8XHFPUeswnKmDP513g==
   dependencies:
     "@bbob/plugin-helper" "*"
     "@bbob/types" "*"
@@ -343,7 +360,7 @@
 
 "@discourse/lint-configs@^1.3.9":
   version "1.3.9"
-  resolved "https://registry.yarnpkg.com/@discourse/lint-configs/-/lint-configs-1.3.9.tgz#07388de3340ee98963129d058070c9bcac0d34d3"
+  resolved "https://registry.npmjs.org/@discourse/lint-configs/-/lint-configs-1.3.9.tgz"
   integrity sha512-fuNwEDluF0pMypH/n1Cbm6wXZ2Zdd5oJ/uGHP3dl+gpg4/e0tDqbd9Wjxi/3+s6mxUOGRxDkf1Xbksuj2CDmxw==
   dependencies:
     "@babel/core" "^7.24.6"
@@ -691,7 +708,7 @@
 
 "@rollup/rollup-linux-x64-musl@4.18.0":
   version "4.18.0"
-  resolved "https://registry.npmjs.org/@rollup/rollup-linux-x64-musl/-/rollup-linux-x64-musl-4.18.0.tgz"
+  resolved "https://registry.yarnpkg.com/@rollup/rollup-linux-x64-musl/-/rollup-linux-x64-musl-4.18.0.tgz#f1186afc601ac4f4fc25fac4ca15ecbee3a1874d"
   integrity sha512-LKaqQL9osY/ir2geuLVvRRs+utWUNilzdE90TpyoX0eNqPzWjRm14oMEE+YLve4k/NAqCdPkGYDaDF5Sw+xBfg==
 
 "@rollup/rollup-win32-arm64-msvc@4.18.0":

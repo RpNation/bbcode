@@ -1,9 +1,9 @@
-import { availableTags, preset, preventParsing } from "./preset";
 import bbob from "@bbob/core";
 import { render } from "@bbob/html";
-import { preserveWhitespace } from "./plugins/preserveWhitespace";
-import { postprocess } from "./utils/postprocess";
 import { lineBreakPlugin } from "./plugins/lineBreak";
+import { preserveWhitespace } from "./plugins/preserveWhitespace";
+import { availableTags, preset, preventParsing } from "./preset";
+import { postprocess } from "./utils/postprocess";
 import { preprocessRaw } from "./utils/preprocess";
 
 const options = {

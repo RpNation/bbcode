@@ -23,10 +23,10 @@
     "rollup": "^4.18.0"
   },
   "dependencies": {
-    "@bbob/core": "^4.0.1",
-    "@bbob/html": "^4.0.1",
-    "@bbob/preset": "^4.0.1",
-    "@bbob/preset-html5": "^4.0.1"
+    "@bbob/core": "^4.0.3",
+    "@bbob/html": "^4.0.3",
+    "@bbob/preset": "^4.0.3",
+    "@bbob/preset-html5": "^4.0.3"
   },
   "lint-staged": {
     "*.js": "eslint --fix",
