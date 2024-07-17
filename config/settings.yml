@@ -24,3 +24,9 @@ plugins:
     client: true
     description:
       en: "Activate to enable BBScript support. See the github wiki for more information."
+  fontawesome_kit_url:
+    default: ""
+    client: true
+    refresh: true
+    description:
+      en: "Enter the URL of your Font Awesome kit to enable Font Awesome icons in BBCode."
