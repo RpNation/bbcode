@@ -1,6 +1,8 @@
 import loadscript from "discourse/lib/load-script";
 import { withPluginApi } from "discourse/lib/plugin-api";
 
+const postsMissingFontAwesome = [];
+
 function initializeFontAwesome(api) {
   const siteSettings = api.container.lookup("service:site-settings");
   if (!siteSettings.fontawesome_kit_url) {
@@ -24,6 +26,7 @@ function initializeFontAwesome(api) {
           if (window.FontAwesome) {
             window.FontAwesome.dom.i2svg({ node: post });
           } else {
+            postsMissingFontAwesome.push(post);
             // if FontAwesome hasn't loaded yet, wait for it to load (ie page refresh)
             Object.defineProperty(window, "FontAwesome", {
               configurable: true,
@@ -34,7 +37,10 @@ function initializeFontAwesome(api) {
                   enumerable: true,
                   writable: true,
                 });
-                window.FontAwesome.dom.i2svg({ node: post });
+                postsMissingFontAwesome.forEach((p) => {
+                  window.FontAwesome.dom.i2svg({ node: p });
+                });
+                postsMissingFontAwesome.length = 0;
               },
             });
           }
