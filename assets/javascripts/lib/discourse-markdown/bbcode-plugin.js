@@ -171,6 +171,8 @@ export function setup(helper) {
     "legend.bb-fieldset-legend",
     "details.bb-slide",
     "details.bb-spoiler",
+    "i[data-bbcode-fa]",
+    "i[data-fa-transform]",
     "span.bb-divide",
     "span.bb-highlight",
     "span.bb-inline-spoiler",
@@ -233,6 +235,14 @@ export function setup(helper) {
       }
       if (tag === "div" && name === "class" && value.includes("__post-")) {
         return value.split(" ").every((c) => c.includes("__post-"));
+      }
+
+      // custom attr allowlist for fontawesome [fa]
+      if (tag === "i" && name === "class") {
+        return true;
+      }
+      if (tag === "i" && name === "style") {
+        return true;
       }
 
       return false;

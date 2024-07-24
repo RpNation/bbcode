@@ -19,6 +19,11 @@ export const bold = (node) => {
 };
 
 export const italic = (node) => {
+  if (node.gen) {
+    // node is actually a generated node "i" made by another tag
+    // don't process it
+    return node;
+  }
   return toNode("span", { class: "bbcode-i" }, node.content);
 };
 
