@@ -11,6 +11,6 @@ export const anchor = {
       },
       goto: (node) => {
         const attrs = preprocessAttr(node.attrs)._default || "";
-        toNode("a", { href: `#user-anchor-${attrs.trim()}` }, node.content);
+        return toNode("a", { href: `#user-anchor-${attrs.trim()}` }, node.content);
       }
 };
