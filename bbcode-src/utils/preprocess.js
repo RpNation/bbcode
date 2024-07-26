@@ -1,4 +1,4 @@
-import { ESCAPABLES_REGEX, MD_TABLE_REGEX, generateGUID, regexIndexOf } from "./common";
+import { ESCAPABLES_REGEX, generateGUID, MD_TABLE_REGEX, regexIndexOf } from "./common";
 
 /**
  * Find all code blocks and hoist them out of the content and into a map for later insertion
@@ -60,7 +60,24 @@ function fenceCodeBlockPreprocess(content, data) {
       const bbcodeTag = match.groups.bbcodeTag.toLowerCase(); // coerce to lowercase for caseinsensitive matching
       const closingTag = `[/${bbcodeTag}]`;
       const nextIndex = content.toLowerCase().indexOf(closingTag, index + 1);
-      index = addHoistAndReturnNewStartPoint(index + bbcode.length, nextIndex, closingTag, true);
+      if (bbcodeTag === "quote") {
+        // preserve as a block level markdown-it compatible tag
+        const uuid = generateGUID();
+        if (nextIndex !== -1) {
+          hoistMap[uuid] = content.substring(index + bbcode.length, nextIndex);
+        } else {
+          hoistMap[uuid] = content.substring(index + bbcodeTag.length);
+        }
+        // This is to prevent BBob plugin from injecting newlines
+        const replacement = `[saveNL]\n${bbcode}\n${uuid}\n${closingTag}\n[/saveNL]`;
+        content =
+          content.substring(0, index) +
+          replacement +
+          (nextIndex !== -1 ? content.substring(nextIndex + 1 + closingTag.length) : "");
+        index = index + replacement.length;
+      } else {
+        index = addHoistAndReturnNewStartPoint(index + bbcode.length, nextIndex, closingTag, true);
+      }
     } else if (match.groups.backtick) {
       const backtick = match.groups.backtick; // contains whole content
       const tickStart = match.groups.tickStart;
