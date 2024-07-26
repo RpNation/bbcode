@@ -8,6 +8,8 @@ import { ESCAPABLES_REGEX, generateGUID, MD_TABLE_REGEX, regexIndexOf } from "./
 function fenceCodeBlockPreprocess(content, data) {
   /** @type {Object.<string, string>} */
   const hoistMap = {};
+  /** @type {Array.<string>} */
+  const toRerender = [];
   let index = 0;
 
   const addHoistAndReturnNewStartPoint = (cutOffStart, cutOffEnd, expected, trim = false) => {
@@ -75,6 +77,7 @@ function fenceCodeBlockPreprocess(content, data) {
           replacement +
           (nextIndex !== -1 ? content.substring(nextIndex + 1 + closingTag.length) : "");
         index = index + replacement.length;
+        toRerender.push(uuid);
       } else {
         index = addHoistAndReturnNewStartPoint(index + bbcode.length, nextIndex, closingTag, true);
       }
@@ -91,6 +94,7 @@ function fenceCodeBlockPreprocess(content, data) {
   }
 
   data.hoistMap = hoistMap;
+  data.toRerender = toRerender;
   return [content, data];
 }
 

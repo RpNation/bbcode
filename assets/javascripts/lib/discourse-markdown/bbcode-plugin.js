@@ -23,6 +23,13 @@ function preprocessor(raw, opts, previewing = false) {
   return [processed.html, processed.tree.options.data];
 }
 
+/**
+ * Processes the output of both the markdown-it and the bbcode parser, concatenating additional content if necessary
+ * @param {string} raw processed string
+ * @param {boolean} previewing flag
+ * @param {any} data from preprocessor
+ * @returns processed string
+ */
 function postprocessor(raw, previewing = false, data = {}) {
   // eslint-disable-next-line no-undef
   if (!bbcodeParser) {
@@ -40,6 +47,28 @@ function postprocessor(raw, previewing = false, data = {}) {
   // it won't be cleared and could cause a fatal error
   const append = previewing ? '<div style="display:none;"></div>' : "";
   return globalThis.bbcodeParser.postprocess(raw, data) + append;
+}
+
+/**
+ * Parses the entire string, including markdown and bbcode
+ * @param {string} content the raw string to parse
+ * @param {any} md the original markdown-it renderer
+ * @param {any} engine the markdown-it engine
+ * @param {any} preprocessor_options options to pass to the preprocessor and bbcode parser
+ * @param {boolean} previewing flag
+ * @returns completely parsed string
+ */
+function render(content, md, engine, preprocessor_options, previewing = false) {
+  const [preprocessed, data] = preprocessor(content, preprocessor_options, previewing);
+  data.toRerender?.forEach((uuid) => {
+    const raw = data.hoistMap[uuid];
+    if (raw) {
+      data.hoistMap[uuid] = render(raw, md, engine, preprocessor_options, previewing);
+    }
+  });
+  const processed = md.apply(engine, [preprocessed]);
+  const postprocessed = postprocessor(processed, previewing, data);
+  return postprocessed;
 }
 
 export function setup(helper) {
@@ -63,23 +92,19 @@ export function setup(helper) {
       set(engine) {
         const md = engine.render;
         engine.set({ breaks: false }); // disable breaks. Let BBob handle line breaks.
+
         engine.render = function (raw) {
           if (engine.options?.discourse?.featuresOverride !== undefined) {
             // if featuresOverride is set, we're in a chat message and should not preprocess
             return md.apply(this, [raw]);
           }
-          const [preprocessed, data] = preprocessor(
+          return render(
             raw,
+            md,
+            engine,
             preprocessor_options,
             engine.options?.discourse?.previewing,
           );
-          const processed = md.apply(this, [preprocessed]);
-          const postprocessed = postprocessor(
-            processed,
-            engine.options?.discourse?.previewing,
-            data,
-          );
-          return postprocessed;
         };
         Object.defineProperty(opts, "engine", {
           configurable: true,
