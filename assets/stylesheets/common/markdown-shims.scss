@@ -1,0 +1,10 @@
+// This file is used to fix some of the issues with the way markdown and bbob interact
+// This is usually a hack to remove the extra line break after a block to respect tight spacing
+
+pre:has(> code) + br {
+  display: none;
+}
+
+aside.quote + br {
+  display: none;
+}

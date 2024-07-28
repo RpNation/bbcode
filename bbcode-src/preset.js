@@ -33,6 +33,7 @@ import { pindent } from "./tags/pindent";
 import { plain } from "./tags/plain";
 import { print } from "./tags/print";
 import { progress } from "./tags/progress";
+import { quote } from "./tags/quote";
 import { rowcolumn } from "./tags/rowcolumn";
 import { script } from "./tags/script";
 import { scroll } from "./tags/scroll";
@@ -89,6 +90,7 @@ const tags = {
   plain,
   print,
   progress,
+  quote,
   ...rowcolumn,
   thinprogress,
   savenl,
@@ -112,7 +114,7 @@ const tags = {
 };
 
 const availableTags = Object.keys(tags);
-const preventParsing = ["plain", "code", "icode", "class", "fa", "quote"];
+const preventParsing = ["plain", "code", "icode", "class", "fa"];
 
 const preset = createPreset(tags);
 
