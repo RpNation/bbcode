@@ -8,8 +8,6 @@ import { ESCAPABLES_REGEX, generateGUID, MD_TABLE_REGEX, regexIndexOf } from "./
 function fenceCodeBlockPreprocess(content, data) {
   /** @type {Object.<string, string>} */
   const hoistMap = {};
-  /** @type {Array.<string>} */
-  const toRerender = [];
   let index = 0;
 
   const addHoistAndReturnNewStartPoint = (cutOffStart, cutOffEnd, expected, trim = false) => {
@@ -62,25 +60,7 @@ function fenceCodeBlockPreprocess(content, data) {
       const bbcodeTag = match.groups.bbcodeTag.toLowerCase(); // coerce to lowercase for caseinsensitive matching
       const closingTag = `[/${bbcodeTag}]`;
       const nextIndex = content.toLowerCase().indexOf(closingTag, index + 1);
-      if (bbcodeTag === "quote") {
-        // preserve as a block level markdown-it compatible tag
-        const uuid = generateGUID();
-        if (nextIndex !== -1) {
-          hoistMap[uuid] = content.substring(index + bbcode.length, nextIndex);
-        } else {
-          hoistMap[uuid] = content.substring(index + bbcodeTag.length);
-        }
-        // This is to prevent BBob plugin from injecting newlines
-        const replacement = `[saveNL]\n${bbcode}\n${uuid}\n${closingTag}\n[/saveNL]`;
-        content =
-          content.substring(0, index) +
-          replacement +
-          (nextIndex !== -1 ? content.substring(nextIndex + 1 + closingTag.length) : "");
-        index = index + replacement.length;
-        toRerender.push(uuid);
-      } else {
-        index = addHoistAndReturnNewStartPoint(index + bbcode.length, nextIndex, closingTag, true);
-      }
+      index = addHoistAndReturnNewStartPoint(index + bbcode.length, nextIndex, closingTag, true);
     } else if (match.groups.backtick) {
       const backtick = match.groups.backtick; // contains whole content
       const tickStart = match.groups.tickStart;
@@ -94,7 +74,6 @@ function fenceCodeBlockPreprocess(content, data) {
   }
 
   data.hoistMap = hoistMap;
-  data.toRerender = toRerender;
   return [content, data];
 }
 

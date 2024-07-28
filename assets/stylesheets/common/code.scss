@@ -1,4 +1,0 @@
-pre:has(> code) + br {
-  // This is a hack to remove the extra line break after a code block to respect tight spacing
-  display: none;
-}

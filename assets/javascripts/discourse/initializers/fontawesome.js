@@ -24,7 +24,9 @@ function initializeFontAwesome(api) {
          */
         (post) => {
           if (window.FontAwesome) {
-            window.FontAwesome.dom.i2svg({ node: post });
+            post.querySelectorAll("i[data-bbcode-fa]").forEach((icon) => {
+              window.FontAwesome.dom.i2svg({ node: icon });
+            });
           } else {
             postsMissingFontAwesome.push(post);
             // if FontAwesome hasn't loaded yet, wait for it to load (ie page refresh)
@@ -38,7 +40,9 @@ function initializeFontAwesome(api) {
                   writable: true,
                 });
                 postsMissingFontAwesome.forEach((p) => {
-                  window.FontAwesome.dom.i2svg({ node: p });
+                  p.querySelectorAll("i[data-bbcode-fa]").forEach((icon) => {
+                    window.FontAwesome.dom.i2svg({ node: icon });
+                  });
                 });
                 postsMissingFontAwesome.length = 0;
               },

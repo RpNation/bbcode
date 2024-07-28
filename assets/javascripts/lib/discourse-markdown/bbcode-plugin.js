@@ -49,28 +49,6 @@ function postprocessor(raw, previewing = false, data = {}) {
   return globalThis.bbcodeParser.postprocess(raw, data) + append;
 }
 
-/**
- * Parses the entire string, including markdown and bbcode
- * @param {string} content the raw string to parse
- * @param {any} md the original markdown-it renderer
- * @param {any} engine the markdown-it engine
- * @param {any} preprocessor_options options to pass to the preprocessor and bbcode parser
- * @param {boolean} previewing flag
- * @returns completely parsed string
- */
-function render(content, md, engine, preprocessor_options, previewing = false) {
-  const [preprocessed, data] = preprocessor(content, preprocessor_options, previewing);
-  data.toRerender?.forEach((uuid) => {
-    const raw = data.hoistMap[uuid];
-    if (raw) {
-      data.hoistMap[uuid] = render(raw, md, engine, preprocessor_options, previewing);
-    }
-  });
-  const processed = md.apply(engine, [preprocessed]);
-  const postprocessed = postprocessor(processed, previewing, data);
-  return postprocessed;
-}
-
 export function setup(helper) {
   if (!helper.markdownIt) {
     return;
@@ -98,13 +76,18 @@ export function setup(helper) {
             // if featuresOverride is set, we're in a chat message and should not preprocess
             return md.apply(this, [raw]);
           }
-          return render(
+          const [preprocessed, data] = preprocessor(
             raw,
-            md,
-            engine,
             preprocessor_options,
             engine.options?.discourse?.previewing,
           );
+          const processed = md.apply(this, [preprocessed]);
+          const postprocessed = postprocessor(
+            processed,
+            engine.options?.discourse?.previewing,
+            data,
+          );
+          return postprocessed;
         };
         Object.defineProperty(opts, "engine", {
           configurable: true,
