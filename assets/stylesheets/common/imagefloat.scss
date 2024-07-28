@@ -1,12 +1,14 @@
 .bb-float-left,
 .bb-float-right {
   display: block;
-  margin: 0 10px;
+  margin: 10px;
   max-width: calc(50% + 40px);
 }
 .bb-float-left {
   float: left;
+  margin-left: 0;
 }
 .bb-float-right {
   float: right;
+  margin-right: 10px;
 }
