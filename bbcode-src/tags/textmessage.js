@@ -7,8 +7,8 @@ import { preprocessAttr, toNode } from "../utils/common";
 
 const ACCEPTED_OPTIONS = ["me", "them", "right", "left"];
 export const textmessage = {
-  textmessage: (node) => {
-    const attr = preprocessAttr(node.attrs)._default || "Recipient";
+  textmessage: (node, options) => {
+    const attr = preprocessAttr(node, options.data.raw)._default || "Recipient";
     const recipient = attr && attr.trim() !== "" ? attr : "Recipient";
     return toNode("div", { class: "bb-textmessage" }, [
       toNode("div", { class: "bb-textmessage-name" }, recipient),
@@ -17,8 +17,8 @@ export const textmessage = {
       ]),
     ]);
   },
-  message: (node) => {
-    let option = preprocessAttr(node.attrs)._default.toLowerCase();
+  message: (node, options) => {
+    let option = preprocessAttr(node, options.data.raw)._default.toLowerCase();
     if (!ACCEPTED_OPTIONS.includes(option) || option === "right") {
       option = "me";
     }

@@ -5,7 +5,7 @@ import { preprocessAttr, toNode } from "../utils/common";
  * @exmaple [progress=percentageInt]content[/progress]
  */
 export const progress = (node) => {
-  const percentageInt = preprocessAttr(node.attrs)._default;
+  const percentageInt = preprocessAttr(node)._default;
   return toNode("div", { class: "bb-progress" }, [
     toNode("div", { class: "bb-progress-text" }, node.content),
     toNode("div", { class: "bb-progress-bar", style: `width: calc(${percentageInt}% - 6px)` }, ""),

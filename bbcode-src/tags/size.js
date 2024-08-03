@@ -51,7 +51,7 @@ function parseFontSize(fontValue) {
 }
 
 export const size = (node) => {
-  const input = preprocessAttr(node.attrs)._default;
+  const input = preprocessAttr(node)._default;
   const fontSize = parseFontSize(input);
   if (!fontSize.valid) {
     return node.content;

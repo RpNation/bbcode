@@ -4,9 +4,9 @@ import { preprocessAttr, toNode } from "../utils/common";
  * Add [block] tag
  * @example [block=treasure]content[/block]
  */
-export const block = (node) => {
+export const block = (node, options) => {
   const defaultOp = "block";
-  const blockAttr = (preprocessAttr(node.attrs)._default || defaultOp).toLowerCase();
+  const blockAttr = (preprocessAttr(node, options.data.raw)._default || defaultOp).toLowerCase();
 
   const OPTIONS = [
     "block",

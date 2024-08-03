@@ -4,7 +4,7 @@ import { preprocessAttr } from "../utils/common";
  * processes [code] tag and returns a fenced code block
  */
 export const code = (node) => {
-  const lang = preprocessAttr(node.attrs)._default || "bbcode";
+  const lang = preprocessAttr(node)._default || "bbcode";
   return {
     isWhitespaceSensitive: true,
     content: ["```" + lang + "\n", node.content, "\n```\n"],

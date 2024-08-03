@@ -1,4 +1,4 @@
-import { preprocessAttr, toNode } from "../utils/common";
+import { toNode } from "../utils/common";
 /**
  * @file Adds [mail] to bbcode
  * @param {string} [type="send"] Denotes type of mail either send or receive
@@ -23,11 +23,11 @@ const emailHeader = toNode("div", { class: "bb-email-header" }, "");
 const emailFooter = toNode(
   "div",
   { class: "bb-email-footer" },
-  toNode("div", { class: "bb-email-button" }, "")
+  toNode("div", { class: "bb-email-button" }, ""),
 );
 
 export const mail = (node) => {
-  const attributes = preprocessAttr(node.attrs);
+  const attributes = node.attrs;
   let mailAttr = {
     mailOption: (attributes.type || "send").toLowerCase(),
     person: attributes.person || "Unknown",
@@ -46,6 +46,6 @@ export const mail = (node) => {
       parseEmailSubject(mailAttr.subject),
       parseEmailContent(node.content),
       emailFooter,
-    ]
+    ],
   );
 };

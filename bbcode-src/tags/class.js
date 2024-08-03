@@ -9,7 +9,7 @@ import { preprocessAttr } from "../utils/common";
  * [class name="className" selector=""]content[/class]
  */
 export const classStyle = (node, options) => {
-  const attrs = preprocessAttr(node.attrs);
+  const attrs = preprocessAttr(node);
   const nameAttr = attrs.name || attrs._default;
 
   if (!options.data.previewing && !options.data.commonGUID) {

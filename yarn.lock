@@ -286,77 +286,60 @@
     "@babel/helper-validator-identifier" "^7.24.7"
     to-fast-properties "^2.0.0"
 
-"@bbob/core@*":
-  version "4.0.1"
-  resolved "https://registry.npmjs.org/@bbob/core/-/core-4.0.1.tgz"
-  integrity sha512-FtpiEQB9CD08cReDE+rpLzb2Y/xy+W3QLQ2WkymlNR1R9NMotEM0AwI6xK5ab16w/WYEgPs3+NGOiH37nZT48g==
+"@bbob/core@*", "@bbob/core@^4.1.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@bbob/core/-/core-4.1.0.tgz#32e1aa02df6709ed5d22f352c9e933b9fc85b4d5"
+  integrity sha512-RUhUV1JXOac3ISRXAuNLnUAGDRlBFTZYgYik8slV063Nk87C1z6e19DlDC+6hgAocBT02DQiju0z9v6bAwWIiQ==
   dependencies:
     "@bbob/parser" "*"
     "@bbob/plugin-helper" "*"
     "@bbob/types" "*"
 
-"@bbob/core@^4.0.3":
-  version "4.0.3"
-  resolved "https://registry.yarnpkg.com/@bbob/core/-/core-4.0.3.tgz#8842f8068c88abc6648a2c714e3d09a0144e1b3e"
-  integrity sha512-vhrOAtqq4aEdcXohl8Lrk3NgcYAbaPsG9dNZfiIIqNLFyf8c95aBE3cE/UeX/jnzpynyg0jv2Wdv9L9Knxs9mA==
-  dependencies:
-    "@bbob/parser" "*"
-    "@bbob/plugin-helper" "*"
-    "@bbob/types" "*"
-
-"@bbob/html@^4.0.3":
-  version "4.0.3"
-  resolved "https://registry.yarnpkg.com/@bbob/html/-/html-4.0.3.tgz#bd7300e15ed1e1c7ab9e4d812813836facde7c0a"
-  integrity sha512-znuI7OfGzZsmpjE82WjBi6RuPhXf9o1QQH1mZVLHOheXArtc+ePhVj+W29R36MCFIydwlwpBWz8hqf2adoPZQQ==
+"@bbob/html@^4.1.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@bbob/html/-/html-4.1.0.tgz#08d21ce96991dc8bf76e351a8038304fa268c581"
+  integrity sha512-hy/87vKsjTTnm6iDfVpAW959bfITUf9EfwL1k8JmDJ8Wt5acnqsUqJmhKiJh3fVOGUGpxx4o+T3ku6AFumHKmA==
   dependencies:
     "@bbob/core" "*"
     "@bbob/plugin-helper" "*"
     "@bbob/types" "*"
 
 "@bbob/parser@*":
-  version "4.0.1"
-  resolved "https://registry.npmjs.org/@bbob/parser/-/parser-4.0.1.tgz"
-  integrity sha512-pcaJ4rlJQGXTOR/z6b61XMW7kIz2InylysZCov7tshkPOsvXC2eifmwFTygQAT++kIXxq4hGYsF6N/2wnLAibA==
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@bbob/parser/-/parser-4.1.0.tgz#40b9494bb45ab2f3a28ae37d33600e5d4cd58966"
+  integrity sha512-TCIENUAOhg/bV35h4HWRL8To7hOSFaiQ1qylEBvAdaBZfmcLJBXi4yiEM3zR8zwIelo/CuosaEkFLDOD2+FiUQ==
   dependencies:
     "@bbob/plugin-helper" "*"
     "@bbob/types" "*"
 
 "@bbob/plugin-helper@*":
-  version "4.0.1"
-  resolved "https://registry.npmjs.org/@bbob/plugin-helper/-/plugin-helper-4.0.1.tgz"
-  integrity sha512-5usaU1QLrKeznonaZgy0C0DjrAQ8GEzjtXA18sHjNcIVG5vILc3x99TWzp29KnaDcav43Z69Mk/nmajIw2cj3A==
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@bbob/plugin-helper/-/plugin-helper-4.1.0.tgz#ca5dd2452a0c2203162ddb06ba85f9d495e400d6"
+  integrity sha512-NQOkxmZVNpe4CCo43mbF2byOegYw9qSsC0LHNesjw7pwJSa5VW65uUGE8raXB2Q0lOXUsTEdxYUCD6rntNscug==
   dependencies:
     "@bbob/types" "*"
 
-"@bbob/preset-html5@^4.0.3":
-  version "4.0.3"
-  resolved "https://registry.yarnpkg.com/@bbob/preset-html5/-/preset-html5-4.0.3.tgz#a2a8454d14e2d3aaa5305fa730362a8c438f08d3"
-  integrity sha512-Hl+UFocu0NA4fi5PBgZL4tFL26zpjqW9fMRw05qbrJE+JSPwE5AEDr80iDb4gJz3/dxUhBf0WnI8l3UixXI3PQ==
+"@bbob/preset-html5@^4.1.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@bbob/preset-html5/-/preset-html5-4.1.0.tgz#ef435c09edb3a329ea61498b4a9037ad645daf01"
+  integrity sha512-ZOUblxMh2rG167o2djXQBikRioGNmGeY0MD8NgwyK1Sj2/8Q2/V7yn9aUSd31bo76uj1lBpFJ4vEC9xB6ETw/Q==
   dependencies:
     "@bbob/plugin-helper" "*"
     "@bbob/preset" "*"
     "@bbob/types" "*"
 
-"@bbob/preset@*":
-  version "4.0.1"
-  resolved "https://registry.npmjs.org/@bbob/preset/-/preset-4.0.1.tgz"
-  integrity sha512-cvl5xcdvu53mh9GVxzDRBNuE06fJCa/wb8iQJXn224X7JgMhM0o1mgO+uogmqAC7j7cesZqUG6oEvelAFyv5Sw==
+"@bbob/preset@*", "@bbob/preset@^4.1.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@bbob/preset/-/preset-4.1.0.tgz#209e8501897eb3d34bf011dfcabeb08ed95bb2c5"
+  integrity sha512-/PEVrDOuckx1EwbqziU+xbCu2rja70a0jx/p9/x2AJdLw5j0yw1DvV6r6BM4/AazNjfP++1np7rU8+IxyDdDWA==
   dependencies:
     "@bbob/plugin-helper" "*"
     "@bbob/types" "*"
 
-"@bbob/preset@^4.0.3":
-  version "4.0.3"
-  resolved "https://registry.yarnpkg.com/@bbob/preset/-/preset-4.0.3.tgz#0fe34523fb3d37971bc0aeb7448a4a03c75aa411"
-  integrity sha512-RC00TRBEGjrkfG8cWsP+aaAMZC2KPGDKly+gv7uF9UufqyOLgOzmq3zlmgKlbnqLGJ8R8XHFPUeswnKmDP513g==
-  dependencies:
-    "@bbob/plugin-helper" "*"
-    "@bbob/types" "*"
-
-"@bbob/types@*":
-  version "4.0.1"
-  resolved "https://registry.npmjs.org/@bbob/types/-/types-4.0.1.tgz"
-  integrity sha512-ypnkJXrxxdIyVupM75eF7bHCDA8PWgKu8XRm4Kqrk574Md//V8ZlYeKG8x9M+vZGGDxFD2cFb9Cr+7Aw0oSMfw==
+"@bbob/types@*", "@bbob/types@^4.1.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@bbob/types/-/types-4.1.0.tgz#2837249c0c0e3e7aea3030ea0038063916561eb8"
+  integrity sha512-awahXN6FPt50IvWSHDgNTdDJR7mwJaR2vajT09idaSdWzR2715SyqTIGXPqNQgoNaeIzxWGal55h3dH77+/Z+Q==
 
 "@discourse/lint-configs@^1.3.9":
   version "1.3.9"

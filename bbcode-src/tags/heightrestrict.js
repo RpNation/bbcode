@@ -23,7 +23,7 @@ function parseHeight(heightValue) {
  * @example [heightrestrict=50]content[/heightrestrict]
  */
 export const heightrestrict = (node) => {
-  const attrs = preprocessAttr(node.attrs)._default;
+  const attrs = preprocessAttr(node)._default;
   const heightInput = parseHeight(attrs).toString();
   // Return image's default size if heightrestrict did not involve a valid value
   return heightInput === "0"

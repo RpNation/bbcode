@@ -6,7 +6,7 @@ import { preprocessAttr, toNode } from "../utils/common";
  */
 export const print = (node) => {
   const defaultOp = "print";
-  const printAttr = (preprocessAttr(node.attrs)._default || defaultOp).toLowerCase();
+  const printAttr = (preprocessAttr(node)._default || defaultOp).toLowerCase();
 
   const OPTIONS = ["print", "line", "graph", "parchment"];
 

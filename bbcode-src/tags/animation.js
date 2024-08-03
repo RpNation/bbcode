@@ -1,5 +1,5 @@
-import { preprocessAttr, toOriginalStartTag } from "../utils/common";
 import { isStringNode, isTagNode } from "@bbob/plugin-helper";
+import { preprocessAttr, toOriginalStartTag } from "../utils/common";
 
 /**
  * Renders css Keyframes
@@ -15,13 +15,13 @@ export const animation = (node, options) => {
   }
   const commonId = options.data.previewing ? "preview" : options.data.commonGUID;
 
-  const name = preprocessAttr(node.attrs)?._default || "";
+  const name = preprocessAttr(node, options.data.raw)?._default || "";
   const keyframes = node.content
     .filter((n) => isTagNode(n) && n.tag === "keyframe")
     .map((content) => {
       content.isValid = true;
       /** @type {string} */
-      const ident = preprocessAttr(content.attrs)._default || "";
+      const ident = preprocessAttr(content, options.data.raw)._default || "";
       content.ident = ident + (ident.match(/^\d+$/) ? "%" : "");
       const cleanContent = content.content
         .filter(isStringNode)
