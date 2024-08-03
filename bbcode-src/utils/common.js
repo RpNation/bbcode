@@ -27,22 +27,37 @@ const toNode = (tag, attrs, content = []) => ({
 });
 
 /**
- * Preprocess attributes of a node to either combine all values into a single default value
+ * Preprocess attributes of a node to either return the default single attribute
  * or return a keyed attribute list
- * @param {any} attrs object of bbcode node attrs
- * @param {string[]} predefinedKeys array of predefined keys to be captured
+ * @param {import('@bbob/types').TagNode} node bbcode node to process
+ * @param {string} [raw] raw string. Only include if the single attribute is allowed to have spaces
  * @returns processed attributes
  */
-const preprocessAttr = (attrs) => {
-  const keys = Object.keys(attrs).join(" ");
-  const vals = Object.values(attrs).join(" ");
-  if (keys === vals) {
+const preprocessAttr = (node, raw) => {
+  const keys = Object.keys(node.attrs).join(" ");
+  const vals = Object.values(node.attrs).join(" ");
+  if (keys !== vals) {
+    return node.attrs;
+  }
+  if (!raw || !node.start) {
     return {
       _default: vals,
     };
-  } else {
-    return attrs;
   }
+  // [tag=attr]
+  // node.start.from = 0
+  // node.start.to = 10
+  const openTagParts = raw.substring(node.start.from, node.start.to).split("=");
+  if (openTagParts.length !== 2) {
+    return node.attrs;
+  }
+  let val = openTagParts[1].slice(0, -1).trim(); // `attr` or `"attr"`
+  if (val.startsWith('"') && val.endsWith('"')) {
+    val = val.slice(1, -1);
+  }
+  return {
+    _default: val,
+  };
 };
 
 /**

@@ -19,7 +19,7 @@ const EVENTS = [
  * [script class="id" on="event" version="2"]content[/script]
  */
 export const script = (node, options) => {
-  const attrs = preprocessAttr(node.attrs);
+  const attrs = preprocessAttr(node, options.data.raw);
 
   if (!options.data.previewing && !options.data.commonGUID) {
     // create a common GUID for the post

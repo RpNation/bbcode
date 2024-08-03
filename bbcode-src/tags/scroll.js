@@ -22,8 +22,8 @@ function parseHeight(heightValue) {
  * @file Adds [scroll] to bbcode
  * @example [scroll]content[/scroll]
  */
-export const scroll = (node) => {
-  const attrs = preprocessAttr(node.attrs)._default;
+export const scroll = (node, options) => {
+  const attrs = preprocessAttr(node, options.data.raw)._default;
   const heightInput = parseHeight(attrs);
   return toNode("div", { class: "bb-scroll", style: `height: ${heightInput}px` }, node.content);
 };

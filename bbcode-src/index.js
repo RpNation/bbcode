@@ -31,6 +31,7 @@ export const RpNBBCode = (code, opts) => {
     ...options,
     data: {
       ...preprocessedData,
+      raw: preprocessed,
       previewing: opts.previewing,
       fonts: new Set(),
       styles: [],

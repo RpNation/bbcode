@@ -11,7 +11,7 @@ export const div = (node, options) => {
     // don't process it
     return node;
   }
-  const attrs = preprocessAttr(node.attrs);
+  const attrs = preprocessAttr(node, options.data.raw);
   const style = attrs.style || attrs._default;
   const classAttrs = attrs.class;
   if (!classAttrs?.trim()) {

@@ -1,3 +1,4 @@
+import { isStringNode, isTagNode, TagNode } from "@bbob/plugin-helper";
 import {
   generateGUID,
   preprocessAttr,
@@ -5,7 +6,6 @@ import {
   toNode,
   toOriginalStartTag,
 } from "../utils/common";
-import { TagNode, isStringNode, isTagNode } from "@bbob/plugin-helper";
 
 const SLIDE_TITLE_OPEN = Symbol("slide-title-open");
 const SLIDE_TITLE_CLOSE = Symbol("slide-title-close");
@@ -19,7 +19,7 @@ const SLIDE_REGEX =
  *
  * [accordion][slide=name]content[/slide][/accordion]
  */
-const accordion = (node) => {
+const accordion = (node, options) => {
   const groupId = generateGUID();
 
   // add support for existing {slide} tags style, due to copious amounts of existing content
@@ -39,7 +39,7 @@ const accordion = (node) => {
     return [toOriginalStartTag(node), ...node.content, node.toTagEnd()];
   }
 
-  const attrs = preprocessAttr(node.attrs);
+  const attrs = preprocessAttr(node, options.data.raw);
 
   if (attrs._default) {
     /** @type {string[]} */
@@ -188,12 +188,12 @@ function markerToString(marker) {
   }
 }
 
-const slide = (node) => {
+const slide = (node, options) => {
   if (!node.isValid) {
     // not inside an [accordion] tag
     return [toOriginalStartTag(node), ...node.content, node.toTagEnd()];
   }
-  const attrs = preprocessAttr(node.attrs);
+  const attrs = preprocessAttr(node, options.data.raw);
   let title = [attrs.title || attrs._default || "Slide"];
   let isOpen = !!attrs.open || false;
   let titleAlign = attrs.left ? "left" : attrs.right ? "right" : attrs.center ? "center" : "left";

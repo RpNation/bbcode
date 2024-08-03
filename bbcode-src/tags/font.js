@@ -74,13 +74,13 @@ const googleFontApiBuild = (family, axes) => {
 };
 
 export const font = (node, options) => {
-  const attrs = preprocessAttr(node.attrs);
+  const attrs = preprocessAttr(node, options.data.raw);
   const fontFamily = attrs?._default || attrs.family || attrs.name;
   if (fontFamily.trim() === "") {
     return node.content;
   }
   if (WEB_FONTS.includes(fontFamily.trim().toLowerCase())) {
-    return toNode("span", { style: "font-family: " + fontFamily }, node.content);
+    return toNode("span", { style: `font-family: '${fontFamily}'` }, node.content);
   }
 
   const axes = axesParser(attrs);
@@ -99,7 +99,7 @@ export const font = (node, options) => {
   return toNode(
     "span",
     {
-      style: `font-family: ${fontFamily}; font-weight: ${axes.wght}; font-style: ${italic}; ${fontVar}`,
+      style: `font-family: '${fontFamily}'; font-weight: ${axes.wght}; font-style: ${italic}; ${fontVar}`,
       "data-font": url,
     },
     node.content,

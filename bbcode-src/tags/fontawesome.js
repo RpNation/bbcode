@@ -1,4 +1,4 @@
-import { preprocessAttr, toNode } from "../utils/common";
+import { toNode } from "../utils/common";
 
 /**
  * Adds [fa] tag
@@ -7,7 +7,7 @@ import { preprocessAttr, toNode } from "../utils/common";
  * [fa primary-color="" secondary-color="" primary-opacity="" secondary-opacity="" rotate-angle=""]fa-duotone fa-icon[/fa]
  */
 export const fa = (node) => {
-  const attrs = preprocessAttr(node.attrs);
+  const attrs = node.attrs;
   let style = attrs.style || "";
   style += attrs["primary-color"] ? `--fa-primary-color: ${attrs["primary-color"]};` : "";
   style += attrs["secondary-color"] ? `--fa-secondary-color: ${attrs["secondary-color"]};` : "";

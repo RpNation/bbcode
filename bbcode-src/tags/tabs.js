@@ -1,5 +1,5 @@
-import { generateGUID, preprocessAttr, toNode, toOriginalStartTag } from "../utils/common";
 import { isTagNode } from "@bbob/plugin-helper";
+import { generateGUID, preprocessAttr, toNode, toOriginalStartTag } from "../utils/common";
 
 /**
  * @file Adds [tabs][tab] to bbcode
@@ -33,12 +33,12 @@ export const tabs = (node) => {
  * [tab=name]content[/tab]
  * [tab name="name" style="style"]content[/tab]
  */
-export const tab = (node) => {
+export const tab = (node, options) => {
   if (!node.isValid) {
     // not inside a [tabs] tag
     return [toOriginalStartTag(node), ...node.content, node.toTagEnd()];
   }
-  const attrs = preprocessAttr(node.attrs);
+  const attrs = preprocessAttr(node, options.data.raw);
   const name = attrs._default || attrs.name || "Tab";
   const tabId = `tab-${name.replace(/\W/g, "_")}-${generateGUID()}`;
   return [

@@ -8,8 +8,8 @@ import { preprocessAttr, toNode } from "../utils/common";
  * @example `[inlinespoiler]hidden content[/inlinespoiler]
  */
 
-export const spoiler = (node) => {
-  const providedTitle = preprocessAttr(node.attrs)._default;
+export const spoiler = (node, options) => {
+  const providedTitle = preprocessAttr(node, options.data.raw)._default;
   const title = "Spoiler" + (providedTitle ? `: ${providedTitle}` : "");
 
   /**

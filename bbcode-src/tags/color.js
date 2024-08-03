@@ -1,7 +1,7 @@
 import { preprocessAttr, toNode } from "../utils/common";
 
 export const color = (node) => {
-  const inputColor = preprocessAttr(node.attrs)._default || "";
+  const inputColor = preprocessAttr(node)._default || "";
   if (inputColor.trim() === "") {
     return node.content;
   }
