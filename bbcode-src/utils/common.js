@@ -37,6 +37,7 @@ const preprocessAttr = (node, raw) => {
   const keys = Object.keys(node.attrs).join(" ");
   const vals = Object.values(node.attrs).join(" ");
   if (keys !== vals) {
+    // [tag key=val]
     return node.attrs;
   }
   if (!raw || !node.start) {
@@ -47,7 +48,12 @@ const preprocessAttr = (node, raw) => {
   // [tag=attr]
   // node.start.from = 0
   // node.start.to = 10
-  const openTagParts = raw.substring(node.start.from, node.start.to).split("=");
+  const nodeRaw = raw.substring(node.start.from, node.start.to);
+  if (!nodeRaw.includes("=")) {
+    // [tag] or [tag attr]
+    return node.attrs;
+  }
+  const openTagParts = nodeRaw.split("=");
   if (openTagParts.length !== 2) {
     return node.attrs;
   }
@@ -64,16 +70,30 @@ const preprocessAttr = (node, raw) => {
  * Attempts to return tag into its original form with proper attributes
  * @returns string of tag start
  */
-const toOriginalStartTag = (node) => {
+const toOriginalStartTag = (node, raw) => {
+  if (node.start) {
+    return raw.substring(node.start.from, node.start.to);
+  }
   if (!node.attrs) {
     return `[${node.tag}]`;
   }
-  const attrs = preprocessAttr(node.attrs);
+  const attrs = preprocessAttr(node, raw);
   if (attrs._default) {
     return `[${node.tag}=${attrs._default}]`;
   } else {
     return node.toTagStart();
   }
+};
+
+/**
+ * Attempts to return tag into its original form
+ * @returns string of tag end
+ */
+const toOriginalEndTag = (node, raw) => {
+  if (node.end) {
+    return raw.substring(node.end.from, node.end.to);
+  }
+  return node.toTagEnd();
 };
 
 /**
@@ -124,6 +144,7 @@ function generateGUID() {
 export {
   toNode,
   toOriginalStartTag,
+  toOriginalEndTag,
   generateGUID,
   preprocessAttr,
   regexIndexOf,

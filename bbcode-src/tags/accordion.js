@@ -4,6 +4,7 @@ import {
   preprocessAttr,
   regexIndexOf,
   toNode,
+  toOriginalEndTag,
   toOriginalStartTag,
 } from "../utils/common";
 
@@ -36,40 +37,33 @@ const accordion = (node, options) => {
     });
   if (!filteredContent.length) {
     // no [slide] tags found
-    return [toOriginalStartTag(node), ...node.content, node.toTagEnd()];
+    return [
+      toOriginalStartTag(node, options.data.raw),
+      ...node.content,
+      toOriginalEndTag(node, options.data.raw),
+    ];
   }
-
   const attrs = preprocessAttr(node, options.data.raw);
 
   if (attrs._default) {
     /** @type {string[]} */
     const customSettings = attrs._default.split("|").map((s) => s.trim());
-    if (customSettings.includes("bright")) {
-      attrs.bright = true;
+    const lastValidAlignment = customSettings
+      .filter((s) => ["bright", "bcenter", "bleft", "fleft", "fright"].includes(s))
+      .pop();
+    if (lastValidAlignment) {
+      attrs.align ??= lastValidAlignment;
     }
-    if (customSettings.includes("bcenter")) {
-      attrs.bcenter = true;
-    }
-    if (customSettings.includes("bleft")) {
-      attrs.bleft = true;
-    }
-    if (customSettings.includes("fleft")) {
-      attrs.fleft = true;
-    }
-    if (customSettings.includes("fright")) {
-      attrs.fright = true;
-    }
+
     if (
       customSettings.some((s) => s.endsWith("px")) ||
       customSettings.some((s) => s.endsWith("%"))
     ) {
-      attrs.width = customSettings.find((s) => s.endsWith("px") || s.endsWith("%"));
+      attrs.width ??= customSettings.find((s) => s.endsWith("px") || s.endsWith("%"));
     }
   }
 
-  let classes = Object.keys(attrs)
-    .filter((s) => ["bright", "bcenter", "bleft", "fleft", "fright"].includes(s))
-    .join(" ");
+  let classes = attrs.align?.toLowerCase() || "";
   let style = "";
   if (attrs.width?.endsWith("px") || attrs.width?.endsWith("%")) {
     style = `width: ${attrs.width};`;
@@ -191,7 +185,11 @@ function markerToString(marker) {
 const slide = (node, options) => {
   if (!node.isValid) {
     // not inside an [accordion] tag
-    return [toOriginalStartTag(node), ...node.content, node.toTagEnd()];
+    return [
+      toOriginalStartTag(node, options.data.raw),
+      ...node.content,
+      toOriginalEndTag(node, options.data.raw),
+    ];
   }
   const attrs = preprocessAttr(node, options.data.raw);
   let title = [attrs.title || attrs._default || "Slide"];
