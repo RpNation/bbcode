@@ -1,11 +1,17 @@
 import { isTagNode } from "@bbob/plugin-helper";
-import { generateGUID, preprocessAttr, toNode, toOriginalStartTag } from "../utils/common";
+import {
+  generateGUID,
+  preprocessAttr,
+  toNode,
+  toOriginalEndTag,
+  toOriginalStartTag,
+} from "../utils/common";
 
 /**
  * @file Adds [tabs][tab] to bbcode
  * @example [tabs][tab=name 1]content[/tab][tab=name 2]content[/tab][/tabs]
  */
-export const tabs = (node) => {
+export const tabs = (node, options) => {
   const tabsList = node.content.filter(
     (contentNode) => isTagNode(contentNode) && contentNode.tag === "tab",
   );
@@ -16,7 +22,11 @@ export const tabs = (node) => {
   });
   if (!tabsList.length) {
     // no [tab] tags found
-    return [toOriginalStartTag(node), ...node.content, node.toTagEnd()];
+    return [
+      toOriginalStartTag(node, options.data.raw),
+      ...node.content,
+      toOriginalEndTag(node, options.data.raw),
+    ];
   }
   tabsList[0].open = true;
 
@@ -36,7 +46,11 @@ export const tabs = (node) => {
 export const tab = (node, options) => {
   if (!node.isValid) {
     // not inside a [tabs] tag
-    return [toOriginalStartTag(node), ...node.content, node.toTagEnd()];
+    return [
+      toOriginalStartTag(node, options.data.raw),
+      ...node.content,
+      toOriginalEndTag(node, options.data.raw),
+    ];
   }
   const attrs = preprocessAttr(node, options.data.raw);
   const name = attrs._default || attrs.name || "Tab";

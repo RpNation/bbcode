@@ -1,5 +1,5 @@
 import { isStringNode, isTagNode } from "@bbob/plugin-helper";
-import { preprocessAttr, toOriginalStartTag } from "../utils/common";
+import { preprocessAttr, toOriginalEndTag, toOriginalStartTag } from "../utils/common";
 
 /**
  * Renders css Keyframes
@@ -36,9 +36,13 @@ export const animation = (node, options) => {
   return [];
 };
 
-export const keyframe = (node) => {
+export const keyframe = (node, options) => {
   if (!node.isValid) {
-    return [toOriginalStartTag(node), ...node.content, node.toTagEnd()];
+    return [
+      toOriginalStartTag(node, options.data.raw),
+      ...node.content,
+      toOriginalEndTag(node, options.data.raw),
+    ];
   }
   return [];
 };
