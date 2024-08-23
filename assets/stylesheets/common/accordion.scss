@@ -1,47 +1,51 @@
 div.bb-accordion {
+  $border-color: var(--tertiary-medium);
+  $title-bg-color: var(--secondary);
+  $title-hover-bg-color: var(--tertiary-low);
+  $content-bg-color: var(--secondary);
   display: block !important;
   width: 650px;
   max-width: 100%;
   margin-left: 0;
-  border-top: 1px solid rgb(144, 164, 174);
-  border-bottom: 1px solid rgb(144, 164, 174);
+  border-top: 1px solid $border-color;
+  border-bottom: 1px solid $border-color;
   box-sizing: border-box;
 
   details.bb-slide {
     all: unset;
     display: block;
     position: relative;
-    border-bottom: 1px solid rgb(144, 164, 174);
+    border-bottom: 1px solid $border-color;
 
     summary.bb-slide-title {
       cursor: pointer;
       position: relative;
       display: block;
       font-size: var(--base-font-size);
-      color: black;
+      color: var(--primary);
       font-weight: 800;
-      background-color: rgb(245, 245, 245);
-      border-right: 1px solid rgb(144, 164, 174);
-      border-left: 1px solid rgb(144, 164, 174);
+      background-color: $title-bg-color;
+      border-right: 1px solid $border-color;
+      border-left: 1px solid $border-color;
       padding: 6px;
 
       &:hover {
-        background: rgb(226, 228, 229);
+        background: $title-hover-bg-color;
       }
       &::before {
         display: none;
       }
     }
     &[open=""] summary.bb-slide-title {
-      border-bottom: 1px solid rgb(144, 164, 174);
+      border-bottom: 1px solid $border-color;
     }
 
     div.bb-slide-content {
       margin-left: 0;
       position: relative;
-      background-color: rgb(245, 245, 245);
-      border-right: 1px solid rgb(144, 164, 174);
-      border-left: 1px solid rgb(144, 164, 174);
+      background-color: $content-bg-color;
+      border-right: 1px solid $border-color;
+      border-left: 1px solid $border-color;
 
       padding: 6px;
     }
