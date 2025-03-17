@@ -76,27 +76,28 @@ const walk = (t, disableLineBreakConversion = false) => {
  * @param {(string|Object)[]} words
  */
 const reduceWordsToLines = (words) => {
-  const lines = [];
-  let line = "";
-  for (const word of words) {
-    if (isString(word) && !isEOL(word)) {
-      line += word;
-    } else if (isString(word) && isEOL(word)) {
-      if (line) {
-        lines.push(line);
+  let rightIdx = words.findLastIndex((w) => isString(w) && !isEOL(w)) + 1;
+
+  for (let i = rightIdx - 1; i >= 0; i--) {
+    if (isString(words[i]) && !isEOL(words[i])) {
+      continue;
+    }
+    if (isEOL(words[i])) {
+      words.splice(i + 1, rightIdx - i - 1, words.slice(i + 1, rightIdx).join(""));
+      rightIdx = i;
+      continue;
+    }
+    if (isObj(words[i])) {
+      if (i !== rightIdx - 1) {
+        words.splice(i + 1, rightIdx - i - 1, words.slice(i + 1, rightIdx).join(""));
       }
-      lines.push(word);
-      line = "";
-    } else {
-      lines.push(line);
-      lines.push(word);
-      line = "";
+      rightIdx = i;
     }
   }
-  if (line) {
-    lines.push(line);
+
+  if (0 !== rightIdx) {
+    words.splice(0, rightIdx - 1, words.slice(0, rightIdx).join(""));
   }
-  words.splice(0, words.length, ...lines);
 };
 
 /**
