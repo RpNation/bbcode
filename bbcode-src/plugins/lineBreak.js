@@ -83,7 +83,9 @@ const reduceWordsToLines = (words) => {
       continue;
     }
     if (isEOL(words[i])) {
-      words.splice(i + 1, rightIdx - i - 1, words.slice(i + 1, rightIdx).join(""));
+      if (i !== rightIdx - 1) {
+        words.splice(i + 1, rightIdx - i - 1, words.slice(i + 1, rightIdx).join(""));
+      }
       rightIdx = i;
       continue;
     }
@@ -96,7 +98,7 @@ const reduceWordsToLines = (words) => {
   }
 
   if (0 !== rightIdx) {
-    words.splice(0, rightIdx - 1, words.slice(0, rightIdx).join(""));
+    words.splice(0, rightIdx, words.slice(0, rightIdx).join(""));
   }
 };
 
