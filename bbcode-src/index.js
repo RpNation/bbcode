@@ -26,7 +26,7 @@ export const RpNBBCode = (code, opts) => {
   if (opts.preserveWhitespace) {
     plugins.push(preserveWhitespace());
   }
-  plugins.push(lineBreakPlugin(), removeEmptyLinePlugin());
+  plugins.push(lineBreakPlugin(), removeEmptyLinePlugin);
   const [preprocessed, preprocessedData] = preprocessRaw(code);
   return bbob(plugins).process(preprocessed, {
     render,
