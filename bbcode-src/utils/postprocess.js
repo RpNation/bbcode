@@ -1,4 +1,11 @@
-import { MD_NEWLINE_INJECT, MD_NEWLINE_INJECT_COMMENT, MD_NEWLINE_PRE_INJECT } from "./common";
+import {
+  MD_BROKEN_BLOCKQUOTE,
+  MD_BROKEN_ORDERED_LIST,
+  MD_BROKEN_UNORDERED_LIST,
+  MD_NEWLINE_INJECT,
+  MD_NEWLINE_INJECT_COMMENT,
+  MD_NEWLINE_PRE_INJECT,
+} from "./common";
 
 /**
  * Post Processing designed to fix issues with Markdown and BBCode that the parser can't fix.
@@ -14,6 +21,14 @@ function removeNewlineInjects(raw) {
     .replaceAll("\n" + MD_NEWLINE_INJECT_COMMENT, "")
     .replaceAll(MD_NEWLINE_INJECT_COMMENT + "\n", "")
     .replaceAll(MD_NEWLINE_INJECT_COMMENT, ""); // Remove all instances of the injected newline
+  return processed;
+}
+
+function cleanMultilineMDBlocks(raw) {
+  const processed = raw
+    .replaceAll(MD_BROKEN_ORDERED_LIST, "")
+    .replaceAll(MD_BROKEN_UNORDERED_LIST, "")
+    .replaceAll(MD_BROKEN_BLOCKQUOTE, "");
   return processed;
 }
 
@@ -64,7 +79,7 @@ function createScriptTagTemplate(raw, data) {
   }
   const templates = data.bbscripts.map(
     (s) =>
-      `<template data-bbcode-plus="script" data-bbscript-id="${s.id}" data-bbscript-class="${s.class}" data-bbscript-on="${s.on}" data-bbscript-ver="${s.version}">${s.content}</template>`,
+      `<template data-bbcode-plus="script" data-bbscript-id="${s.id}" data-bbscript-class="${s.class}" data-bbscript-on="${s.on}" data-bbscript-ver="${s.version}">${s.content}</template>`
   );
   return templates.join("") + raw;
 }
@@ -81,6 +96,7 @@ export function postprocess(raw, data) {
     removeNewlineInjects,
     createClassStyleTagTemplate,
     createScriptTagTemplate,
+    cleanMultilineMDBlocks,
     renderHoistedCodeBlocks,
   ];
   for (const postprocessor of postprocessors) {

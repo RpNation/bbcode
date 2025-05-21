@@ -121,6 +121,10 @@ const ESCAPABLES_REGEX =
   /((\n|^)(?<fence>```+|~~~+)(?<fenceInfo>.*\n))|(?<bbcode>\[(?<bbcodeTag>i?code|plain)(=.*)?\])|(?<backtick>(?<tickStart>`{1,2})(.*)(?<tickEnd>\k<tickStart>))/im;
 const MD_TABLE_REGEX = /^(\|[^\n]+\|\r?\n)((?:\| ?:?[-]+:? ?)+\|)(\n(?:\|[^\n]+\|\r?\n?)*)?$/m;
 
+const MD_BROKEN_ORDERED_LIST = "</ol>\n<br><ol>";
+const MD_BROKEN_UNORDERED_LIST = "</ul>\n<br><ul>";
+const MD_BROKEN_BLOCKQUOTE = "</blockquote>\n<blockquote>";
+
 /**
  * Generates a random GUID.
  *
@@ -156,4 +160,7 @@ export {
   MD_TABLE_REGEX,
   URL_REGEX_SINGLE_LINE,
   ESCAPABLES_REGEX,
+  MD_BROKEN_ORDERED_LIST,
+  MD_BROKEN_UNORDERED_LIST,
+  MD_BROKEN_BLOCKQUOTE,
 };

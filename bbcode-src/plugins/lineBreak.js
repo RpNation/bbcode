@@ -27,6 +27,7 @@ const walk = (t, disableLineBreakConversion = false) => {
   const tree = t;
 
   if (Array.isArray(tree)) {
+    reduceWordsToLines(tree);
     if (tree.some(isString)) {
       // array contains strings. Might be md compatible
       tree.unshift(MD_NEWLINE_INJECT);
@@ -67,6 +68,38 @@ const walk = (t, disableLineBreakConversion = false) => {
   }
 
   return tree;
+};
+
+/**
+ * Reduces the list into lines, so that we can process them by line.
+ * Performs in place.
+ * @param {(string|Object)[]} words
+ */
+const reduceWordsToLines = (words) => {
+  let rightIdx = words.findLastIndex((w) => isString(w) && !isEOL(w)) + 1;
+
+  for (let i = rightIdx - 1; i >= 0; i--) {
+    if (isString(words[i]) && !isEOL(words[i])) {
+      continue;
+    }
+    if (isEOL(words[i])) {
+      if (i !== rightIdx - 1) {
+        words.splice(i + 1, rightIdx - i - 1, words.slice(i + 1, rightIdx).join(""));
+      }
+      rightIdx = i;
+      continue;
+    }
+    if (isObj(words[i])) {
+      if (i !== rightIdx - 1) {
+        words.splice(i + 1, rightIdx - i - 1, words.slice(i + 1, rightIdx).join(""));
+      }
+      rightIdx = i;
+    }
+  }
+
+  if (0 !== rightIdx) {
+    words.splice(0, rightIdx, words.slice(0, rightIdx).join(""));
+  }
 };
 
 /**

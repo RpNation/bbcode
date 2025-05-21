@@ -8,3 +8,7 @@ pre:has(> code) + br {
 aside.quote + br {
   display: none;
 }
+
+:is(ul, ol, blockquote) + br:has(+ ul, + ol, + blockquote) {
+  display: none;
+}

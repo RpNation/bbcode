@@ -8,6 +8,7 @@ import { preprocessRaw } from "./utils/preprocess";
 
 const options = {
   onlyAllowTags: [...availableTags],
+  caseFreeTags: true,
   contextFreeTags: preventParsing, // prevent parsing of children
   enableEscapeTags: true,
   onError: (err) => {
