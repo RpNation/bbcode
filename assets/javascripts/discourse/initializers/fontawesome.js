@@ -52,7 +52,7 @@ function initializeFontAwesome(api) {
         {
           id: "add fontawesome",
           afterAdopt: true,
-        },
+        }
       );
     })
     .catch((err) => {
