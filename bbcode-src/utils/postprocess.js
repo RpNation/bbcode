@@ -79,7 +79,7 @@ function createScriptTagTemplate(raw, data) {
   }
   const templates = data.bbscripts.map(
     (s) =>
-      `<template data-bbcode-plus="script" data-bbscript-id="${s.id}" data-bbscript-class="${s.class}" data-bbscript-on="${s.on}" data-bbscript-ver="${s.version}">${s.content}</template>`,
+      `<template data-bbcode-plus="script" data-bbscript-id="${s.id}" data-bbscript-class="${s.class}" data-bbscript-on="${s.on}" data-bbscript-ver="${s.version}">${s.content}</template>`
   );
   return templates.join("") + raw;
 }

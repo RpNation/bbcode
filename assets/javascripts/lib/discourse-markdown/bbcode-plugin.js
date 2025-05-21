@@ -12,7 +12,7 @@ function preprocessor(raw, opts, previewing = false) {
     console.warn(
       "Attempted to get the bbcode parser: does not exist. Defaulting to standard markdown-it.",
       "\ncalled on: \n",
-      raw,
+      raw
     );
     return [raw, {}];
   }
@@ -39,7 +39,7 @@ function postprocessor(raw, previewing = false, data = {}) {
     console.warn(
       "Attempted to get the bbcode parser: does not exist. Defaulting to standard markdown-it.",
       "\ncalled on: \n",
-      raw,
+      raw
     );
     return raw;
   }
@@ -79,13 +79,13 @@ export function setup(helper) {
           const [preprocessed, data] = preprocessor(
             raw,
             preprocessor_options,
-            engine.options?.discourse?.previewing,
+            engine.options?.discourse?.previewing
           );
           const processed = md.apply(this, [preprocessed]);
           const postprocessed = postprocessor(
             processed,
             engine.options?.discourse?.previewing,
-            data,
+            data
           );
           return postprocessed;
         };

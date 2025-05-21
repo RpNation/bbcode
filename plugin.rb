@@ -35,7 +35,7 @@ after_initialize do
   # adds discourse_normalize_whitespace setting (defaults to false)
   # when true, normalize_whitespace runs as normal
   # when false, it does nothing, which allows for persistence of non-default whitespace.
-  class ::TextCleaner
+  class ::TextCleaner # rubocop:disable Discourse/Plugins/NoMonkeyPatching
     module Optional_normalize_whitespace
       def title_options
         options = super

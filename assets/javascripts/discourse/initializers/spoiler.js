@@ -71,7 +71,7 @@ class Spoiler {
       {
         duration: 200,
         easing: "ease-in-out",
-      },
+      }
     );
 
     // When the animation is complete, call onAnimationFinish()
@@ -112,7 +112,7 @@ class Spoiler {
       {
         duration: 200,
         easing: "ease-in-out",
-      },
+      }
     );
     // When the animation is complete, call onAnimationFinish()
     this.animation.onfinish = () => this.onAnimationFinish(true);

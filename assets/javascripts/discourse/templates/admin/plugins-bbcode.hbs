@@ -2,17 +2,17 @@
 <p>{{i18n "bbcode.resetDesc"}}</p>
 
 <div class="buttons">
-  {{#if resetEnabled}}
+  {{#if this.resetEnabled}}
     <DButton
       @label="bbcode.reset"
       @action={{action "resetServerJSContext"}}
       @icon="sync"
       @id="reset-bbcode"
     />
-    {{#if success}}
+    {{#if this.success}}
       <span style="color: var(--success-medium)">{{i18n "bbcode.success"}}</span>
     {{/if}}
-    {{#if error}}
+    {{#if this.error}}
       <span style="color: var(--danger-medium)">{{i18n "bbcode.error"}}</span>
     {{/if}}
   {{else}}

@@ -27,7 +27,7 @@ const documentObserver = new IntersectionObserver(
   {
     threshold: 0,
     rootMargin: "10px 0px 0px 0px",
-  },
+  }
 );
 
 /**
@@ -147,7 +147,7 @@ function initializeBBScript(api) {
     {
       id: "add bbscript",
       afterAdopt: true,
-    },
+    }
   );
 }
 

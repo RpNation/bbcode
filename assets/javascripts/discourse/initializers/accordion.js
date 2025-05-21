@@ -99,7 +99,7 @@ class Accordion {
       {
         duration: 400,
         easing: "linear",
-      },
+      }
     );
 
     // When the animation is complete, call onAnimationFinish()
@@ -123,6 +123,7 @@ class Accordion {
     }
     window.requestAnimationFrame(() => this.expand(slide));
   }
+
   /**
    * @param {Slide} slide
    */
@@ -149,7 +150,7 @@ class Accordion {
       {
         duration: 400,
         easing: "linear",
-      },
+      }
     );
     // When the animation is complete, call onAnimationFinish()
     slide.animation.onfinish = () => this.onAnimationFinish(true, slide);
