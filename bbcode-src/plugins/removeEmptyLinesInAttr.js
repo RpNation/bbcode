@@ -1,4 +1,5 @@
 import { isTagNode } from "@bbob/plugin-helper";
+
 const CONSECUTIVE_NEWLINE_REGEX = /\n{2,}/gm;
 
 /**
