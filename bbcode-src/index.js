@@ -2,6 +2,7 @@ import bbob from "@bbob/core";
 import { render } from "@bbob/html";
 import { lineBreakPlugin } from "./plugins/lineBreak";
 import { preserveWhitespace } from "./plugins/preserveWhitespace";
+import { removeEmptyLinePlugin } from "./plugins/removeEmptyLinesInAttr";
 import { availableTags, preset, preventParsing } from "./preset";
 import { postprocess } from "./utils/postprocess";
 import { preprocessRaw } from "./utils/preprocess";
@@ -25,7 +26,7 @@ export const RpNBBCode = (code, opts) => {
   if (opts.preserveWhitespace) {
     plugins.push(preserveWhitespace());
   }
-  plugins.push(lineBreakPlugin());
+  plugins.push(lineBreakPlugin(), removeEmptyLinePlugin);
   const [preprocessed, preprocessedData] = preprocessRaw(code);
   return bbob(plugins).process(preprocessed, {
     render,
