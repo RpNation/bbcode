@@ -20,7 +20,7 @@ export const textmessage = {
   message: (node, options) => {
     // We should only parse a [message] tag if the [textmessage] tag exists
     if (options?.data?.raw?.toLowerCase().includes("[textmessage]")) {
-      let option = preprocessAttr(node, options?.data?.raw)._default.toLowerCase();
+      let option = preprocessAttr(node, options?.data?.raw)?._default.toLowerCase();
       if (!ACCEPTED_OPTIONS.includes(option) || option === "right") {
         option = "me";
       }
