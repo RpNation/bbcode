@@ -75,8 +75,8 @@ const googleFontApiBuild = (family, axes) => {
 
 export const font = (node, options) => {
   const attrs = preprocessAttr(node, options.data.raw);
-  const fontFamily = attrs?._default || attrs.family || attrs.name;
-  if (fontFamily.trim() === "") {
+  const fontFamily = attrs?._default || attrs?.family || attrs?.name;
+  if (!fontFamily || fontFamily.trim() === "") {
     return node.content;
   }
   if (WEB_FONTS.includes(fontFamily.trim().toLowerCase())) {
@@ -102,6 +102,6 @@ export const font = (node, options) => {
       style: `font-family: '${fontFamily}'; font-weight: ${axes.wght}; font-style: ${italic}; ${fontVar}`,
       "data-font": url,
     },
-    node.content,
+    node.content
   );
 };
