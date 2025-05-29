@@ -61,7 +61,7 @@ export const tab = (node, options) => {
     return toOriginalStartTag(node, options.data.raw);
   }
   const attrs = preprocessAttr(node, options.data.raw);
-  const name = attrs._default || attrs.name || "Tab";
+  const name = attrs?._default || attrs?.name || "Tab";
   const tabId = `tab-${name.replace(/\W/g, "_")}-${generateGUID()}`;
   return [
     toNode("input", {
