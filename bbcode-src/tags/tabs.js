@@ -13,7 +13,7 @@ import {
  */
 export const tabs = (node, options) => {
   const tabsList = node.content.filter(
-    (contentNode) => isTagNode(contentNode) && contentNode.tag === "tab",
+    (contentNode) => isTagNode(contentNode) && contentNode.tag === "tab"
   );
   const groupId = generateGUID();
   tabsList.forEach((tabNode) => {
@@ -21,12 +21,16 @@ export const tabs = (node, options) => {
     tabNode.groupId = groupId;
   });
   if (!tabsList.length) {
-    // no [tab] tags found
-    return [
-      toOriginalStartTag(node, options.data.raw),
-      ...node.content,
-      toOriginalEndTag(node, options.data.raw),
-    ];
+    // no [tab] tags found, but had content
+    if (node.end) {
+      return [
+        toOriginalStartTag(node, options.data.raw),
+        ...node.content,
+        toOriginalEndTag(node, options.data.raw),
+      ];
+    }
+    // no [tab] tags found, but doesn't have content (url embed syntax)
+    return toOriginalStartTag(node, options.data.raw);
   }
   tabsList[0].open = true;
 
@@ -35,7 +39,7 @@ export const tabs = (node, options) => {
     {
       class: "bb-tabs",
     },
-    tabsList,
+    tabsList
   );
 };
 
@@ -45,12 +49,16 @@ export const tabs = (node, options) => {
  */
 export const tab = (node, options) => {
   if (!node.isValid) {
-    // not inside a [tabs] tag
-    return [
-      toOriginalStartTag(node, options.data.raw),
-      ...node.content,
-      toOriginalEndTag(node, options.data.raw),
-    ];
+    /// not inside a [tabs] tag, but has content.
+    if (node.end) {
+      return [
+        toOriginalStartTag(node, options.data.raw),
+        ...node.content,
+        toOriginalEndTag(node, options.data.raw),
+      ];
+    }
+    // not inside a [tabs] tag, but doesn't have content (url embed syntax)
+    return toOriginalStartTag(node, options.data.raw);
   }
   const attrs = preprocessAttr(node, options.data.raw);
   const name = attrs._default || attrs.name || "Tab";
@@ -70,14 +78,14 @@ export const tab = (node, options) => {
         for: tabId,
         style: attrs.style,
       },
-      name,
+      name
     ),
     toNode(
       "div",
       {
         class: "bb-tab-content",
       },
-      node.content,
+      node.content
     ),
   ];
 };
