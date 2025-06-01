@@ -1,13 +1,25 @@
-import { preprocessAttr, toNode } from "../utils/common";
+import { isTagNode } from "@bbob/plugin-helper";
+import { preprocessAttr, toNode, toRawTag } from "../utils/common";
 
 /**
  * @file Adds textmessage to bbcode
- * @exmaple [textmessage=Recipient][message=them]Hi [/message][message=me] Hey![/message][/textmessage]
+ * @example [textmessage=Recipient][message=them]Hi [/message][message=me] Hey![/message][/textmessage]
  */
 
 const ACCEPTED_OPTIONS = ["me", "them", "right", "left"];
 export const textmessage = {
   textmessage: (node, options) => {
+    const messageList = node.content.filter(
+      (contentNode) => isTagNode(contentNode) && contentNode.tag === "message"
+    );
+    messageList.forEach((messageNode) => {
+      messageNode.isValid = true;
+    });
+
+    if (!messageList.length) {
+      return toRawTag(node, options.data.raw);
+    }
+
     const attr = preprocessAttr(node, options.data.raw)._default || "Recipient";
     const recipient = attr && attr.trim() !== "" ? attr : "Recipient";
     return toNode("div", { class: "bb-textmessage" }, [
@@ -18,7 +30,11 @@ export const textmessage = {
     ]);
   },
   message: (node, options) => {
-    let option = preprocessAttr(node, options.data.raw)._default.toLowerCase();
+    if (!node.isValid) {
+      return toRawTag(node, options.data.raw);
+    }
+
+    let option = preprocessAttr(node, options?.data?.raw)?._default?.toLowerCase();
     if (!ACCEPTED_OPTIONS.includes(option) || option === "right") {
       option = "me";
     }
