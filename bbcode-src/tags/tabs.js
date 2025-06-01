@@ -1,11 +1,5 @@
 import { isTagNode } from "@bbob/plugin-helper";
-import {
-  generateGUID,
-  preprocessAttr,
-  toNode,
-  toOriginalEndTag,
-  toOriginalStartTag,
-} from "../utils/common";
+import { generateGUID, preprocessAttr, toNode, toRawTag } from "../utils/common";
 
 /**
  * @file Adds [tabs][tab] to bbcode
@@ -20,20 +14,12 @@ export const tabs = (node, options) => {
     tabNode.isValid = true;
     tabNode.groupId = groupId;
   });
-  if (!tabsList.length) {
-    // no [tab] tags found, but had content
-    if (node.end) {
-      return [
-        toOriginalStartTag(node, options.data.raw),
-        ...node.content,
-        toOriginalEndTag(node, options.data.raw),
-      ];
-    }
-    // no [tab] tags found, but doesn't have content (url embed syntax)
-    return toOriginalStartTag(node, options.data.raw);
-  }
-  tabsList[0].open = true;
 
+  if (!tabsList.length) {
+    return toRawTag(node, options.data.raw);
+  }
+
+  tabsList[0].open = true;
   return toNode(
     "div",
     {
@@ -49,17 +35,9 @@ export const tabs = (node, options) => {
  */
 export const tab = (node, options) => {
   if (!node.isValid) {
-    /// not inside a [tabs] tag, but has content.
-    if (node.end) {
-      return [
-        toOriginalStartTag(node, options.data.raw),
-        ...node.content,
-        toOriginalEndTag(node, options.data.raw),
-      ];
-    }
-    // not inside a [tabs] tag, but doesn't have content (url embed syntax)
-    return toOriginalStartTag(node, options.data.raw);
+    return toRawTag(node, options.data.raw);
   }
+
   const attrs = preprocessAttr(node, options.data.raw);
   const name = attrs?._default || attrs?.name || "Tab";
   const tabId = `tab-${name.replace(/\W/g, "_")}-${generateGUID()}`;

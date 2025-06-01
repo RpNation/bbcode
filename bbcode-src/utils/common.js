@@ -97,6 +97,21 @@ const toOriginalEndTag = (node, raw) => {
 };
 
 /**
+ * Attempts to convert a node to a Markdown URL-embed-safe raw tag.
+ *
+ * Depending on the input node, the result is either:
+ * - A single raw tag string if no end node is present
+ * - Or an array of such strings if an end node is present
+ * @returns {(string|string[])} - A Markdown URL-embed-safe raw tag or an array of tags.
+ */
+const toRawTag = (node, raw) => {
+  if (node.end) {
+    return [toOriginalStartTag(node, raw), ...node.content, toOriginalEndTag(node, raw)];
+  }
+  return toOriginalStartTag(node, raw);
+};
+
+/**
  * Given a string, find the first position of a regex match
  * @param {string} string to test against
  * @param {RegExp} regex to test with
@@ -149,6 +164,7 @@ export {
   toNode,
   toOriginalStartTag,
   toOriginalEndTag,
+  toRawTag,
   generateGUID,
   preprocessAttr,
   regexIndexOf,

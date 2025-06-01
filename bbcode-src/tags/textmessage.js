@@ -1,5 +1,5 @@
 import { isTagNode } from "@bbob/plugin-helper";
-import { preprocessAttr, toNode, toOriginalEndTag, toOriginalStartTag } from "../utils/common";
+import { preprocessAttr, toNode, toRawTag } from "../utils/common";
 
 /**
  * @file Adds textmessage to bbcode
@@ -17,16 +17,7 @@ export const textmessage = {
     });
 
     if (!messageList.length) {
-      // no [message] tags found, but had content
-      if (node.end) {
-        return [
-          toOriginalStartTag(node, options.data.raw),
-          ...node.content,
-          toOriginalEndTag(node, options.data.raw),
-        ];
-      }
-      // no [message] tags found, but doesn't have content (url embed syntax)
-      return toOriginalStartTag(node, options.data.raw);
+      return toRawTag(node, options.data.raw);
     }
 
     const attr = preprocessAttr(node, options.data.raw)._default || "Recipient";
@@ -40,17 +31,9 @@ export const textmessage = {
   },
   message: (node, options) => {
     if (!node.isValid) {
-      // not inside a [textmessage] tag, but has content.
-      if (node.end) {
-        return [
-          toOriginalStartTag(node, options.data.raw),
-          ...node.content,
-          toOriginalEndTag(node, options.data.raw),
-        ];
-      }
-      // not inside a [textmessage] tag, but doesn't have content (url embed syntax)
-      return toOriginalStartTag(node, options.data.raw);
+      return toRawTag(node, options.data.raw);
     }
+
     let option = preprocessAttr(node, options?.data?.raw)?._default?.toLowerCase();
     if (!ACCEPTED_OPTIONS.includes(option) || option === "right") {
       option = "me";
