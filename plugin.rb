@@ -21,7 +21,7 @@ Discourse::Application.routes.append do
 end
 
 module ::BbCode
-  PLUGIN_NAME = "BbCode"
+  PLUGIN_NAME = "bbcode"
 end
 
 require_relative "lib/bb_code/engine"

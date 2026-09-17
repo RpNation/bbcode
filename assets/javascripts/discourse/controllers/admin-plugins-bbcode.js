@@ -13,7 +13,7 @@ export default class AdminPluginsBBCodeController extends Controller {
     this.resetEnabled = false;
     this.success = false;
     this.error = false;
-    ajax("/BbCode/admin/refresh")
+    ajax("/BbCode/admin/refresh", { type: "POST" })
       .then(() => {
         // success
         this.resetEnabled = true;
