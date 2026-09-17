@@ -262,7 +262,7 @@
     "@bbob/plugin-helper" "*"
     "@bbob/types" "*"
 
-"@bbob/parser@*":
+"@bbob/parser@*", "@bbob/parser@4.2.0":
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/@bbob/parser/-/parser-4.2.0.tgz#0b93898a43db50950f25a7bb05b0816ab6d9dc29"
   integrity sha512-l8BppXjdQClrUiv+qIN0Oe6aS/vlH7CEduMreDaxYDadUPC0RMzxj9lXVjO0xTbFEVEIUJCGc53qnpiApLbx2g==

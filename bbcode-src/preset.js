@@ -25,6 +25,7 @@ import { highlight } from "./tags/highlight";
 import { imagefloat } from "./tags/imagefloat";
 import { justify } from "./tags/justify";
 import { br, nobr } from "./tags/lineBreak";
+import { list } from "./tags/list";
 import { mail } from "./tags/mail";
 import { newspaper } from "./tags/newspaper";
 import { note } from "./tags/note";
@@ -42,6 +43,7 @@ import { size } from "./tags/size";
 import { inlinespoiler, spoiler } from "./tags/spoiler";
 import { sub } from "./tags/subscript";
 import { sup } from "./tags/superscript";
+import { tableTags } from "./tags/table";
 import { tab, tabs } from "./tags/tabs";
 import { textmessage } from "./tags/textmessage";
 import { thinprogress } from "./tags/thinprogress";
@@ -49,6 +51,7 @@ import { thinprogress } from "./tags/thinprogress";
 const tags = {
   ...accordionTags,
   ...alignment,
+  ...tableTags,
   ...anchor,
   animation,
   bg,
@@ -81,6 +84,7 @@ const tags = {
   inlinespoiler,
   justify,
   keyframe,
+  list,
   mail,
   newspaper,
   nobr,

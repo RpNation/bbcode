@@ -1,41 +1,61 @@
-/**
- * @file Initializes any inline spoiler tag with proper js/event handling
- */
 import { withPluginApi } from "discourse/lib/plugin-api";
 
-/**
- * Adds the inline js for inline spoilers inside a given post
- * @param {HTMLElement} post the post itself
- */
-function addInlineSpoilerCode(post) {
-  post.querySelectorAll(".bb-inline-spoiler").forEach((el) => {
-    el.addEventListener("click", toggleInlineSpoiler);
-  });
-}
+const decoratedSpoilers = new WeakSet();
 
 function toggleInlineSpoiler(event) {
-  const inlinespoiler = event.target;
-  if (inlinespoiler.attributes.getNamedItem("data-displayed") === null) {
-    inlinespoiler.setAttribute("data-displayed", true);
-  } else {
-    inlinespoiler.removeAttribute("data-displayed");
+  if (event.type === "keydown" && !["Enter", " "].includes(event.key)) {
+    return;
   }
+
+  const spoiler = event.currentTarget;
+  if (
+    event.target !== spoiler &&
+    spoiler.getAttribute("data-displayed") === "true" &&
+    event.target.closest("a, button, input, select, textarea")
+  ) {
+    // Let revealed links and controls reach Discourse's delegated handlers.
+    // Enclosing revealed spoilers also take this branch without toggling.
+    return;
+  }
+
+  event.preventDefault();
+  event.stopPropagation();
+  const displayed = spoiler.getAttribute("data-displayed") !== "true";
+  if (displayed) {
+    spoiler.setAttribute("data-displayed", "true");
+  } else {
+    spoiler.removeAttribute("data-displayed");
+  }
+  spoiler.setAttribute("aria-expanded", String(displayed));
 }
 
-/**
- * The initial called function.
- * Any calls to the PluginAPI should be done in here
- * @param api
- */
-function initializeSpoiler(api) {
-  api.decorateCookedElement(addInlineSpoilerCode, {
-    id: "add inline spoilers",
+export function addInlineSpoilerCode(post) {
+  post.querySelectorAll(".bb-inline-spoiler").forEach((spoiler) => {
+    if (decoratedSpoilers.has(spoiler)) {
+      return;
+    }
+
+    decoratedSpoilers.add(spoiler);
+    spoiler.setAttribute("tabindex", "0");
+    spoiler.setAttribute("role", "button");
+    spoiler.setAttribute(
+      "aria-expanded",
+      String(spoiler.getAttribute("data-displayed") === "true")
+    );
+    spoiler.addEventListener("click", toggleInlineSpoiler);
+    spoiler.addEventListener("keydown", toggleInlineSpoiler);
   });
 }
 
 export default {
-  name: "inlinespoiler",
+  name: "bbcode-inline-spoiler",
   initialize() {
-    withPluginApi("0.11.1", initializeSpoiler);
+    withPluginApi((api) => {
+      if (!api.container.lookup("service:site-settings").bbcode_enabled) {
+        return;
+      }
+
+      api.decorateCookedElement(addInlineSpoilerCode);
+    });
   },
 };

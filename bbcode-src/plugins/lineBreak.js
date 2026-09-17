@@ -23,8 +23,18 @@ const isString = (value) => typeof value === "string";
  * @param t tree of nodes to be processed
  * @returns modified tree
  */
-const walk = (t, disableLineBreakConversion = false) => {
-  const tree = t;
+const walk = (t, disableLineBreakConversion = false, preserveHeadingText = false) => {
+  let tree = t;
+
+  if (isString(tree) && preserveHeadingText) {
+    // Text such as "# character sheet" is a small literal label in legacy
+    // layouts. Encode its first hash before Markdown's block rules run; inline
+    // entity parsing restores the original text without creating a heading.
+    // This never rewrites attributes, code examples or Markdown outside layouts.
+    tree = tree.replace(/^([ \t]*)(#{1,6})(?=[ \t\r\n]|$)/gm, (_, indent, hashes) => {
+      return `${indent}&#35;${hashes.slice(1)}`;
+    });
+  }
 
   if (Array.isArray(tree)) {
     reduceWordsToLines(tree);
@@ -34,7 +44,7 @@ const walk = (t, disableLineBreakConversion = false) => {
       tree.push(MD_NEWLINE_INJECT);
     }
     for (let idx = 0; idx < tree.length; idx++) {
-      const child = walk(tree[idx], disableLineBreakConversion);
+      const child = walk(tree[idx], disableLineBreakConversion, preserveHeadingText);
       if (Array.isArray(child)) {
         tree.splice(idx, 1, ...child);
         idx += child.length - 1;
@@ -51,7 +61,10 @@ const walk = (t, disableLineBreakConversion = false) => {
     if (tree.disableLineBreakConversion) {
       disableLineBreakConversion = true;
     }
-    walk(tree.content, disableLineBreakConversion);
+    // Only author-created DIVs and NOBR regions own their heading typography.
+    // Generated DIVs (spoilers, quotes, etc.) do not change Markdown semantics.
+    preserveHeadingText ||= tree.preserveHeadingText || tree.attrs?.["data-bbcode-div"] === "true";
+    walk(tree.content, disableLineBreakConversion, preserveHeadingText);
     return tree.tag ? tree : tree.content;
   } else if (isString(tree) && URL_REGEX_SINGLE_LINE.test(tree.trim())) {
     // if the entire string is a URL, then it should be prepared for onebox.

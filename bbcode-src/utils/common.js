@@ -34,36 +34,31 @@ const toNode = (tag, attrs, content = []) => ({
  * @returns processed attributes
  */
 const preprocessAttr = (node, raw) => {
+  if (raw && node.start) {
+    const nodeRaw = raw.substring(node.start.from, node.start.to);
+    const defaultOption = /^\[[^\s=\]]+\s*=/.exec(nodeRaw);
+    if (defaultOption) {
+      // A default option can contain complete CSS, including spaces, equals
+      // signs in URLs, and quoted font names. Read it from the original tag
+      // rather than reconstructing it from the tokenized keyed attributes.
+      let value = nodeRaw.slice(defaultOption[0].length, -1).trim();
+      if (
+        (value.startsWith('"') && value.endsWith('"')) ||
+        (value.startsWith("'") && value.endsWith("'"))
+      ) {
+        value = value.slice(1, -1);
+      }
+      return { _default: value };
+    }
+  }
+
   const keys = Object.keys(node.attrs).join(" ");
   const vals = Object.values(node.attrs).join(" ");
   if (keys !== vals) {
     // [tag key=val]
     return node.attrs;
   }
-  if (!raw || !node.start) {
-    return {
-      _default: vals,
-    };
-  }
-  // [tag=attr]
-  // node.start.from = 0
-  // node.start.to = 10
-  const nodeRaw = raw.substring(node.start.from, node.start.to);
-  if (!nodeRaw.includes("=")) {
-    // [tag] or [tag attr]
-    return node.attrs;
-  }
-  const openTagParts = nodeRaw.split("=");
-  if (openTagParts.length !== 2) {
-    return node.attrs;
-  }
-  let val = openTagParts[1].slice(0, -1).trim(); // `attr` or `"attr"`
-  if (val.startsWith('"') && val.endsWith('"')) {
-    val = val.slice(1, -1);
-  }
-  return {
-    _default: val,
-  };
+  return raw && node.start ? node.attrs : { _default: vals };
 };
 
 /**
@@ -132,8 +127,10 @@ const URL_REGEX =
 const MD_URL_REGEX =
   /\!?\[.*\]\((http|ftp|https|upload):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])\)/;
 const URL_REGEX_SINGLE_LINE = new RegExp(`^${URL_REGEX.source}|${MD_URL_REGEX.source}$`);
+// Both ends of an inline-code delimiter must be whole backtick runs. In
+// particular, never retry shorter openers from inside an unmatched long run.
 const ESCAPABLES_REGEX =
-  /((\n|^)(?<fence>```+|~~~+)(?<fenceInfo>.*\n))|(?<bbcode>\[(?<bbcodeTag>i?code|plain)(=.*)?\])|(?<backtick>(?<tickStart>`{1,2})(.*)(?<tickEnd>\k<tickStart>))/im;
+  /((\n|^)(?<fence>```+|~~~+)(?<fenceInfo>.*\n))|(?<bbcode>\[(?<bbcodeTag>i?code|plain)(=[^\]\r\n]*)?\])|(?<backtick>(?<!`)(?<tickStart>`+)(?!`)([\s\S]*?)(?<tickEnd>(?<!`)\k<tickStart>)(?!`))/im;
 const MD_TABLE_REGEX = /^(\|[^\n]+\|\r?\n)((?:\| ?:?[-]+:? ?)+\|)(\n(?:\|[^\n]+\|\r?\n?)*)?$/m;
 
 const MD_BROKEN_ORDERED_LIST = "</ol>\n<br><ol>";

@@ -52,7 +52,8 @@ The goal of this repo and plugin is to provide users with the BBCode suite that 
 - [x] Sides
 - [x] Tabs
 - [x] Accordions
-- [x] ~~Tables~~ now using markdown tables
+- [x] Legacy tables and native Markdown tables
+- [x] Legacy numbered and bulleted lists
 - [x] Center Block
 - [x] Background
 - [x] Border
@@ -105,6 +106,18 @@ For more, see the [Discourse Docker Guide](https://meta.discourse.org/docs?topic
 
 ## Architecture
 
-The architecture of this project is for all BBCode Parser related code to be contained in `/bbcode-src`, which would then be minified into a module and added to the appropriate location in `/assets/javascripts` to be used by the discourse plugin proper. This is to work around the weird way discourse requires libraries to be loaded in. There will be a Rollup config and github action setup to automate minifying and moving the module.
+Parser and tag implementations live in `bbcode-src`. Run
+`yarn install --frozen-lockfile` and `yarn build` to regenerate the checked-in parser bundles
+and source maps before deploying source changes. Install the full plugin in
+Discourse's `plugins/bbcode` directory and restart Discourse and its frontend
+build when adding or removing plugin modules.
 
-Honestly, if anyone has a better solution, please send help.
+The parser is registered for both server cooking and browser previews. A native
+Markdown plugin invokes it for legacy BBCode and leaves ordinary Markdown on
+Discourse's normal path. Rendered content still passes through the native
+sanitizer. Interactive features use cooked-post decoration and native HTML
+controls.
+
+See [integration notes](INTEGRATION_NOTES.md) for the current compatibility work,
+tests, remaining boundaries, and the tradeoffs of a future contained HTML/CSS
+editor. BBScript remains optional and disabled by default.

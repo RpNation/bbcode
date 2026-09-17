@@ -18,9 +18,10 @@ export const div = (node, options) => {
     return toNode(
       "div",
       {
+        "data-bbcode-div": "true",
         style,
       },
-      node.content,
+      node.content
     );
   }
 
@@ -39,9 +40,10 @@ export const div = (node, options) => {
   return toNode(
     "div",
     {
+      "data-bbcode-div": "true",
       class: classNames,
       style,
     },
-    node.content,
+    node.content
   );
 };

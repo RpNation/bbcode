@@ -6,6 +6,7 @@ import { removeEmptyLinePlugin } from "./plugins/removeEmptyLinesInAttr";
 import { availableTags, preset, preventParsing } from "./preset";
 import { postprocess } from "./utils/postprocess";
 import { preprocessRaw } from "./utils/preprocess";
+import { createLegacyTokenizer } from "./utils/tokenizer";
 
 const options = {
   onlyAllowTags: [...availableTags],
@@ -20,6 +21,24 @@ const options = {
   },
 };
 const presetTags = preset();
+const customTagPattern = new RegExp(
+  `\\[(?:${availableTags.filter((tag) => tag !== "savenl").join("|")})(?=[\\s=\\]])`,
+  "i"
+);
+
+export function containsBBCode(code) {
+  // Hoist native fenced/inline code before deciding whether this post needs
+  // legacy whitespace rules. A BBCode example is still ordinary Markdown.
+  // Indented code can only start at the document start or after a blank line;
+  // indentation continuing an ordinary paragraph is not a Markdown code block.
+  // This is detection only: indenting nested tags in legacy layouts must not
+  // turn those layouts into code when actual BBCode exists outside examples.
+  const withoutIndentedCode = code
+    .replace(/\r\n?/g, "\n")
+    .replace(/(^|\n[ \t]*\n)(?:(?: {4}| {0,3}\t)[^\n]*(?:\n|$)|[ \t]*\n)+/g, "$1");
+  const [preprocessed] = preprocessRaw(withoutIndentedCode);
+  return customTagPattern.test(preprocessed);
+}
 
 export const RpNBBCode = (code, opts) => {
   const plugins = [presetTags];
@@ -30,6 +49,7 @@ export const RpNBBCode = (code, opts) => {
   const [preprocessed, preprocessedData] = preprocessRaw(code);
   return bbob(plugins).process(preprocessed, {
     render,
+    createTokenizer: createLegacyTokenizer,
     ...options,
     data: {
       ...preprocessedData,
@@ -42,4 +62,4 @@ export const RpNBBCode = (code, opts) => {
   });
 };
 
-export { postprocess };
+export { availableTags, postprocess };

@@ -20,5 +20,9 @@ export const br = () => {
  * ```
  */
 export const nobr = (node) => {
-  return { disableLineBreakConversion: true, content: node.content };
+  return {
+    disableLineBreakConversion: true,
+    preserveHeadingText: true,
+    content: node.content,
+  };
 };

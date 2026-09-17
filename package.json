@@ -28,6 +28,7 @@
   "dependencies": {
     "@bbob/core": "^4.2.0",
     "@bbob/html": "^4.2.0",
+    "@bbob/parser": "4.2.0",
     "@bbob/preset": "^4.2.0",
     "@bbob/preset-html5": "^4.2.0"
   },
