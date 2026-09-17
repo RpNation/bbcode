@@ -1,113 +1,129 @@
-import { debounce } from "@ember/runloop";
 import loadscript from "discourse/lib/load-script";
 import { withPluginApi } from "discourse/lib/plugin-api";
 /* global bbscriptParser */
 
-/**
- * @type {Array<{callback: function, on: string}>}
- */
-let attachedPreviewBBScripts = [];
-/** @type {WeakMap<Element, CallableFunction[]>} */
-const initBBScripts = new WeakMap();
+export function createBBScriptDecorator(
+  loadParser = () => loadscript("/plugins/bbcode/javascripts/bbscript-parser.min.js")
+) {
+  // Composer previews can reuse a root without calling the returned cleanup.
+  // Keep its previous cleanup weakly so new decorations replace old handlers.
+  const decoratedPosts = new WeakMap();
+  let parserPromise;
 
-const PARENT_PREVIEW_WRAPPER_CLASS = "d-editor-preview";
-
-const documentObserver = new IntersectionObserver(
-  (entries, observer) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const post = entry.target;
-        const callback = initBBScripts.get(post);
-        callback?.forEach((c) => c());
-        initBBScripts.delete(post);
-        observer.unobserve(post);
-      }
-    });
-  },
-  {
-    threshold: 0,
-    rootMargin: "10px 0px 0px 0px",
-  }
-);
-
-/**
- * Check if the post is a preview. If it is a preview, debounce the function
- * @param {HTMLElement} post
- */
-function checkIsPreview(post) {
-  let isPreview = post.classList.contains(PARENT_PREVIEW_WRAPPER_CLASS);
-  if (isPreview) {
-    // prevent multiple calls to addBBScriptLogic
-    // preview mode is constantly updating based on user input
-    debounce(this, addBBScriptLogic, post, true, 1000);
-  } else {
-    addBBScriptLogic(post, false);
-  }
-}
-
-/**
- * Adds the bbscript functions to the post
- * @param {HTMLElement} post the post itself
- */
-function addBBScriptLogic(post, isPreview = false) {
-  if (isPreview) {
-    attachedPreviewBBScripts.forEach(({ callback, on }) => {
-      post.removeEventListener(on, callback, true);
-    });
-    attachedPreviewBBScripts = [];
-    delete bbscriptParser.bbscriptData.preview;
-  }
-
-  post.querySelectorAll("template[data-bbcode-plus='script']").forEach((el) => {
-    const callerId = el.getAttribute("data-bbscript-id") || "";
-    const callerClass = el.getAttribute("data-bbscript-class") || "";
-    /** @type {string} */
-    const content = el.content.textContent || "";
-    let version = el.getAttribute("data-bbscript-ver") || "";
-    const on = el.getAttribute("data-bbscript-on") || "init"; // valid on events: init, click, mouseover, mouseout, etc.
-    let astTree;
-    if (version === "") {
-      // unknown version. check for unique () style of bbscript2
-      version = content.split("\n").some((line) => line.trim().startsWith("(")) ? "2" : "1";
+  return function decorateBBScript(post) {
+    decoratedPosts.get(post)?.();
+    const templates = [...post.querySelectorAll("template[data-bbcode-plus='script']")];
+    if (!templates.length) {
+      return;
     }
-    if (version === "2") {
-      const parsed = bbscriptParser.bbscript2Parser.parse(content);
-      astTree = parsed.ast;
-      if (parsed.formattedErrors.length) {
-        // eslint-disable-next-line no-console
-        console.warn(parsed.formattedErrors);
+
+    let disposed = false;
+    let observer;
+    // Abort removes this decoration's delegated script events (click, input,
+    // change, etc.); it does not cancel the parser download or script execution.
+    const events = new AbortController();
+    const cleanup = () => {
+      if (disposed) {
+        return;
       }
-    } else {
-      astTree = bbscriptParser.bbscriptProcessorV1.parse(content);
-    }
-    if (on === "init") {
-      let target;
-      if (callerClass) {
-        target = document.querySelectorAll("." + callerClass + "__" + callerId) || undefined;
+      disposed = true;
+      observer?.disconnect();
+      events.abort();
+      if (decoratedPosts.get(post) === cleanup) {
+        decoratedPosts.delete(post);
       }
-      // only fire when the post is visible
-      if (!initBBScripts.has(post)) {
-        initBBScripts.set(post, []);
-      }
-      initBBScripts.get(post).push(() => {
-        triggerBBScript(callerId, callerClass, astTree, version, target);
-      });
-      documentObserver.observe(post);
-    } else {
-      const callback = (ev) => {
-        const target = ev.target?.closest("." + callerClass + "__" + callerId);
-        if (target) {
-          triggerBBScript(callerId, callerClass, astTree, version, target);
+    };
+    decoratedPosts.set(post, cleanup);
+
+    parserPromise ||= loadParser().catch((error) => {
+      parserPromise = undefined;
+      throw error;
+    });
+    parserPromise
+      .then(() => {
+        if (disposed) {
+          return;
         }
-      };
-      // event delegation
-      post.addEventListener(on, callback, true);
-      if (isPreview) {
-        attachedPreviewBBScripts.push({ callback, on });
-      }
-    }
-  });
+
+        const isPreview = !!post.closest(".d-editor-preview");
+        if (isPreview) {
+          delete bbscriptParser.bbscriptData.preview;
+        }
+        const initializers = [];
+        for (const el of templates) {
+          const callerId = el.getAttribute("data-bbscript-id") || "";
+          const callerClass = el.getAttribute("data-bbscript-class") || "";
+          const content = el.content.textContent || "";
+          const on = el.getAttribute("data-bbscript-on") || "init";
+          let version = el.getAttribute("data-bbscript-ver") || "";
+          if (!version) {
+            version = content.split("\n").some((line) => line.trim().startsWith("(")) ? "2" : "1";
+          }
+          let astTree;
+          if (version === "2") {
+            const parsed = bbscriptParser.bbscript2Parser.parse(content);
+            astTree = parsed.ast;
+            if (parsed.formattedErrors.length) {
+              // eslint-disable-next-line no-console
+              console.warn(parsed.formattedErrors);
+            }
+          } else {
+            astTree = bbscriptParser.bbscriptProcessorV1.parse(content);
+          }
+
+          const selector = callerClass && `.${CSS.escape(callerClass + "__" + callerId)}`;
+          if (on === "init") {
+            initializers.push(() => {
+              const target = selector ? post.querySelectorAll(selector) : undefined;
+              triggerBBScript(callerId, callerClass, astTree, version, target);
+            });
+          } else if (selector) {
+            post.addEventListener(
+              on,
+              (event) => {
+                const target = event.target?.closest?.(selector);
+                if (target && post.contains(target)) {
+                  triggerBBScript(callerId, callerClass, astTree, version, target);
+                }
+              },
+              { capture: true, signal: events.signal }
+            );
+          }
+        }
+
+        if (!initializers.length) {
+          return;
+        }
+        if (isPreview) {
+          initializers.forEach((initialize) => initialize());
+        } else {
+          observer = new IntersectionObserver(
+            (entries) => {
+              if (
+                !disposed &&
+                initializers.length &&
+                entries.some((entry) => entry.isIntersecting)
+              ) {
+                observer.disconnect();
+                initializers.splice(0).forEach((initialize) => initialize());
+              }
+            },
+            { rootMargin: "10px 0px 0px 0px" }
+          );
+          observer.observe(post);
+        }
+      })
+      .catch((error) => {
+        cleanup();
+        // eslint-disable-next-line no-console
+        console.warn("Could not initialize BBScript", error);
+      });
+
+    return cleanup;
+  };
 }
+
+const decorateBBScript = createBBScriptDecorator();
 
 /**
  * @param {string} callerId
@@ -134,26 +150,14 @@ const triggerBBScript = (callerId, callerClass, astTree, version, target) => {
 
 function initializeBBScript(api) {
   const siteSettings = api.container.lookup("service:site-settings");
-  if (!siteSettings.enable_bbscript) {
-    return;
+  if (siteSettings.bbcode_enabled && siteSettings.enable_bbscript) {
+    api.decorateCookedElement(decorateBBScript);
   }
-
-  api.decorateCookedElement(
-    (post) => {
-      loadscript("/plugins/bbcode/javascripts/bbscript-parser.min.js").then(() => {
-        checkIsPreview(post);
-      });
-    },
-    {
-      id: "add bbscript",
-      afterAdopt: true,
-    }
-  );
 }
 
 export default {
   name: "bbscript",
   initialize() {
-    withPluginApi("0.11.1", initializeBBScript);
+    withPluginApi(initializeBBScript);
   },
 };
