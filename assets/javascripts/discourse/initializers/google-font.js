@@ -10,7 +10,7 @@ import { withPluginApi } from "discourse/lib/plugin-api";
 function addGoogleFont(post) {
   // Cleans up post if we're editing
   const priorLinks = post.querySelectorAll("link[data-rendered-gfont]");
-  priorLinks.forEach((oldLink) => post.removeChild(oldLink));
+  priorLinks.forEach((oldLink) => oldLink.remove());
 
   const elements = post.querySelectorAll("[data-font]");
   if (!elements.length) {
@@ -20,7 +20,7 @@ function addGoogleFont(post) {
   const gFonts = [];
   Array.from(elements).map((e) => {
     const data = e.getAttribute("data-font");
-    if (!gFonts.includes(data) && data.startsWith("https://fonts.googleapis.com")) {
+    if (!gFonts.includes(data) && data.startsWith("https://fonts.googleapis.com/css2?")) {
       frag.appendChild(linkBuilder(data));
       gFonts.push(data);
     }
@@ -48,6 +48,10 @@ function linkBuilder(data) {
  * @param api
  */
 function initializeFont(api) {
+  if (!api.container.lookup("service:site-settings").bbcode_enabled) {
+    return;
+  }
+
   api.decorateCookedElement((elem) => addGoogleFont(elem), {
     id: "add google font",
   });

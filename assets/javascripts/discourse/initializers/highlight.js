@@ -340,6 +340,10 @@ function markdownHighlight(hljs) {
  * @param api
  */
 function registerHighlightJs(api) {
+  if (!api.container.lookup("service:site-settings").bbcode_enabled) {
+    return;
+  }
+
   api.registerHighlightJSLanguage("bbcode", bbcodeHighlight);
   api.registerHighlightJSLanguage("markdown-bbcode", markdownHighlight);
 }
