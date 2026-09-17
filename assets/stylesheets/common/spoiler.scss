@@ -6,7 +6,7 @@ details.bb-spoiler {
   summary {
     text-decoration: none;
     cursor: pointer;
-    border: 1px solid transparent;
+    border: 1px solid var(--tertiary-low);
     font-size: 12px;
     border-radius: 4px;
     padding-top: 7px;
@@ -22,7 +22,6 @@ details.bb-spoiler {
     text-overflow: ellipsis;
     max-width: 100%;
     display: inline-block;
-    border-color: var(--tertiary-low);
 
     &::before {
       display: none;
@@ -37,12 +36,22 @@ details.bb-spoiler {
     border-left: 5px solid var(--tertiary);
     background-color: var(--secondary-very-high);
   }
+
+  // Override Discourse’s generic spoiler content rule for our details element.
+  &[open] > div.bb-spoiler-content {
+    display: block;
+  }
 }
 
 span.bb-inline-spoiler {
   display: inline;
   background-color: currentcolor;
   cursor: pointer;
+
+  &:focus-visible {
+    outline: 2px solid var(--tertiary);
+    outline-offset: 2px;
+  }
 
   &[data-displayed="true"] {
     background-color: var(--tertiary-hover);
