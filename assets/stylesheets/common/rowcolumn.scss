@@ -50,18 +50,8 @@
 
 @media screen and (width <= 900px) {
   .bb-row {
-    &[data-span="column-width-span1"],
-    &[data-span="column-width-span2"],
-    &[data-span="column-width-span3"],
-    &[data-span="column-width-span4"],
-    &[data-span="column-width-span5"],
-    &[data-span="column-width-span6"],
-    &[data-span="column-width-span7"],
-    &[data-span="column-width-span8"] {
-      width: 100%;
-    }
-
     .bb-column {
+      width: 100%;
       margin: 0;
       padding: 0;
       float: none;

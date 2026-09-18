@@ -1,26 +1,31 @@
 div.bb-tabs {
-  padding: 10px;
+  // Authored controls overlay these labels; retain the original tab row geometry.
+  box-sizing: border-box;
+  padding: 0 0 0 20px;
   display: flex;
   flex-flow: row wrap;
-  justify-content: start;
+  align-items: flex-start;
+  justify-content: flex-start;
 
-  label.bb-tab-label {
+  > label.bb-tab-label {
     cursor: pointer;
     order: 0;
-    margin: 5px;
+    flex: 0 0 auto;
+
+    margin: 0 10px 6px 0;
     box-sizing: content-box;
     display: block;
+    font-size: 13px;
     font-weight: bold;
     height: auto;
+    min-height: 22px;
+    max-width: calc(100% - 56px);
     line-height: 22px;
     padding: 0 22px;
     text-transform: uppercase;
+    white-space: normal;
     overflow-wrap: anywhere;
     border: 1px solid var(--tertiary);
-
-    &:first-of-type {
-      margin-left: 10px;
-    }
 
     &:hover,
     &:focus {
@@ -29,7 +34,7 @@ div.bb-tabs {
     }
   }
 
-  input[type="radio"] {
+  > input[type="radio"] {
     position: absolute;
     left: -200vw;
 
@@ -38,23 +43,25 @@ div.bb-tabs {
     }
   }
 
-  .bb-tab-content {
-    flex: 1 0 1;
-    width: 100%;
+  > .bb-tab-content {
+    // Align the panel to its original inset without widening enclosing cards.
+    box-sizing: border-box;
+    flex: 0 0 calc(100% + 10px);
+    width: calc(100% + 10px);
     order: 99;
-    margin-top: 10px;
-    justify-self: stretch;
+    margin: 10px 0 0 -10px;
     border-top: 3px solid var(--tertiary);
     border-bottom: 1px solid var(--tertiary);
     padding: 10px;
+    overflow: hidden;
     display: none;
   }
 
-  input[type="radio"]:checked + label.bb-tab-label + .bb-tab-content {
+  > input[type="radio"]:checked + label.bb-tab-label + .bb-tab-content {
     display: block;
   }
 
-  input[type="radio"]:checked + label.bb-tab-label {
+  > input[type="radio"]:checked + label.bb-tab-label {
     color: var(--tertiary);
   }
 }

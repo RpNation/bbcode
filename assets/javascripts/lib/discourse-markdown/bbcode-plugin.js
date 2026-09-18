@@ -174,6 +174,7 @@ export function setup(helper) {
     "div.bb-message-content",
     "div.bb-message-them",
     "div.bb-message-me",
+    "div[data-bbcode-div=true]",
     "div[style=*]",
     "fieldset.bb-fieldset",
     "legend.bb-fieldset-legend",
