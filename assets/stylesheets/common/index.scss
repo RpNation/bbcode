@@ -4,6 +4,7 @@
 @import "blockquote";
 @import "border-bg";
 @import "check";
+@import "containment";
 @import "divide";
 @import "fieldset";
 @import "heightrestrict";
@@ -26,7 +27,3 @@
 @import "spoiler";
 @import "tabs";
 @import "textmessage";
-
-.d-editor-preview {
-  position: relative;
-}

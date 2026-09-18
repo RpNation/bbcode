@@ -1,0 +1,10 @@
+%bbcode-post-containment {
+  clip-path: border-box;
+  contain: layout;
+  position: relative;
+}
+
+.cooked,
+.d-editor-preview {
+  @extend %bbcode-post-containment;
+}
