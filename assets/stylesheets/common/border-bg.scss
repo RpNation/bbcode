@@ -3,6 +3,7 @@
   border-style: solid;
   border-width: 1px;
   border-color: var(--tertiary);
+
   > .bb-background {
     margin: -10px;
   }
@@ -10,5 +11,5 @@
 
 .bb-background {
   padding: 10px;
-  color: currentColor;
+  color: currentcolor;
 }

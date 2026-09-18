@@ -32,6 +32,7 @@ div.bb-tabs {
   input[type="radio"] {
     position: absolute;
     left: -200vw;
+
     &:focus-visible + label.bb-tab-label {
       outline: 2px solid var(--tertiary);
     }

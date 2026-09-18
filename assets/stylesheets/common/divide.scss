@@ -5,6 +5,7 @@ span.bb-divide {
   width: 100%;
   display: block;
   text-align: center;
+
   &[data-type="thick"] {
     border-bottom: 3px solid var(--tertiary);
   }

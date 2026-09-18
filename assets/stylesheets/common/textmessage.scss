@@ -61,10 +61,10 @@
   float: left;
 }
 
-.bb-textmessage .bb-textmessage-content .bb-message-right:before,
-.bb-textmessage .bb-textmessage-content .bb-message-left:before,
-.bb-textmessage .bb-textmessage-content .bb-message-me:before,
-.bb-textmessage .bb-textmessage-content .bb-message-them:before {
+.bb-textmessage .bb-textmessage-content .bb-message-right::before,
+.bb-textmessage .bb-textmessage-content .bb-message-left::before,
+.bb-textmessage .bb-textmessage-content .bb-message-me::before,
+.bb-textmessage .bb-textmessage-content .bb-message-them::before {
   content: "";
   height: 10px;
   width: 9px;
@@ -72,14 +72,14 @@
   bottom: 0;
 }
 
-.bb-textmessage .bb-textmessage-content .bb-message-right:before,
-.bb-textmessage .bb-textmessage-content .bb-message-me:before {
+.bb-textmessage .bb-textmessage-content .bb-message-right::before,
+.bb-textmessage .bb-textmessage-content .bb-message-me::before {
   background: url("/plugins/bbcode/images/textmessagecolorarrow.png");
   right: -4px;
 }
 
-.bb-textmessage .bb-textmessage-content .bb-message-left:before,
-.bb-textmessage .bb-textmessage-content .bb-message-them:before {
+.bb-textmessage .bb-textmessage-content .bb-message-left::before,
+.bb-textmessage .bb-textmessage-content .bb-message-them::before {
   background: url("/plugins/bbcode/images/textmessagegreyarrow.png");
   left: -4px;
 }
