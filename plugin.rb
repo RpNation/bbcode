@@ -22,6 +22,8 @@ end
 
 module ::BbCode
   PLUGIN_NAME = "BbCode"
+
+  ENGINE_RESET_CHANNEL = "/bbcode/engine-reset"
 end
 
 require_relative "lib/bb_code/engine"
@@ -30,6 +32,10 @@ after_initialize do
   # Code which should run after Rails has finished booting
   # should clear out the context so the initial setup logic for bbcode parser runs
   PrettyText.reset_context()
+
+  unless Rails.env.test?
+    MessageBus.subscribe(::BbCode::ENGINE_RESET_CHANNEL) { PrettyText.reset_context }
+  end
 
   # overrides the default normalize_whitespaces function in discourse/lib/text_cleaner.rb
   # adds discourse_normalize_whitespace setting (defaults to false)

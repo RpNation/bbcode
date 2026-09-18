@@ -2,7 +2,8 @@ en:
   js:
     bbcode:
       title: "BBCode"
-      resetDesc: "The following resets the Markdown-It engine in the backend. This allows the engine to load in the latest code from the custom parser."
+      resetDesc: "Loads the latest custom parser code into every server process, without a restart. Open browser sessions are shown a banner asking them to refresh, since previews run the parser in the browser."
+      reload_notice: "The BBCode parser was updated. Refresh the page to use the latest version."
       reset: "Reset BBCode Engine"
       success: "Successfully reset."
       error: "Failed to reset. Please check logs."
