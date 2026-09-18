@@ -55,7 +55,9 @@ export function setup(helper) {
   }
 
   helper.registerOptions((opts, siteSettings) => {
-    opts.features["bbcode-parser"] = siteSettings.bbcode_enabled;
+    // Key must match this module's basename — that is the id the markdown
+    // pipeline gates registerPlugin and allowList on.
+    opts.features["bbcode-plugin"] = siteSettings.bbcode_enabled;
     if (opts.engine || !siteSettings.bbcode_enabled) {
       return;
     }
