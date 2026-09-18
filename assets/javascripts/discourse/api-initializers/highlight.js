@@ -1,4 +1,4 @@
-import { withPluginApi } from "discourse/lib/plugin-api";
+import { apiInitializer } from "discourse/lib/api";
 
 const NAME_REGEX = /[^\s\]=/"']+/;
 const QUOTE_STRING_ALLOW_NL = {
@@ -84,7 +84,12 @@ function bbcodeHighlight() {
   return {
     name: "bbcode",
     case_insensitive: true,
-    contains: [CLOSING_TAG, OPENING_TAG_NO_ATTR, OPENING_TAG_SINGLE_ATTR, OPENING_TAG_MULTI_ATTR],
+    contains: [
+      CLOSING_TAG,
+      OPENING_TAG_NO_ATTR,
+      OPENING_TAG_SINGLE_ATTR,
+      OPENING_TAG_MULTI_ATTR,
+    ],
   };
 }
 
@@ -334,19 +339,7 @@ function markdownHighlight(hljs) {
   };
 }
 
-/**
- * The initial call function.
- * Any calls to the PluginAPI should be done in here
- * @param api
- */
-function registerHighlightJs(api) {
+export default apiInitializer((api) => {
   api.registerHighlightJSLanguage("bbcode", bbcodeHighlight);
   api.registerHighlightJSLanguage("markdown-bbcode", markdownHighlight);
-}
-
-export default {
-  name: "hightlight-js-bbcode",
-  initialize() {
-    withPluginApi("1.4.0", registerHighlightJs);
-  },
-};
+});

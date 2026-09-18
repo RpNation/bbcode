@@ -4,7 +4,8 @@ div.bb-print {
   width: auto;
   margin: 0 auto;
   background-image:
-    url("/plugins/bbcode/images/paper-top3.png"), url("/plugins/bbcode/images/paper-bottom3.png"),
+    url("/plugins/bbcode/images/paper-top3.png"),
+    url("/plugins/bbcode/images/paper-bottom3.png"),
     url("/plugins/bbcode/images/paper.jpg");
   background-position:
     50% 0,
@@ -21,19 +22,24 @@ div.bb-print {
   &-line {
     @extend .bb-print;
     background-image:
-      url("/plugins/bbcode/images/paper-top3.png"), url("/plugins/bbcode/images/paper-bottom3.png"),
+      url("/plugins/bbcode/images/paper-top3.png"),
+      url("/plugins/bbcode/images/paper-bottom3.png"),
       url("/plugins/bbcode/images/paperlined.jpg");
   }
+
   &-graph {
     @extend .bb-print;
     background-image:
-      url("/plugins/bbcode/images/paper-top3.png"), url("/plugins/bbcode/images/paper-bottom3.png"),
+      url("/plugins/bbcode/images/paper-top3.png"),
+      url("/plugins/bbcode/images/paper-bottom3.png"),
       url("/plugins/bbcode/images/papergraph.jpg");
   }
+
   &-parchment {
     @extend .bb-print;
     background-image:
-      url("/plugins/bbcode/images/paper-top3.png"), url("/plugins/bbcode/images/paper-bottom.png"),
+      url("/plugins/bbcode/images/paper-top3.png"),
+      url("/plugins/bbcode/images/paper-bottom.png"),
       url("/plugins/bbcode/images/paperparchment.jpg");
   }
 }

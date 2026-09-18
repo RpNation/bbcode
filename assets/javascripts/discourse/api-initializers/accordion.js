@@ -1,7 +1,7 @@
 /**
  * @file Initializes any accordion tag with proper js/event handling
  */
-import { withPluginApi } from "discourse/lib/plugin-api";
+import { apiInitializer } from "discourse/lib/api";
 
 /**
  * Adds the inline js for accordion inside a given post
@@ -175,18 +175,6 @@ class Accordion {
   }
 }
 
-/**
- * The initial called function.
- * Any calls to the PluginAPI should be done in here
- * @param api
- */
-function initializeAccordion(api) {
+export default apiInitializer((api) => {
   api.decorateCookedElement(addAccordionCode, { id: "add accordions" });
-}
-
-export default {
-  name: "accordion",
-  initialize() {
-    withPluginApi("0.11.1", initializeAccordion);
-  },
-};
+});

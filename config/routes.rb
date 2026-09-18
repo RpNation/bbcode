@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 BbCode::Engine.routes.draw do
-  namespace :admin, defaults: { format: :json, constraints: StaffConstraint.new } do
-    get "refresh" => "refresh#index"
+  namespace :admin, defaults: { format: :json, constraints: AdminConstraint.new } do
+    post "refresh" => "refresh#index"
   end
 end
 

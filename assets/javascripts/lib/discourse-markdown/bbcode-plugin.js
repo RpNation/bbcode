@@ -62,7 +62,8 @@ export function setup(helper) {
     //Add check site settings for options to send to RpNBBCode
     let preprocessor_options = {
       preserveWhitespace:
-        siteSettings.preserve_whitespace && !siteSettings.discourse_normalize_whitespace,
+        siteSettings.preserve_whitespace &&
+        !siteSettings.discourse_normalize_whitespace,
     };
 
     Object.defineProperty(opts, "engine", {
@@ -211,7 +212,11 @@ export function setup(helper) {
       if (tag === "input" && name === "id" && value.startsWith("tab-")) {
         return true;
       }
-      if (tag === "input" && name === "name" && value.startsWith("tab-group-")) {
+      if (
+        tag === "input" &&
+        name === "name" &&
+        value.startsWith("tab-group-")
+      ) {
         return true;
       }
       if (tag === "input" && name === "checked") {
@@ -225,8 +230,19 @@ export function setup(helper) {
       }
 
       // custom attr allowlist for accordions
-      if (tag === "div" && name === "class" && value.startsWith("bb-accordion")) {
-        const validClasses = ["bb-accordion", "bright", "bcenter", "bleft", "fleft", "fright"];
+      if (
+        tag === "div" &&
+        name === "class" &&
+        value.startsWith("bb-accordion")
+      ) {
+        const validClasses = [
+          "bb-accordion",
+          "bright",
+          "bcenter",
+          "bleft",
+          "fleft",
+          "fright",
+        ];
         const classes = value.split(" ");
         return classes.every((c) => validClasses.includes(c));
       }

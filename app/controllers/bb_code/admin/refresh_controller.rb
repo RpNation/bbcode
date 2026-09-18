@@ -9,10 +9,10 @@ module ::BbCode
         begin
           # Skip warmup in development mode - it makes boot take ~2s longer
           PrettyText.cook("warm up **pretty text**")
-          render json: nil, status: 200
+          render json: success_json
         rescue => e
           Rails.logger.error("Failed to warm up pretty text: #{e}")
-          render json: nil, status: 500
+          render json: failed_json, status: 500
         end
       end
     end

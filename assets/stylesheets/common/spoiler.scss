@@ -7,10 +7,6 @@ details.bb-spoiler {
     text-decoration: none;
     cursor: pointer;
     border: 1px solid transparent;
-    border-top-color: transparent;
-    border-right-color: transparent;
-    border-bottom-color: transparent;
-    border-left-color: transparent;
     font-size: 12px;
     border-radius: 4px;
     padding-top: 7px;
@@ -22,11 +18,12 @@ details.bb-spoiler {
     background: var(--tertiary);
     overflow: hidden;
     white-space: nowrap;
-    word-wrap: normal;
+    overflow-wrap: normal;
     text-overflow: ellipsis;
     max-width: 100%;
     display: inline-block;
     border-color: var(--tertiary-low);
+
     &::before {
       display: none;
     }
@@ -44,8 +41,9 @@ details.bb-spoiler {
 
 span.bb-inline-spoiler {
   display: inline;
-  background-color: currentColor;
+  background-color: currentcolor;
   cursor: pointer;
+
   &[data-displayed="true"] {
     background-color: var(--tertiary-hover);
   }

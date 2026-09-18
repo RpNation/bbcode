@@ -14,10 +14,10 @@ register_asset "bundled/bbcode-parser.min.js"
 register_asset "bundled/bbcode-parser.min.js.map"
 register_asset "stylesheets/common/index.scss"
 
-add_admin_route "bbcode.title", "bbcode"
+add_admin_route "bbcode.title", "bbcode", use_new_show_route: true
 
 Discourse::Application.routes.append do
-  get "/admin/plugins/bbcode" => "admin/plugins#index", :constraints => StaffConstraint.new
+  get "/admin/plugins/bbcode/reset" => "admin/plugins#index", :constraints => AdminConstraint.new
 end
 
 module ::BbCode

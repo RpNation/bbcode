@@ -3,26 +3,26 @@ import Controller from "@ember/controller";
 import { action } from "@ember/object";
 import { ajax } from "discourse/lib/ajax";
 
-export default class AdminPluginsBBCodeController extends Controller {
-  @tracked resetEnabled = true;
-  @tracked success = false;
+export default class AdminPluginsShowBbcodeResetController extends Controller {
   @tracked error = false;
+  @tracked isResetting = false;
+  @tracked success = false;
 
   @action
   resetServerJSContext() {
-    this.resetEnabled = false;
+    this.isResetting = true;
     this.success = false;
     this.error = false;
-    ajax("/BbCode/admin/refresh")
+
+    ajax("/BbCode/admin/refresh", { type: "POST" })
       .then(() => {
-        // success
-        this.resetEnabled = true;
         this.success = true;
       })
       .catch(() => {
-        // error
-        this.resetEnabled = true;
         this.error = true;
+      })
+      .finally(() => {
+        this.isResetting = false;
       });
   }
 }

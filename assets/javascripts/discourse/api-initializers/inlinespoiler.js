@@ -1,7 +1,7 @@
 /**
  * @file Initializes any inline spoiler tag with proper js/event handling
  */
-import { withPluginApi } from "discourse/lib/plugin-api";
+import { apiInitializer } from "discourse/lib/api";
 
 /**
  * Adds the inline js for inline spoilers inside a given post
@@ -22,20 +22,8 @@ function toggleInlineSpoiler(event) {
   }
 }
 
-/**
- * The initial called function.
- * Any calls to the PluginAPI should be done in here
- * @param api
- */
-function initializeSpoiler(api) {
+export default apiInitializer((api) => {
   api.decorateCookedElement(addInlineSpoilerCode, {
     id: "add inline spoilers",
   });
-}
-
-export default {
-  name: "inlinespoiler",
-  initialize() {
-    withPluginApi("0.11.1", initializeSpoiler);
-  },
-};
+});

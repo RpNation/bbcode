@@ -1,9 +1,9 @@
+import { apiInitializer } from "discourse/lib/api";
 import loadscript from "discourse/lib/load-script";
-import { withPluginApi } from "discourse/lib/plugin-api";
 
 const postsMissingFontAwesome = [];
 
-function initializeFontAwesome(api) {
+export default apiInitializer((api) => {
   const siteSettings = api.container.lookup("service:site-settings");
   if (!siteSettings.fontawesome_kit_url) {
     return;
@@ -59,11 +59,4 @@ function initializeFontAwesome(api) {
       // eslint-disable-next-line no-console
       console.error("Failed to load Font Awesome Kit", err);
     });
-}
-
-export default {
-  name: "bbcode-fontawesome-init",
-  initialize() {
-    withPluginApi("0.11.1", initializeFontAwesome);
-  },
-};
+});

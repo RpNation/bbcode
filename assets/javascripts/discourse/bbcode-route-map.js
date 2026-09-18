@@ -1,7 +1,8 @@
 export default {
-  resource: "admin.adminPlugins",
+  resource: "admin.adminPlugins.show",
   path: "/plugins",
+
   map() {
-    this.route("bbcode");
+    this.route("bbcode-reset", { path: "reset" });
   },
 };

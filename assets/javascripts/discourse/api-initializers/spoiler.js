@@ -1,7 +1,7 @@
 /**
  * @file Initializes any spoiler tag with proper js/event handling
  */
-import { withPluginApi } from "discourse/lib/plugin-api";
+import { apiInitializer } from "discourse/lib/api";
 
 /**
  * Adds the inline js for spoilers inside a given post
@@ -133,18 +133,6 @@ class Spoiler {
   }
 }
 
-/**
- * The initial called function.
- * Any calls to the PluginAPI should be done in here
- * @param api
- */
-function initializeSpoiler(api) {
+export default apiInitializer((api) => {
   api.decorateCookedElement(addSpoilerCode, { id: "add spoilers" });
-}
-
-export default {
-  name: "spoiler",
-  initialize() {
-    withPluginApi("0.11.1", initializeSpoiler);
-  },
-};
+});
