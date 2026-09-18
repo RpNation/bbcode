@@ -24,12 +24,14 @@ div.bb-print {
       url("/plugins/bbcode/images/paper-top3.png"), url("/plugins/bbcode/images/paper-bottom3.png"),
       url("/plugins/bbcode/images/paperlined.jpg");
   }
+
   &-graph {
     @extend .bb-print;
     background-image:
       url("/plugins/bbcode/images/paper-top3.png"), url("/plugins/bbcode/images/paper-bottom3.png"),
       url("/plugins/bbcode/images/papergraph.jpg");
   }
+
   &-parchment {
     @extend .bb-print;
     background-image:

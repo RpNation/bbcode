@@ -34,36 +34,30 @@ const toNode = (tag, attrs, content = []) => ({
  * @returns processed attributes
  */
 const preprocessAttr = (node, raw) => {
+  if (raw && node.start) {
+    const nodeRaw = raw.substring(node.start.from, node.start.to);
+    const defaultOption = /^\[[^\s=\]]+\s*=/.exec(nodeRaw);
+    if (defaultOption) {
+      // Read complete CSS from the tag; tokenized attributes lose quoted values
+      // and equals signs in URLs.
+      let value = nodeRaw.slice(defaultOption[0].length, -1).trim();
+      if (
+        (value.startsWith('"') && value.endsWith('"')) ||
+        (value.startsWith("'") && value.endsWith("'"))
+      ) {
+        value = value.slice(1, -1);
+      }
+      return { _default: value };
+    }
+  }
+
   const keys = Object.keys(node.attrs).join(" ");
   const vals = Object.values(node.attrs).join(" ");
   if (keys !== vals) {
     // [tag key=val]
     return node.attrs;
   }
-  if (!raw || !node.start) {
-    return {
-      _default: vals,
-    };
-  }
-  // [tag=attr]
-  // node.start.from = 0
-  // node.start.to = 10
-  const nodeRaw = raw.substring(node.start.from, node.start.to);
-  if (!nodeRaw.includes("=")) {
-    // [tag] or [tag attr]
-    return node.attrs;
-  }
-  const openTagParts = nodeRaw.split("=");
-  if (openTagParts.length !== 2) {
-    return node.attrs;
-  }
-  let val = openTagParts[1].slice(0, -1).trim(); // `attr` or `"attr"`
-  if (val.startsWith('"') && val.endsWith('"')) {
-    val = val.slice(1, -1);
-  }
-  return {
-    _default: val,
-  };
+  return raw && node.start ? node.attrs : { _default: vals };
 };
 
 /**
@@ -153,7 +147,7 @@ function generateGUID() {
   }
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
     // eslint-disable-next-line no-bitwise
-    const r = (d + Math.random() * 16) % 16 | 0;
+    const r = ((d + Math.random() * 16) % 16) | 0;
     d = Math.floor(d / 16);
     // eslint-disable-next-line no-bitwise
     return (c === "x" ? r : (r & 0x3) | 0x8).toString(16);

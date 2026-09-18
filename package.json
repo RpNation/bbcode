@@ -8,26 +8,29 @@
   "scripts": {
     "start": "rollup -c -w",
     "build": "rollup -c",
-    "prepare": "husky install",
-    "lint": "eslint"
+    "prepare": "husky",
+    "lint": "pnpm lint:js && pnpm lint:css && pnpm lint:prettier",
+    "lint:js": "eslint {assets,admin/assets,test}/javascripts --cache --no-error-on-unmatched-pattern",
+    "lint:css": "pnpm stylelint 'assets/stylesheets/**/*.scss' --allow-empty-input",
+    "lint:prettier": "pnpm prettier 'assets/stylesheets/**/*.scss' '{assets,admin/assets,test}/javascripts/**/*.{js,gjs,ts,gts,mts,cts,hbs}' --check --no-error-on-unmatched-pattern"
   },
   "devDependencies": {
     "@bbob/types": "^4.2.0",
-    "@discourse/lint-configs": "2.12.0",
+    "@discourse/lint-configs": "3.2.0",
     "@rollup/plugin-node-resolve": "^15.1.0",
     "@rollup/plugin-replace": "^5.0.7",
     "@rollup/plugin-terser": "^0.4.3",
-    "ember-template-lint": "7.0.4",
-    "eslint": "9.24.0",
+    "eslint": "10.6.0",
     "husky": ">=6",
     "lint-staged": ">=10",
-    "prettier": "3.5.3",
+    "prettier": "3.8.1",
     "rollup": "^4.30.1",
-    "stylelint": "16.16.0"
+    "stylelint": "17.5.0"
   },
   "dependencies": {
     "@bbob/core": "^4.2.0",
     "@bbob/html": "^4.2.0",
+    "@bbob/plugin-helper": "^4.2.0",
     "@bbob/preset": "^4.2.0",
     "@bbob/preset-html5": "^4.2.0"
   },
@@ -36,6 +39,11 @@
     "*.{js,css,md}": "prettier --write"
   },
   "engines": {
-    "node": ">=18.0.0"
-  }
+    "node": ">= 22",
+    "npm": "please-use-pnpm",
+    "yarn": "please-use-pnpm",
+    "pnpm": "^10"
+  },
+  "private": true,
+  "packageManager": "pnpm@10.28.0"
 }

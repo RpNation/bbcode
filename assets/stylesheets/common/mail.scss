@@ -17,21 +17,24 @@
 
   .bb-email-address,
   .bb-email-subject {
-    color: currentColor;
+    color: currentcolor;
     height: 35px;
     line-height: 35px;
     padding: 0 10px;
     border-bottom: 1px solid var(--tertiary);
+
     &::before {
       color: var(--tertiary);
     }
   }
+
   .bb-email-address::after {
     content: "Cc    Bcc";
     position: absolute;
     right: 10px;
     color: var(--tertiary);
   }
+
   .bb-email-subject::before {
     content: "Subject: ";
   }
@@ -44,20 +47,25 @@
     .bb-email-header::before {
       content: "Send New Email";
     }
+
     .bb-email-address::before {
       content: "To: ";
     }
+
     .bb-email-button::before {
       content: "Send";
     }
   }
+
   &[data-bb-email="receive"] {
     .bb-email-header::before {
       content: "New Email Received";
     }
+
     .bb-email-address::before {
       content: "From: ";
     }
+
     .bb-email-button::before {
       content: "Reply";
     }

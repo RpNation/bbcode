@@ -2,6 +2,7 @@
  * @file Initializes and adds any custom user styles to the post
  */
 import { withPluginApi } from "discourse/lib/plugin-api";
+import { decorateBBCodeScrollers } from "../lib/bbcode-scroll-containers";
 
 /**
  * Adds the inline styles for the style tag inside a given post
@@ -10,7 +11,7 @@ import { withPluginApi } from "discourse/lib/plugin-api";
 function addClassStyleCode(post) {
   // cleans up existing styles
   post.querySelectorAll("style[data-rendered-class]").forEach((el) => {
-    post.removeChild(el);
+    el.remove();
   });
 
   post.querySelectorAll("template[data-bbcode-plus='class']").forEach((el) => {
@@ -28,9 +29,15 @@ function addClassStyleCode(post) {
     }
     post.prepend(style);
   });
+
+  return decorateBBCodeScrollers(post);
 }
 
 function initializeClassStyle(api) {
+  if (!api.container.lookup("service:site-settings").bbcode_enabled) {
+    return;
+  }
+
   api.decorateCookedElement(addClassStyleCode, { id: "add class style code" });
 }
 
