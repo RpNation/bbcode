@@ -1,5 +1,4 @@
 div.bb-side {
-  clear: both;
   width: 21%;
   border-left: 3px dotted var(--tertiary);
   border-right: 3px dotted var(--tertiary);
@@ -21,7 +20,7 @@ div.bb-side {
     clear: right;
   }
 
-  @media screen and (max-width: 800px) {
+  @media screen and (width <= 800px) {
     width: 80%;
     float: none;
     clear: both;
