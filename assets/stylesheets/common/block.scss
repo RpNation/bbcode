@@ -74,6 +74,7 @@ table.bb-block {
       td.bb-block-content {
         border-color: $color;
       }
+
       td.bb-block-icon {
         background-image: url($image);
 
@@ -89,63 +90,72 @@ table.bb-block {
     }
   }
 
-  @include block-builder("dice", "Dice", #0a941d, "/plugins/bbcode/images/colordice.png");
-
-  @include block-builder("dice10", "Dice", #0a941d, "/plugins/bbcode/images/colordice10.png");
-
-  @include block-builder("setting", "Setting", #0a941d, "/plugins/bbcode/images/colorsetting.png");
-
+  @include block-builder(
+    "dice",
+    "Dice",
+    #0a941d,
+    "/plugins/bbcode/images/colordice.png"
+  );
+  @include block-builder(
+    "dice10",
+    "Dice",
+    #0a941d,
+    "/plugins/bbcode/images/colordice10.png"
+  );
+  @include block-builder(
+    "setting",
+    "Setting",
+    #0a941d,
+    "/plugins/bbcode/images/colorsetting.png"
+  );
   @include block-builder(
     "important",
     "Important",
     #94920a,
     "/plugins/bbcode/images/colorexclaim.png"
   );
-
   @include block-builder(
     "treasure",
     "Treasure",
     #cbc939,
     "/plugins/bbcode/images/colortreasure.png"
   );
-
   @include block-builder(
     "announcement",
     "Announcement",
     #940a0a,
     "/plugins/bbcode/images/colorannounce.png"
   );
-
-  @include block-builder("warning", "Warning", #940a0a, "/plugins/bbcode/images/colorwarning.png");
-
+  @include block-builder(
+    "warning",
+    "Warning",
+    #940a0a,
+    "/plugins/bbcode/images/colorwarning.png"
+  );
   @include block-builder(
     "encounter",
     "Encounter",
     #940a0a,
     "/plugins/bbcode/images/colorencounter.png"
   );
-
   @include block-builder(
     "storyteller",
     "Storyteller",
     #bf7e00,
     "/plugins/bbcode/images/colorpencil.png"
   );
-
   @include block-builder(
     "question",
     "Question",
     #5e0a94,
     "/plugins/bbcode/images/colorquestion.png"
   );
-
   @include block-builder(
     "information",
     "Information",
     #0a1694,
     "/plugins/bbcode/images/colorinfo.png"
   );
-
   @include block-builder(
     "character",
     "Character",
@@ -154,7 +164,7 @@ table.bb-block {
   );
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (width <= 600px) {
   table.bb-block td.bb-block-icon {
     height: 75px;
     background-size: 50px;
