@@ -32,10 +32,12 @@ div.bb-accordion {
       &:hover {
         background: $title-hover-bg-color;
       }
+
       &::before {
         display: none;
       }
     }
+
     &[open=""] summary.bb-slide-title {
       border-bottom: 1px solid $border-color;
     }
@@ -46,9 +48,9 @@ div.bb-accordion {
       background-color: $content-bg-color;
       border-right: 1px solid $border-color;
       border-left: 1px solid $border-color;
-
       padding: 6px;
     }
+
     &:last-child {
       border-bottom: unset;
     }
