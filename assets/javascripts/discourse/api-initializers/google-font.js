@@ -1,7 +1,7 @@
 /**
  * @file Find and adds google fonts to the site when the font bbcode is found with the data-font attribute
  */
-import { withPluginApi } from "discourse/lib/plugin-api";
+import { apiInitializer } from "discourse/lib/api";
 
 /**
  * Adds relevant font links inside a given post
@@ -20,7 +20,10 @@ function addGoogleFont(post) {
   const gFonts = [];
   Array.from(elements).map((e) => {
     const data = e.getAttribute("data-font");
-    if (!gFonts.includes(data) && data.startsWith("https://fonts.googleapis.com")) {
+    if (
+      !gFonts.includes(data) &&
+      data.startsWith("https://fonts.googleapis.com")
+    ) {
       frag.appendChild(linkBuilder(data));
       gFonts.push(data);
     }
@@ -42,20 +45,8 @@ function linkBuilder(data) {
   return link;
 }
 
-/**
- * The initial call function.
- * Any calls to the PluginAPI should be done in here
- * @param api
- */
-function initializeFont(api) {
+export default apiInitializer((api) => {
   api.decorateCookedElement((elem) => addGoogleFont(elem), {
     id: "add google font",
   });
-}
-
-export default {
-  name: "google font",
-  initialize() {
-    withPluginApi("0.11.1", initializeFont);
-  },
-};
+});

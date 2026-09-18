@@ -1,6 +1,6 @@
 import { debounce } from "@ember/runloop";
+import { apiInitializer } from "discourse/lib/api";
 import loadscript from "discourse/lib/load-script";
-import { withPluginApi } from "discourse/lib/plugin-api";
 /* global bbscriptParser */
 
 /**
@@ -68,7 +68,9 @@ function addBBScriptLogic(post, isPreview = false) {
     let astTree;
     if (version === "") {
       // unknown version. check for unique () style of bbscript2
-      version = content.split("\n").some((line) => line.trim().startsWith("(")) ? "2" : "1";
+      version = content.split("\n").some((line) => line.trim().startsWith("("))
+        ? "2"
+        : "1";
     }
     if (version === "2") {
       const parsed = bbscriptParser.bbscript2Parser.parse(content);
@@ -83,7 +85,9 @@ function addBBScriptLogic(post, isPreview = false) {
     if (on === "init") {
       let target;
       if (callerClass) {
-        target = document.querySelectorAll("." + callerClass + "__" + callerId) || undefined;
+        target =
+          document.querySelectorAll("." + callerClass + "__" + callerId) ||
+          undefined;
       }
       // only fire when the post is visible
       if (!initBBScripts.has(post)) {
@@ -119,10 +123,17 @@ function addBBScriptLogic(post, isPreview = false) {
  */
 const triggerBBScript = (callerId, callerClass, astTree, version, target) => {
   if (version === "1") {
-    bbscriptParser.bbscriptProcessorV1.execAll(astTree, callerId, callerClass, { target });
+    bbscriptParser.bbscriptProcessorV1.execAll(astTree, callerId, callerClass, {
+      target,
+    });
   } else if (version === "2") {
     try {
-      bbscriptParser.bbscriptProcessorV2.execAll(astTree, callerId, callerClass, { target });
+      bbscriptParser.bbscriptProcessorV2.execAll(
+        astTree,
+        callerId,
+        callerClass,
+        { target }
+      );
     } catch (e) {
       if (e?.message !== "BBScript Stop Command") {
         // eslint-disable-next-line no-console
@@ -132,7 +143,7 @@ const triggerBBScript = (callerId, callerClass, astTree, version, target) => {
   }
 };
 
-function initializeBBScript(api) {
+export default apiInitializer((api) => {
   const siteSettings = api.container.lookup("service:site-settings");
   if (!siteSettings.enable_bbscript) {
     return;
@@ -140,20 +151,15 @@ function initializeBBScript(api) {
 
   api.decorateCookedElement(
     (post) => {
-      loadscript("/plugins/bbcode/javascripts/bbscript-parser.min.js").then(() => {
-        checkIsPreview(post);
-      });
+      loadscript("/plugins/bbcode/javascripts/bbscript-parser.min.js").then(
+        () => {
+          checkIsPreview(post);
+        }
+      );
     },
     {
       id: "add bbscript",
       afterAdopt: true,
     }
   );
-}
-
-export default {
-  name: "bbscript",
-  initialize() {
-    withPluginApi("0.11.1", initializeBBScript);
-  },
-};
+});

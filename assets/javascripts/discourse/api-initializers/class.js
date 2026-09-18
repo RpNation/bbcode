@@ -1,7 +1,7 @@
 /**
  * @file Initializes and adds any custom user styles to the post
  */
-import { withPluginApi } from "discourse/lib/plugin-api";
+import { apiInitializer } from "discourse/lib/api";
 
 /**
  * Adds the inline styles for the style tag inside a given post
@@ -30,13 +30,6 @@ function addClassStyleCode(post) {
   });
 }
 
-function initializeClassStyle(api) {
+export default apiInitializer((api) => {
   api.decorateCookedElement(addClassStyleCode, { id: "add class style code" });
-}
-
-export default {
-  name: "class-style",
-  initialize() {
-    withPluginApi("0.11.1", initializeClassStyle);
-  },
-};
+});
