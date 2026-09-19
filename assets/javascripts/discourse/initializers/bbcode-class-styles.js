@@ -1,7 +1,7 @@
 /**
  * @file Initializes and adds any custom user styles to the post
  */
-import { apiInitializer } from "discourse/lib/api";
+import { withPluginApi } from "discourse/lib/plugin-api";
 
 /**
  * Adds the inline styles for the style tag inside a given post
@@ -30,6 +30,14 @@ function addClassStyleCode(post) {
   });
 }
 
-export default apiInitializer((api) => {
-  api.decorateCookedElement(addClassStyleCode, { id: "add class style code" });
-});
+export default {
+  name: "bbcode-class-styles",
+  after: "inject-objects",
+  initialize() {
+    withPluginApi((api) => {
+      api.decorateCookedElement(addClassStyleCode, {
+        id: "add class style code",
+      });
+    });
+  },
+};
