@@ -27,6 +27,7 @@ module ::BbCode
 end
 
 require_relative "lib/bb_code/engine"
+require_relative "lib/bb_code/css_hotlinked_media"
 
 after_initialize do
   # Code which should run after Rails has finished booting
@@ -36,6 +37,11 @@ after_initialize do
   unless Rails.env.test?
     MessageBus.subscribe(::BbCode::ENGINE_RESET_CHANNEL) { PrettyText.reset_context }
   end
+
+  ::HotlinkedMedia.singleton_class.prepend(::BbCode::CssHotlinkedMedia::ExtendExtractCandidates)
+  ::InlineUploads.singleton_class.prepend(::BbCode::CssHotlinkedMedia::RewriteRawCssUrls)
+
+  on(:post_process_cooked) { |doc, post| ::BbCode::CssHotlinkedMedia.rewrite_doc!(doc, post) }
 
   # overrides the default normalize_whitespaces function in discourse/lib/text_cleaner.rb
   # adds discourse_normalize_whitespace setting (defaults to false)
