@@ -1,0 +1,1314 @@
+[nobr]
+[class=guide]
+    background-color: white;
+    color: black;
+    padding: 10px;
+[/class]
+
+[class=title]
+    border-bottom: double 5px rgb(48, 97, 146);
+    box-sizing: border-box;
+    color: rgb(48, 97, 146);
+    font-size: 270%;
+    font-weight: bold;
+    line-height: 1;
+    margin-bottom: 5px;
+    padding: 5px 0px 7px;
+[/class]
+
+[class=subtitle]
+    box-sizing: border-box;
+    color: rgb(85, 139, 193);
+    font-size: 180%;
+    font-weight: 500;
+    margin: 10px 0px;
+[/class]
+
+[class=sidebar]
+    box-sizing: border-box;
+    float: left;
+    padding: 0px 20px 0px 0px;
+    width: 160px;
+[/class]
+
+[class=sidebarTitle]
+    box-sizing: border-box;
+    color: rgb(25, 118, 210);
+    font-size: 130%;
+    font-weight: 500;
+    margin: 7px 0;
+[/class]
+
+[class=sidebarLink]
+    box-sizing: border-box;
+    border-radius: 3px;
+    color: #565656;
+    margin: 2px 0;
+    padding: 3px;
+    padding-left: 12px;
+[/class]
+
+[class name=sidebarLink state=hover]
+    background-color: rgb(25, 118, 210);
+    box-sizing: border-box;
+    color: white;
+    cursor: pointer;
+[/class]
+
+[class=content]
+    box-sizing: border-box;
+    margin-left: 160px;
+    margin-top: 15px;
+    text-align: justify;
+[/class]
+
+[class=p]
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    text-indent: 10px;
+[/class]
+
+[class=clear]
+    clear: both;
+[/class]
+
+[class=hidden]
+    display: none;
+[/class]
+
+[class=code]
+    background-color: #f3f3f3;
+    box-sizing: border-box;
+    color: #505050;
+    display: inline;
+    font-family: 'Courier New', monospace;
+    padding: 2px;
+[/class]
+
+[class=listing]
+    background-color: #eff9ff;
+    border: solid 1px #5da7ff;
+    box-sizing: border-box;
+    color: #445b6b;
+    font-family: 'Courier New', monospace;
+    line-height: 120%;
+    margin: 10px;
+    max-height: 300px;
+    padding: 10px;
+    overflow-y: auto;
+    text-align: left;
+    white-space: pre-wrap;
+[/class]
+
+[class=reference]
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px #e0e0e0;
+    box-sizing: border-box;
+    padding: 10px;
+    margin: 20px 10px;
+[/class]
+
+[class=referenceTitle]
+    box-sizing: border-box;
+    color: #757575;
+    font-family: 'Courier New', monospace;
+    font-size: 130%;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: left;
+    text-shadow: 0px 0px 1px #cccccc;
+[/class]
+
+[script class=sidebarLink on=click]
+    hide content
+    set link (getText)
+    if (eq "${link}" "Introduction") (show contentIntroduction)
+    if (eq "${link}" "DIVs") (show contentDivs)
+    if (eq "${link}" "Classes") (show contentClasses)
+    if (eq "${link}" "Inputs") (show contentInputs)
+    if (eq "${link}" "Scripts") (show contentScripts)
+    if (eq "${link}" "Animations") (show contentAnimations)
+    if (eq "${link}" "Character Sheet Generator") (show contentCharacterSheetGenerator)
+    if (eq "${link}" "Keypad") (show contentKeypad)
+    if (eq "${link}" "Tabs") (show contentTabs)
+    if (eq "${link}" "Tags") (show contentTags)
+    if (eq "${link}" "BBScript 1 Functions") (show contentFunctions)
+    if (eq "${link}" "BBScript 2 Functions") (show contentFunctions2)
+[/script]
+
+[div class=guide]
+
+[div class=title]BBCode+ Guide[/div]
+
+[div class=sidebar]
+    [div class=sidebarTitle]Getting Started[/div]
+    [div class=sidebarLink]Introduction[/div]
+    [div class=sidebarLink]DIVs[/div]
+    [div class=sidebarLink]Classes[/div]
+    [div class=sidebarLink]Inputs[/div]
+    [div class=sidebarLink]Scripts[/div]
+    [div class=sidebarLink]Animations[/div]
+    [div class=sidebarTitle]Examples[/div]
+    [div class=sidebarLink]Character Sheet Generator[/div]
+    [div class=sidebarLink]Keypad[/div]
+    [div class=sidebarLink]Tabs[/div]
+    [div class=sidebarTitle]Reference[/div]
+    [div class=sidebarLink]Tags[/div]
+    [div class=sidebarLink]BBScript 1 Functions[/div]
+    [div class=sidebarLink]BBScript 2 Functions[/div]
+[/div]
+
+[div class="content contentIntroduction"]
+    [div class=p]BBCode+ is a set of more advanced BBCode functionality allowing for exciting new coding possibilities. This guide will introduce you to how it all works, while also providing some reference information once you have learned the basics.[/div]
+  
+    [div class=subtitle]What is BBCode+?[/div]
+  
+    [div class=p]BBCode+ consists of a set of special BBCode tags which can interact with each other to produce new and interesting effects. Together they serve to bridge the gap between BBCode and HTML/CSS/JS, allowing for unprecedented customization options. Unlike other tags which serve as simple HTML substitutes, BBCode+ tags can be used to create your own forms, CSS classes and (limited) JavaScript scripts, which can be used to provide additional interactivity and create more complex layouts in fewer lines of code.[/div]
+  
+    [div class=p]This guide introduces each aspect of BBCode+ progressively, as you do not need to know every component to make use of it.[/div]
+  
+    [div class=p]BBCode+ was created by [USER=19008]@Lyro[/USER] as part of the move to XenForo 2.[/div]
+  
+    [div class=subtitle]Who is BBCode+ for?[/div]
+  
+    [div class=p]The functionality provided by BBCode+ assumes a certain level of proficiency with more ordinary BBCode. You should have a solid understanding of the fundamentals of coding in ordinary BBCode, though knowledge of other tags is not a prerequisite. Knowledge of CSS and some JavaScript may also come in handy.[/div]
+  
+[/div]
+
+[div class="content contentDivs hidden"]
+    [div class=p]DIVs, created using the [div class=code][plain][div][/div][/plain][/div] tag, are the basis of all the BBCode+ functionality. All the other BBCode+ tags' effects are realized through DIVs (with the exception of inputs; see their section).[/div]
+  
+    [div class=p]A DIV is exactly the same as an HTML DIV - in fact, BBCode DIVs get directly converted to HTML DIVs. They are a basic, solid block of content that can be customized using CSS.[/div]
+  
+    [div class=p]Basic usage of a DIV works just like any other BBCode tag, with the option tag used to apply CSS properties to the DIV. Here is an example of a DIV with a red background and a blue border:[/div]
+  
+    [div class=listing][plain][div=background: red; border: solid 5px blue;]A DIV with a red background and a blue border.[/div][/plain][/div]
+  
+    [div=background: red; border: solid 5px blue;]A DIV with a red background and a blue border.[/div]
+  
+    [div class=p]Where things get interesting is that, unlike other tags, DIVs can have multiple options specified using a syntax similar to HTML. In DIV's case, there are two options:[/div]
+  
+  
+style: the default option when no options are named. Applies CSS properties to this specific DIV instance and no other.
+      
+class: the name of a class to which this DIV belongs. Classes will be detailed in the next section, but for now it is enough to know that this option accepts one or more identifier strings.
+  
+  
+    [div class=p]To illustrate usage, the same example as before is given below, except this time the DIV also gets assigned to two classes named [div class=code]classy[/div] and [div class=code]sassy[/div]:[/div]
+  
+    [div class=listing][plain][div style="background: red; border: solid 5px blue;" class="classy sassy"]A DIV with a red background and a blue border, and two classes.[/div][/plain][/div]
+  
+    [div style="background: red; border: solid 5px blue;" class="classy sassy"]A DIV with a red background and a blue border, and two classes.[/div]
+  
+    [div class=p]Note the use of [div class=code]"[/div] to surround the option values. This is necessary when dealing with values that contain spaces; if your values do not contain spaces, they can be omitted. If your values contain [div class=code]"[/div], however, you'll want to escape them, in order to indicate to the BBCode interpreter that they do not mark the end of the value. To do so, prepend them with [div class=code]\[/div]. If you wish to escape a [div class=code]\[/div], you can also prepend it with [div class=code]\[/div], producing code like this: [div class=code]\\"[/div].[/div]
+[/div]
+
+[div class="content contentClasses hidden"]
+    [div class=p]The true power of BBCode+ becomes apparent once you start using classes. A BBScript class corresponds almost exactly to a standard HTML/CSS class, albeit one with some restrictions applied. Classes can be used to apply the same effects to multiple entities, while also being useful to decouple styling from structure.[/div]
+  
+    [div class=p]Classes are indentified by their name, which can only contain letters or underscores:[/div]
+  
+  
+class VALID
+      
+aClassName VALID
+      
+a_class_name VALID
+      
+a-class-name INVALID
+      
+123classname INVALID
+  
+  
+    [div class=p]A classed DIV can have CSS styling applied to it using the [div class=code][plain][class][/class][/plain][/div][/div] tag. The properties inherited from a class can always be overriden on a per-DIV basis using the style tag. The class tag has the following options:
+  
+name: the default option if the standard notation is used. Specifies the name of the class the styling will apply to.
+      
+state: the state of the DIV on which to apply the style; can be "active", "focus" or "hover". If left unspecified, it will apply to the default state. The first two listed states are usually only used for inputs.
+  
+  
+    [div class=p]The example from the previous section is re-used here; however, instead of using an inline style, this one makes use of the class system, while also adding an effect to invert the colors on mouse hover:[/div]
+  
+    [div class=listing][plain][class=redBlue]
+    background: red;
+    border: solid 5px blue;
+[/class]
+
+[class name=redBlue state=hover]
+    background: blue;
+    border: solid 5px red;
+[/class]
+
+[div class=redBlue]A DIV with a red background and a blue border... until it gets hovered over.[/div][/plain][/div]
+
+    [class=redBlue]
+        background: red;
+        border: solid 5px blue;
+    [/class]
+
+    [class name=redBlue state=hover]
+        background: blue;
+        border: solid 5px red;
+    [/class]
+  
+    [div class=redBlue]A DIV with a red background and a blue border... until it gets hovered over.[/div]
+[/div]
+
+[div class="content contentInputs hidden"]
+    [div class=p]In addition to DIVs, it is possible to use the [div class=code][plain][input][/input][/plain][/div] tag to let the user input text and click on buttons. Like DIV, the input tag is classable and is the equivalent of the HTML tags input and textarea. Like DIV, it possesses multiple options, which will not all be listed here (see the reference for the full list); the most important ones are type, which determines the type of the input, and class, which specifies the list of classes applied to the input.[/div]
+    [div class=p]There are four types of input: text (for normal, single-line text), password (for a single-line password field), textarea (for multi-line text) and button (for a clickable button). An example of all four is given below (with some simple styling):[/div]
+    [div class=listing][plain][class=input]
+    background-color: #F9F9F9;
+    border: solid 1px #A0A0A0;
+    border-radius: 3px;
+    box-sizing: border-box;
+    padding: 5px;
+    margin: 5px 0;
+    width: 250px;
+[/class]
+Username: [input class=input type=text placeholder="Your username..."][/input]
+Password: [input class=input type=password placeholder="Your password..."][/input]
+Description: [input class=input type=textarea placeholder="A quick description of yourself..."][/input]
+[input type=button]Register[/input][/plain][/div]
+
+    [class=input]
+        background-color: #F9F9F9;
+        border: solid 1px #A0A0A0;
+        border-radius: 3px;
+        box-sizing: border-box;
+        padding: 5px;
+        margin: 5px 0;
+        width: 250px;
+    [/class]
+
+    Username: [input class=input type=text placeholder="Your username..."][/input][br][/br]
+    Password: [input class=input type=password placeholder="Your password..."][/input][br][/br]
+    Description: [input class=input type=textarea placeholder="A quick description of yourself..."][/input][br][/br]
+    [input class=button type=button]Register[/input]
+  
+    [div class=p style="margin-top: 10px;"]Of course, none of this is very useful without the ability to use the user's input. This is where scripts come in...[/div]
+[/div]
+
+[div class="content contentScripts hidden"]
+    [div class=p]Aside from some tags like accordions or tabs, which allow for limited user interaction, it is impossible to add interactivity to your posts with normal BBCode. This is where scripts come in.[/div]
+
+    [div class=p]Scripts are short programs that are attached to your post which allow you to manipulate information and dynamically alter the layout of your post. The standard scripting language for web pages, for example, is JavaScript, a powerful language that lets you completely alter the content of a web page. This can be a security risk, however, if anybody can write their own snippets of JavaScript. This is why BBCode+ introduces a simple, restricted language called BBScript which gets automatically converted to JavaScript.[/div]
+  
+    [div class=p]In order to define a script, you must first attach it to a class in use in your document through a DIV or an input using the class parameter (the default parameter if using the single option notation). You must then specify when it is run through the on parameter, which can be set either to init (when the element is loaded), click (when the element is clicked), change (when the value of the input changes), dblclick (when the element is double-clicked), mouseenter (when the mouse moves over the element), mouseleave (when the mouse leaves the element), scroll (when the element is scrolled); by default, this value is init.[/div]
+  
+    [div class=p]Once you have defined the script's context, you must specify its content using the BBScript language. It is a very simple language, where each line corresponds to a statement to be executed: the first word names the function to be called, and all subsequent text on the line is interpreted as parameters. Here is an example of a simple script which changes the content of a DIV when it is clicked:[/div]
+
+    [div class=listing][plain][script=clickDiv]
+    set clickCount 0
+[/script]
+
+[script class=clickDiv on=click]
+    inc clickCount
+    setText "Clicked ${clickCount} times!"
+[/script]
+
+[div class=clickDiv style="cursor: pointer;"][b]Click me![/b][/div][/plain][/div]
+  
+    [script=clickDiv]
+        set clickCount 0
+    [/script]
+  
+    [script class=clickDiv on=click]
+        inc clickCount
+        setText "Clicked ${clickCount} times!"
+    [/script]
+  
+    [div class=clickDiv style="cursor: pointer;"]Click me![/div]
+      
+    [div class=p]Let's go through that example. The first script is used to initialize a variable, a named value that can be used throughout all your scripts; variables can contain either integers or text (in which case they are often referred to as strings). The initialization is done using the command [div class=code][plain]set clickCount 0[/plain][/div], which can be read as "set the variable clickCount to the value 0". The set function can also be used to initalize a string, which would take the form [div class=code][plain]set textVariable "My text."[/plain][/div]; if your text contains a [div class=code][plain]"[/plain][/div], it can be escaped using [div class=code][plain]\"[/plain][/div]; the backslash can also be escaped if needed.[/div]
+  
+    [div class=p]While the first script is run only once, when the post is loaded, the second script runs every time the clickDiv is clicked by the user. It begins by incrementing the variable clickCount by 1 ("inc" is short for increment), followed by setting the text of the element to "Clicked ${clickCount} times!". Note that ${clickCount} is special in that it gets replaced by the value of the variable clickCount: variables can be inserted in strings in this fashion, by surrounding their name with [div class=code]${}[/div].[/div]
+  
+    [div class=p]Additionally, some functions such as [div class=code]getText[/div] or [div class=code]random[/div] can return values, which can be stored in variables. To use a function's return value, simply surround the call to the function with parentheses, as is done here: [div class=code]set aVariable (random 1 10)[/div] (stores a random number from 1 to 10 in aVariable).[/div]
+  
+    [div class=p]Finally, you can insert line comments in BBScript by prepending your comment with "//" at the start of the line. Comments can make it easier when you or others need to re-read your code, and you are encouraged to use them liberally.[/div]
+  
+    [div class=p]This is a simple example of the power of BBScript, but so much more is possible. To see just how much can be done, take a look at the examples, which showcases some basic uses, and the BBScript reference, for a complete list of functions that can be used.[/div]
+    
+    [div class=subtitle]BBScript 2[/div]
+
+    [div class=p]Once you start to get the hang of BBScript, you may realize how limited its syntax is. To remedy this, a new version of BBScript was conceived which allows for much greater flexibility: BBScript 2. If you are already familiar with BBScript 1, here is a short list of the major differences:[/div]
+    [list][*]Every function call must now be surrounded by parentheses, not just the inline calls. This makes it possible to have function calls span multiple lines.
+    [*]Functions calls can now be nested any number of levels.
+    [*]The [div class=code]${myVariable}[/div] syntax is gone now. Use the new [div class=code]+[/div] function instead to concatenate strings.
+    [*]It is now possible to define arrays using this syntax: [div class=code][1 2 3][/div]
+    [*]Any many new functions are available for use, including [div class=code]group[/div], which lets you join function calls together for use in some functions. See the function reference for a complete list.
+    [*]All strings need to be quoted now.
+    [*]Targets are named using strings now, so you can freely use either string literals or string variables to name your targets.
+    [*]Comments are no longer possible for now, but may be re-introduced at a later time.[/list]
+    [div class=p][b]To enable BBScript 2, add [div class=code]version=2[/div] to your script tag.[/b][/div]
+    [div class=p]Here is an example of two equivalent scripts in BBScript 1 and 2 (note that the special formatting done in BBScript 2 is optional - you can still write everything on one line):[/div]
+    
+    [div class=p]BBScript 1:[/div]
+[code]
+[script class=aClass]
+    if (eq 1 2) (setText "True!") (setText "False!")
+[/script]
+[/code]
+
+    [div class=p]BBScript 2:[/div]
+[code]
+[script class=aClass version=2]
+    (if
+        (== 1 2)
+        (setText "True!")
+        (setText "False!")
+    )
+[/script]
+[/code]
+[/div]
+
+[div class="content contentAnimations hidden"]
+    [div class=p]A new feature of BBCode+ is the ability to define custom [url=https://www.w3schools.com/css/css3_animations.asp]CSS animations[/url]. This is done through the use of the [plain][animation][/plain] and [plain][keyframe][/plain] tags, as illustrated below:[/div]
+    [div class=listing][plain][animation=myAnimationName]
+    [keyframe=0]
+        color: blue;
+    [/keyframe]
+    
+    [keyframe=50]
+        color: yellow;
+    [/keyframe]
+    
+    [keyframe=100]
+        color: red;
+    [/keyframe]
+[/animation][/plain][/div]
+    [div class=p]That animation can then be referenced from your CSS by naming it like this: [div class=code]{post_id}myAnimationName[/div]. The [div class=code]{post_id}[/div] prefix is necessary due to the way BBCode+ works, and will be replaced at display time with a randomly-generated value.[/div]
+[/div]
+
+[div class="content contentCharacterSheetGenerator hidden"]
+    [div class=p]This below box lets you generate a simple character sheet's BBCode automatically by inputting a character's name, age and description. It makes use of fields, variables and transition effects (slideDown in this instance).[/div]
+
+    [div class=csgform][br][/br]
+    [div class=csgtitle]Apply to Generic RP #42[/div][br][/br]
+    [div class=csgintro]Interested in applying to our roleplay? Fill in your character's details below to generate your character sheet automatically![/div][br][/br]
+    [div class=csglabel]Name:[/div][input class="csginput csgname" type=text][/input][br][/br]
+    [div class=csglabel]Age:[/div][input class="csginput csgage" type=text maxlength=3][/input][br][/br]
+    [div class=csglabel]Description:[/div][input type=textarea class="csginput csgdescription"][/input][br][/br]
+    [input class=csgsubmit type=button]Generate Character Sheet[/input][br][/br]
+    [div class=csgcode][plain][b]Name:[/b] [/plain][div class="csgvalue csgnameValue"][/div][br][/br]
+    [plain][b]Age:[/b] [/plain][div class="csgvalue csgageValue"][/div][br][/br]
+    [plain][b]Description:[/b] [/plain][div class="csgvalue csgdescriptionValue" style="white-space: pre;"][/div][/div][/div][br][/br]
+    [nobr]
+        [class name=csgform]
+            background: #F0F0F0;
+            box-shadow: 0px 0px 10px #A0A0A0;
+            box-sizing: border-box;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 10px;
+            width: 100%;
+        [/class]
+
+        [class name=csgtitle]
+            box-sizing: border-box;
+            font-size: 32px;
+            font-weight: bold;
+            text-align: center;
+        [/class]
+
+        [class name=csgintro]
+            box-sizing: border-box;
+            font-style: italic;
+            margin: 10px 0;
+            text-align: center;
+        [/class]
+
+        [class name=csglabel]
+            box-sizing: border-box;
+            display: inline-block;
+            font-weight: bold;
+            padding: 10px;
+            vertical-align: top;
+            width: 40%
+        [/class]
+
+        [class name=csginput]
+            background-color: #FFFFFF;
+            border: solid 1px #C0C0C0;
+            border-radius: 5px;
+            box-sizing: border-box;
+            display: inline-block;
+            margin-bottom: 10px;
+            padding: 10px;
+            width: 60%;
+        [/class]
+
+        [class name=csgsubmit]
+            box-sizing: border-box;
+            display: inline-block;
+            font-size: 22px;
+            font-weight: bold;
+            padding: 10px 0;
+            width: 100%;
+        [/class]
+
+        [class name=csgcode]
+            background-color: #dedede;
+            border: solid 1px #a9a9a9;
+            box-sizing: border-box;
+            display: none;
+            font-family: 'Courier New', monospace;
+            margin-top: 20px;
+            padding: 10px;
+        [/class]
+
+        [class name=csgvalue]
+            display: inline;
+        [/class]
+
+        [script class=csgsubmit on=click]
+            // Hide the current code if it was displayed
+            hide csgcode
+
+            // Get the values and store them in variables
+            set name (getVal csgname)
+            set age (getVal csgage)
+            set description (getVal csgdescription)
+
+            // Fill in the user values
+            setText ${name} csgnameValue
+            setText ${age} csgageValue
+            setText ${description} csgdescriptionValue
+
+            // Show the generated BBCode
+            slideDown 1000 csgcode
+        [/script]
+    [/nobr]
+  
+    [code][div class=csgform]
+[div class=csgtitle]Apply to Generic RP #42[/div]
+[div class=csgintro]Interested in applying to our roleplay? Fill in your character's details below to generate your character sheet automatically![/div]
+[div class=csglabel]Name:[/div][input class="csginput csgname" type=text][/input]
+[div class=csglabel]Age:[/div][input class="csginput csgage" type=text maxlength=3][/input]
+[div class=csglabel]Description:[/div][input type=textarea class="csginput csgdescription"][/input]
+[input class=csgsubmit type=button]Generate Character Sheet[/input]
+[div class=csgcode][plain][b]Name:[/b] [/plain][div class="csgvalue csgnameValue"][/div]
+[plain][b]Age:[/b] [/plain][div class="csgvalue csgageValue"][/div]
+[plain][b]Description:[/b] [/plain][div class="csgvalue csgdescriptionValue" style="white-space: pre;"][/div][/div][/div]
+[nobr]
+    [class name=csgform]
+        background: #F0F0F0;
+        box-shadow: 0px 0px 10px #A0A0A0;
+        box-sizing: border-box;
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 10px;
+        width: 100%;
+    [/class]
+
+    [class name=csgtitle]
+        box-sizing: border-box;
+        font-size: 32px;
+        font-weight: bold;
+        text-align: center;
+    [/class]
+
+    [class name=csgintro]
+        box-sizing: border-box;
+        font-style: italic;
+        margin: 10px 0;
+        text-align: center;
+    [/class]
+
+    [class name=csglabel]
+        box-sizing: border-box;
+        display: inline-block;
+        font-weight: bold;
+        padding: 10px;
+        vertical-align: top;
+        width: 40%
+    [/class]
+
+    [class name=csginput]
+        background-color: #FFFFFF;
+        border: solid 1px #C0C0C0;
+        border-radius: 5px;
+        box-sizing: border-box;
+        display: inline-block;
+        margin-bottom: 10px;
+        padding: 10px;
+        width: 60%;
+    [/class]
+
+    [class name=csgsubmit]
+        box-sizing: border-box;
+        display: inline-block;
+        font-size: 22px;
+        font-weight: bold;
+        padding: 10px 0;
+        width: 100%;
+    [/class]
+
+    [class name=csgcode]
+        background-color: #dedede;
+        border: solid 1px #a9a9a9;
+        box-sizing: border-box;
+        display: none;
+        font-family: 'Courier New', monospace;
+        margin-top: 20px;
+        padding: 10px;
+    [/class]
+
+    [class name=csgvalue]
+        display: inline;
+    [/class]
+
+    [script class=csgsubmit on=click]
+        // Hide the current code if it was displayed
+        hide csgcode
+
+        // Get the values and store them in variables
+        set name (getVal csgname)
+        set age (getVal csgage)
+        set description (getVal csgdescription)
+
+        // Fill in the user values
+        setText ${name} csgnameValue
+        setText ${age} csgageValue
+        setText ${description} csgdescriptionValue
+
+        // Show the generated BBCode
+        slideDown 1000 csgcode
+    [/script]
+[/nobr][/code]
+[/div]
+
+[div class="content contentKeypad hidden"]
+    [div class=p]The below example illustrates several CSS effects and conditional code using the if function. The correct PIN is 1234.[/div]
+  
+    [div class=keypad]
+        [div class=instructions]Please enter your PIN.[/div]
+        [div class="key numkey"]1[/div][div class="key numkey"]2[/div][div class="key numkey"]3[/div][br][/br]
+        [div class="key numkey"]4[/div][div class="key numkey"]5[/div][div class="key numkey"]6[/div][br][/br]
+        [div class="key numkey"]7[/div][div class="key numkey"]8[/div][div class="key numkey"]9[/div][br][/br]
+        [div class="key numkey"]0[/div][div class="key resetkey" style="width: 60px;"]RESET[/div][br][/br]
+        [div class=pin]____[/div]
+  
+        [div class=access]ACCESS GRANTED[/div]
+    [/div]
+      
+    [class=keypad]
+        background-color: #F0F0F0;
+        box-sizing: border-box;
+        line-height: 1;
+        margin: 10px auto;
+        text-align: center;
+        width: 200px;
+    [/class]
+  
+    [class=instructions]
+        box-sizing: border-box;
+        color: #4c4c4c;
+        font-style: italic;
+        font-weight: bold;
+        padding: 15px 10px;
+    [/class]
+  
+    [class=key]
+        background-color: #D0D0D0;
+        box-sizing: border-box;
+        color: #000000;
+        display: inline-block;
+        font-size: 14px;
+        height: 30px;
+        line-height: 0;
+        outline: solid 1px #b7b7b7;
+        padding: 15px 0px;
+        text-align: center;
+        width: 30px;
+    [/class]
+  
+    [class name=key state=hover]
+        background-color: #A0A0A0;
+        box-sizing: border-box;
+        cursor: pointer;
+    [/class]
+  
+    [class=pin]
+        background-color: #212322;
+        box-sizing: border-box;
+        color: #25b925;
+        display: inline-block;
+        font-family: 'Courier New', monospace;
+        font-size: 24px;
+        font-weight: bold;
+        letter-spacing: 10px;
+        margin: 10px auto;
+        padding: 10px 0px 10px 10px;
+        text-align: center;
+    [/class]
+  
+    [class=access]
+        box-sizing: border-box;
+        color: green;
+        display: none;
+        font-family: 'Courier New', monospace;
+        font-size: 20px;
+        font-weight: bold;
+        padding: 10px 0;
+    [/class]
+  
+    [script=keypad]
+        set curChar 0
+        set firstChar _
+        set secondChar _
+        set thirdChar _
+        set fourthChar _
+    [/script]
+  
+    [script class=numkey on=click]
+        if (le ${curChar} 5) (inc curChar) (stop)
+        set keyText (getText)
+        if (eq ${curChar} 1) (set firstChar ${keyText})
+        if (eq ${curChar} 2) (set secondChar ${keyText})
+        if (eq ${curChar} 3) (set thirdChar ${keyText})
+        if (eq ${curChar} 4) (set fourthChar ${keyText})
+        setText "${firstChar}${secondChar}${thirdChar}${fourthChar}" pin
+      
+        // Check if the correct value was entered.
+        set numCharValid 0
+        if (eq ${firstChar} 1) (inc numCharValid)
+        if (eq ${secondChar} 2) (inc numCharValid)
+        if (eq ${thirdChar} 3) (inc numCharValid)
+        if (eq ${fourthChar} 4) (inc numCharValid)
+        if (eq ${numCharValid} 4) (fadeIn 1000 access)
+    [/script]
+  
+    [script class=resetkey on=click]
+        set curChar 0
+        set firstChar _
+        set secondChar _
+        set thirdChar _
+        set fourthChar _
+        setText "____" pin
+        hide access
+    [/script]
+  
+    [div class=listing][plain][nobr]
+    [div class=keypad]
+        [div class=instructions]Please enter your PIN.[/div]
+        [div class="key numkey"]1[/div][div class="key numkey"]2[/div][div class="key numkey"]3[/div][br][/br]
+        [div class="key numkey"]4[/div][div class="key numkey"]5[/div][div class="key numkey"]6[/div][br][/br]
+        [div class="key numkey"]7[/div][div class="key numkey"]8[/div][div class="key numkey"]9[/div][br][/br]
+        [div class="key numkey"]0[/div][div class="key resetkey" style="width: 60px;"]RESET[/div][br][/br]
+        [div class=pin]____[/div]
+
+        [div class=access]ACCESS GRANTED[/div]
+    [/div]
+      
+    [class=keypad]
+        background-color: #F0F0F0;
+        box-sizing: border-box;
+        line-height: 1;
+        margin: 10px auto;
+        text-align: center;
+        width: 200px;
+    [/class]
+
+    [class=instructions]
+        box-sizing: border-box;
+        color: #4c4c4c;
+        font-style: italic;
+        font-weight: bold;
+        padding: 15px 10px;
+    [/class]
+
+    [class=key]
+        background-color: #D0D0D0;
+        box-sizing: border-box;
+        color: #000000;
+        display: inline-block;
+        font-size: 14px;
+        height: 30px;
+        line-height: 0;
+        outline: solid 1px #b7b7b7;
+        padding: 15px 0px;
+        text-align: center;
+        width: 30px;
+    [/class]
+
+    [class name=key state=hover]
+        background-color: #A0A0A0;
+        box-sizing: border-box;
+        cursor: pointer;
+    [/class]
+
+    [class=pin]
+        background-color: #212322;
+        box-sizing: border-box;
+        color: #25b925;
+        display: inline-block;
+        font-family: 'Courier New', monospace;
+        font-size: 24px;
+        font-weight: bold;
+        letter-spacing: 10px;
+        margin: 10px auto;
+        padding: 10px 0px 10px 10px;
+        text-align: center;
+    [/class]
+
+    [class=access]
+        box-sizing: border-box;
+        color: green;
+        display: none;
+        font-family: 'Courier New', monospace;
+        font-size: 20px;
+        font-weight: bold;
+        padding: 10px 0;
+    [/class]
+
+    [script=keypad]
+        set curChar 0
+        set firstChar _
+        set secondChar _
+        set thirdChar _
+        set fourthChar _
+    [/script]
+
+    [script class=numkey on=click]
+        if (le ${curChar} 5) (inc curChar) (stop)
+        set keyText (getText)
+        if (eq ${curChar} 1) (set firstChar ${keyText})
+        if (eq ${curChar} 2) (set secondChar ${keyText})
+        if (eq ${curChar} 3) (set thirdChar ${keyText})
+        if (eq ${curChar} 4) (set fourthChar ${keyText})
+        setText "${firstChar}${secondChar}${thirdChar}${fourthChar}" pin
+      
+        // Check if the correct value was entered.
+        set numCharValid 0
+        if (eq ${firstChar} 1) (inc numCharValid)
+        if (eq ${secondChar} 2) (inc numCharValid)
+        if (eq ${thirdChar} 3) (inc numCharValid)
+        if (eq ${fourthChar} 4) (inc numCharValid)
+        if (eq ${numCharValid} 4) (fadeIn 1000 access)
+    [/script]
+
+    [script class=resetkey on=click]
+        set curChar 0
+        set firstChar _
+        set secondChar _
+        set thirdChar _
+        set fourthChar _
+        setText "____" pin
+        hide access
+    [/script]
+[/nobr][/plain][/div]
+[/div]
+
+[div class="content contentTabs hidden"]
+    [div class=p]Using BBCode+, you can create your own customized tab system. In fact, the navigation sidebar of this very tutorial is coded using BBCode+'s scripting potential. Below is a very simple example of a custom tab system using the same principle.[/div]
+    
+    [class=tabs]
+        background-color: #509cf7;
+        border-radius: 5px;
+        box-shadow: 0px 0px 5px #000088;
+        box-sizing: border-box;
+        color: #e4eeff;
+        font-size: 18px;
+        font-weight: bold;
+        line-height: 1;
+        margin: 20px auto;
+        min-width: 350px;
+        text-align: center;
+        width: 50%;
+    [/class]
+    
+    [class=tab]
+        box-sizing: border-box;
+        cursor: pointer;
+        display: inline-block;
+        padding: 10px 0;
+        width: 33%;
+    [/class]
+
+    [class name=tab state=hover]
+        background-color: #2b7abb;
+    [/class]
+    
+    [script class=tab on=click]
+        hide tabsContent
+        set currentTab (getText)
+        if (eq ${currentTab} Information) (show tabsContentInformation)
+        if (eq ${currentTab} Rules) (show tabsContentRules)
+        if (eq ${currentTab} Characters) (show tabsContentCharacters)
+    [/script]
+    
+    [div class=tabs][div class=tab style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;"]Information[/div][div class=tab]Rules[/div][div class=tab style="border-top-right-radius: 5px; border-bottom-right-radius: 5px; width: 34%;"]Characters[/div][/div]
+    
+    [div class="tabsContent tabsContentInformation"]Some general information about Generic RP #42.[/div]
+    
+    [div class="tabsContent tabsContentRules" style="display: none;"]A few rules you should follow in this roleplay.[/div]
+    
+    [div class="tabsContent tabsContentCharacters" style="display: none;"]Create your character using the provided character generator.[/div]
+    
+    [div class=listing][plain][nobr]
+    [class=tabs]
+        background-color: #509cf7;
+        border-radius: 5px;
+        box-shadow: 0px 0px 5px #000088;
+        box-sizing: border-box;
+        color: #e4eeff;
+        font-size: 18px;
+        font-weight: bold;
+        line-height: 1;
+        margin: 20px auto;
+        min-width: 350px;
+        text-align: center;
+        width: 50%;
+    [/class]
+    
+    [class=tab]
+        box-sizing: border-box;
+        cursor: pointer;
+        display: inline-block;
+        padding: 10px 0;
+        width: 33%;
+    [/class]
+
+    [class name=tab state=hover]
+        background-color: #2b7abb;
+    [/class]
+    
+    [script class=tab on=click]
+        hide tabsContent
+        set currentTab (getText)
+        if (eq ${currentTab} Information) (show tabsContentInformation)
+        if (eq ${currentTab} Rules) (show tabsContentRules)
+        if (eq ${currentTab} Characters) (show tabsContentCharacters)
+    [/script]
+    
+    [div class=tabs][div class=tab style="border-top-left-radius: 5px; border-bottom-left-radius: 5px;"]Information[/div][div class=tab]Rules[/div][div class=tab style="border-top-right-radius: 5px; border-bottom-right-radius: 5px; width: 34%;"]Characters[/div][/div]
+    
+    [div class="tabsContent tabsContentInformation"]Some general information about Generic RP #42.[/div]
+    
+    [div class="tabsContent tabsContentRules" style="display: none;"]A few rules you should follow in this roleplay.[/div]
+    
+    [div class="tabsContent tabsContentCharacters" style="display: none;"]Create your character using the provided character generator.[/div]
+[/nobr][/plain][/div]
+[/div]
+
+[div class="content contentTags hidden"]
+    [div class=reference]
+        [div class=referenceTitle][plain][animation=IDENTIFIER][/plain][/div]
+        [div class=p]Defines a new named [url=https://www.w3schools.com/css/css3_animations.asp]CSS animation[/url]. Keyframes are defined by using the [plain]keyframe[/plain] tag inside this tag.[/div]
+    [/div]
+    
+    [div class=reference]
+        [div class=referenceTitle][plain][keyframe=PERCENTAGE][/plain][/div]
+        [div class=p]Defines the state of the animation at PERCENTAGE% completion. Only works inside an [plain]animation[/plain] tag.[/div]
+    [/div]
+    
+    [div class=reference]
+        [div class=referenceTitle][plain][class=IDENTIFIER][/plain][br][/br][plain][class name=IDENTIFIER state=active|focus|hover minWidth=MIN_WIDTH maxWidth=MAX_WIDTH][/plain][/div]
+        [div class=p]Defines a class identified by IDENTIFIER which can be applied to divs an inputs. The optional "state" argument specifies when to apply the class's properties: active affects an element when it is clicked on, focus affects an input when it is currently being used and hover affects an element when the cursor hovers over it. The optional "minWidth" and "maxWidth" arguments can be used to specify that this class's style should only apply when when the browser window meets the width requirements.[/div]
+    [/div]
+    
+    [div class=reference]
+        [div class=referenceTitle][plain][script=IDENTIFIER][/plain][br][/br][plain][script class=IDENTIFIER on=init|click|change|dblclick|mouseenter|mouseleave|scroll][/plain][/div]
+        [div class=p]Defines a script to be applied to all elements of class IDENTIFIER. The optional "on" argument specifies when the script should trigger; by default, this is init (when the element is first loaded).[/div]
+    [/div]
+    
+    [div class=reference]
+        [div class=referenceTitle][plain][div=STYLE][/plain][br][/br][plain][div class=IDENTIFIER* style=STYLE][/plain][/div]
+        [div class=p]An enhanced DIV, which can either be simply styled (like the old DIV) or have a class or classes attached in addition to an inline STYLE.[/div]
+    [/div]
+    
+    [div class=reference]
+        [div class=referenceTitle][plain][input=button|password|text|textarea][/plain][br][/br][plain][input type=button|password|text|textarea class=IDENTIFIER* maxlength=LENGTH placeholder=PLACEHOLDER][/plain][/div]
+        [div class=p]Various types of input elements which can be used in conjunction with scripts to process user input.[/div]
+    [/div]
+    
+    [div class=reference]
+        [div class=referenceTitle][plain][nobr][/plain][/div]
+        [div class=p]Indicates a zone should not have automatic line breaks inserted: source line breaks are ignored, which is useful for complex formatted code.[/div]
+    [/div]
+    
+    [div class=reference]
+        [div class=referenceTitle][plain][br][/plain][/div]
+        [div class=p]Forces a manual break. Content inside the tag is ignored.[/div]
+    [/div]
+[/div]
+
+[div class="content contentFunctions hidden"]
+    [div class=p]This is a reference for all BBScript 1 functions. Parameters in brackets are optional; their default value is indicated using "=". TARGET, by default, refers to the specific element which triggered the event. If the function returns a value, its type will be indicated using "->"; returned values can be used by some functions as parameters.[/div]
+
+    [div class=subtitle][b]Post Functions[/b][/div]    
+    [div class=reference]
+        [div class=referenceTitle]addClass CLASS [TARGET][/div]
+        [div class=p]Adds the specified class to the target.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]removeClass CLASS [TARGET][/div]
+        [div class=p]Removes the specified class from the target.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]fadeIn [DURATION=1000] [TARGET][/div]
+        [div class=p]Makes the target fade in over the specified amount of time.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]fadeOut [DURATION=1000] [TARGET][/div]
+        [div class=p]Makes the target fade out over the specified amount of time.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]fadeToggle [DURATION=1000] [TARGET][/div]
+        [div class=p]Makes the target fade in or fade out, depending on its current state, over the specified amount of time.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]hide [TARGET][/div]
+        [div class=p]Instantly hides the target.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]show [TARGET][/div]
+        [div class=p]Instantly shows the target.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]getText [TARGET] -> string[/div]
+        [div class=p]Gets the text value of the target, excluding all child tags' names.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]setText TEXT [TARGET][/div]
+        [div class=p]Sets the text value of the target.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]getVal [TARGET] -> string[/div]
+        [div class=p]Gets the value of the target input tag. To be used with input tags only.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]setVal VALUE [TARGET][/div]
+        [div class=p]Sets the value of the target input tag. To be used with input tags only.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]slideDown => [DURATION=1000] [TARGET][/div]
+        [div class=p]Makes the target slide down over the specified amount of time.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]slideToggle => [DURATION=1000] [TARGET][/div]
+        [div class=p]Makes the target slide down or up, depending on its current state, over the specified amount of time.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]slideUp => [DURATION=1000] [TARGET][/div]
+        [div class=p]Makes the target slide up over the specified amount of time.[/div]
+    [/div]
+
+    [div class=subtitle][b]Variable Functions[/b][/div]
+    [div class=reference]
+        [div class=referenceTitle]dec VARIABLE [DECREMENT=1][/div]
+        [div class=p]Decreases the value of the variable by the specified amount.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]inc VARIABLE [INCREMENT=1][/div]
+        [div class=p]Increases the value of the variable by the specified amount.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]set VARIABLE VALUE[/div]
+        [div class=p]Sets the value of the variable to the specified value.[/div]
+    [/div]
+
+    [div class=subtitle][b]Flow Control[/b][/div]    
+    [div class=reference]
+        [div class=referenceTitle]if TEST_FUNCTION IF_FUNCTION [ELSE_FUNCTION][/div]
+        [div class=p]Performs a test using one of the comparison functions. If the test is successful, IF_FUNCTION is executed; otherwise, if specified, ELSE_FUNCTION is executed.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]stop[/div]
+        [div class=p]Prevents execution of further statements in this script; useful when combined with if functions.[/div]
+    [/div]
+    
+    [div class=subtitle][b]Comparison Functions[/b][/div]    
+    [div class=reference]
+        [div class=referenceTitle]eq VALUE1 VALUE2 -> boolean[/div]
+        [div class=p]Tests if VALUE1 is equal to VALUE2.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]ge VALUE1 VALUE2 -> boolean[/div]
+        [div class=p]Tests if VALUE1 is greater than VALUE2.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]geq VALUE1 VALUE2 -> boolean[/div]
+        [div class=p]Tests if VALUE1 is greater than or equal to VALUE2.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]le VALUE1 VALUE2 -> boolean[/div]
+        [div class=p]Tests if VALUE1 is less than VALUE2.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]leq VALUE1 VALUE2 -> boolean[/div]
+        [div class=p]Tests if VALUE1 is less than or equal to VALUE2.[/div]
+    [/div]
+    
+    [div class=subtitle][b]Randomization Functions[/b][/div]    
+    [div class=reference]
+        [div class=referenceTitle]random LOWER_BOUND UPPER_BOUND -> integer[/div]
+        [div class=p]Generate a random integer between LOWER_BOUND and UPPER_BOUND (included).[/div]
+    [/div]
+[/div]
+
+[div class="content contentFunctions2 hidden"]
+    [div class=p]This is a reference for all BBScript 2 functions. Parameters in brackets are optional; their default value is indicated using "=". TARGET, by default, refers to the specific element which triggered the event. If the function returns a value, its type will be indicated using "->"; returned values can be used by some functions as parameters.[/div]
+    [div class=p]The below functions are exclusive to BBScript 2. To start using them (and the BBScript 2 syntax), add the [div class=code]version=2[/div] parameter to your script tag.[/div]
+    
+    [div class=subtitle][b]BBScript 2[/b][/div]
+    
+    [div class=subtitle][b]Post Functions[/b][/div]    
+        [div class=reference]
+        [div class=referenceTitle]addClass CLASS [TARGET][/div]
+        [div class=p]Adds the specified class to the target.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]removeClass CLASS [TARGET][/div]
+        [div class=p]Removes the specified class from the target.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]fadeIn [DURATION=1000] [TARGET][/div]
+        [div class=p]Makes the target fade in over the specified amount of time.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]fadeOut [DURATION=1000] [TARGET][/div]
+        [div class=p]Makes the target fade out over the specified amount of time.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]fadeToggle [DURATION=1000] [TARGET][/div]
+        [div class=p]Makes the target fade in or fade out, depending on its current state, over the specified amount of time.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]hide [TARGET][/div]
+        [div class=p]Instantly hides the target.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]show [TARGET][/div]
+        [div class=p]Instantly shows the target.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]getText [TARGET] -> string[/div]
+        [div class=p]Gets the text value of the target, excluding all child tags' names.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]setText TEXT [TARGET][/div]
+        [div class=p]Sets the text value of the target.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]getVal [TARGET] -> string[/div]
+        [div class=p]Gets the value of the target input tag. To be used with input tags only.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]setVal VALUE [TARGET][/div]
+        [div class=p]Sets the value of the target input tag. To be used with input tags only.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]slideDown => [DURATION=1000] [TARGET][/div]
+        [div class=p]Makes the target slide down over the specified amount of time.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]slideToggle => [DURATION=1000] [TARGET][/div]
+        [div class=p]Makes the target slide down or up, depending on its current state, over the specified amount of time.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]slideUp => [DURATION=1000] [TARGET][/div]
+        [div class=p]Makes the target slide up over the specified amount of time.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]addDiv CLASS [TARGET][/div]
+        [div class=p]Adds a div inside the TARGET class, with CLASS as an initial class.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]removeDiv CLASS [TARGET][/div]
+        [div class=p]Removes CLASS divs inside the TARGET div.[/div]
+    [/div]
+
+    [div class=subtitle][b]Array/String Functions[/b][/div]    
+    [div class=reference]
+        [div class=referenceTitle]count VARIABLE -> integer[/div]
+        [div class=p]Counts the number of elements in an array or string. If array, returns number of elements in array. If string, returns number of characters in the string.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]contains VARIABLE NEEDLE -> boolean[/div]
+        [div class=p]Tests if VARIABLE (string or array) contains the NEEDLE, which can either be an array element or a substring, as appropriate.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]find VARIABLE NEEDLE -> integer[/div]
+        [div class=p]Returns the index position of the NEEDLE inside VARIABLE (string or array).[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]index VARIABLE INDEX [VALUE] -> any[/div]
+        [div class=p]Access the value in VARIABLE (string or array) at INDEX position. If VALUE is provided, it will set the value of VARIABLE at INDEX to the provided VALUE.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]append ARRAY VALUE -> integer[/div]
+        [div class=p]Adds VALUE to the end of the ARRAY. Returns ARRAY's new length.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]insert ARRAY INDEX VALUE -> any[/div]
+        [div class=p]Inserts VALUE in ARRAY at the position INDEX, where INDEX is a number. Returns the inserted value.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]pop ARRAY -> any[/div]
+        [div class=p]Removes the last element of ARRAY and returns it.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]remove ARRAY INDEX -> any[/div]
+        [div class=p]Removes the element at INDEX from ARRAY and returns it.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]reverse ARRAY -> array[/div]
+        [div class=p]Reverses the order of elements in ARRAY and returns it.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]join ARRAY [SEPARATOR] -> array[/div]
+        [div class=p]Combines all elements of the ARRAY together in a string. If SEPARATOR is provided, each element will have that separator between them.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]shuffle ARRAY -> array[/div]
+        [div class=p]Shuffles the elements in ARRAY and returns it.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]slice VARIABLE START END -> array[/div]
+        [div class=p]Returns an string or array containing the elements between the START and END values of an VARIABLE (string or array).[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]each ARRAY FUNCTION[/div]
+        [div class=p]For each element in ARRAY, perform FUNCTION. The special variable [div class=code]_[/div] gets set to the value of the current element in the array.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]split STRING [SEPARATOR] -> array[/div]
+        [div class=p]Splits STRING into elements of an array, as separated by SEPARATOR. If no separator is provided, it will return an array where each character is an element.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]replace STRING NEEDLE REPLACEMENT[/div]
+        [div class=p]Replaces the NEEDLE inside STRING with REPLACEMENT (e.g. [div class=code](replace "Hello world!" "world" "RPNation"[/div] would result in "Hello RPNation!").[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]lower STRING[/div]
+        [div class=p]Returns a copy of STRING where every character has been replaced by its lowercase value.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]upper STRING[/div]
+        [div class=p]Returns a copy of STRING where every character has been replaced by its uppercase value.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]trim STRING[/div]
+        [div class=p]Returns a copy of STRING where whitespace from both the beginning and the end of the string has been removed.[/div]
+    [/div]
+
+    [div class=subtitle][b]Variable Functions[/b][/div]
+    [div class=reference]
+        [div class=referenceTitle]= VARIABLE VALUE[/div]
+        [div class=p]Sets the variable to the value.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]+ VALUE1 VALUE2 [VALUES#][/div]
+        [div class=p]Adds together all values. If values are strings or has a string, creates a new string of consisting of the values, for example [div class=code](+ "A" "B" "C")[/div] becomes "ABC". Can include any number of values.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]- VALUE1 VALUE2 [VALUES#][/div]
+        [div class=p]Subtracts all values from the first value. [div class=code](- VALUE1 VALUE2 VALUE3)[/div] becomes [div class=code]VALUE1 - VALUE2 - VALUE3[/div]. Can include any number of values.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]* VALUE1 VALUE2 [VALUES#][/div]
+        [div class=p]Multiplies all values together. [div class=code](* VALUE1 VALUE2 VALUE3)[/div] becomes [div class=code]VALUE1 * VALUE2 * VALUE3[/div]. Can include any number of values.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]/ VALUE1 VALUE2 [VALUES#][/div]
+        [div class=p]Divides values from the first. [div class=code](/ VALUE1 VALUE2 VALUE3)[/div] becomes [div class=code]VALUE1 / VALUE2 / VALUE3[/div]. Can include any number of values.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]% VALUE1 VALUE2[/div]
+        [div class=p]Finds the remainder of [div class=code]VALUE1 / VALUE2[/div].[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]** VALUE1 VALUE2[/div]
+        [div class=p]Returns [div class=code]VALUE1 ^ VALUE2[/div], where VALUE2 is the exponent of VALUE1.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]++ VARIABLE[/div]
+        [div class=p]Increases the value of VARIABLE by 1 and returns its new value.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]-- VARIABLE[/div]
+        [div class=p]Decreases the value of VARIABLE by 1 and return its new value.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]and TEST_FUNCTION1 TEST_FUNCTION2 [TEST_FUNCTION#][/div]
+        [div class=p]If all TEST_FUNCTION are true, returns true. Otherwise returns false. Can include any number of tests.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]or TEST_FUNCTION1 TEST_FUNCTION2 [TEST_FUNCTION#][/div]
+        [div class=p]If one TEST_FUNCTION is true, returns true, regardless if all other TEST_FUNCTIONs are false. Returns false if all TEST_FUNCTIONs are false.[/div]
+    [/div]
+
+    [div class=subtitle][b]Comparison Functions[/b][/div]
+    [div class=reference]
+        [div class=referenceTitle]== OPERAND1 OPERAND2[/div]
+        [div class=p]Tests if OPERAND1 is equal to OPERAND2. If equal, return true, otherwise false. OPERANDs can be any type of variable or value.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]!= OPERAND1 OPERAND2[/div]
+        [div class=p]Tests if OPERAND1 is not equal to OPERAND2. If not equal, return true; if equal, return false. OPERANDs can be any type of variable or value.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]> OPERAND1 OPERAND2[/div]
+        [div class=p]Tests if OPERAND1 greater than OPERAND2. If it is greater, return true, otherwise return false.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]>= OPERAND1 OPERAND2[/div]
+        [div class=p]Tests if OPERAND1 greater than or equal to OPERAND2. If it is greater or equal, return true, otherwise return false.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]< OPERAND1 OPERAND2[/div]
+        [div class=p]Tests if OPERAND1 less than OPERAND2. If it is less, return true, otherwise return false.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]<= OPERAND1 OPERAND2[/div]
+        [div class=p]Tests if OPERAND1 less than or equal to OPERAND2. If it is less or equal, return true, otherwise return false.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]> OPERAND1 OPERAND2[/div]
+        [div class=p]Tests if OPERAND1 greater than to OPERAND2. If it is greater, return true, otherwise return false.[/div]
+    [/div]
+
+    [div class=subtitle][b]Flow Control[/b][/div]
+    [div class=reference]
+        [div class=referenceTitle]group FUNCTION1 [FUNCTION#][/div]
+        [div class=p]Groups together any number of functions as one single executable function. The entire group can be used as the resulting function of any function that executes a command. Functions inside the group can be separated by newlines as long as it is contained by parentheses. Groups can be nested within groups.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]random[/div]
+        [div class=p]Returns a random single floating-point number between 0 and 1.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]randomInt MIN MAX[/div]
+        [div class=p]Returns a random integer between MIN and MAX.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]time[/div]
+        [div class=p]Returns the number of seconds since January 1st 1970 UTC (i.e. the UNIX epoch).[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]setTimeout SECONDS FUNCTION[/div]
+        [div class=p]Delays executing FUNCTION by SECONDS seconds. Only full seconds are allowed, no milliseconds. Can be set to a HANDLE name, such as [div class=code](= HANDLE (setTimeout SECONDS FUNCTION))[/div], for later manipulation. Does not block script execution.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]setInterval SECONDS FUNCTION[/div]
+        [div class=p]Repeatedly executes FUNCTION every SECONDS seconds. Can be set to a HANDLE name, such as [div class=code](= HANDLE (setInterval SECONDS FUNCTION))[/div], for later manipulation. Does not block script execution.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]clearInterval HANDLE[/div]
+        [div class=p]Stops the interval that is declared as HANDLE.[/div]
+    [/div]
+    [div class=reference]
+        [div class=referenceTitle]clearTimeout HANDLE[/div]
+        [div class=p]Stops the timeout that is declared as HANDLE.[/div]
+    [/div]
+[/div]
+
+[div class=clear][/div]
+
+[/div]
+
+[/nobr]

@@ -1,0 +1,2557 @@
+[nobr][comment]code by sox
+
+[font=Bricolage Grotesque]body[/font]
+[/comment][div=height:auto; width:100%; overflow-x:auto; overflow-y:hidden;
+
+/*colors*/
+--bkgd1: #000;
+--bkgd2: #f0f0ed;
+--border1: 1px solid var(--bkgd2);
+--border2: 1px solid var(--bkgd1);
+--text: #000;
+
+/*accents -- update the color names as you edit! trust me it helps! */
+--color1: #596e20;
+
+/*fonts*/
+--header: 'Bricolage Grotesque', sans-serif;
+
+/*urls*/
+--mainpic: url('https://i.imgur.com/s3hY2m7.png');
+
+][div=margin:auto; margin-top:5px; margin-bottom:30px; width:390px; height:250px;]
+[div=position:absolute; width:190px; height:250px; background: var(--bkgd1); margin-right:10px; outline: var(--border1); outline-offset: -10px;]
+[div=position:absolute; top:30px; left:20px; font-size: 16px; line-height:16px; font-family: var(--header); font-weight: bold; color: var(--bkgd2);]
+
+Cyberkill.
+
+[/div]
+[div=position:absolute; top:33px; left:145px; font-size: 10px; line-height:12px; font-family: var(--header); color: var(--color1);]
+[URL='https://pastebin.com/raw/Hfqvj3pJ'][div=display:inline; color:var(--color1);][fa]fas fa-link[/fa][/div][/URL]
+[URL='https://pastebin.com/raw/WsrX3EYw'][div=display:inline; color:var(--color1);][fa]fas fa-link[/fa][/div][/URL]
+[/div]
+[div=position:absolute; top:50px; left:20px; width:150px; height:150px; background: var(--mainpic); background-size:cover; background-position:50% 50%; filter:contrast(1.2);][/div]
+[div=position:absolute; top:205px; left:20px; font-size: 13px; line-height:14px; font-family: var(--header); font-weight: bold; color: var(--color1);]
+
+/016.
+
+[/div]
+[div=position:absolute; top:205px; left:50px; width:120px; text-align:right; font-size: 7px; line-height:7px; font-family: var(--header); font-weight: bold; color: var(--bkgd2);]
+
+# character sheet
+[br][/br]
+# mobile friendly
+
+[/div][/div]
+
+[div=position:absolute; margin-left:200px; width:190px; height:250px; background: var(--bkgd2); margin-right:10px; outline: var(--border2); outline-offset: -10px;]
+[div=position:absolute; top:30px; left:30px; width:150px; height:190px; overflow:hidden;]
+[div=font-size: 8px; line-height:9px; width:145px; height:190px; padding:0 40px 0 0; font-family: var(--header); color: var(--text); overflow-y:scroll; text-align: justify;]
+
+a digital-themed suspect profile that's vulnerable to outside threats— [B][I]cyberkill.[/I][/B]
+[br][/br][br][/br]
+[B]first link:[/B] light version
+[br][/br]
+[B]second link:[/B] dark version
+[br][/br][br][/br]
+[I][B]important to note:[/B][/I] the 4th tab breaks so bad if you toggle out of bbcode mode, so pls be careful to [B]start in and stay in the mode where the brackets are blue[/B] when editing ;-;;
+[br][/br][br][/br]
+this is a [B]character sheet[/B] code that's very heavily inspired by a few different [URL='https://i.pinimg.com/736x/30/e3/b1/30e3b1eead6f869fb1551c046b026e25.jpg']inspo[/URL] [URL='https://i.pinimg.com/736x/d3/28/86/d32886bb0be5b23b2bb6e3d939e12b89.jpg']pics[/URL] off of pinterest. i tried my hand at tabs again and it got a little rocky, so if you see anything sus going on in the code, just look away please i beg. there are only a few scrolls (basics, visage, vices/virtues, reputation, persona, and backstory) along with a music player and links for more visuals/playlist!
+[br][/br][br][/br]
+please pay careful attention to the notes i've left throughout to help you when editing the code to suit your needs! most values you'd want to edit are at the very top, but i've detailed most of it anyways in case you wanna play around with the code.
+[br][/br][br][/br]
+another thing to note is that the background will not show up on light mode if it's set to white, so please be mindful of that when choosing your palette! i also highly suggest updating the color names within the comments to help you keep track of what's what.
+[br][/br][br][/br]
+i'll post an in-character and placeholder version of this asap, but in the meantime: if anything is confusing you, please feel free to DM me!
+[/div][/div][/div][/div][/div][/nobr]
+
+[comment]code by sox
+
+------------ THE PREVIEW WILL LOOK MISALIGNED AND THAT'S OKAY! 
+------------ (i think that happens bc of the tabs but what do i know)
+------------ also pls don't toggle bbcode while editing, it breaks the last tab so bad ;-;
+
+[font=Handjet]titles[/font]
+[font=Ubuntu Mono]relationships[/font]
+[font=Saira SemiCondensed]body text[/font]
+
+[/comment][div=height:auto; width:100%; overflow-x:auto; overflow-y:hidden;
+
+
+/*---- COLORS: i recommend keeping these in relatively the same range of brightness as the default values! -----*/
+/*------------ note: changing these hex codes will change them everywhere they're used;  -----*/
+/*------------ you can change which accent colors are used where in the "values to edit" section! ----*/
+
+
+/*monochrome colors*/
+--accent00: #fafafa;   /*off white*/
+--accent01: #000;   /*black*/
+--accent02: #588a4d;   /*green*/
+--accent03: #4f6140;   /*muted green*/
+--accent04: #767d73;   /*gray green*/
+--accent05: #7d340f;   /*orange*/
+--accent06: #b57d5c;   /*light orange*/
+
+
+
+/*---- PICS ----*/
+/*------------ TAB 1 ------------*/
+--tab1a: url('https://i.pinimg.com/736x/df/6e/15/df6e15124e22f098b92b7bf59e798313.jpg');   /*main top pic*/
+--tab1asize: cover;   /*pic size*/
+--tab1aposition: 50% 50%;   /*pic positioning*/
+
+--tab1b: url('https://i.pinimg.com/736x/49/7d/1c/497d1c2d7711f46f66055c4818f334d8.jpg');   /*glitchy pic*/
+--tab1bsize: cover;   /*pic size*/
+--tab1bposition: 50% 50%;   /*pic positioning*/
+
+--tab1c: url('https://i.pinimg.com/736x/6a/ac/f1/6aacf119b327e5a00e91d9ab9ebe4baa.jpg');   /*black & white basics pic*/
+--tab1csize: cover;   /*pic size*/
+--tab1cposition: 50% 50%;   /*pic positioning*/
+
+/*------------ TAB 2 ------------*/
+--tab2a: url('https://i.imgur.com/QIKUWYJ.png');   /*visage eye pic*/
+--tab2asize: cover;   /*pic size*/
+--tab2aposition: 50% 50%;   /*pic positioning*/
+
+--tab2b: url('https://i.pinimg.com/736x/dc/43/f2/dc43f21979d1daef197317470d3e4573.jpg');   /*glitchy pic*/
+--tab2bsize: cover;   /*pic size*/
+--tab2bposition: 50% 50%;   /*pic positioning*/
+
+/*------------ TAB 3 ------------*/
+/*---- RELATIONSHIPS: copy/paste and edit the names here + in the code to add more! ----*/
+--rpic1: url('https://i.pinimg.com/736x/38/93/35/3893354d9b25f0030992fc4130cb7935.jpg');   /*relationship 1 pic*/
+--rpic1size: cover;   /*pic size*/
+--rpic1position: 50% 50%;   /*pic positioning*/
+
+--rpic2: url('https://i.pinimg.com/736x/81/7a/55/817a55dea2f2de9657b5fe84492f57a5.jpg');   /*relationship 2 pic*/
+--rpic2size: cover;   /*pic size*/
+--rpic2position: 50% 50%;   /*pic positioning*/
+
+--rpic3: url('https://i.pinimg.com/736x/0b/f7/ff/0bf7ffd04a1487ca872c67ce008f0a97.jpg');   /*relationship 3 pic*/
+--rpic3size: cover;   /*pic size*/
+--rpic3position: 50% 50%;   /*pic positioning*/
+
+--tab3a: url('https://i.pinimg.com/736x/ab/6e/2d/ab6e2d286c54ecf986ca969873fcd14b.jpg');  /*glitchy pic*/
+--tab3asize: cover;   /*pic size*/
+--tab3aposition: 50% 50%;   /*pic positioning*/
+
+--tab3b: url('https://i.imgur.com/lgbXRG0.png');  /*backstory pic*/
+--tab3bsize: cover;   /*pic size*/
+--tab3bposition: 50% 50%;   /*pic positioning*/
+
+/*------------ TAB 4 ------------*/
+--tab4a: url('https://i.imgur.com/93gk6pF.gif');  /*big cctv pic*/
+--tab4asize: cover;   /*pic size*/
+--tab4aposition: 50% 50%;   /*pic positioning*/
+
+--tab4b: url('https://i.pinimg.com/originals/9b/40/08/9b4008abe5f487cbb6c7726f07307b9a.gif');  /*top pic*/
+--tab4bsize: cover;   /*pic size*/
+--tab4bposition: 50% 50%;   /*pic positioning*/
+
+--tab4c: url('https://i.pinimg.com/originals/cf/e6/97/cfe6975f9073e34c2ae6b424b8381994.gif');  /*bottom pic*/
+--tab4csize: cover;   /*pic size*/
+--tab4cposition: 50% 50%;   /*pic positioning*/
+
+
+/*---- VALUES TO EDIT ----*/
+
+/*colors*/
+--bkgd: var(--accent00);   /*sheet background color*/
+--textcolor: var(--accent01);   /*body text color*/
+
+--tab1: var(--accent02);   /*tab1 button/icon color*/
+--tab2: var(--accent04);   /*tab2 button/icon color*/
+--tab3: var(--accent06);   /*tab3 button/icon color*/
+--tab4: var(--accent05);   /*tab4 button/icon color*/
+
+--headercolor: var(--accent03);   /*org name color (tab1-3)*/
+--header2color: var(--accent06);   /*org name hacked color (tab4)*/
+--tabtitlecolor: var(--accent02);   /*tab title text color (tab1-3)*/
+--tabtitle2color: var(--accent05);   /*tab title hacked color (tab4)*/
+
+--loadingcolor: var(--accent04);   /*loading text color (tab1)*/
+--errorcolor: var(--accent05);   /*error box text color*/
+
+--tagcolor: var(--accent02);   /*body tag style 1 color (tab1)*/
+--tag2color: var(--accent05);   /*body tag style 2 color (tab2)*/
+--tag3color: var(--accent04);   /*body tag style 3 color (tab3)*/
+
+--playcolor: var(--accent06);   /*music play symbol color (tab1)*/
+--songcolor: var(--accent02);   /*song title color (tab1)*/
+--artistcolor: var(--accent05);   /*song artist color (tab1)*/
+--recentcolor: var(--accent04);   /*recently played text color (tab1)*/
+
+--matchcolor: var(--accent05);   /*match arrows/tile color (tab2)*/
+--matchtcolor: var(--accent06);   /*match heading text color (tab2)*/
+--tilecolor0: var(--accent01);   /*visage tile style 1 color*/
+--tilecolor1: var(--accent02);   /*visage  tile style 2 color*/
+--tilecolor2: var(--accent03);   /*visage tile style 3 color*/
+--tilecolor3: var(--accent04);   /*visage tile style 4 color*/
+--tilecolor4: var(--matchcolor);   /*visage tile match color*/
+
+--vcolor: var(--accent01);   /*virtue/vices text color (tab2)*/
+--virtuecolor: var(--accent04);   /*virtue border color (tab2)*/
+--vicecolor: var(--accent06);   /*vice border color (tab2)*/
+
+--rncolor: var(--accent05);   /*relationship name color (tab3)*/
+--rdcolor: var(--accent06);   /*relationship type color (tab3)*/
+--stcolor: var(--accent02);   /*reputation heading color (tab3)*/
+
+--cctvcolor: var(--accent06);   /*cctv text color (tab4)*/
+--textbubblecolor: var(--accent01);   /*hacked bubble text color (tab4)*/
+--linkboxcolor: var(--accent04);   /*hacked bubble link border/text color (tab4)*/
+--linkcolor: var(--accent05);   /*hacked link text color (tab4)*/
+
+
+/*borders*/
+--border0: 1px solid var(--accent03);   /*main border color + style*/
+--border1: 1px solid var(--accent06);   /*error/hacked border color + style*/
+--border2: 1px solid var(--accent04);   /*link border color + style*/
+--virtueborder: 1px solid var(--virtuecolor);   /*virtue border style (change color in 'colors' section)*/
+--viceborder: 1px solid var(--vicecolor);   /*virtue border style (change color in 'colors' section)*/
+
+
+/*text*/
+--bodyfont: var(--font3);   /*body text font family*/
+--body1size: 11px;   /*basics/visage text size*/
+--body1lh: 13px;   /*basics/visage text line height*/
+--body2size: 10px;   /*persona/backstory text size*/
+--body2lh: 12px;   /*persona/backstory text line height*/
+--rnsize: 13px;   /*relationship name text size*/
+--rnlh: 13px;   /*relationship name line height*/
+--rdsize: 10px;   /*relationship type text size*/
+--rdlh: 10px;   /*relationship type line height*/
+--rsize: 10px;   /*relationship text size*/
+--rlh: 11.2px;   /*relationship text line height*/
+--rfont: var(--font2);   /*relationship text font family*/
+
+
+/*---- FONTS ----*/
+--font1: 'Handjet', sans-serif;   /*titles*/
+--font2: 'Ubuntu Mono', sans-serif;   /*relationships*/
+--font3: 'Saira SemiCondensed', sans-serif;   /*body*/
+
+
+
+/*---- VALUES YOU PROBABLY DON'T NEED TO EDIT ----*/
+/*------------- these are mostly to make my life easier! ----*/
+
+/*bold presets*/
+/*---- i use these instead of bold tags to preserve the font style on mobile ----*/
+--headerbold: 0.6px var(--headercolor);
+--header2bold: 0.6px var(--header2color);
+--tabbold: 0.6px var(--tabtitlecolor);
+--tab2bold: 0.6px var(--tabtitle2color);
+--loadingbold: 0.6px var(--loadingcolor);
+--tagbold: 0.6px var(--tagcolor);
+--tag2bold: 0.6px var(--tag2color);
+--tag3bold: 0.6px var(--tag3color);
+--songbold: 0.6px var(--songcolor);
+--artistbold: 0.5px var(--artistcolor);
+--recentbold: 0.5px var(--recentcolor);
+--errorbold: 0.5px var(--errorcolor);
+--matchtbold: 0.6px var(--matchtcolor);
+--virtuebold: 1px var(--virtuecolor);
+--vicebold: 1px var(--vicecolor);
+--rnbold: 0.8px var(--rncolor);
+--rdbold: 0.8px var(--rdcolor);
+--stbold: 0.8px var(--stcolor);
+--cctvbold: 0.3px var(--cctvcolor);
+--textbubblebold: 0.6px var(--textbubblecolor);
+--linkboxbold: 0.3px var(--linkboxcolor);
+--linkbold: 0.8px var(--linkcolor);
+
+/*margins + positions + sizes*/
+--leftmargin: 20px;
+--rightmargin: 20px;
+--topmargin: 20px;
+--bottommargin: 20px;
+--xmargin: calc(var(--leftmargin) + var(--rightmargin));
+--ymargin: calc(var(--topmargin) + var(--bottommargin));
+--contentwidth: calc(100% - var(--xmargin));
+--contentheight: calc(100% - var(--ymargin));
+--innerheight: 510px;
+--taboffset: 110px;
+--tagtmargin: 3px;
+--tagbmargin: 3px;
+--tagspacen: 5.8px 0px 5.8px 10px;
+--tagspacec: 5.8px 10px 5.8px 0px;
+--tagsize: 13px;
+--tagfont: var(--font1);
+--vsize: 12px;
+--vlh: 20px;
+--vspace: 1px 4px 1px 4px;
+
+/*visage match color tiles*/
+--tilex: 13px;
+--tiley: 13px;
+--tilebr: 1px;
+--tileborder: 1px solid var(--bkgd);
+
+/*---- finger/handprints ----*/
+--handprint1: url('https://i.imgur.com/6Yn4zsp.png');
+--hp1color: linear-gradient(to bottom, var(--accent06), var(--accent04));
+--hp1size: cover;   /*pic size*/
+--hp1position: 50% 50%;   /*pic positioning*/
+
+--handprint2: url('https://i.imgur.com/HPrdNhL.png');
+--hp2color: linear-gradient(to bottom, var(--accent06), var(--accent04));
+--hp2size: cover;   /*pic size*/
+--hp2position: 50% 50%;   /*pic positioning*/
+
+--fingerprint1: url('https://i.imgur.com/k9rYXKy.png');
+--fp1color: linear-gradient(to bottom, var(--accent06), var(--accent04));
+--fp1size: cover;   /*pic size*/
+--fp1position: 50% 50%;   /*pic positioning*/
+
+--fingerprint2: url('https://i.imgur.com/Wl8hRj5.png');
+--fp2color: linear-gradient(to bottom, var(--accent06), var(--accent04));
+--fp2size: cover;   /*pic size*/
+--fp2position: 50% 50%;   /*pic positioning*/
+
+/*---- effects/textures----*/
+--musicpic: url('https://i.imgur.com/m53OSQ0.gif');
+--errorfilter: saturate(20%) contrast(1.2);
+--visagefilter: saturate(70%) contrast(1.2);
+
+--tab1bglitch: url('https://i.imgur.com/2zoG3oa.jpeg');
+--tab1btexture: url('https://i.imgur.com/sU7Nso6.gif');
+--tab1btexturecolor: linear-gradient(to bottom, var(--accent03), var(--accent06));
+
+--tab2bglitch: url('https://i.imgur.com/ewIPhqf.jpeg');
+--tab2btexture: url('https://i.imgur.com/sU7Nso6.gif');
+--tab2btexturecolor: linear-gradient(to bottom, var(--accent03), var(--accent06));
+
+--tab3aglitch: url('https://i.imgur.com/RjagiSk.jpeg');
+--tab3atexture: url('https://i.imgur.com/sU7Nso6.gif');
+--tab3atexturecolor: linear-gradient(to bottom, var(--accent03), var(--accent06));
+
+--tab4aglitch: url('https://i.imgur.com/nMg2HfY.jpeg');
+--tab4atexture: url('https://i.imgur.com/sU7Nso6.gif');
+--tab4atexturecolor: linear-gradient(to bottom, var(--accent05), var(--bkgd));
+
+
+][div=margin:auto; position:relative; width:390px; height:550px; margin-top:20px; margin-bottom:20px; background:var(--bkgd); outline:var(--border2); outline-offset:4px; border-radius:0px; box-sizing:border-box; cursor: url(https://imgur.com/5ex8RXq.png), auto; font-family:var(--font1); color:var(--textcolor); overflow:hidden;][nobr]
+
+[comment]---- bkgd texture ----[/comment]
+[div=transparent; height:100%; width:100%; padding:0; background: radial-gradient(2px 2px, var(--accent03), transparent); background-size: 3px 3px; opacity:0.15; position:absolute; top:0; left:0;][/div]
+
+[comment]---- content start ----[/comment]
+[div=position:absolute; left:var(--leftmargin); top:var(--topmargin); width:var(--contentwidth); height:var(--contentheight); box-siding:border-box; border:var(--border0);]
+
+
+
+[comment]---- TABS START ----
+-- container --[/comment][div=transparent; position:absolute; top:8px; left:calc(var(--taboffset) - 10px); width:100%; height:100%; padding:0px; line-height:0px;][comment]
+-- border a --[/comment][div=transparent; height:100px; width:300px; padding:0px; overflow:hidden;][comment]
+-- border b --[/comment][div=transparent; padding:0px; margin:-2px -15px 0 -20px; letter-spacing:clamp(3px, -200px + 25vw, 4px);][tabs][comment]
+
+
+
+
+---- TAB 1: BASICS ----
+[/comment][tab=.][div=transparent; pointer-events:none; position:absolute; top:-8px; left:calc(0px - var(--taboffset) + 10px); height:var(--innerheight); width:100%; padding:0px 0 0 0; bottom:0px; right:0px; background:var(--bkgd); letter-spacing:0; opacity:1;]
+
+[comment]-- bkgd patch --[/comment][div=position:absolute; top:40px; right:-31px; width:30px; height:50px; background:var(--bkgd); border-left:var(--border0);][div=transparent; height:100%; width:100%; padding:0; background: radial-gradient(2px 2px, var(--accent03), transparent); background-size: 3px 3px; opacity:0.1; position:absolute; top:0; left:0;][/div][/div]
+
+
+[comment]---- HEADER START ----[/comment]
+[div=position:absolute; left:0px; top:0px; width:100%; height:30px; box-siding:border-box; border-bottom:var(--border0); overflow:hidden;]
+
+[comment]-- spinner --[/comment][div=position:absolute; top:0px; left:0px; width:28px; height:30px; border-right:var(--border0); font-size:15px; line-height:31px; text-align:center; color:var(--tab1);][fa]fas fa-circle-notch fa-spin[/fa][/div]
+
+[comment]-- header text --[/comment][div=position:absolute; left:35px; top:5px; font-family:var(--font1); font-size:10px; line-height:10px; color:var(--headercolor); text-align:left; text-transform:uppercase; -webkit-text-stroke:var(--headerbold); letter-spacing:0.6px;][comment]
+
+---- ORG NAME HERE ----
+[/comment]NCPD:
+[br][/br][div=display:inline; color:var(--tabtitlecolor); -webkit-text-stroke:var(--tabbold);][comment]
+
+---- TAB NAME HERE ----
+[/comment]suspect data
+[/div][/div]
+[/div][comment]---- HEADER END ----[/comment]
+
+
+[comment]---- top left start ----[/comment]
+[div=position:absolute; left:0px; top:30px; width:230px; height:180px; box-siding:border-box; border-bottom:var(--border0); border-right:var(--border0); overflow:hidden;]
+
+[comment]-- loading text --[/comment][div=position:absolute; right:8px; top:0px; height:20px; font-family:var(--font1); font-size:10px; line-height:23px; color:var(--loadingcolor); text-align:left; text-transform:uppercase; -webkit-text-stroke:var(--loadingbold); letter-spacing:1.2px; font-style:italic;][comment]
+
+---- LOADING TAG HERE ----
+[/comment]loading profile... 12.7% complete
+[/div]
+
+[comment]-- pic --[/comment][div=position:absolute; top:20px; left:9px; width:211px; height:150px; background:var(--tab1a); background-size:var(--tab1asize); background-position:var(--tab1aposition); filter:contrast(1.1) brightness(105%); box-siding:border-box; border:var(--border0);][div=transparent; height:100%; width:100%; padding:0; background: radial-gradient(2px 2px, var(--accent00), transparent); background-size: 3px 3px; opacity:0.2; position:absolute; top:0; left:0;][/div][/div]
+
+[/div][comment]---- top left end ----[/comment]
+
+
+[comment]---- top right start ----[/comment]
+[div=position:absolute; right:0px; top:31px; width:109px; height:179px; box-siding:border-box; border-bottom:var(--border0); border-left:var(--border0);overflow:hidden;]
+
+[comment]-- pic --[/comment][div=position:absolute; top:0px; left:0px; width:100%; height:100%; background:var(--tab1b); background-size:var(--tab1bsize); background-position:var(--tab1bposition); filter:var(--errorfilter);][div=transparent; height:100%; width:100%; padding:0; background: radial-gradient(2px 2px, var(--accent00), transparent); background-size: 3px 3px; opacity:0.2; position:absolute; top:0; left:0;][/div][/div]
+
+[comment]-- glitch lines --[/comment][div=position:absolute; top:0px; left:0px; width:100%; height:100%; background:var(--tab1bglitch); background-size:var(--tab1bsize); background-position:var(--tab1bposition); mix-blend-mode:soft-light;][/div]
+
+[comment]-- error text --[/comment][div=position:absolute; top:80px; left:30px; width:50px; height:20px; background:var(--bkgd); border:var(--border1); font-family:var(--font1); font-size:11px; line-height:20px; color:var(--errorcolor); text-align:center; text-transform:uppercase; -webkit-text-stroke:var(--errorbold); letter-spacing:0.5px; text-decoration:line-through;][comment]
+
+---- ERROR TAG HERE ----
+[/comment]error!
+[/div]
+
+[comment]-- glitch effect --[/comment][div=position:absolute; top:0px; left:0px; width:100%; height:100%; background:var(--tab1btexturecolor); background-size:var(--tab1bsize); background-position:var(--tab4aposition); -webkit-mask-image:var(--tab1btexture); mask-image:var(--tab1btexture); mask-repeat: no-repeat; mask-size:cover; mask-position:center;][/div]
+
+[/div][comment]---- top right end ----[/comment]
+
+
+[comment]---- bottom left start ----[/comment]
+[div=position:absolute; left:0px; bottom:0px; width:120px; height:299px; box-siding:border-box; border-top:var(--border0); border-right:var(--border0); overflow:hidden;]
+
+[comment]-- handprint --[/comment]
+[div=position:absolute; top:0px; left:0px; width:100%; height:100px; border-bottom:var(--border0);]
+[div=position:absolute; top:10px; left:25px; width:70px; height:80px; background:var(--hp1color); -webkit-mask-image:var(--handprint1); mask-image:var(--handprint1); mask-size:var(--hp1size); mask-position:var(--hp1position); transform:scalex(-1);][/div]
+[comment]-- corner lines--[/comment]
+[div=position:absolute; top:9px; left:9px; width:10px; height:1px; background:var(--accent03);][/div]
+[div=position:absolute; top:9px; left:9px; width:1px; height:10px; background:var(--accent03);][/div]
+[div=position:absolute; bottom:9px; right:9px; width:10px; height:1px; background:var(--accent03);][/div]
+[div=position:absolute; bottom:9px; right:9px; width:1px; height:10px; background:var(--accent03);][/div]
+[/div]
+
+[comment]-- pic --[/comment][div=position:absolute; bottom:0px; left:0px; width:100%; height:198px; background:var(--tab1c); background-size:var(--tab1csize); background-position:var(--tab1cposition); filter:var(--errorfilter);][div=transparent; height:100%; width:100%; padding:0; background: radial-gradient(2px 2px, var(--accent00), transparent); background-size: 3px 3px; opacity:0.2; position:absolute; top:0; left:0;][/div][/div]
+
+[/div][comment]---- bottom left end ----[/comment]
+
+
+[comment]---- bottom right start ----[/comment]
+[div=position:absolute; right:0px; bottom:0px; width:230px; height:299px; box-siding:border-box; border-top:var(--border0); overflow:hidden;]
+
+
+[comment]---- basics start ----[/comment]
+[div=position:absolute; top:0px; left:0px; width:100%; height:228px; border-bottom:var(--border0); overflow-x:hidden; overflow-y:scroll; scrollbar-width:none; font-size:var(--body1size); line-height:var(--body1lh); text-transform:uppercase; letter-spacing:1px; color:var(--textcolor); font-family:var(--tagfont); pointer-events: auto;]
+
+
+[comment] ----- BASICS TAGS SCROLL START ----- [/comment]
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border0);][div=display:inline-block; float:left; width:40%; text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold)][comment]
+
+---- TAG TITLE HERE ----
+[/comment]name
+[/div][div=display:inline-block; float:right; width:60%; text-align:right;; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]nakamoto yuta
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border0);][div=display:inline-block; float:left; width:40%; text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]alias
+[/div][div=display:inline-block; float:right; width:60%; text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]ライオン — "lion"
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border0);][div=display:inline-block; float:left; width:40%; text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]age
+[/div][div=display:inline-block; float:right; width:60%; text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]twenty-nine
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border0);][div=display:inline-block; float:left; width:40%; text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]role
+[/div][div=display:inline-block; float:right; width:60%; text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]encryption
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border0);][div=display:inline-block; float:left; width:40%; text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]gender
+[/div][div=display:inline-block; float:right; width:60%; text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]fluid
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border0);][div=display:inline-block; float:left; width:40%; text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]sexuality
+[/div][div=display:inline-block; float:right; width:60%; text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]bisexual
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border0);][div=display:inline-block; float:left; width:40%; text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]d.o.b.
+[/div][div=display:inline-block; float:right; width:60%; text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]october 26, 1995
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border0);][div=display:inline-block; float:left; width:40%; text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]p.o.b.
+[/div][div=display:inline-block; float:right; width:60%; text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]osaka, japan
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border0);][div=display:inline-block; float:left; width:40%; text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]ethnicity
+[/div][div=display:inline-block; float:right; width:60%; text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]japanese
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border0);][div=display:inline-block; float:left; width:40%; text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]faction
+[/div][div=display:inline-block; float:right; width:60%; text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]127 floor
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border0);][div=display:inline-block; float:left; width:40%; text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]status
+[/div][div=display:inline-block; float:right; width:60%; text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]on the move
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+[comment] ----- BASICS TAGS SCROLL END ----- [/comment]
+
+[/div][comment]---- basics end ----[/comment]
+
+
+[comment]---- music player start ----[/comment]
+[div=position:absolute; bottom:9px; left:9px; width:211px; height:51px; border:var(--border0); pointer-events: auto;]
+
+[comment] ---- MUSIC PLAYER BUTTON
+---- graciously granted to me by uxie ty queen ily [/comment]
+[div=position:absolute; top:5px; left:10px; width:40px; height:30px;]
+[div=height:40px; width:100%; flex-shrink:0; box-sizing:border-box; display:flex; flex-flow:row nowrap; align-items:center;]
+
+[comment] ---- play button ---- [/comment]
+[div=height:30px; width:40px; border-radius:100%; position:relative; flex-shrink:0;][div=height:100%; width:100%; background-size:cover; position:relative; z-index:2; pointer-events:none;][div=position:absolute; left:0px; top:0px; width:40px; height:30px; background:var(--playcolor); -webkit-mask-image:var(--musicpic); mask-image:var(--musicpic); mask-repeat: no-repeat; mask-size:cover; mask-position:center;][/div][/div]
+
+[comment] ---- media files ---- [/comment]
+[border=transparent; height:100%; width:100%; padding:0; position:absolute; top:0; left:0; z-index:1; display:flex; align-items:center; justify-content:center; overflow:hidden; opacity:0.01%;][border=transparent; height:30px; width:40px; padding:0; position:relative; pointer-events:auto;]
+
+[comment]---- SOUNDCLOUD ---- (replace the soundcloud link within media tag with your own) ---- [/comment]
+[border=transparent; height:80px; width:180px; padding:0; margin-top:-16px; margin-left:-14px; position:absolute; top:0; left:0;]
+[media=soundcloud]https://soundcloud.com/gvorluelz6qa/yuta-twisted-paradise[/media][/border]
+
+[comment]---- GOOGLE DRIVE ---- (replace the google file code within media tag with your own) ---- [/comment]
+[border=transparent; height:500px; width:500px; margin-top:-170px; margin-left:-93px; padding:0px;/*remove this to use me, and add it to the other*/ display:none;]
+[media=googledrive]1EwyiuGOGDy8NrbyIm2mfdHc7szRnCMBC[/MEDIA]
+
+[/border][/border][/border]
+[/div][/div][/div]
+
+
+[comment]-- song details --[/comment]
+[div=position:absolute; right:10px; top:8px; height:8px; font-family:var(--font1); font-size:8px; line-height:8px; color:var(--recentcolor); text-align:left; text-transform:uppercase; -webkit-text-stroke:var(--recentbold); letter-spacing:0.6px;][comment]
+
+---- SONG INTRO HERE ----
+[/comment]recently listened to:
+[/div]
+
+[div=position:absolute; right:10px; top:17px; height:14px; font-family:var(--font1); font-size:14px; line-height:14px; color:var(--songcolor); text-align:left; text-transform:uppercase; -webkit-text-stroke:var(--songbold); letter-spacing:1px;][comment]
+
+---- SONG NAME HERE ----
+[/comment]twisted paradise
+[/div]
+
+[div=position:absolute; right:10px; top:31px; height:11px; font-family:var(--font1); font-size:11px; line-height:11px; color:var(--artistcolor); text-align:left; text-transform:uppercase; -webkit-text-stroke:var(--artistbold); letter-spacing:1px;][comment]
+
+---- ARTIST NAME HERE ----
+[/comment]yuta
+[/div][/div]
+[comment]---- music player end----[/comment]
+
+[/div][comment]---- bottom right end ----[/comment]
+
+
+[comment]---- tabs cover ----[/comment]
+[div=position:absolute; right:11px; top:7px; width:300px; height:24px; pointer-events:none; opacity:1; box-siding:border-box; overflow:hidden; font-family:var(--font2); font-size:10px; line-height:15px; color:var(--textcolor); text-align:center; -webkit-text-stroke:2px var(--bkgd); letter-spacing:0.2px; paint-order:stroke fill;]
+[div=position:absolute; right:186px; top:0px; width:50px; height:15px; pointer-events:none; opacity:1; background:var(--tab1); box-siding:border-box; border-radius:20px; border:var(--border0); overflow:hidden;]001[/div]
+[div=position:absolute; right:124px; top:0px; width:50px; height:15px; pointer-events:none; opacity:1; background:var(--bkgd); box-siding:border-box; border-radius:20px; border:var(--border0); overflow:hidden;]002[/div]
+[div=position:absolute; right:62px; top:0px; width:50px; height:15px; pointer-events:none; opacity:1; background:var(--bkgd); box-siding:border-box; border-radius:20px; border:var(--border0); overflow:hidden;]003[/div]
+[div=position:absolute; right:0px; top:0px; width:50px; height:15px; pointer-events:none; opacity:1; background:var(--bkgd); box-siding:border-box; border-radius:20px; border:var(--border0); overflow:hidden;]004[/div]
+[/div]
+
+[div=display:none;]basics[/div]
+[/div][/tab][comment]
+
+
+
+
+---- TAB 2: VISAGE & PERSONA ----
+[/comment][tab=.][div=transparent; position:absolute; top:-8px; left:calc(0px - var(--taboffset) + 10px); pointer-events:none; height:var(--innerheight); width:100%; padding:0px 0 0 0; bottom:0px; right:0px; background:var(--bkgd); letter-spacing:0; opacity:1;]
+
+[comment]-- bkgd patch --[/comment][div=position:absolute; top:40px; right:-31px; width:30px; height:50px; background:var(--bkgd); border-left:var(--border0);][div=transparent; height:100%; width:100%; padding:0; background: radial-gradient(2px 2px, var(--accent03), transparent); background-size: 3px 3px; opacity:0.1; position:absolute; top:0; left:0;][/div][/div]
+
+
+[comment]---- HEADER START ----[/comment]
+[div=position:absolute; left:0px; top:0px; width:100%; height:30px; box-siding:border-box; border-bottom:var(--border0); overflow:hidden;]
+
+[comment]-- spinner --[/comment][div=position:absolute; top:0px; left:0px; width:28px; height:30px; border-right:var(--border0); font-size:15px; line-height:31px; text-align:center; color:var(--tab2);][fa]fas fa-circle-notch fa-spin[/fa][/div]
+
+[comment]-- header text --[/comment][div=position:absolute; left:35px; top:5px; font-family:var(--font1); font-size:10px; line-height:10px; color:var(--headercolor); text-align:left; text-transform:uppercase; -webkit-text-stroke:var(--headerbold); letter-spacing:0.6px;][comment]
+
+---- ORG NAME HERE ----
+[/comment]NCPD:
+[br][/br]
+[div=display:inline; color:var(--tabtitlecolor); -webkit-text-stroke:var(--tabbold);][comment]
+
+---- TAB NAME HERE ----
+[/comment]identification
+[/div][/div]
+[/div][comment]---- HEADER END ----[/comment]
+
+
+[comment]---- top start ----[/comment]
+[div=position:absolute; left:0px; top:30px; width:100%; height:202px; box-siding:border-box; border-bottom:var(--border0);overflow:hidden;]
+
+[comment]-- pic --[/comment][div=position:absolute; top:0px; right:0px; width:198px; height:100%; background:var(--tab2a); background-size:var(--tab2asize); background-position:var(--tab2aposition); filter:contrast(1.1); box-siding:border-box; border-left:var(--border0); border-top:var(--border0); filter:var(--visagefilter);][div=transparent; height:100%; width:100%; padding:0; background: radial-gradient(2px 2px, var(--accent00), transparent); background-size: 3px 3px; opacity:0.2; position:absolute; top:0; left:0;][/div][/div]
+
+[comment]---- top left start ----[/comment]
+[div=position:absolute; top:0px; left:0px; width:141px; height:100%; box-siding:border-box; border-right:var(--border0);]
+
+[comment]-- fingerprint 1 --[/comment]
+[div=position:absolute; top:0px; left:0px; width:70px; height:100px; box-siding:border-box; border-right:var(--border0); border-bottom:var(--border0);]
+[div=position:absolute; top:19px; left:15px; width:40px; height:70px; background:var(--fp1color); -webkit-mask-image:var(--fingerprint1); mask-image:var(--fingerprint1); mask-size:var(--fp1size); mask-position:var(--fp1position); transform:scalex(1);][/div]
+[div=position:absolute; top:0px; left:0px; width:15px; height:15px; border-right:var(--border0); border-bottom:var(--border0); font-family:var(--font1); font-size:12px; line-height:17px; text-align:center; text-transform:uppercase; color:var(--accent03); -webkit-text-stroke:1px var(--accent03);]L[/div]
+[/div]
+
+[comment]-- fingerprint 2 --[/comment]
+[div=position:absolute; top:0px; right:0px; width:70px; height:100px; box-siding:border-box; border-bottom:var(--border0);]
+[div=position:absolute; top:19px; left:15px; width:40px; height:70px; background:var(--fp2color); -webkit-mask-image:var(--fingerprint2); mask-image:var(--fingerprint2); mask-size:var(--fp1size); mask-position:var(--fp2position); transform:scalex(-1) rotate(-15deg);][/div]
+[div=position:absolute; top:0px; left:0px; width:15px; height:15px; border-right:var(--border0); border-bottom:var(--border0); font-family:var(--font1); font-size:12px; line-height:17px; text-align:center; text-transform:uppercase; color:var(--accent03); -webkit-text-stroke:1px var(--accent03);]R[/div]
+[/div]
+
+[comment]-- match text --[/comment][div=position:absolute; top:100px; left:0px; width:100%; height:30px; box-siding:border-box; border-bottom:var(--border0); font-family:var(--font1); font-size:15px; line-height:32px; color:var(--matchtcolor); text-align:center; text-transform:uppercase; -webkit-text-stroke:var(--matchtbold); letter-spacing:1.2px;][comment]
+
+---- MATCH TEXT HERE ----
+[/comment]match confirmed
+[/div]
+
+[comment]-- match tiles start --[/comment]
+[comment]-- container --[/comment][div=position:absolute; top:131px; left:0px; width:100%; height:71px;]
+[comment]-- dots filter --[/comment][div=transparent; height:100%; width:100%; padding:0; background: radial-gradient(2px 2px, var(--accent02), transparent); background-size: 3px 3px; opacity:0.2; position:absolute; top:0; left:0;][/div]
+[comment]-- row 1 --[/comment]
+[div=position:absolute; top:0px; left:14px; width:var(--tilex); height:var(--tiley); background:var(--tilecolor3); border-radius:var(--tilebr); border:var(--tileborder); box-siding:border-box][/div]
+[div=position:absolute; top:0px; left:42px; width:var(--tilex); height:var(--tiley); background:var(--tilecolor2); border-radius:var(--tilebr); border:var(--tileborder); box-siding:border-box][/div]
+[div=position:absolute; top:0px; left:56px; width:var(--tilex); height:var(--tiley); background:var(--tilecolor1); border-radius:var(--tilebr); border:var(--tileborder); box-siding:border-box][/div]
+[div=position:absolute; top:0px; left:84px; width:var(--tilex); height:var(--tiley); background:var(--tilecolor4); border-radius:var(--tilebr); border:var(--tileborder); box-siding:border-box][/div]
+[div=position:absolute; top:0px; left:112px; width:var(--tilex); height:var(--tiley); background:var(--tilecolor3); border-radius:var(--tilebr); border:var(--tileborder); box-siding:border-box][/div]
+[comment]-- row 2 --[/comment]
+[div=position:absolute; top:14px; left:28px; width:var(--tilex); height:var(--tiley); background:var(--tilecolor1); border-radius:var(--tilebr); border:var(--tileborder); box-siding:border-box][/div]
+[div=position:absolute; top:14px; left:70px; width:var(--tilex); height:var(--tiley); background:var(--tilecolor0); border-radius:var(--tilebr); border:var(--tileborder); box-siding:border-box][/div]
+[comment]-- row 3 --[/comment]
+[div=position:absolute; top:28px; left:0px; width:var(--tilex); height:var(--tiley); background:var(--tilecolor2); border-radius:var(--tilebr); border:var(--tileborder); box-siding:border-box][/div]
+[div=position:absolute; top:28px; left:42px; width:var(--tilex); height:var(--tiley); background:var(--tilecolor2); border-radius:var(--tilebr); border:var(--tileborder); box-siding:border-box][/div]
+[div=position:absolute; top:28px; left:84px; width:var(--tilex); height:var(--tiley); background:var(--tilecolor3); border-radius:var(--tilebr); border:var(--tileborder); box-siding:border-box][/div]
+[div=position:absolute; top:28px; left:98px; width:var(--tilex); height:var(--tiley); background:var(--tilecolor1); border-radius:var(--tilebr); border:var(--tileborder); box-siding:border-box][/div]
+[div=position:absolute; top:28px; left:126px; width:var(--tilex); height:var(--tiley); background:var(--tilecolor4); border-radius:var(--tilebr); border:var(--tileborder); box-siding:border-box][/div]
+[comment]-- row 4 --[/comment]
+[div=position:absolute; top:42px; left:14px; width:var(--tilex); height:var(--tiley); background:var(--tilecolor1); border-radius:var(--tilebr); border:var(--tileborder); box-siding:border-box][/div]
+[div=position:absolute; top:42px; left:28px; width:var(--tilex); height:var(--tiley); background:var(--tilecolor0); border-radius:var(--tilebr); border:var(--tileborder); box-siding:border-box][/div]
+[div=position:absolute; top:42px; left:70px; width:var(--tilex); height:var(--tiley); background:var(--tilecolor2); border-radius:var(--tilebr); border:var(--tileborder); box-siding:border-box][/div]
+[div=position:absolute; top:42px; left:112px; width:var(--tilex); height:var(--tiley); background:var(--tilecolor0); border-radius:var(--tilebr); border:var(--tileborder); box-siding:border-box][/div]
+[comment]-- row 5 --[/comment]
+[div=position:absolute; top:56px; left:14px; width:var(--tilex); height:var(--tiley); background:var(--tilecolor3); border-radius:var(--tilebr); border:var(--tileborder); box-siding:border-box][/div]
+[div=position:absolute; top:56px; left:42px; width:var(--tilex); height:var(--tiley); background:var(--tilecolor1); border-radius:var(--tilebr); border:var(--tileborder); box-siding:border-box][/div]
+[div=position:absolute; top:56px; left:56px; width:var(--tilex); height:var(--tiley); background:var(--tilecolor3); border-radius:var(--tilebr); border:var(--tileborder); box-siding:border-box][/div]
+[div=position:absolute; top:56px; left:126px; width:var(--tilex); height:var(--tiley); background:var(--tilecolor2); border-radius:var(--tilebr); border:var(--tileborder); box-siding:border-box][/div]
+[/div][comment]-- match tiles end--[/comment]
+
+[/div][comment]---- top left end----[/comment]
+
+[comment]-- arrow 1 --[/comment]
+[div=position:absolute; top:137px; left:95px; width:110px; height:2px; background:var(--matchcolor); border-radius:1px;][/div]
+[div=position:absolute; top:127px; left:200px; width:32px; height:2px; background:var(--matchcolor); transform:rotate(-40deg); border-radius:1px;][/div]
+[div=position:absolute; top:108px; left:227px; width:7px; height:7px; border:2px solid var(--matchcolor);][/div]
+
+[comment]-- arrow 2 --[/comment]
+[div=position:absolute; top:165px; left:130px; width:110px; height:2px; background:var(--matchcolor); border-radius:1px;][/div]
+[div=position:absolute; top:155px; left:235px; width:32px; height:2px; background:var(--matchcolor); transform:rotate(-40deg); border-radius:1px;][/div]
+[div=position:absolute; top:136px; left:262px; width:7px; height:7px; border:2px solid var(--matchcolor);][/div]
+
+[/div][comment]---- top end ----[/comment]
+
+
+[comment]---- middle start ----[/comment]
+[div=position:absolute; left:0px; top:233px; width:100%; height:76px; box-siding:border-box; border-bottom:var(--border0); overflow:hidden;]
+
+[comment]-- pic --[/comment][div=position:absolute; left:0px; top:0px; width:141px; height:100%; box-siding:border-box; border-right:var(--border0); overflow:hidden;][div=position:absolute; top:0px; left:0px; width:100%; height:100%; background:var(--tab2b); background-size:var(--tab2bsize); background-position:var(--tab2bposition); filter:var(--errorfilter);][div=transparent; height:100%; width:100%; padding:0; background: radial-gradient(2px 2px, var(--accent00), transparent); background-size: 3px 3px; opacity:0.2; position:absolute; top:0; left:0;][/div][/div]
+
+[comment]-- glitch lines --[/comment][div=position:absolute; top:0px; left:0px; width:100%; height:100%; background:var(--tab2bglitch); background-size:var(--tab2bsize); background-position:var(--tab2bposition); mix-blend-mode:soft-light; filter:saturate(50%);][/div]
+
+[comment]-- error text --[/comment][div=position:absolute; top:29px; left:45px; width:50px; height:20px; background:var(--bkgd); border:var(--border1); font-family:var(--font1); font-size:11px; line-height:20px; color:var(--errorcolor); text-align:center; text-transform:uppercase; -webkit-text-stroke:var(--errorbold); letter-spacing:0.5px; text-decoration:line-through;][comment]
+
+---- ERROR TAG HERE ----
+[/comment]error!
+[/div]
+
+[comment]-- glitch effect --[/comment][div=position:absolute; top:0px; left:0px; width:100%; height:100%; background:var(--tab2btexturecolor); background-size:var(--tab2bsize); background-position:var(--tab2bposition); -webkit-mask-image:var(--tab1btexture); mask-image:var(--tab1btexture); mask-repeat: no-repeat; mask-size:cover; mask-position:center;][/div]
+[/div]
+
+
+[comment]---- visage start ----[/comment]
+[div=position:absolute; right:0px; top:0px; width:198px; height:100%; box-siding:border-box; border-left:var(--border0); font-family:var(--font1); text-transform:uppercase; font-size:var(--body1size); line-height:var(--body1lh); letter-spacing:1px; color:var(--textcolor); overflow-x:hidden; overflow-y:scroll; scrollbar-width:none; pointer-events:auto;]
+
+
+[comment] ----- VISAGE TAGS SCROLL START ----- [/comment]
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border0);][div=display:inline-block; float:left; width:40%; text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]height
+[/div][div=display:inline-block; float:right; width:60%; text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]5' 9" (176 cm)
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border0);][div=display:inline-block; float:left; width:40%; text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]weight
+[/div][div=display:inline-block; float:right; width:60%; text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]132 lbs (60 kg)
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border0);][div=display:inline-block; float:left; width:40%; text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]eyes
+[/div][div=display:inline-block; float:right; width:60%; text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]orange, brown, amber
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border0);][div=display:inline-block; float:left; width:40%; text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]hair
+[/div][div=display:inline-block; float:right; width:60%; text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]dark reddish rust
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border0);][div=display:inline-block; float:left; width:40%; text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]skin
+[/div][div=display:inline-block; float:right; width:60%; text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]fair, neutral undertones
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border0);][div=display:inline-block; float:left; width:40%; text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]build
+[/div][div=display:inline-block; float:right; width:60%; text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]slim, lean, bad posture
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border0);][div=display:inline-block; float:left; width:40%; text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]tattoos
+[/div][div=display:inline-block; float:right; width:60%; text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]x, x, x
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border0);][div=display:inline-block; float:left; width:40%; text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]distinguishing features
+[/div][div=display:inline-block; float:right; width:60%; text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]x, x, x
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+[comment] ----- VISAGE TAGS SCROLL END ----- [/comment]
+
+[/div][comment]---- visage end ----[/comment]
+[/div][comment]---- middle end ----[/comment]
+
+
+[comment]---- bottom start ----[/comment]
+[div=position:absolute; left:0px; bottom:0px; width:100%; height:200px; box-siding:border-box; border-top:var(--border0); overflow:hidden; pointer-events:auto;]
+
+[comment]---- virtues start ----[/comment]
+[div=position:absolute; left:10px; top:15px; width:141px; height:80px; overflow-x:hidden; overflow-y:scroll; scrollbar-width:none; white-space: pre-line; font-family:var(--bodyfont); font-size:var(--vsize); line-height:var(--vlh); color:var(--vcolor); text-align:justify; -webkit-text-stroke:var(--virtuebold); text-transform:uppercase; font-family:var(--font1); letter-spacing:1.2px; paint-order:stroke fill;][comment]
+
+---- VIRTUE TAGS START HERE ----
+[/comment][div=display:inline; border:var(--virtueborder); padding:var(--vspace);]nurturing[/div]
+[div=display:inline; border:var(--virtueborder); padding:var(--vspace);]hard-working[/div]
+[div=display:inline; border:var(--virtueborder); padding:var(--vspace);]physically affectionate[/div]
+[div=display:inline; border:var(--virtueborder); padding:var(--vspace);]humorous[/div]
+[div=display:inline; border:var(--virtueborder); padding:var(--vspace);]easy-going[/div]
+[div=display:inline; border:var(--virtueborder); padding:var(--vspace);]adaptable[/div]
+[/div][comment]---- virtues end ----[/comment]
+
+
+[comment]---- vices start ----[/comment]
+[div=position:absolute; left:10px; bottom:15px; width:141px; height:80px; overflow-x:hidden; overflow-y:scroll; scrollbar-width:none; white-space: pre-line; font-family:var(--bodyfont); font-size:var(--vsize); line-height:var(--vlh); color:var(--vcolor); text-align:justify; -webkit-text-stroke:var(--vicebold); text-transform:uppercase; font-family:var(--font1); letter-spacing:1.2px; paint-order:stroke fill;][comment]
+
+---- VICES TAGS START HERE ----
+[/comment][div=display:inline; border:var(--viceborder); padding:var(--vspace);]dishonest[/div]
+[div=display:inline; border:var(--viceborder); padding:var(--vspace);]non-confrontational[/div]
+[div=display:inline; border:var(--viceborder); padding:var(--vspace);]unreadable[/div]
+[div=display:inline; border:var(--viceborder); padding:var(--vspace);]stoic[/div]
+[div=display:inline; border:var(--viceborder); padding:var(--vspace);]sarcastic[/div]
+[div=display:inline; border:var(--viceborder); padding:var(--vspace);]quiet[/div]
+[/div][comment]---- vices end ----[/comment]
+
+
+[comment]---- persona start ----[/comment]
+[div=position:absolute; right:10px; bottom:12px; width:180px; height:175px; overflow-x:hidden; overflow-y:scroll; scrollbar-width:none; white-space: pre-line; font-family:var(--bodyfont); font-size:var(--body2size); line-height:var(--body2lh); color:var(--textcolor); text-align:justify;][comment]
+
+---- PERSONA BODY START: first tag has no additional top margin spacing, so copy any of the other tags to make more! ----
+[/comment][div=margin-bottom:var(--tagbmargin); color:var(--tag2color); -webkit-text-stroke:var(--tag2bold); text-transform:uppercase; font-family:var(--tagfont); font-size:var(--tagsize); letter-spacing:1px;]personality[/div]Ornare sagittis vehicula praesent dui felis venenatis ultrices. Pretium tellus duis convallis tempus leo eu aenean. Dis parturient montes nascetur ridiculus mus donec rhoncus. Ligula congue sollicitudin erat viverra ac tincidunt nam. Potenti ultricies habitant morbi senectus netus suscipit auctor. Fringilla lacus nec metus bibendum egestas iaculis massa. Maximus eget fermentum odio phasellus non purus est. Ligula congue sollicitudin erat viverra ac tincidunt nam. Potenti ultricies habitant morbi senectus netus suscipit auctor. Fringilla lacus nec metus bibendum egestas iaculis massa.
+
+[div=margin-bottom:var(--tagbmargin); margin-top:var(--tagtmargin); color:var(--tag2color); -webkit-text-stroke:var(--tag2bold); text-transform:uppercase; font-family:var(--tagfont); font-size:var(--tagsize); letter-spacing:1px;]hobbies[/div]Porta elementum a enim euismod quam justo lectus. Curabitur facilisi cubilia curae hac habitasse platea dictumst. Nisl malesuada lacinia integer nunc posuere ut hendrerit.
+
+[div=margin-bottom:var(--tagbmargin); margin-top:var(--tagtmargin); color:var(--tag2color); -webkit-text-stroke:var(--tag2bold); text-transform:uppercase; font-family:var(--tagfont); font-size:var(--tagsize); letter-spacing:1px;]aversions[/div]Consequat magna ante condimentum neque at luctus nibh. Ornare sagittis vehicula praesent dui felis venenatis ultrices. 
+
+[div=margin-bottom:var(--tagbmargin); margin-top:var(--tagtmargin); color:var(--tag2color); -webkit-text-stroke:var(--tag2bold); text-transform:uppercase; font-family:var(--tagfont); font-size:var(--tagsize); letter-spacing:1px;]ambitions[/div]Vitae pellentesque sem placerat in id cursus mi. Inceptos himenaeos orci varius natoque pen atibus et magnis.
+
+[div=margin-bottom:var(--tagbmargin); margin-top:var(--tagtmargin); color:var(--tag2color); -webkit-text-stroke:var(--tag2bold); text-transform:uppercase; font-family:var(--tagfont); font-size:var(--tagsize); letter-spacing:1px;]fears[/div]Eu aenean sed diam urna tempor pulvinar vivamus. Donec rhoncus eros lobortis nulla et molestie mattis scelerisque. 
+
+[div=margin-bottom:var(--tagbmargin); margin-top:var(--tagtmargin); color:var(--tag2color); -webkit-text-stroke:var(--tag2bold); text-transform:uppercase; font-family:var(--tagfont); font-size:var(--tagsize); letter-spacing:1px;]love language[/div]Physical touch, quality time.
+
+[/div][comment]---- persona end ----[/comment]
+[/div][comment]---- bottom end ----[/comment]
+
+
+[comment]---- tabs cover ----[/comment]
+[div=position:absolute; right:11px; top:7px; width:300px; height:24px; pointer-events:none; opacity:1; box-siding:border-box; overflow:hidden; font-family:var(--font2); font-size:10px; line-height:15px; color:var(--textcolor); text-align:center; -webkit-text-stroke:2px var(--bkgd); letter-spacing:0.2px; paint-order:stroke fill;]
+[div=position:absolute; right:186px; top:0px; width:50px; height:15px; pointer-events:none; opacity:1; background:var(--bkgd); box-siding:border-box; border-radius:20px; border:var(--border0); overflow:hidden;]001[/div]
+[div=position:absolute; right:124px; top:0px; width:50px; height:15px; pointer-events:none; opacity:1; background:var(--tab2); box-siding:border-box; border-radius:20px; border:var(--border0); overflow:hidden;]002[/div]
+[div=position:absolute; right:62px; top:0px; width:50px; height:15px; pointer-events:none; opacity:1; background:var(--bkgd); box-siding:border-box; border-radius:20px; border:var(--border0); overflow:hidden;]003[/div]
+[div=position:absolute; right:0px; top:0px; width:50px; height:15px; pointer-events:none; opacity:1; background:var(--bkgd); box-siding:border-box; border-radius:20px; border:var(--border0); overflow:hidden;]004[/div]
+[/div]
+
+[div=display:none;]visage/persona[/div]
+[/div][/tab][comment]
+
+
+
+
+---- TAB 3: BACKGROUND & CONNECTIONS----
+[/comment][tab=.][div=transparent; position:absolute; top:-8px; left:calc(0px - var(--taboffset) + 10px); pointer-events:none; height:var(--innerheight); width:100%; padding:0px 0 0 0; bottom:0px; right:0px; background:var(--bkgd); letter-spacing:0; opacity:1;]
+
+[comment]-- bkgd patch --[/comment][div=position:absolute; top:40px; right:-31px; width:30px; height:50px; background:var(--bkgd); border-left:var(--border0);][div=transparent; height:100%; width:100%; padding:0; background: radial-gradient(2px 2px, var(--accent03), transparent); background-size: 3px 3px; opacity:0.1; position:absolute; top:0; left:0;][/div][/div]
+
+
+[comment]---- HEADER START ----[/comment]
+[div=position:absolute; left:0px; top:0px; width:100%; height:30px; box-siding:border-box; border-bottom:var(--border0); overflow:hidden;]
+
+[comment]-- spinner --[/comment][div=position:absolute; top:0px; left:0px; width:28px; height:30px; border-right:var(--border0); font-size:15px; line-height:31px; text-align:center; color:var(--tab3);][fa]fas fa-circle-notch fa-spin[/fa][/div]
+
+[comment]-- header text --[/comment][div=position:absolute; left:35px; top:5px; font-family:var(--font1); font-size:10px; line-height:10px; color:var(--headercolor); text-align:left; text-transform:uppercase; -webkit-text-stroke:var(--headerbold); letter-spacing:0.6px;][comment]
+
+---- ORG NAME HERE ----
+[/comment]NCPD:
+[br][/br][div=display:inline; color:var(--tabtitlecolor); -webkit-text-stroke:var(--tabbold);][comment]
+
+---- TAB NAME HERE ----
+[/comment]environment
+[/div][/div]
+[/div][comment]---- HEADER END ----[/comment]
+
+
+[comment]---- top left start ----[/comment]
+[div=position:absolute; left:0px; top:31px; width:200px; height:200px; box-siding:border-box; border-bottom:var(--border0); border-right:var(--border0); overflow-x: hidden; overflow-y:scroll; scrollbar-width:none; pointer-events:auto;]
+
+[comment] ----- RELATIONSHIPS SCROLL START ----- [/comment]
+
+
+[comment]---- RELATIONSHIP START: copy me to add another rship! (remember to make new variables up top and sub them in here for 4+) ----[/comment]
+[div=position:relative; width:100%; height:auto; margin-bottom:10px;][div=position:relative; width:100%; height:105px; margin-bottom:2px;]
+
+[comment]-- pic --[/comment]
+[div=position:absolute; left:10px; top:10px; width:90px; height:90px; box-siding:border-box; border:var(--border0); background:var(--rpic1); background-size:var(--rpic1size); background-position:var(--rpic1position);][div=transparent; height:100%; width:100%; padding:0; background: radial-gradient(2px 2px, var(--accent00), transparent); background-size: 3px 3px; opacity:0.1; position:absolute; top:0; left:0;][/div][/div]
+
+[comment]-- handprint --[/comment]
+[div=position:absolute; top:15px; right:10px; width:70px; height:80px; background:var(--hp2color); -webkit-mask-image:var(--handprint2); mask-image:var(--handprint2); mask-size:var(--hp2size); mask-position:var(--hp2position); transform:rotate(-20deg);][/div]
+
+[comment]-- name --[/comment]
+[div=position:absolute; top:67px; right:40px; width:auto; height:13px; padding:3px; background:var(--bkgd); border-bottom:2px solid var(--matchcolor); color:var(--rncolor); font-size:var(-rnsize); line-height:var(--rnlh); text-align:right; text-transform:uppercase; -webkit-text-stroke:var(--rnbold); letter-spacing:1px;][comment]
+
+---- RELATIONSHIP NAME HERE ----
+[/comment]lee, taeyong
+[/div]
+
+[comment]-- detail --[/comment]
+[div=position:absolute; top:90px; right:37px; width:auto; height:10px; padding:1px; background:var(--bkgd); color:var(--rdcolor); font-size:var(--rdsize); line-height:var(--rdlh); text-align:right; text-transform:uppercase; -webkit-text-stroke:var(--rdbold); letter-spacing:1px;][comment]
+
+---- RELATIONSHIP TYPE HERE ----
+[/comment]contractor
+[/div]
+
+[comment]-- arrow --[/comment]
+[div=position:absolute; top:75px; right:15.5px; width:30px; height:2px; background:var(--matchcolor); transform:rotate(-50deg); border-radius:1px;][/div][div=position:absolute; top:55px; right:12px; width:7px; height:7px; border:2px solid var(--matchcolor);][/div]
+[/div]
+
+[comment]-- body --[/comment]
+[div=position:relative; width:175px; margin:auto; height:auto; font-family:var(--rfont); font-size:var(--rsize); line-height:var(--rlh); color:var(--textcolor); text-align:justify;][comment]
+
+---- RELATIONSHIP BODY HERE ----
+[/comment]Pretium tellus duis convallis tempus leo eu aenean. Dis par turient montes nas cetur ridic ulus mus donec rhoncus. Dictum risus blandit quis suspendisse. Ornare sagittis vehicula praesent dui felis venenatis ultrices. Pretium tellus duis convallis tempus leo eu aenean. Dis par turient montes nas cetur ridic ulus mus donec rhoncus. Dictum risus blandit quis suspendisse. 
+[/div][/div][comment]---- RELATIONSHIP END: copy me too! ----[/comment]
+
+
+[comment]---- RELATIONSHIP START: copy me to add another rship! (remember to make new variables up top and sub them in here for 4+) ----[/comment]
+[div=position:relative; width:100%; height:auto; margin-bottom:10px;][div=position:relative; width:100%; height:105px; margin-bottom:2px;]
+
+[comment]-- pic --[/comment]
+[div=position:absolute; left:10px; top:10px; width:90px; height:90px; box-siding:border-box; border:var(--border0); background:var(--rpic2); background-size:var(--rpic2size); background-position:var(--rpic2position);][div=transparent; height:100%; width:100%; padding:0; background: radial-gradient(2px 2px, var(--accent00), transparent); background-size: 3px 3px; opacity:0.1; position:absolute; top:0; left:0;][/div][/div]
+
+[comment]-- handprint --[/comment]
+[div=position:absolute; top:15px; right:10px; width:70px; height:80px; background:var(--hp2color); -webkit-mask-image:var(--handprint2); mask-image:var(--handprint2); mask-size:var(--hp2size); mask-position:var(--hp2position); transform:rotate(-20deg);][/div]
+
+[comment]-- name --[/comment]
+[div=position:absolute; top:67px; right:40px; width:auto; height:13px; padding:3px; background:var(--bkgd); border-bottom:2px solid var(--matchcolor); color:var(--rncolor); font-size:var(-rnsize); line-height:var(--rnlh); text-align:right; text-transform:uppercase; -webkit-text-stroke:var(--rnbold); letter-spacing:1px;][comment]
+
+---- RELATIONSHIP NAME HERE ----
+[/comment]kim, doyoung
+[/div]
+
+[comment]-- detail --[/comment]
+[div=position:absolute; top:90px; right:37px; width:auto; height:10px; padding:1px; background:var(--bkgd); color:var(--rdcolor); font-size:var(--rdsize); line-height:var(--rdlh); text-align:right; text-transform:uppercase; -webkit-text-stroke:var(--rdbold); letter-spacing:1px;][comment]
+
+---- RELATIONSHIP TYPE HERE ----
+[/comment]engineer
+[/div]
+
+[comment]-- arrow --[/comment]
+[div=position:absolute; top:75px; right:15.5px; width:30px; height:2px; background:var(--matchcolor); transform:rotate(-50deg); border-radius:1px;][/div][div=position:absolute; top:55px; right:12px; width:7px; height:7px; border:2px solid var(--matchcolor);][/div]
+[/div]
+
+[comment]-- body --[/comment]
+[div=position:relative; width:175px; margin:auto; height:auto; font-family:var(--rfont); font-size:var(--rsize); line-height:var(--rlh); color:var(--textcolor); text-align:justify;][comment]
+
+---- RELATIONSHIP BODY HERE ----
+[/comment]Vehicula praesent dui felis venenatis ultrices. Pretium tellus duis convallis tempus leo eu aenean. Dis par turient montes nas cetur ridic ulus mus donec rhoncus. Dictum risus blandit quis suspendisse. Ornare sagittis vehicula praesent dui felis venenatis ultrices. Pretium tellus duis convallis tempus leo eu aenean. 
+[/div][/div][comment]---- RELATIONSHIP END: copy me too! ----[/comment]
+
+
+[comment]---- RELATIONSHIP START: copy me to add another rship! (remember to make new variables up top and sub them in here for 4+) ----[/comment]
+[div=position:relative; width:100%; height:auto; margin-bottom:10px;][div=position:relative; width:100%; height:105px; margin-bottom:2px;]
+
+[comment]-- pic --[/comment]
+[div=position:absolute; left:10px; top:10px; width:90px; height:90px; box-siding:border-box; border:var(--border0); background:var(--rpic3); background-size:var(--rpic3size); background-position:var(--rpic3position);][div=transparent; height:100%; width:100%; padding:0; background: radial-gradient(2px 2px, var(--accent00), transparent); background-size: 3px 3px; opacity:0.1; position:absolute; top:0; left:0;][/div][/div]
+
+[comment]-- handprint --[/comment]
+[div=position:absolute; top:15px; right:10px; width:70px; height:80px; background:var(--hp2color); -webkit-mask-image:var(--handprint2); mask-image:var(--handprint2); mask-size:var(--hp2size); mask-position:var(--hp2position); transform:rotate(-20deg);][/div]
+
+[comment]-- name --[/comment]
+[div=position:absolute; top:67px; right:40px; width:auto; height:13px; padding:3px; background:var(--bkgd); border-bottom:2px solid var(--matchcolor); color:var(--rncolor); font-size:var(-rnsize); line-height:var(--rnlh); text-align:right; text-transform:uppercase; -webkit-text-stroke:var(--rnbold); letter-spacing:1px;][comment]
+
+---- RELATIONSHIP NAME HERE ----
+[/comment]lee, minhyung
+[/div]
+
+[comment]-- detail --[/comment]
+[div=position:absolute; top:90px; right:37px; width:auto; height:10px; padding:1px; background:var(--bkgd); color:var(--rdcolor); font-size:var(--rdsize); line-height:var(--rdlh); text-align:right; text-transform:uppercase; -webkit-text-stroke:var(--rdbold); letter-spacing:1px;][comment]
+
+---- RELATIONSHIP TYPE HERE ----
+[/comment]trojan horse
+[/div]
+
+[comment]-- arrow --[/comment]
+[div=position:absolute; top:75px; right:15.5px; width:30px; height:2px; background:var(--matchcolor); transform:rotate(-50deg); border-radius:1px;][/div][div=position:absolute; top:55px; right:12px; width:7px; height:7px; border:2px solid var(--matchcolor);][/div]
+[/div]
+
+[comment]-- body --[/comment]
+[div=position:relative; width:175px; margin:auto; height:auto; font-family:var(--rfont); font-size:var(--rsize); line-height:var(--rlh); color:var(--textcolor); text-align:justify;][comment]
+
+---- RELATIONSHIP BODY HERE ----
+[/comment]Ornare sagittis vehicula praesent dui felis venenatis ultrices. Pretium tellus duis convallis tempus leo eu aenean. Dis par turient montes nas cetur ridic ulus mus donec rhoncus. Dictum risus blandit quis suspendisse.
+[/div][/div][comment]---- RELATIONSHIP END: copy me too! ----[/comment]
+
+
+[comment] ----- RELATIONSHIPS SCROLL END ----- [/comment]
+
+
+[/div][comment]---- scroll tag ----[/comment]
+[div=position:absolute; top:31px; left:167.5px; height:11px; padding:2px 4px 2px 4px; background:var(--bkgd); border-bottom:var(--border0); border-left:var(--border0); text-align:right; text-transform:uppercase; font-size:9px; line-height:11px; font-family:var(--font1); letter-spacing:0.5px; color:var(--accent04); -webkit-text-stroke:0.5px var(--accent04);][comment]
+
+---- SCROLL TAG HERE ----
+[/comment]scroll
+[/div]
+[comment]---- top left end ----[/comment]
+
+
+[comment]---- top right start ----[/comment]
+[div=position:absolute; right:0px; top:31px; width:140px; height:200px; box-siding:border-box; border-bottom:var(--border0); border-left:var(--border0); overflow-x: hidden; overflow-y:scroll; scrollbar-width:none; pointer-events:auto;]
+
+[comment]-- reputation heading --[/comment][div=position:absolute; top:0px; width:100%; height:25px; box-siding:border-box; border-bottom:var(--border0); text-align:center; text-transform:uppercase; font-size:16px; line-height:26px; font-family:var(--font1); letter-spacing:1.3px; color:var(--stcolor); -webkit-text-stroke:var(--stbold);][comment]
+
+---- REPUTATION HEADER HERE ----
+[/comment]reputation
+[/div]
+
+[comment]-- pic --[/comment][div=position:absolute; top:26px; width:120px; height:70px; box-siding:border-box; overflow-x:hidden; overflow-y:scroll; scrollbar-width:none; white-space: pre-line; font-family:var(--bodyfont); font-size:var(--body2size); line-height:var(--body2lh); color:var(--textcolor); text-align:justify; padding:10px;][comment]
+
+---- REPUTATION HERE ----
+[/comment]"That lion's on the prowl again, is he? Nisi sodales consequat magna ante condimentum neque at. Primis vulputate ornare sagittis vehicula praesent dui felis. Cursus mi pretium tellus duis convallis tempus leo. Et magnis dis parturient montes nascetur ridiculus mus. Interdum tortor ligula congue sollicitudin erat viverra ac. Accumsan maecenas potenti ultricies habitant morbi senectus netus. Pulvinar vivamus fringilla lacus nec metus bibendum egestas."
+[/div]
+
+[comment]-- pic --[/comment][div=position:absolute; right:0px; bottom:0px; width:100%; height:70px; box-siding:border-box; border-top:var(--border0); overflow:hidden;][div=position:absolute; top:0px; left:0px; width:100%; height:100%; background:var(--tab3a); background-size:var(--tab3asize); background-position:var(--tab3aposition); filter:var(--errorfilter);][div=transparent; height:100%; width:100%; padding:0; background: radial-gradient(2px 2px, var(--accent00), transparent); background-size: 3px 3px; opacity:0.2; position:absolute; top:0; left:0;][/div][/div]
+
+[comment]-- glitch lines --[/comment][div=position:absolute; top:0px; left:0px; width:100%; height:100%; background:var(--tab3aglitch); background-size:var(--tab3asize); background-position:var(--tab3aposition); mix-blend-mode:soft-light; filter:saturate(70%);][/div]
+
+[comment]-- error text --[/comment][div=position:absolute; top:25px; left:45px; width:50px; height:20px; background:var(--bkgd); border:var(--border1); font-family:var(--font1); font-size:11px; line-height:20px; color:var(--errorcolor); text-align:center; text-transform:uppercase; -webkit-text-stroke:var(--errorbold); letter-spacing:0.5px; text-decoration:line-through;][comment]
+
+---- ERROR TAG HERE ----
+[/comment]error!
+[/div]
+
+[comment]-- glitch effect --[/comment][div=position:absolute; top:0px; left:0px; width:100%; height:100%; background:var(--tab3atexturecolor); background-size:var(--tab3asize); background-position:var(--tab3aposition); -webkit-mask-image:var(--tab1btexture); mask-image:var(--tab1btexture); mask-repeat: no-repeat; mask-size:cover; mask-position:center;][/div]
+[/div]
+[/div][comment]---- top right end ----[/comment]
+
+
+[comment]---- bottom start ----[/comment]
+[div=position:absolute; bottom:0px; width:100%; height:269px; box-siding:border-box; border-top:var(--border0);]
+
+
+[comment]-- bottom left start --[/comment]
+[div=position:absolute; top:0px; width:130px; height:25px; box-siding:border-box; border-bottom:var(--border0); border-right:var(--border0); text-align:center; text-transform:uppercase; font-size:16px; line-height:26px; font-family:var(--font1); letter-spacing:1.3px; color:var(--stcolor); -webkit-text-stroke:var(--stbold);][comment]
+
+---- BKGD HEADER HERE ----
+[/comment]background
+[/div]
+
+[comment]-- pic --[/comment][div=position:absolute; bottom:0px; width:130px; height:243px; box-siding:border-box; border-right:var(--border0); background:var(--tab3b); background-size:var(--tab3bsize); background-position:var(--tab3bposition); filter:contrast(1.1);][div=transparent; height:100%; width:100%; padding:0; background: radial-gradient(2px 2px, var(--accent00), transparent); background-size: 3px 3px; opacity:0.1; position:absolute; top:0; left:0;][/div][/div]
+[comment]-- bottom left end --[/comment]
+
+
+[comment]-- bottom right start --[/comment]
+[comment]---- backstory start ----[/comment]
+[div=position:absolute; right:10px; top:9px; width:200px; height:250px; overflow-x:hidden; overflow-y:scroll; scrollbar-width:none; white-space: pre-line; font-family:var(--bodyfont); font-size:var(--body2size); line-height:var(--body2lh); color:var(--textcolor); text-align:justify; pointer-events:auto;][comment]
+
+---- BACKSTORY BODY START: first tag has no additional top margin spacing, so copy any of the other tags to make more! ----
+[/comment][div=margin-bottom:var(--tagbmargin); color:var(--tag3color); -webkit-text-stroke:var(--tag3bold); text-transform:uppercase; font-family:var(--tagfont); font-size:var(--tagsize); letter-spacing:1px;]residence[/div]Ornare sagittis vehicula praesent dui felis venenatis ultrices.
+
+[div=margin-bottom:var(--tagbmargin); margin-top:var(--tagtmargin); color:var(--tag3color); -webkit-text-stroke:var(--tag3bold); text-transform:uppercase; font-family:var(--tagfont); font-size:var(--tagsize); letter-spacing:1px;]family[/div]Porta elementum a enim euismod quam justo lectus. Curabitur facilisi cubilia curae hac habitasse platea dictumst. Nisl malesuada lacinia integer nunc posuere ut hendrerit.
+
+[div=margin-bottom:var(--tagbmargin); margin-top:var(--tagtmargin); color:var(--tag3color); -webkit-text-stroke:var(--tag3bold); text-transform:uppercase; font-family:var(--tagfont); font-size:var(--tagsize); letter-spacing:1px;]history[/div]Consequat magna ante condimentum neque at luctus nibh. Ornare sagittis vehicula praesent dui felis venenatis ultrices. Ligula congue sollicitudin erat viverra ac tincidunt nam. Potenti ultricies habitant morbi senectus netus suscipit auctor. Fringilla lacus nec metus bibendum egestas iaculis massa. Maximus eget fermentum odio phasellus non purus est. Ligula congue sollicitudin erat viverra ac tincidunt nam. Potenti ultricies habitant morbi senectus netus suscipit auctor. Fringilla lacus nec metus bibendum egestas iaculis massa.
+
+[/div][comment]---- backstory end ----[/comment]
+[/div][comment]---- bottom end ----[/comment]
+
+
+[comment]---- tabs cover ----[/comment]
+[div=position:absolute; right:11px; top:7px; width:300px; height:24px; pointer-events:none; opacity:1; box-siding:border-box; overflow:hidden; font-family:var(--font2); font-size:10px; line-height:15px; color:var(--textcolor); text-align:center; -webkit-text-stroke:2px var(--bkgd); letter-spacing:0.2px; paint-order:stroke fill;]
+[div=position:absolute; right:186px; top:0px; width:50px; height:15px; pointer-events:none; opacity:1; background:var(--bkgd); box-siding:border-box; border-radius:20px; border:var(--border0); overflow:hidden;]001[/div]
+[div=position:absolute; right:124px; top:0px; width:50px; height:15px; pointer-events:none; opacity:1; background:var(--bkgd); box-siding:border-box; border-radius:20px; border:var(--border0); overflow:hidden;]002[/div]
+[div=position:absolute; right:62px; top:0px; width:50px; height:15px; pointer-events:none; opacity:1; background:var(--tab3); box-siding:border-box; border-radius:20px; border:var(--border0); overflow:hidden;]003[/div]
+[div=position:absolute; right:0px; top:0px; width:50px; height:15px; pointer-events:none; opacity:1; background:var(--bkgd); box-siding:border-box; border-radius:20px; border:var(--border0); overflow:hidden;]004[/div]
+[/div]
+
+[div=display:none;]backstory/relations[/div]
+[/div][/tab][comment]
+
+
+
+
+---- TAB 4: BACKSTORY ----
+[/comment][tab=.][div=transparent; position:absolute; top:-8px; left:calc(0px - var(--taboffset) + 10px); pointer-events:none; height:var(--innerheight); width:100%; padding:0px 0 0 0; bottom:0px; right:0px; background:var(--bkgd); letter-spacing:0; opacity:1;]
+
+[comment]-- bkgd patch --[/comment][div=position:absolute; top:40px; right:-31px; width:30px; height:50px; background:var(--bkgd);][div=transparent; height:100%; width:100%; padding:0; background: radial-gradient(2px 2px, var(--accent03), transparent); background-size: 3px 3px; opacity:0.1; position:absolute; top:0; left:0;][/div][/div]
+
+[comment]-- hacked outline --[/comment][div=position:absolute; top:-1px; left:-1px; width:350px; height:510px; border:var(--border1); outline:var(--border1); outline-offset:24px;][/div]
+
+
+[comment]---- HEADER START ----[/comment]
+[div=position:absolute; left:0px; top:0px; width:100%; height:30px; box-siding:border-box; border-bottom:var(--border1); overflow:hidden;]
+
+[comment]-- spinner --[/comment][div=position:absolute; top:0px; left:0px; width:28px; height:30px; border-right:var(--border1); font-size:15px; line-height:31px; text-align:center; color:var(--tab4);][fa]fas fa-circle-notch fa-spin[/fa][/div]
+
+[comment]-- header text --[/comment][div=position:absolute; left:35px; top:5px; font-family:var(--font1); font-size:10px; line-height:10px; color:var(--header2color); text-align:left; text-transform:uppercase; -webkit-text-stroke:var(--header2bold); letter-spacing:0.6px;][comment]
+
+---- ORG NAME HERE ----
+[/comment]NCPD:
+[br][/br][div=display:inline; color:var(--tabtitlecolor2); -webkit-text-stroke:var(--tab2bold); text-decoration:line-through;][comment]
+
+---- TAB NAME HERE ----
+[/comment]surveillance
+[/div][/div]
+[/div][comment]---- HEADER END ----[/comment]
+
+
+[comment]---- cctv start ----[/comment]
+[comment]-- pic --[/comment][div=position:absolute; left:10px; top:150px; width:329px; height:220px; box-siding:border-box; border:var(--border1); overflow:hidden;][div=position:absolute; top:0px; left:0px; width:100%; height:100%; background:var(--tab4a); background-size:var(--tab4asize); background-position:var(--tab4aposition); filter:var(--errorfilter);][div=transparent; height:100%; width:100%; padding:0; background: radial-gradient(2px 2px, var(--accent00), transparent); background-size: 3px 3px; opacity:0.2; position:absolute; top:0; left:0;][/div][/div]
+
+[comment]-- glitch lines --[/comment][div=position:absolute; top:0px; left:0px; width:100%; height:100%; background:var(--tab4aglitch); background-size:var(--tab4asize); background-position:var(--tab4aposition); mix-blend-mode:soft-light; filter:saturate(50%); opacity:0.5;][/div]
+
+[comment]---- error text1 start ----[/comment]
+[div=position:absolute; top:49px; left:55px; width:50px; height:20px; background:var(--bkgd); border:var(--border1); font-family:var(--font1); font-size:11px; line-height:20px; color:var(--errorcolor); text-align:center; text-transform:uppercase; -webkit-text-stroke:var(--errorbold); letter-spacing:0.5px; text-decoration:line-through;][comment]
+
+---- ERROR TAG HERE ----
+[/comment]error!
+[/div][comment]---- error text1 end----[/comment]
+
+[comment]---- error text2 start ----[/comment]
+[div=position:absolute; top:85px; left:215px; width:60px; height:25px; background:var(--bkgd); border:var(--border1); font-family:var(--font1); font-size:14px; line-height:25px; color:var(--errorcolor); text-align:center; text-transform:uppercase; -webkit-text-stroke:var(--errorbold); letter-spacing:0.5px; text-decoration:line-through;][comment]
+
+---- ERROR TAG HERE ----
+[/comment]error!
+[/div][comment]---- error text2 end ----[/comment]
+
+[comment]---- error text3 start ----[/comment]
+[comment]-- error text3 --[/comment][div=position:absolute; top:155px; left:85px; width:40px; height:15px; background:var(--bkgd); border:var(--border1); font-family:var(--font1); font-size:8px; line-height:15px; color:var(--errorcolor); text-align:center; text-transform:uppercase; -webkit-text-stroke:var(--errorbold); letter-spacing:0.5px; text-decoration:line-through;][comment]
+
+---- ERROR TAG HERE ----
+[/comment]error!
+[/div][comment]---- error text3 end ----[/comment]
+
+[comment]---- recording text start ----[/comment]
+[div=position:absolute; top:10px; left:25px; width:10px; height:10px; border-radius:10px; background:var(--accent05);][/div]
+[div=position:absolute; top:10px; left:40px; height:10px; font-family:var(--font2); font-size:10px; line-height:10px; color:var(--cctvcolor); text-align:left; text-transform:uppercase; -webkit-text-stroke:var(--cctvbold); letter-spacing:1.2px; text-shadow:-0.8px -0.8px 0px var(--accent05);][comment]
+
+---- REC TAG HERE ----
+[/comment]rec
+[/div][comment]---- recording text end----[/comment]
+
+[comment]---- cam text start ----[/comment]
+[div=position:absolute; top:10px; right:25px; height:10px; font-family:var(--font2); font-size:10px; line-height:10px; color:var(--cctvcolor); text-align:right; text-transform:uppercase; -webkit-text-stroke:var(--cctvbold); letter-spacing:1.2px; text-shadow:-0.8px -0.8px 0px var(--accent05);][comment]
+
+---- CAM TAG HERE ----
+[/comment]cam4
+[/div][comment]---- cam text end ----[/comment]
+
+[comment]---- cctv data text ----[/comment]
+[div=position:absolute; bottom:10px; left:25px; height:10px; font-family:var(--font2); font-size:10px; line-height:10px; color:var(--cctvcolor); text-align:left; text-transform:uppercase; -webkit-text-stroke:var(--cctvbold); letter-spacing:1.2px; text-shadow:-0.8px -0.8px 0px var(--accent05);][comment]
+
+---- TIMESTAMP HERE ----
+[/comment]01:27:00
+[/div]
+[div=position:absolute; bottom:10px; right:25px; height:10px; font-family:var(--font2); font-size:10px; line-height:10px; color:var(--cctvcolor); text-align:right; text-transform:uppercase; -webkit-text-stroke:var(--cctvbold); letter-spacing:1.2px; text-shadow:-0.8px -0.8px 0px var(--accent05);][comment]
+
+---- VIEW MODE HERE ----
+[/comment]night view active
+[/div][comment]---- cctv data end ----[/comment]
+
+[comment]-- glitch effect --[/comment][div=position:absolute; top:0px; left:0px; width:100%; height:100%; background:var(--tab4atexturecolor); background-size:var(--tab4asize); background-position:var(--tab4aposition); -webkit-mask-image:var(--tab1btexture); mask-image:var(--tab1btexture); mask-repeat: no-repeat; mask-size:cover; mask-position:center;][/div]
+
+[comment]---- corner lines ----[/comment]
+[div=position:absolute; top:9px; left:9px; width:10px; height:2px; background:var(--matchcolor);][/div]
+[div=position:absolute; top:9px; left:9px; width:2px; height:10px; background:var(--matchcolor);][/div]
+[div=position:absolute; bottom:9px; right:9px; width:10px; height:2px; background:var(--matchcolor);][/div]
+[div=position:absolute; bottom:9px; right:9px; width:2px; height:10px; background:var(--matchcolor);][/div]
+[div=position:absolute; top:9px; right:9px; width:10px; height:2px; background:var(--matchcolor);][/div]
+[div=position:absolute; top:9px; right:9px; width:2px; height:10px; background:var(--matchcolor);][/div]
+[div=position:absolute; bottom:9px; left:9px; width:10px; height:2px; background:var(--matchcolor);][/div]
+[div=position:absolute; bottom:9px; left:9px; width:2px; height:10px; background:var(--matchcolor);][/div]
+
+[/div][comment]---- cctv end ----[/comment]
+
+
+[comment]-- pic --[/comment]
+[div=position:absolute; left:135px; top:40px; width:135px; height:125px; background:var(--bkgd); box-siding:border-box; border:var(--border1); overflow:hidden;][/div]
+[div=position:absolute; left:140px; top:45px; width:135px; height:125px; background:var(--bkgd); box-siding:border-box; border:var(--border1); overflow:hidden;][/div]
+[div=position:absolute; left:145px; top:50px; width:135px; height:125px; box-siding:border-box; border:var(--border1); overflow:hidden;][div=position:absolute; top:0px; left:0px; width:100%; height:100%; background:var(--tab4b); background-size:var(--tab4bsize); background-position:var(--tab4bposition); filter:saturate(80%) contrast(1.1);][div=transparent; height:100%; width:100%; padding:0; background: radial-gradient(2px 2px, var(--accent00), transparent); background-size: 3px 3px; opacity:0.1; position:absolute; top:0; left:0;][/div][/div][/div]
+
+[comment]-- pic --[/comment]
+[div=position:absolute; left:60px; top:363px; width:120px; height:125px; background:var(--bkgd); box-siding:border-box; border:var(--border1); overflow:hidden;][/div]
+[div=position:absolute; left:65px; top:368px; width:120px; height:125px; background:var(--bkgd); box-siding:border-box; border:var(--border1); overflow:hidden;][/div]
+[div=position:absolute; left:70px; top:373px; width:120px; height:125px; box-siding:border-box; border:var(--border1); overflow:hidden;][div=position:absolute; top:0px; left:0px; width:100%; height:100%; background:var(--tab4c); background-size:var(--tab4csize); background-position:var(--tab4cposition); filter:saturate(80%) contrast(1.1);][div=transparent; height:100%; width:100%; padding:0; background: radial-gradient(2px 2px, var(--accent00), transparent); background-size: 3px 3px; opacity:0.1; position:absolute; top:0; left:0;][/div][/div][/div]
+
+
+[comment]---- binary text start ----[/comment]
+[div=position:absolute; top:90px; left:40px; width:130px; height:55px; font-family:var(--font2); font-size:6px; line-height:6px; color:var(--accent04); text-align:justify; text-transform:uppercase; -webkit-text-stroke:0.3px var(--accent04); letter-spacing:1.2px; text-shadow:-0.5px -0.5px 0px var(--bkgd);][comment]
+
+---- BINARY HERE ----
+[/comment]011011100110111101110100001000000110011001100001011100110111010000100000011001010110111001101111011101010110011101101000001011000010000001110011011011110010000001110011011000010110010000101110
+[/div]
+[div=position:absolute; top:70px; right:10px; width:75px; height:55px; font-family:var(--font2); font-size:6px; line-height:6px; color:var(--accent04); text-align:justify; text-transform:uppercase; -webkit-text-stroke:0.3px var(--accent04); letter-spacing:1.2px; text-shadow:-0.5px -0.5px 0px var(--bkgd);][comment]
+
+---- BINARY HERE ----
+[/comment]011011100110100101100011011001010010000001110100011100100111100100101100001000000110000101110011011100110110100001101111011011000110010100100001
+[/div]
+[div=position:absolute; bottom:30px; left:10px; width:75px; height:55px; font-family:var(--font2); font-size:6px; line-height:6px; color:var(--accent04); text-align:justify; text-transform:uppercase; -webkit-text-stroke:0.3px var(--accent04); letter-spacing:1.2px; text-shadow:-0.5px -0.5px 0px var(--bkgd);][comment]
+
+---- BINARY HERE ----
+[/comment]01101101011000010111100101100010011001010010000001110011011000010111100100100000011010000110100100100000011001100110100101110010011100110111010000111111
+[/div][comment]---- binary text end ----[/comment]
+
+
+[comment]---- text bubbles start ----[/comment]
+[comment]-- text bubble 1 --[/comment][div=position:absolute; top:60px; left:10px; width:auto; height:16px; background:var(--bkgd); box-siding:border-box; border:var(--border1); text-align:left; text-transform:uppercase; font-size:11px; line-height:16px; font-family:var(--font1); letter-spacing:0.8px; color:var(--textbubblecolor); -webkit-text-stroke:var(--textbubblebold); padding:0 5px 0 5px;]i hear you've been looking for me ...[/div]
+
+[comment]-- text bubble 2 --[/comment][div=position:absolute; bottom:110px; right:40px; width:auto; height:16px; background:var(--bkgd); box-siding:border-box; border:var(--border1); text-align:right; text-transform:uppercase; font-size:11px; line-height:16px; font-family:var(--font1); letter-spacing:0.8px; color:var(--textbubblecolor); -webkit-text-stroke:var(--textbubblebold); padding:0 5px 0 5px;]wanna know more, my dear fan?[/div]
+
+[comment]-- text bubble 3 --[/comment][div=position:absolute; bottom:10px; right:10px; width:auto; height:16px; background:var(--bkgd); box-siding:border-box; border:var(--border1); text-align:right; text-transform:uppercase; font-size:11px; line-height:16px; font-family:var(--font1); letter-spacing:0.8px; color:var(--textbubblecolor); -webkit-text-stroke:var(--textbubblebold); padding:0 5px 0 5px;]... just for you [div=display:inline; margin-left:1px; color:var(--cctvcolor); -webkit-text-stroke:var(--cctvbold);]♡[/div][/div]
+[comment]---- text bubbles end ----[/comment]
+
+
+[comment]---- visuals start ----[/comment]
+[div=position:absolute; bottom:45px; right:25px; width:auto; height:auto; background:var(--bkgd); box-siding:border-box; border:var(--border2); text-align:right; text-transform:uppercase; font-size:11px; line-height:12px; font-family:var(--font1); letter-spacing:0.8px; color:var(--linkboxcolor); -webkit-text-stroke:var(--linkboxbold); padding:2px 5px 2px 5px;][comment]
+
+---- VISUALS TEXT HERE ----
+[/comment]... or maybe some
+[br][/br][comment]
+
+---- MOODBOARD/VISUALS LINK HERE ----
+[/comment][url='https://www.pinterest.com/'][div=display:inline; color:var(--linkcolor); -webkit-text-stroke:var(--linkbold); pointer-events:auto;][comment]
+
+---- VISUALS TEXT CONT. ----
+[/comment]unreleased footage?
+[/div][/url][/div][comment]---- visuals end ----[/comment]
+
+
+[comment]---- playlist start ----[/comment]
+[div=position:absolute; bottom:70px; left:180px; width:auto; height:auto; background:var(--bkgd); box-siding:border-box; border:var(--border2); text-align:left; text-transform:uppercase; font-size:11px; line-height:12px; font-family:var(--font1); letter-spacing:0.8px; color:var(--linkboxcolor); -webkit-text-stroke:var(--linkboxbold); padding:2px 5px 2px 5px;][comment]
+
+---- PLAYLIST TEXT HERE ----
+[/comment]how about a
+[br][/br][comment]
+
+---- PLAYLIST LINK HERE ----
+[/comment][url='https://open.spotify.com/playlist/2KQzuA4cFKtbE80fYPNoqz?si=9767e23a274c4bb4'][div=display:inline; color:var(--linkcolor); -webkit-text-stroke:var(--linkbold); pointer-events:auto;][comment]
+
+---- PLAYLIST TEXT CONT. ----
+[/comment]playlist ...
+[/div][/url][/div][comment]---- playlist end ----[/comment]
+
+
+[comment]---- tabs cover ----[/comment]
+[div=position:absolute; right:11px; top:7px; width:300px; height:24px; pointer-events:none; opacity:1; box-siding:border-box; overflow:hidden; font-family:var(--font2); font-size:10px; line-height:15px; color:var(--accent05); text-align:center; -webkit-text-stroke:2px var(--bkgd); letter-spacing:0.2px; paint-order:stroke fill;]
+[div=position:absolute; right:186px; top:0px; width:50px; height:15px; pointer-events:none; opacity:1; background:var(--bkgd); box-siding:border-box; border-radius:20px; border:var(--border1); overflow:hidden;]001[/div]
+[div=position:absolute; right:124px; top:0px; width:50px; height:15px; pointer-events:none; opacity:1; background:var(--bkgd); box-siding:border-box; border-radius:20px; border:var(--border1); overflow:hidden;]002[/div]
+[div=position:absolute; right:62px; top:0px; width:50px; height:15px; pointer-events:none; opacity:1; background:var(--bkgd); box-siding:border-box; border-radius:20px; border:var(--border1); overflow:hidden;]003[/div]
+[div=position:absolute; right:0px; top:0px; width:50px; height:15px; pointer-events:none; opacity:1; background:var(--tab4); box-siding:border-box; border-radius:20px; border:var(--border1); overflow:hidden;]004[/div]
+[/div]
+
+[div=display:none;]gallery[/div]
+[/div][/tab]
+[/tabs]
+[/div][/div][/div][comment]---- tabs end ----[/comment]
+[/div][comment]---- content end ----[/comment]
+
+[/nobr][/div][/div]
+
+
+[comment]code by sox
+
+------------ THE PREVIEW WILL LOOK MISALIGNED AND THAT'S OKAY! 
+------------ (i think that happens bc of the tabs but what do i know)
+------------ also pls don't toggle bbcode while editing, it breaks the last tab so bad ;-;
+
+[font=Handjet]titles[/font]
+[font=Ubuntu Mono]relationships[/font]
+[font=Saira SemiCondensed]body text[/font]
+
+[/comment][div=height:auto; width:100%; overflow-x:auto; overflow-y:hidden;
+
+
+/*---- COLORS: i recommend keeping these in relatively the same range of brightness as the default values! -----*/
+/*------------ note: changing these hex codes will change them everywhere they're used;  -----*/
+/*------------ you can change which accent colors are used where in the "values to edit" section! ----*/
+
+
+/*monochrome colors*/
+--accent00: #02080A;   /*dark teal*/
+--accent01: #FFFFFF;   /*white*/
+--accent02: #719BA3;   /*teal*/
+--accent03: #3B6A73;   /*muted teal*/
+--accent04: #3d494a;   /*gray teal*/
+--accent05: #882B22;   /*red*/
+--accent06: #4B110C;   /*dark red*/
+
+
+
+/*---- PICS ----*/
+/*------------ TAB 1 ------------*/
+--tab1a: url('https://i.imgur.com/0wgCNjo.png');   /*main top pic*/
+--tab1asize: cover;   /*pic size*/
+--tab1aposition: 50% 50%;   /*pic positioning*/
+
+--tab1b: url('https://i.pinimg.com/736x/49/7d/1c/497d1c2d7711f46f66055c4818f334d8.jpg');   /*glitchy pic*/
+--tab1bsize: cover;   /*pic size*/
+--tab1bposition: 50% 50%;   /*pic positioning*/
+
+--tab1c: url('https://i.imgur.com/Fu4t4FU.png');   /*black & white basics pic*/
+--tab1csize: cover;   /*pic size*/
+--tab1cposition: 50% 50%;   /*pic positioning*/
+
+/*------------ TAB 2 ------------*/
+--tab2a: url('https://i.imgur.com/HLHRpBl.png');   /*visage eye pic*/
+--tab2asize: cover;   /*pic size*/
+--tab2aposition: 50% 50%;   /*pic positioning*/
+
+--tab2b: url('https://i.imgur.com/XxUDRDx.png');   /*glitchy pic*/
+--tab2bsize: cover;   /*pic size*/
+--tab2bposition: 50% 50%;   /*pic positioning*/
+
+/*------------ TAB 3 ------------*/
+/*---- RELATIONSHIPS: copy/paste and edit the names here + in the code to add more! ----*/
+--rpic1: url('https://i.imgur.com/BgPzyIE.png');   /*relationship 1 pic*/
+--rpic1size: cover;   /*pic size*/
+--rpic1position: 50% 50%;   /*pic positioning*/
+
+--rpic2: url('https://i.imgur.com/GNbweZc.png');   /*relationship 2 pic*/
+--rpic2size: cover;   /*pic size*/
+--rpic2position: 50% 50%;   /*pic positioning*/
+
+--rpic3: url('https://i.pinimg.com/736x/d1/45/57/d1455745440c6620876a0c8ec33b8fd2.jpg');   /*relationship 3 pic*/
+--rpic3size: cover;   /*pic size*/
+--rpic3position: 50% 50%;   /*pic positioning*/
+
+--tab3a: url('https://i.pinimg.com/736x/ab/6e/2d/ab6e2d286c54ecf986ca969873fcd14b.jpg');  /*glitchy pic*/
+--tab3asize: cover;   /*pic size*/
+--tab3aposition: 50% 50%;   /*pic positioning*/
+
+--tab3b: url('https://i.imgur.com/2fbJUpV.png');  /*backstory pic*/
+--tab3bsize: cover;   /*pic size*/
+--tab3bposition: 50% 50%;   /*pic positioning*/
+
+/*------------ TAB 4 ------------*/
+--tab4a: url('https://i.imgur.com/93gk6pF.gif');  /*big cctv pic*/
+--tab4asize: cover;   /*pic size*/
+--tab4aposition: 50% 50%;   /*pic positioning*/
+
+--tab4b: url('https://i.pinimg.com/originals/bf/5c/25/bf5c25cfd2038e9cf6488fda8da904a6.gif');  /*top pic*/
+--tab4bsize: cover;   /*pic size*/
+--tab4bposition: 50% 50%;   /*pic positioning*/
+
+--tab4c: url('https://cdn.diodeo.jp/cdn/webzine/2021/02/04/20210204084548_601b35ac6e8a2.gif');  /*bottom pic*/
+--tab4csize: cover;   /*pic size*/
+--tab4cposition: 50% 50%;   /*pic positioning*/
+
+
+/*---- VALUES TO EDIT ----*/
+
+/*colors*/
+--bkgd: var(--accent00);   /*sheet background color*/
+--textcolor: var(--accent01);   /*body text color*/
+
+--tab1: var(--accent02);   /*tab1 button/icon color*/
+--tab2: var(--accent04);   /*tab2 button/icon color*/
+--tab3: var(--accent06);   /*tab3 button/icon color*/
+--tab4: var(--accent05);   /*tab4 button/icon color*/
+
+--headercolor: var(--accent03);   /*org name color (tab1-3)*/
+--header2color: var(--accent06);   /*org name hacked color (tab4)*/
+--tabtitlecolor: var(--accent02);   /*tab title text color (tab1-3)*/
+--tabtitle2color: var(--accent05);   /*tab title hacked color (tab4)*/
+
+--loadingcolor: var(--accent04);   /*loading text color (tab1)*/
+--errorcolor: var(--accent05);   /*error box text color*/
+
+--tagcolor: var(--accent02);   /*body tag style 1 color (tab1)*/
+--tag2color: var(--accent05);   /*body tag style 2 color (tab2)*/
+--tag3color: var(--accent04);   /*body tag style 3 color (tab3)*/
+
+--playcolor: var(--accent06);   /*music play symbol color (tab1)*/
+--songcolor: var(--accent02);   /*song title color (tab1)*/
+--artistcolor: var(--accent05);   /*song artist color (tab1)*/
+--recentcolor: var(--accent04);   /*recently played text color (tab1)*/
+
+--matchcolor: var(--accent05);   /*match arrows/tile color (tab2)*/
+--matchtcolor: var(--accent06);   /*match heading text color (tab2)*/
+--tilecolor0: var(--accent01);   /*visage tile style 1 color*/
+--tilecolor1: var(--accent02);   /*visage  tile style 2 color*/
+--tilecolor2: var(--accent03);   /*visage tile style 3 color*/
+--tilecolor3: var(--accent04);   /*visage tile style 4 color*/
+--tilecolor4: var(--matchcolor);   /*visage tile match color*/
+
+--vcolor: var(--accent01);   /*virtue/vices text color (tab2)*/
+--virtuecolor: var(--accent04);   /*virtue border color (tab2)*/
+--vicecolor: var(--accent06);   /*vice border color (tab2)*/
+
+--rncolor: var(--accent05);   /*relationship name color (tab3)*/
+--rdcolor: var(--accent06);   /*relationship type color (tab3)*/
+--stcolor: var(--accent02);   /*reputation heading color (tab3)*/
+
+--cctvcolor: var(--accent03);   /*cctv text color (tab4)*/
+--textbubblecolor: var(--accent01);   /*hacked bubble text color (tab4)*/
+--linkboxcolor: var(--accent04);   /*hacked bubble link border/text color (tab4)*/
+--linkcolor: var(--accent05);   /*hacked link text color (tab4)*/
+
+
+/*borders*/
+--border0: 1px solid var(--accent03);   /*main border color + style*/
+--border1: 1px solid var(--accent06);   /*error/hacked border color + style*/
+--border2: 1px solid var(--accent04);   /*link border color + style*/
+--virtueborder: 1px solid var(--virtuecolor);   /*virtue border style (change color in 'colors' section)*/
+--viceborder: 1px solid var(--vicecolor);   /*virtue border style (change color in 'colors' section)*/
+
+
+/*text*/
+--bodyfont: var(--font3);   /*body text font family*/
+--body1size: 11px;   /*basics/visage text size*/
+--body1lh: 13px;   /*basics/visage text line height*/
+--body2size: 10px;   /*persona/backstory text size*/
+--body2lh: 12px;   /*persona/backstory text line height*/
+--rnsize: 13px;   /*relationship name text size*/
+--rnlh: 13px;   /*relationship name line height*/
+--rdsize: 10px;   /*relationship type text size*/
+--rdlh: 10px;   /*relationship type line height*/
+--rsize: 10px;   /*relationship text size*/
+--rlh: 11.2px;   /*relationship text line height*/
+--rfont: var(--font2);   /*relationship text font family*/
+
+
+/*---- FONTS ----*/
+--font1: 'Handjet', sans-serif;   /*titles*/
+--font2: 'Ubuntu Mono', sans-serif;   /*relationships*/
+--font3: 'Saira SemiCondensed', sans-serif;   /*body*/
+
+
+
+/*---- VALUES YOU PROBABLY DON'T NEED TO EDIT ----*/
+/*------------- these are mostly to make my life easier! ----*/
+
+/*bold presets*/
+/*---- i use these instead of bold tags to preserve the font style on mobile ----*/
+--headerbold: 0.6px var(--headercolor);
+--header2bold: 0.6px var(--header2color);
+--tabbold: 0.6px var(--tabtitlecolor);
+--tab2bold: 0.6px var(--tabtitle2color);
+--loadingbold: 0.6px var(--loadingcolor);
+--tagbold: 0.6px var(--tagcolor);
+--tag2bold: 0.6px var(--tag2color);
+--tag3bold: 0.6px var(--tag3color);
+--songbold: 0.6px var(--songcolor);
+--artistbold: 0.5px var(--artistcolor);
+--recentbold: 0.5px var(--recentcolor);
+--errorbold: 0.5px var(--errorcolor);
+--matchtbold: 0.6px var(--matchtcolor);
+--virtuebold: 2px var(--virtuecolor);
+--vicebold: 2px var(--vicecolor);
+--rnbold: 0.8px var(--rncolor);
+--rdbold: 0.8px var(--rdcolor);
+--stbold: 0.8px var(--stcolor);
+--cctvbold: 0.3px var(--cctvcolor);
+--textbubblebold: 0.1px var(--textbubblecolor);
+--linkboxbold: 0.3px var(--linkboxcolor);
+--linkbold: 0.8px var(--linkcolor);
+
+/*margins + positions + sizes*/
+--leftmargin: 20px;
+--rightmargin: 20px;
+--topmargin: 20px;
+--bottommargin: 20px;
+--xmargin: calc(var(--leftmargin) + var(--rightmargin));
+--ymargin: calc(var(--topmargin) + var(--bottommargin));
+--contentwidth: calc(100% - var(--xmargin));
+--contentheight: calc(100% - var(--ymargin));
+--innerheight: 510px;
+--taboffset: 110px;
+--tagtmargin: 3px;
+--tagbmargin: 3px;
+--tagspacen: 5.8px 0px 5.8px 10px;
+--tagspacec: 5.8px 10px 5.8px 0px;
+--tagsize: 13px;
+--tagfont: var(--font1);
+--vsize: 12px;
+--vlh: 20px;
+--vspace: 1px 4px 1px 4px;
+
+/*visage match color tiles*/
+--tilex: 13px;
+--tiley: 13px;
+--tilebr: 1px;
+--tileborder: 1px solid var(--bkgd);
+
+/*---- finger/handprints ----*/
+--handprint1: url('https://i.imgur.com/6Yn4zsp.png');
+--hp1color: linear-gradient(to bottom, var(--accent06), var(--accent04));
+--hp1size: cover;   /*pic size*/
+--hp1position: 50% 50%;   /*pic positioning*/
+
+--handprint2: url('https://i.imgur.com/HPrdNhL.png');
+--hp2color: linear-gradient(to bottom, var(--accent06), var(--accent04));
+--hp2size: cover;   /*pic size*/
+--hp2position: 50% 50%;   /*pic positioning*/
+
+--fingerprint1: url('https://i.imgur.com/k9rYXKy.png');
+--fp1color: linear-gradient(to bottom, var(--accent06), var(--accent04));
+--fp1size: cover;   /*pic size*/
+--fp1position: 50% 50%;   /*pic positioning*/
+
+--fingerprint2: url('https://i.imgur.com/Wl8hRj5.png');
+--fp2color: linear-gradient(to bottom, var(--accent06), var(--accent04));
+--fp2size: cover;   /*pic size*/
+--fp2position: 50% 50%;   /*pic positioning*/
+
+/*---- effects/textures----*/
+--musicpic: url('https://i.imgur.com/m53OSQ0.gif');
+--errorfilter: saturate(0%) contrast(1.1);
+--visagefilter: saturate(50%) contrast(1.2);
+
+--tab1bglitch: url('https://i.imgur.com/2zoG3oa.jpeg');
+--tab1btexture: url('https://i.imgur.com/sU7Nso6.gif');
+--tab1btexturecolor: linear-gradient(to bottom, var(--accent03), var(--accent06));
+
+--tab2bglitch: url('https://i.imgur.com/ewIPhqf.jpeg');
+--tab2btexture: url('https://i.imgur.com/sU7Nso6.gif');
+--tab2btexturecolor: linear-gradient(to bottom, var(--accent03), var(--accent06));
+
+--tab3aglitch: url('https://i.imgur.com/RjagiSk.jpeg');
+--tab3atexture: url('https://i.imgur.com/sU7Nso6.gif');
+--tab3atexturecolor: linear-gradient(to bottom, var(--accent03), var(--accent06));
+
+--tab4aglitch: url('https://i.imgur.com/nMg2HfY.jpeg');
+--tab4atexture: url('https://i.imgur.com/sU7Nso6.gif');
+--tab4atexturecolor: linear-gradient(to bottom, var(--accent04), var(--accent06));
+
+
+][div=margin:auto; position:relative; width:390px; height:550px; margin-top:20px; margin-bottom:20px; background:var(--bkgd); outline:var(--border2); outline-offset:4px; border-radius:0px; box-sizing:border-box; cursor: url(https://imgur.com/5ex8RXq.png), auto; font-family:var(--font1); color:var(--textcolor); overflow:hidden;][nobr]
+
+[comment]---- bkgd texture ----[/comment]
+[div=transparent; height:100%; width:100%; padding:0; background: radial-gradient(2px 2px, var(--accent03), transparent); background-size: 3px 3px; opacity:0.1; position:absolute; top:0; left:0;][/div]
+
+[comment]---- content start ----[/comment]
+[div=position:absolute; left:var(--leftmargin); top:var(--topmargin); width:var(--contentwidth); height:var(--contentheight); box-siding:border-box; border:var(--border0);]
+
+
+
+[comment]---- TABS START ----
+-- container --[/comment][div=transparent; position:absolute; top:8px; left:calc(var(--taboffset) - 10px); width:100%; height:100%; padding:0px; line-height:0px;][comment]
+-- border a --[/comment][div=transparent; height:100px; width:300px; padding:0px; overflow:hidden;][comment]
+-- border b --[/comment][div=transparent; padding:0px; margin:-2px -15px 0 -20px; letter-spacing:clamp(3px, -200px + 25vw, 4px);][tabs][comment]
+
+
+
+
+---- TAB 1: BASICS ----
+[/comment][tab=.][div=transparent; pointer-events:none; position:absolute; top:-8px; left:calc(0px - var(--taboffset) + 10px); height:var(--innerheight); width:100%; padding:0px 0 0 0; bottom:0px; right:0px; background:var(--bkgd); letter-spacing:0; opacity:1;]
+
+[comment]-- bkgd patch --[/comment][div=position:absolute; top:40px; right:-31px; width:30px; height:50px; background:var(--bkgd); border-left:var(--border0);][div=transparent; height:100%; width:100%; padding:0; background: radial-gradient(2px 2px, var(--accent03), transparent); background-size: 3px 3px; opacity:0.1; position:absolute; top:0; left:0;][/div][/div]
+
+
+[comment]---- HEADER START ----[/comment]
+[div=position:absolute; left:0px; top:0px; width:100%; height:30px; box-siding:border-box; border-bottom:var(--border0); overflow:hidden;]
+
+[comment]-- spinner --[/comment][div=position:absolute; top:0px; left:0px; width:28px; height:30px; border-right:var(--border0); font-size:15px; line-height:31px; text-align:center; color:var(--tab1);][fa]fas fa-circle-notch fa-spin[/fa][/div]
+
+[comment]-- header text --[/comment][div=position:absolute; left:35px; top:5px; font-family:var(--font1); font-size:10px; line-height:10px; color:var(--headercolor); text-align:left; text-transform:uppercase; -webkit-text-stroke:var(--headerbold); letter-spacing:0.6px;][comment]
+
+---- ORG NAME HERE ----
+[/comment]NCPD:
+[br][/br][div=display:inline; color:var(--tabtitlecolor); -webkit-text-stroke:var(--tabbold);][comment]
+
+---- TAB NAME HERE ----
+[/comment]suspect data
+[/div][/div]
+[/div][comment]---- HEADER END ----[/comment]
+
+
+[comment]---- top left start ----[/comment]
+[div=position:absolute; left:0px; top:30px; width:230px; height:180px; box-siding:border-box; border-bottom:var(--border0); border-right:var(--border0); overflow:hidden;]
+
+[comment]-- loading text --[/comment][div=position:absolute; right:8px; top:0px; height:20px; font-family:var(--font1); font-size:10px; line-height:23px; color:var(--loadingcolor); text-align:left; text-transform:uppercase; -webkit-text-stroke:var(--loadingbold); letter-spacing:1.2px; font-style:italic;][comment]
+
+---- LOADING TAG HERE ----
+[/comment]loading profile... 12.7% complete
+[/div]
+
+[comment]-- pic --[/comment][div=position:absolute; top:20px; left:9px; width:211px; height:150px; background:var(--tab1a); background-size:var(--tab1asize); background-position:var(--tab1aposition); filter:contrast(1.1) brightness(105%); box-siding:border-box; border:var(--border0);][div=transparent; height:100%; width:100%; padding:0; background: radial-gradient(2px 2px, var(--accent00), transparent); background-size: 3px 3px; opacity:0.2; position:absolute; top:0; left:0;][/div][/div]
+
+[/div][comment]---- top left end ----[/comment]
+
+
+[comment]---- top right start ----[/comment]
+[div=position:absolute; right:0px; top:31px; width:109px; height:179px; box-siding:border-box; border-bottom:var(--border0); border-left:var(--border0);overflow:hidden;]
+
+[comment]-- pic --[/comment][div=position:absolute; top:0px; left:0px; width:100%; height:100%; background:var(--tab1b); background-size:var(--tab1bsize); background-position:var(--tab1bposition); filter:var(--errorfilter);][div=transparent; height:100%; width:100%; padding:0; background: radial-gradient(2px 2px, var(--accent00), transparent); background-size: 3px 3px; opacity:0.2; position:absolute; top:0; left:0;][/div][/div]
+
+[comment]-- glitch lines --[/comment][div=position:absolute; top:0px; left:0px; width:100%; height:100%; background:var(--tab1bglitch); background-size:var(--tab1bsize); background-position:var(--tab1bposition); mix-blend-mode:soft-light;][/div]
+
+[comment]-- error text --[/comment][div=position:absolute; top:80px; left:30px; width:50px; height:20px; background:var(--bkgd); border:var(--border1); font-family:var(--font1); font-size:11px; line-height:20px; color:var(--errorcolor); text-align:center; text-transform:uppercase; -webkit-text-stroke:var(--errorbold); letter-spacing:0.5px; text-decoration:line-through;][comment]
+
+---- ERROR TAG HERE ----
+[/comment]error!
+[/div]
+
+[comment]-- glitch effect --[/comment][div=position:absolute; top:0px; left:0px; width:100%; height:100%; background:var(--tab1btexturecolor); background-size:var(--tab1bsize); background-position:var(--tab4aposition); -webkit-mask-image:var(--tab1btexture); mask-image:var(--tab1btexture); mask-repeat: no-repeat; mask-size:cover; mask-position:center;][/div]
+
+[/div][comment]---- top right end ----[/comment]
+
+
+[comment]---- bottom left start ----[/comment]
+[div=position:absolute; left:0px; bottom:0px; width:120px; height:299px; box-siding:border-box; border-top:var(--border0); border-right:var(--border0); overflow:hidden;]
+
+[comment]-- handprint --[/comment]
+[div=position:absolute; top:0px; left:0px; width:100%; height:100px; border-bottom:var(--border0);]
+[div=position:absolute; top:10px; left:25px; width:70px; height:80px; background:var(--hp1color); -webkit-mask-image:var(--handprint1); mask-image:var(--handprint1); mask-size:var(--hp1size); mask-position:var(--hp1position); transform:scalex(-1);][/div]
+[comment]-- corner lines--[/comment]
+[div=position:absolute; top:9px; left:9px; width:10px; height:1px; background:var(--accent03);][/div]
+[div=position:absolute; top:9px; left:9px; width:1px; height:10px; background:var(--accent03);][/div]
+[div=position:absolute; bottom:9px; right:9px; width:10px; height:1px; background:var(--accent03);][/div]
+[div=position:absolute; bottom:9px; right:9px; width:1px; height:10px; background:var(--accent03);][/div]
+[/div]
+
+[comment]-- pic --[/comment][div=position:absolute; bottom:0px; left:0px; width:100%; height:198px; background:var(--tab1c); background-size:var(--tab1csize); background-position:var(--tab1cposition); filter:var(--errorfilter);][div=transparent; height:100%; width:100%; padding:0; background: radial-gradient(2px 2px, var(--accent00), transparent); background-size: 3px 3px; opacity:0.3; position:absolute; top:0; left:0;][/div][/div]
+
+[/div][comment]---- bottom left end ----[/comment]
+
+
+[comment]---- bottom right start ----[/comment]
+[div=position:absolute; right:0px; bottom:0px; width:230px; height:299px; box-siding:border-box; border-top:var(--border0); overflow:hidden;]
+
+
+[comment]---- basics start ----[/comment]
+[div=position:absolute; top:0px; left:0px; width:100%; height:228px; border-bottom:var(--border0); overflow-x:hidden; overflow-y:scroll; scrollbar-width:none; font-size:var(--body1size); line-height:var(--body1lh); text-transform:uppercase; letter-spacing:1px; color:var(--textcolor); font-family:var(--tagfont); pointer-events: auto;]
+
+
+[comment] ----- BASICS TAGS SCROLL START ----- [/comment]
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border0);][div=display:inline-block; float:left; width:40%; text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold)][comment]
+
+---- TAG TITLE HERE ----
+[/comment]name
+[/div][div=display:inline-block; float:right; width:60%; text-align:right;; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]nakamoto yuta
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border0);][div=display:inline-block; float:left; width:40%; text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]alias
+[/div][div=display:inline-block; float:right; width:60%; text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]ライオン — "lion"
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border0);][div=display:inline-block; float:left; width:40%; text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]age
+[/div][div=display:inline-block; float:right; width:60%; text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]twenty-nine
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border0);][div=display:inline-block; float:left; width:40%; text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]role
+[/div][div=display:inline-block; float:right; width:60%; text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]encryption
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border0);][div=display:inline-block; float:left; width:40%; text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]gender
+[/div][div=display:inline-block; float:right; width:60%; text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]fluid
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border0);][div=display:inline-block; float:left; width:40%; text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]sexuality
+[/div][div=display:inline-block; float:right; width:60%; text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]bisexual
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border0);][div=display:inline-block; float:left; width:40%; text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]d.o.b.
+[/div][div=display:inline-block; float:right; width:60%; text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]october 26, 1995
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border0);][div=display:inline-block; float:left; width:40%; text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]p.o.b.
+[/div][div=display:inline-block; float:right; width:60%; text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]osaka, japan
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border0);][div=display:inline-block; float:left; width:40%; text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]ethnicity
+[/div][div=display:inline-block; float:right; width:60%; text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]japanese
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border0);][div=display:inline-block; float:left; width:40%; text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]faction
+[/div][div=display:inline-block; float:right; width:60%; text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]127 floor
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border0);][div=display:inline-block; float:left; width:40%; text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]status
+[/div][div=display:inline-block; float:right; width:60%; text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]on the move
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+[comment] ----- BASICS TAGS SCROLL END ----- [/comment]
+
+[/div][comment]---- basics end ----[/comment]
+
+
+[comment]---- music player start ----[/comment]
+[div=position:absolute; bottom:9px; left:9px; width:211px; height:51px; border:var(--border0); pointer-events: auto;]
+
+[comment] ---- MUSIC PLAYER BUTTON
+---- graciously granted to me by uxie ty queen ily [/comment]
+[div=position:absolute; top:5px; left:10px; width:40px; height:30px;]
+[div=height:40px; width:100%; flex-shrink:0; box-sizing:border-box; display:flex; flex-flow:row nowrap; align-items:center;]
+
+[comment] ---- play button ---- [/comment]
+[div=height:30px; width:40px; border-radius:100%; position:relative; flex-shrink:0;][div=height:100%; width:100%; background-size:cover; position:relative; z-index:2; pointer-events:none;][div=position:absolute; left:0px; top:0px; width:40px; height:30px; background:var(--playcolor); -webkit-mask-image:var(--musicpic); mask-image:var(--musicpic); mask-repeat: no-repeat; mask-size:cover; mask-position:center;][/div][/div]
+
+[comment] ---- media files ---- [/comment]
+[border=transparent; height:100%; width:100%; padding:0; position:absolute; top:0; left:0; z-index:1; display:flex; align-items:center; justify-content:center; overflow:hidden; opacity:0.01%;][border=transparent; height:30px; width:40px; padding:0; position:relative; pointer-events:auto;]
+
+[comment]---- SOUNDCLOUD ---- (replace the soundcloud link within media tag with your own) ---- [/comment]
+[border=transparent; height:80px; width:180px; padding:0; margin-top:-16px; margin-left:-14px; position:absolute; top:0; left:0;]
+[media=soundcloud]https://soundcloud.com/katherine-306169256/yuta-bad-euphoria[/media][/border]
+
+[comment]---- GOOGLE DRIVE ---- (replace the google file code within media tag with your own) ---- [/comment]
+[border=transparent; height:500px; width:500px; margin-top:-170px; margin-left:-93px; padding:0px;/*remove this to use me, and add it to the other*/ display:none;]
+[media=googledrive]1EwyiuGOGDy8NrbyIm2mfdHc7szRnCMBC[/MEDIA]
+
+[/border][/border][/border]
+[/div][/div][/div]
+
+
+[comment]-- song details --[/comment]
+[div=position:absolute; right:10px; top:8px; height:8px; font-family:var(--font1); font-size:8px; line-height:8px; color:var(--recentcolor); text-align:left; text-transform:uppercase; -webkit-text-stroke:var(--recentbold); letter-spacing:0.6px;][comment]
+
+---- SONG INTRO HERE ----
+[/comment]recently listened to:
+[/div]
+
+[div=position:absolute; right:10px; top:17px; height:14px; font-family:var(--font1); font-size:14px; line-height:14px; color:var(--songcolor); text-align:left; text-transform:uppercase; -webkit-text-stroke:var(--songbold); letter-spacing:1px;][comment]
+
+---- SONG NAME HERE ----
+[/comment]bad euphoria
+[/div]
+
+[div=position:absolute; right:10px; top:31px; height:11px; font-family:var(--font1); font-size:11px; line-height:11px; color:var(--artistcolor); text-align:left; text-transform:uppercase; -webkit-text-stroke:var(--artistbold); letter-spacing:1px;][comment]
+
+---- ARTIST NAME HERE ----
+[/comment]yuta
+[/div][/div]
+[comment]---- music player end----[/comment]
+
+[/div][comment]---- bottom right end ----[/comment]
+
+
+[comment]---- tabs cover ----[/comment]
+[div=position:absolute; right:11px; top:7px; width:300px; height:24px; pointer-events:none; opacity:1; box-siding:border-box; overflow:hidden; font-family:var(--font2); font-size:10px; line-height:15px; color:var(--textcolor); text-align:center; -webkit-text-stroke:2px var(--bkgd); letter-spacing:0.2px; paint-order:stroke fill;]
+[div=position:absolute; right:186px; top:0px; width:50px; height:15px; pointer-events:none; opacity:1; background:var(--tab1); box-siding:border-box; border-radius:20px; border:var(--border0); overflow:hidden;]001[/div]
+[div=position:absolute; right:124px; top:0px; width:50px; height:15px; pointer-events:none; opacity:1; background:var(--bkgd); box-siding:border-box; border-radius:20px; border:var(--border0); overflow:hidden;]002[/div]
+[div=position:absolute; right:62px; top:0px; width:50px; height:15px; pointer-events:none; opacity:1; background:var(--bkgd); box-siding:border-box; border-radius:20px; border:var(--border0); overflow:hidden;]003[/div]
+[div=position:absolute; right:0px; top:0px; width:50px; height:15px; pointer-events:none; opacity:1; background:var(--bkgd); box-siding:border-box; border-radius:20px; border:var(--border0); overflow:hidden;]004[/div]
+[/div]
+
+[div=display:none;]basics[/div]
+[/div][/tab][comment]
+
+
+
+
+---- TAB 2: VISAGE & PERSONA ----
+[/comment][tab=.][div=transparent; position:absolute; top:-8px; left:calc(0px - var(--taboffset) + 10px); pointer-events:none; height:var(--innerheight); width:100%; padding:0px 0 0 0; bottom:0px; right:0px; background:var(--bkgd); letter-spacing:0; opacity:1;]
+
+[comment]-- bkgd patch --[/comment][div=position:absolute; top:40px; right:-31px; width:30px; height:50px; background:var(--bkgd); border-left:var(--border0);][div=transparent; height:100%; width:100%; padding:0; background: radial-gradient(2px 2px, var(--accent03), transparent); background-size: 3px 3px; opacity:0.1; position:absolute; top:0; left:0;][/div][/div]
+
+
+[comment]---- HEADER START ----[/comment]
+[div=position:absolute; left:0px; top:0px; width:100%; height:30px; box-siding:border-box; border-bottom:var(--border0); overflow:hidden;]
+
+[comment]-- spinner --[/comment][div=position:absolute; top:0px; left:0px; width:28px; height:30px; border-right:var(--border0); font-size:15px; line-height:31px; text-align:center; color:var(--tab2);][fa]fas fa-circle-notch fa-spin[/fa][/div]
+
+[comment]-- header text --[/comment][div=position:absolute; left:35px; top:5px; font-family:var(--font1); font-size:10px; line-height:10px; color:var(--headercolor); text-align:left; text-transform:uppercase; -webkit-text-stroke:var(--headerbold); letter-spacing:0.6px;][comment]
+
+---- ORG NAME HERE ----
+[/comment]NCPD:
+[br][/br]
+[div=display:inline; color:var(--tabtitlecolor); -webkit-text-stroke:var(--tabbold);][comment]
+
+---- TAB NAME HERE ----
+[/comment]identification
+[/div][/div]
+[/div][comment]---- HEADER END ----[/comment]
+
+
+[comment]---- top start ----[/comment]
+[div=position:absolute; left:0px; top:30px; width:100%; height:202px; box-siding:border-box; border-bottom:var(--border0);overflow:hidden;]
+
+[comment]-- pic --[/comment][div=position:absolute; top:0px; right:0px; width:198px; height:100%; background:var(--tab2a); background-size:var(--tab2asize); background-position:var(--tab2aposition); filter:contrast(1.1); box-siding:border-box; border-left:var(--border0); border-top:var(--border0); filter:var(--visagefilter);][div=transparent; height:100%; width:100%; padding:0; background: radial-gradient(2px 2px, var(--accent00), transparent); background-size: 3px 3px; opacity:0.4; position:absolute; top:0; left:0;][/div][/div]
+
+[comment]---- top left start ----[/comment]
+[div=position:absolute; top:0px; left:0px; width:141px; height:100%; box-siding:border-box; border-right:var(--border0);]
+
+[comment]-- fingerprint 1 --[/comment]
+[div=position:absolute; top:0px; left:0px; width:70px; height:100px; box-siding:border-box; border-right:var(--border0); border-bottom:var(--border0);]
+[div=position:absolute; top:19px; left:15px; width:40px; height:70px; background:var(--fp1color); -webkit-mask-image:var(--fingerprint1); mask-image:var(--fingerprint1); mask-size:var(--fp1size); mask-position:var(--fp1position); transform:scalex(1);][/div]
+[div=position:absolute; top:0px; left:0px; width:15px; height:15px; border-right:var(--border0); border-bottom:var(--border0); font-family:var(--font1); font-size:12px; line-height:17px; text-align:center; text-transform:uppercase; color:var(--accent03); -webkit-text-stroke:1px var(--accent03);]L[/div]
+[/div]
+
+[comment]-- fingerprint 2 --[/comment]
+[div=position:absolute; top:0px; right:0px; width:70px; height:100px; box-siding:border-box; border-bottom:var(--border0);]
+[div=position:absolute; top:19px; left:15px; width:40px; height:70px; background:var(--fp2color); -webkit-mask-image:var(--fingerprint2); mask-image:var(--fingerprint2); mask-size:var(--fp1size); mask-position:var(--fp2position); transform:scalex(-1) rotate(-15deg);][/div]
+[div=position:absolute; top:0px; left:0px; width:15px; height:15px; border-right:var(--border0); border-bottom:var(--border0); font-family:var(--font1); font-size:12px; line-height:17px; text-align:center; text-transform:uppercase; color:var(--accent03); -webkit-text-stroke:1px var(--accent03);]R[/div]
+[/div]
+
+[comment]-- match text --[/comment][div=position:absolute; top:100px; left:0px; width:100%; height:30px; box-siding:border-box; border-bottom:var(--border0); font-family:var(--font1); font-size:15px; line-height:32px; color:var(--matchtcolor); text-align:center; text-transform:uppercase; -webkit-text-stroke:var(--matchtbold); letter-spacing:1.2px;][comment]
+
+---- MATCH TEXT HERE ----
+[/comment]match confirmed
+[/div]
+
+[comment]-- match tiles start --[/comment]
+[comment]-- container --[/comment][div=position:absolute; top:131px; left:0px; width:100%; height:71px;]
+[comment]-- dots filter --[/comment][div=transparent; height:100%; width:100%; padding:0; background: radial-gradient(2px 2px, var(--accent02), transparent); background-size: 3px 3px; opacity:0.2; position:absolute; top:0; left:0;][/div]
+[comment]-- row 1 --[/comment]
+[div=position:absolute; top:0px; left:14px; width:var(--tilex); height:var(--tiley); background:var(--tilecolor3); border-radius:var(--tilebr); border:var(--tileborder); box-siding:border-box][/div]
+[div=position:absolute; top:0px; left:42px; width:var(--tilex); height:var(--tiley); background:var(--tilecolor2); border-radius:var(--tilebr); border:var(--tileborder); box-siding:border-box][/div]
+[div=position:absolute; top:0px; left:56px; width:var(--tilex); height:var(--tiley); background:var(--tilecolor1); border-radius:var(--tilebr); border:var(--tileborder); box-siding:border-box][/div]
+[div=position:absolute; top:0px; left:84px; width:var(--tilex); height:var(--tiley); background:var(--tilecolor4); border-radius:var(--tilebr); border:var(--tileborder); box-siding:border-box][/div]
+[div=position:absolute; top:0px; left:112px; width:var(--tilex); height:var(--tiley); background:var(--tilecolor3); border-radius:var(--tilebr); border:var(--tileborder); box-siding:border-box][/div]
+[comment]-- row 2 --[/comment]
+[div=position:absolute; top:14px; left:28px; width:var(--tilex); height:var(--tiley); background:var(--tilecolor1); border-radius:var(--tilebr); border:var(--tileborder); box-siding:border-box][/div]
+[div=position:absolute; top:14px; left:70px; width:var(--tilex); height:var(--tiley); background:var(--tilecolor0); border-radius:var(--tilebr); border:var(--tileborder); box-siding:border-box][/div]
+[comment]-- row 3 --[/comment]
+[div=position:absolute; top:28px; left:0px; width:var(--tilex); height:var(--tiley); background:var(--tilecolor2); border-radius:var(--tilebr); border:var(--tileborder); box-siding:border-box][/div]
+[div=position:absolute; top:28px; left:42px; width:var(--tilex); height:var(--tiley); background:var(--tilecolor2); border-radius:var(--tilebr); border:var(--tileborder); box-siding:border-box][/div]
+[div=position:absolute; top:28px; left:84px; width:var(--tilex); height:var(--tiley); background:var(--tilecolor3); border-radius:var(--tilebr); border:var(--tileborder); box-siding:border-box][/div]
+[div=position:absolute; top:28px; left:98px; width:var(--tilex); height:var(--tiley); background:var(--tilecolor1); border-radius:var(--tilebr); border:var(--tileborder); box-siding:border-box][/div]
+[div=position:absolute; top:28px; left:126px; width:var(--tilex); height:var(--tiley); background:var(--tilecolor4); border-radius:var(--tilebr); border:var(--tileborder); box-siding:border-box][/div]
+[comment]-- row 4 --[/comment]
+[div=position:absolute; top:42px; left:14px; width:var(--tilex); height:var(--tiley); background:var(--tilecolor1); border-radius:var(--tilebr); border:var(--tileborder); box-siding:border-box][/div]
+[div=position:absolute; top:42px; left:28px; width:var(--tilex); height:var(--tiley); background:var(--tilecolor0); border-radius:var(--tilebr); border:var(--tileborder); box-siding:border-box][/div]
+[div=position:absolute; top:42px; left:70px; width:var(--tilex); height:var(--tiley); background:var(--tilecolor2); border-radius:var(--tilebr); border:var(--tileborder); box-siding:border-box][/div]
+[div=position:absolute; top:42px; left:112px; width:var(--tilex); height:var(--tiley); background:var(--tilecolor0); border-radius:var(--tilebr); border:var(--tileborder); box-siding:border-box][/div]
+[comment]-- row 5 --[/comment]
+[div=position:absolute; top:56px; left:14px; width:var(--tilex); height:var(--tiley); background:var(--tilecolor3); border-radius:var(--tilebr); border:var(--tileborder); box-siding:border-box][/div]
+[div=position:absolute; top:56px; left:42px; width:var(--tilex); height:var(--tiley); background:var(--tilecolor1); border-radius:var(--tilebr); border:var(--tileborder); box-siding:border-box][/div]
+[div=position:absolute; top:56px; left:56px; width:var(--tilex); height:var(--tiley); background:var(--tilecolor3); border-radius:var(--tilebr); border:var(--tileborder); box-siding:border-box][/div]
+[div=position:absolute; top:56px; left:126px; width:var(--tilex); height:var(--tiley); background:var(--tilecolor2); border-radius:var(--tilebr); border:var(--tileborder); box-siding:border-box][/div]
+[/div][comment]-- match tiles end--[/comment]
+
+[/div][comment]---- top left end----[/comment]
+
+[comment]-- arrow 1 --[/comment]
+[div=position:absolute; top:137px; left:95px; width:110px; height:2px; background:var(--matchcolor); border-radius:1px;][/div]
+[div=position:absolute; top:127px; left:200px; width:32px; height:2px; background:var(--matchcolor); transform:rotate(-40deg); border-radius:1px;][/div]
+[div=position:absolute; top:108px; left:227px; width:7px; height:7px; border:2px solid var(--matchcolor);][/div]
+
+[comment]-- arrow 2 --[/comment]
+[div=position:absolute; top:165px; left:130px; width:110px; height:2px; background:var(--matchcolor); border-radius:1px;][/div]
+[div=position:absolute; top:155px; left:235px; width:32px; height:2px; background:var(--matchcolor); transform:rotate(-40deg); border-radius:1px;][/div]
+[div=position:absolute; top:136px; left:262px; width:7px; height:7px; border:2px solid var(--matchcolor);][/div]
+
+[/div][comment]---- top end ----[/comment]
+
+
+[comment]---- middle start ----[/comment]
+[div=position:absolute; left:0px; top:233px; width:100%; height:76px; box-siding:border-box; border-bottom:var(--border0); overflow:hidden;]
+
+[comment]-- pic --[/comment][div=position:absolute; left:0px; top:0px; width:141px; height:100%; box-siding:border-box; border-right:var(--border0); overflow:hidden;][div=position:absolute; top:0px; left:0px; width:100%; height:100%; background:var(--tab2b); background-size:var(--tab2bsize); background-position:var(--tab2bposition); filter:var(--errorfilter);][div=transparent; height:100%; width:100%; padding:0; background: radial-gradient(2px 2px, var(--accent00), transparent); background-size: 3px 3px; opacity:0.3; position:absolute; top:0; left:0;][/div][/div]
+
+[comment]-- glitch lines --[/comment][div=position:absolute; top:0px; left:0px; width:100%; height:100%; background:var(--tab2bglitch); background-size:var(--tab2bsize); background-position:var(--tab2bposition); mix-blend-mode:soft-light; filter:saturate(50%);][/div]
+
+[comment]-- error text --[/comment][div=position:absolute; top:29px; left:45px; width:50px; height:20px; background:var(--bkgd); border:var(--border1); font-family:var(--font1); font-size:11px; line-height:20px; color:var(--errorcolor); text-align:center; text-transform:uppercase; -webkit-text-stroke:var(--errorbold); letter-spacing:0.5px; text-decoration:line-through;][comment]
+
+---- ERROR TAG HERE ----
+[/comment]error!
+[/div]
+
+[comment]-- glitch effect --[/comment][div=position:absolute; top:0px; left:0px; width:100%; height:100%; background:var(--tab2btexturecolor); background-size:var(--tab2bsize); background-position:var(--tab2bposition); -webkit-mask-image:var(--tab1btexture); mask-image:var(--tab1btexture); mask-repeat: no-repeat; mask-size:cover; mask-position:center;][/div]
+[/div]
+
+
+[comment]---- visage start ----[/comment]
+[div=position:absolute; right:0px; top:0px; width:198px; height:100%; box-siding:border-box; border-left:var(--border0); font-family:var(--font1); text-transform:uppercase; font-size:var(--body1size); line-height:var(--body1lh); letter-spacing:1px; color:var(--textcolor); overflow-x:hidden; overflow-y:scroll; scrollbar-width:none; pointer-events:auto;]
+
+
+[comment] ----- VISAGE TAGS SCROLL START ----- [/comment]
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border0);][div=display:inline-block; float:left; width:40%; text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]height
+[/div][div=display:inline-block; float:right; width:60%; text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]5' 9" (176 cm)
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border0);][div=display:inline-block; float:left; width:40%; text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]weight
+[/div][div=display:inline-block; float:right; width:60%; text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]132 lbs (60 kg)
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border0);][div=display:inline-block; float:left; width:40%; text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]eyes
+[/div][div=display:inline-block; float:right; width:60%; text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]orange, brown, amber
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border0);][div=display:inline-block; float:left; width:40%; text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]hair
+[/div][div=display:inline-block; float:right; width:60%; text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]dark reddish rust
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border0);][div=display:inline-block; float:left; width:40%; text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]skin
+[/div][div=display:inline-block; float:right; width:60%; text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]fair, neutral undertones
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border0);][div=display:inline-block; float:left; width:40%; text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]build
+[/div][div=display:inline-block; float:right; width:60%; text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]slim, lean, bad posture
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border0);][div=display:inline-block; float:left; width:40%; text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]tattoos
+[/div][div=display:inline-block; float:right; width:60%; text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]x, x, x
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border0);][div=display:inline-block; float:left; width:40%; text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]distinguishing features
+[/div][div=display:inline-block; float:right; width:60%; text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]x, x, x
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+[comment] ----- VISAGE TAGS SCROLL END ----- [/comment]
+
+[/div][comment]---- visage end ----[/comment]
+[/div][comment]---- middle end ----[/comment]
+
+
+[comment]---- bottom start ----[/comment]
+[div=position:absolute; left:0px; bottom:0px; width:100%; height:200px; box-siding:border-box; border-top:var(--border0); overflow:hidden; pointer-events:auto;]
+
+[comment]---- virtues start ----[/comment]
+[div=position:absolute; left:10px; top:15px; width:141px; height:80px; overflow-x:hidden; overflow-y:scroll; scrollbar-width:none; white-space: pre-line; font-family:var(--bodyfont); font-size:var(--vsize); line-height:var(--vlh); color:var(--vcolor); text-align:justify; -webkit-text-stroke:var(--virtuebold); text-transform:uppercase; font-family:var(--font1); letter-spacing:1.2px; paint-order:stroke fill;][comment]
+
+---- VIRTUE TAGS START HERE ----
+[/comment][div=display:inline; border:var(--virtueborder); padding:var(--vspace);]nurturing[/div]
+[div=display:inline; border:var(--virtueborder); padding:var(--vspace);]hard-working[/div]
+[div=display:inline; border:var(--virtueborder); padding:var(--vspace);]physically affectionate[/div]
+[div=display:inline; border:var(--virtueborder); padding:var(--vspace);]humorous[/div]
+[div=display:inline; border:var(--virtueborder); padding:var(--vspace);]easy-going[/div]
+[div=display:inline; border:var(--virtueborder); padding:var(--vspace);]adaptable[/div]
+[/div][comment]---- virtues end ----[/comment]
+
+
+[comment]---- vices start ----[/comment]
+[div=position:absolute; left:10px; bottom:15px; width:141px; height:80px; overflow-x:hidden; overflow-y:scroll; scrollbar-width:none; white-space: pre-line; font-family:var(--bodyfont); font-size:var(--vsize); line-height:var(--vlh); color:var(--vcolor); text-align:justify; -webkit-text-stroke:var(--vicebold); text-transform:uppercase; font-family:var(--font1); letter-spacing:1.2px; paint-order:stroke fill;][comment]
+
+---- VICES TAGS START HERE ----
+[/comment][div=display:inline; border:var(--viceborder); padding:var(--vspace);]dishonest[/div]
+[div=display:inline; border:var(--viceborder); padding:var(--vspace);]non-confrontational[/div]
+[div=display:inline; border:var(--viceborder); padding:var(--vspace);]unreadable[/div]
+[div=display:inline; border:var(--viceborder); padding:var(--vspace);]stoic[/div]
+[div=display:inline; border:var(--viceborder); padding:var(--vspace);]sarcastic[/div]
+[div=display:inline; border:var(--viceborder); padding:var(--vspace);]quiet[/div]
+[/div][comment]---- vices end ----[/comment]
+
+
+[comment]---- persona start ----[/comment]
+[div=position:absolute; right:10px; bottom:12px; width:180px; height:175px; overflow-x:hidden; overflow-y:scroll; scrollbar-width:none; white-space: pre-line; font-family:var(--bodyfont); font-size:var(--body2size); line-height:var(--body2lh); color:var(--textcolor); text-align:justify;][comment]
+
+---- PERSONA BODY START: first tag has no additional top margin spacing, so copy any of the other tags to make more! ----
+[/comment][div=margin-bottom:var(--tagbmargin); color:var(--tag2color); -webkit-text-stroke:var(--tag2bold); text-transform:uppercase; font-family:var(--tagfont); font-size:var(--tagsize); letter-spacing:1px;]personality[/div]Ornare sagittis vehicula praesent dui felis venenatis ultrices. Pretium tellus duis convallis tempus leo eu aenean. Dis parturient montes nascetur ridiculus mus donec rhoncus. Ligula congue sollicitudin erat viverra ac tincidunt nam. Potenti ultricies habitant morbi senectus netus suscipit auctor. Fringilla lacus nec metus bibendum egestas iaculis massa. Maximus eget fermentum odio phasellus non purus est. Ligula congue sollicitudin erat viverra ac tincidunt nam. Potenti ultricies habitant morbi senectus netus suscipit auctor. Fringilla lacus nec metus bibendum egestas iaculis massa.
+
+[div=margin-bottom:var(--tagbmargin); margin-top:var(--tagtmargin); color:var(--tag2color); -webkit-text-stroke:var(--tag2bold); text-transform:uppercase; font-family:var(--tagfont); font-size:var(--tagsize); letter-spacing:1px;]hobbies[/div]Porta elementum a enim euismod quam justo lectus. Curabitur facilisi cubilia curae hac habitasse platea dictumst. Nisl malesuada lacinia integer nunc posuere ut hendrerit.
+
+[div=margin-bottom:var(--tagbmargin); margin-top:var(--tagtmargin); color:var(--tag2color); -webkit-text-stroke:var(--tag2bold); text-transform:uppercase; font-family:var(--tagfont); font-size:var(--tagsize); letter-spacing:1px;]aversions[/div]Consequat magna ante condimentum neque at luctus nibh. Ornare sagittis vehicula praesent dui felis venenatis ultrices. 
+
+[div=margin-bottom:var(--tagbmargin); margin-top:var(--tagtmargin); color:var(--tag2color); -webkit-text-stroke:var(--tag2bold); text-transform:uppercase; font-family:var(--tagfont); font-size:var(--tagsize); letter-spacing:1px;]ambitions[/div]Vitae pellentesque sem placerat in id cursus mi. Inceptos himenaeos orci varius natoque pen atibus et magnis.
+
+[div=margin-bottom:var(--tagbmargin); margin-top:var(--tagtmargin); color:var(--tag2color); -webkit-text-stroke:var(--tag2bold); text-transform:uppercase; font-family:var(--tagfont); font-size:var(--tagsize); letter-spacing:1px;]fears[/div]Eu aenean sed diam urna tempor pulvinar vivamus. Donec rhoncus eros lobortis nulla et molestie mattis scelerisque. 
+
+[div=margin-bottom:var(--tagbmargin); margin-top:var(--tagtmargin); color:var(--tag2color); -webkit-text-stroke:var(--tag2bold); text-transform:uppercase; font-family:var(--tagfont); font-size:var(--tagsize); letter-spacing:1px;]love language[/div]Physical touch, quality time.
+
+[/div][comment]---- persona end ----[/comment]
+[/div][comment]---- bottom end ----[/comment]
+
+
+[comment]---- tabs cover ----[/comment]
+[div=position:absolute; right:11px; top:7px; width:300px; height:24px; pointer-events:none; opacity:1; box-siding:border-box; overflow:hidden; font-family:var(--font2); font-size:10px; line-height:15px; color:var(--textcolor); text-align:center; -webkit-text-stroke:2px var(--bkgd); letter-spacing:0.2px; paint-order:stroke fill;]
+[div=position:absolute; right:186px; top:0px; width:50px; height:15px; pointer-events:none; opacity:1; background:var(--bkgd); box-siding:border-box; border-radius:20px; border:var(--border0); overflow:hidden;]001[/div]
+[div=position:absolute; right:124px; top:0px; width:50px; height:15px; pointer-events:none; opacity:1; background:var(--tab2); box-siding:border-box; border-radius:20px; border:var(--border0); overflow:hidden;]002[/div]
+[div=position:absolute; right:62px; top:0px; width:50px; height:15px; pointer-events:none; opacity:1; background:var(--bkgd); box-siding:border-box; border-radius:20px; border:var(--border0); overflow:hidden;]003[/div]
+[div=position:absolute; right:0px; top:0px; width:50px; height:15px; pointer-events:none; opacity:1; background:var(--bkgd); box-siding:border-box; border-radius:20px; border:var(--border0); overflow:hidden;]004[/div]
+[/div]
+
+[div=display:none;]visage/persona[/div]
+[/div][/tab][comment]
+
+
+
+
+---- TAB 3: BACKGROUND & CONNECTIONS----
+[/comment][tab=.][div=transparent; position:absolute; top:-8px; left:calc(0px - var(--taboffset) + 10px); pointer-events:none; height:var(--innerheight); width:100%; padding:0px 0 0 0; bottom:0px; right:0px; background:var(--bkgd); letter-spacing:0; opacity:1;]
+
+[comment]-- bkgd patch --[/comment][div=position:absolute; top:40px; right:-31px; width:30px; height:50px; background:var(--bkgd); border-left:var(--border0);][div=transparent; height:100%; width:100%; padding:0; background: radial-gradient(2px 2px, var(--accent03), transparent); background-size: 3px 3px; opacity:0.1; position:absolute; top:0; left:0;][/div][/div]
+
+
+[comment]---- HEADER START ----[/comment]
+[div=position:absolute; left:0px; top:0px; width:100%; height:30px; box-siding:border-box; border-bottom:var(--border0); overflow:hidden;]
+
+[comment]-- spinner --[/comment][div=position:absolute; top:0px; left:0px; width:28px; height:30px; border-right:var(--border0); font-size:15px; line-height:31px; text-align:center; color:var(--tab3);][fa]fas fa-circle-notch fa-spin[/fa][/div]
+
+[comment]-- header text --[/comment][div=position:absolute; left:35px; top:5px; font-family:var(--font1); font-size:10px; line-height:10px; color:var(--headercolor); text-align:left; text-transform:uppercase; -webkit-text-stroke:var(--headerbold); letter-spacing:0.6px;][comment]
+
+---- ORG NAME HERE ----
+[/comment]NCPD:
+[br][/br][div=display:inline; color:var(--tabtitlecolor); -webkit-text-stroke:var(--tabbold);][comment]
+
+---- TAB NAME HERE ----
+[/comment]environment
+[/div][/div]
+[/div][comment]---- HEADER END ----[/comment]
+
+
+[comment]---- top left start ----[/comment]
+[div=position:absolute; left:0px; top:31px; width:200px; height:200px; box-siding:border-box; border-bottom:var(--border0); border-right:var(--border0); overflow-x: hidden; overflow-y:scroll; scrollbar-width:none; pointer-events:auto;]
+
+[comment] ----- RELATIONSHIPS SCROLL START ----- [/comment]
+
+
+[comment]---- RELATIONSHIP START: copy me to add another rship! (remember to make new variables up top and sub them in here for 4+) ----[/comment]
+[div=position:relative; width:100%; height:auto; margin-bottom:10px;][div=position:relative; width:100%; height:105px; margin-bottom:2px;]
+
+[comment]-- pic --[/comment]
+[div=position:absolute; left:10px; top:10px; width:90px; height:90px; box-siding:border-box; border:var(--border0); background:var(--rpic1); background-size:var(--rpic1size); background-position:var(--rpic1position);][div=transparent; height:100%; width:100%; padding:0; background: radial-gradient(2px 2px, var(--accent00), transparent); background-size: 3px 3px; opacity:0.1; position:absolute; top:0; left:0;][/div][/div]
+
+[comment]-- handprint --[/comment]
+[div=position:absolute; top:15px; right:10px; width:70px; height:80px; background:var(--hp2color); -webkit-mask-image:var(--handprint2); mask-image:var(--handprint2); mask-size:var(--hp2size); mask-position:var(--hp2position); transform:rotate(-20deg);][/div]
+
+[comment]-- name --[/comment]
+[div=position:absolute; top:67px; right:40px; width:auto; height:13px; padding:3px; background:var(--bkgd); border-bottom:2px solid var(--matchcolor); color:var(--rncolor); font-size:var(-rnsize); line-height:var(--rnlh); text-align:right; text-transform:uppercase; -webkit-text-stroke:var(--rnbold); letter-spacing:1px;][comment]
+
+---- RELATIONSHIP NAME HERE ----
+[/comment]lee, taeyong
+[/div]
+
+[comment]-- detail --[/comment]
+[div=position:absolute; top:90px; right:37px; width:auto; height:10px; padding:1px; background:var(--bkgd); color:var(--rdcolor); font-size:var(--rdsize); line-height:var(--rdlh); text-align:right; text-transform:uppercase; -webkit-text-stroke:var(--rdbold); letter-spacing:1px;][comment]
+
+---- RELATIONSHIP TYPE HERE ----
+[/comment]contractor
+[/div]
+
+[comment]-- arrow --[/comment]
+[div=position:absolute; top:75px; right:15.5px; width:30px; height:2px; background:var(--matchcolor); transform:rotate(-50deg); border-radius:1px;][/div][div=position:absolute; top:55px; right:12px; width:7px; height:7px; border:2px solid var(--matchcolor);][/div]
+[/div]
+
+[comment]-- body --[/comment]
+[div=position:relative; width:175px; margin:auto; height:auto; font-family:var(--rfont); font-size:var(--rsize); line-height:var(--rlh); color:var(--textcolor); text-align:justify;][comment]
+
+---- RELATIONSHIP BODY HERE ----
+[/comment]Pretium tellus duis convallis tempus leo eu aenean. Dis par turient montes nas cetur ridic ulus mus donec rhoncus. Dictum risus blandit quis suspendisse. Ornare sagittis vehicula praesent dui felis venenatis ultrices. Pretium tellus duis convallis tempus leo eu aenean. Dis par turient montes nas cetur ridic ulus mus donec rhoncus. Dictum risus blandit quis suspendisse. 
+[/div][/div][comment]---- RELATIONSHIP END: copy me too! ----[/comment]
+
+
+[comment]---- RELATIONSHIP START: copy me to add another rship! (remember to make new variables up top and sub them in here for 4+) ----[/comment]
+[div=position:relative; width:100%; height:auto; margin-bottom:10px;][div=position:relative; width:100%; height:105px; margin-bottom:2px;]
+
+[comment]-- pic --[/comment]
+[div=position:absolute; left:10px; top:10px; width:90px; height:90px; box-siding:border-box; border:var(--border0); background:var(--rpic2); background-size:var(--rpic2size); background-position:var(--rpic2position);][div=transparent; height:100%; width:100%; padding:0; background: radial-gradient(2px 2px, var(--accent00), transparent); background-size: 3px 3px; opacity:0.1; position:absolute; top:0; left:0;][/div][/div]
+
+[comment]-- handprint --[/comment]
+[div=position:absolute; top:15px; right:10px; width:70px; height:80px; background:var(--hp2color); -webkit-mask-image:var(--handprint2); mask-image:var(--handprint2); mask-size:var(--hp2size); mask-position:var(--hp2position); transform:rotate(-20deg);][/div]
+
+[comment]-- name --[/comment]
+[div=position:absolute; top:67px; right:40px; width:auto; height:13px; padding:3px; background:var(--bkgd); border-bottom:2px solid var(--matchcolor); color:var(--rncolor); font-size:var(-rnsize); line-height:var(--rnlh); text-align:right; text-transform:uppercase; -webkit-text-stroke:var(--rnbold); letter-spacing:1px;][comment]
+
+---- RELATIONSHIP NAME HERE ----
+[/comment]kim, doyoung
+[/div]
+
+[comment]-- detail --[/comment]
+[div=position:absolute; top:90px; right:37px; width:auto; height:10px; padding:1px; background:var(--bkgd); color:var(--rdcolor); font-size:var(--rdsize); line-height:var(--rdlh); text-align:right; text-transform:uppercase; -webkit-text-stroke:var(--rdbold); letter-spacing:1px;][comment]
+
+---- RELATIONSHIP TYPE HERE ----
+[/comment]engineer
+[/div]
+
+[comment]-- arrow --[/comment]
+[div=position:absolute; top:75px; right:15.5px; width:30px; height:2px; background:var(--matchcolor); transform:rotate(-50deg); border-radius:1px;][/div][div=position:absolute; top:55px; right:12px; width:7px; height:7px; border:2px solid var(--matchcolor);][/div]
+[/div]
+
+[comment]-- body --[/comment]
+[div=position:relative; width:175px; margin:auto; height:auto; font-family:var(--rfont); font-size:var(--rsize); line-height:var(--rlh); color:var(--textcolor); text-align:justify;][comment]
+
+---- RELATIONSHIP BODY HERE ----
+[/comment]Vehicula praesent dui felis venenatis ultrices. Pretium tellus duis convallis tempus leo eu aenean. Dis par turient montes nas cetur ridic ulus mus donec rhoncus. Dictum risus blandit quis suspendisse. Ornare sagittis vehicula praesent dui felis venenatis ultrices. Pretium tellus duis convallis tempus leo eu aenean. 
+[/div][/div][comment]---- RELATIONSHIP END: copy me too! ----[/comment]
+
+
+[comment]---- RELATIONSHIP START: copy me to add another rship! (remember to make new variables up top and sub them in here for 4+) ----[/comment]
+[div=position:relative; width:100%; height:auto; margin-bottom:10px;][div=position:relative; width:100%; height:105px; margin-bottom:2px;]
+
+[comment]-- pic --[/comment]
+[div=position:absolute; left:10px; top:10px; width:90px; height:90px; box-siding:border-box; border:var(--border0); background:var(--rpic3); background-size:var(--rpic3size); background-position:var(--rpic3position);][div=transparent; height:100%; width:100%; padding:0; background: radial-gradient(2px 2px, var(--accent00), transparent); background-size: 3px 3px; opacity:0.1; position:absolute; top:0; left:0;][/div][/div]
+
+[comment]-- handprint --[/comment]
+[div=position:absolute; top:15px; right:10px; width:70px; height:80px; background:var(--hp2color); -webkit-mask-image:var(--handprint2); mask-image:var(--handprint2); mask-size:var(--hp2size); mask-position:var(--hp2position); transform:rotate(-20deg);][/div]
+
+[comment]-- name --[/comment]
+[div=position:absolute; top:67px; right:40px; width:auto; height:13px; padding:3px; background:var(--bkgd); border-bottom:2px solid var(--matchcolor); color:var(--rncolor); font-size:var(-rnsize); line-height:var(--rnlh); text-align:right; text-transform:uppercase; -webkit-text-stroke:var(--rnbold); letter-spacing:1px;][comment]
+
+---- RELATIONSHIP NAME HERE ----
+[/comment]lee, minhyung
+[/div]
+
+[comment]-- detail --[/comment]
+[div=position:absolute; top:90px; right:37px; width:auto; height:10px; padding:1px; background:var(--bkgd); color:var(--rdcolor); font-size:var(--rdsize); line-height:var(--rdlh); text-align:right; text-transform:uppercase; -webkit-text-stroke:var(--rdbold); letter-spacing:1px;][comment]
+
+---- RELATIONSHIP TYPE HERE ----
+[/comment]trojan horse
+[/div]
+
+[comment]-- arrow --[/comment]
+[div=position:absolute; top:75px; right:15.5px; width:30px; height:2px; background:var(--matchcolor); transform:rotate(-50deg); border-radius:1px;][/div][div=position:absolute; top:55px; right:12px; width:7px; height:7px; border:2px solid var(--matchcolor);][/div]
+[/div]
+
+[comment]-- body --[/comment]
+[div=position:relative; width:175px; margin:auto; height:auto; font-family:var(--rfont); font-size:var(--rsize); line-height:var(--rlh); color:var(--textcolor); text-align:justify;][comment]
+
+---- RELATIONSHIP BODY HERE ----
+[/comment]Ornare sagittis vehicula praesent dui felis venenatis ultrices. Pretium tellus duis convallis tempus leo eu aenean. Dis par turient montes nas cetur ridic ulus mus donec rhoncus. Dictum risus blandit quis suspendisse.
+[/div][/div][comment]---- RELATIONSHIP END: copy me too! ----[/comment]
+
+
+[comment] ----- RELATIONSHIPS SCROLL END ----- [/comment]
+
+
+[/div][comment]---- scroll tag ----[/comment]
+[div=position:absolute; top:31px; left:167.5px; height:11px; padding:2px 4px 2px 4px; background:var(--bkgd); border-bottom:var(--border0); border-left:var(--border0); text-align:right; text-transform:uppercase; font-size:9px; line-height:11px; font-family:var(--font1); letter-spacing:0.5px; color:var(--accent04); -webkit-text-stroke:0.5px var(--accent04);][comment]
+
+---- SCROLL TAG HERE ----
+[/comment]scroll
+[/div]
+[comment]---- top left end ----[/comment]
+
+
+[comment]---- top right start ----[/comment]
+[div=position:absolute; right:0px; top:31px; width:140px; height:200px; box-siding:border-box; border-bottom:var(--border0); border-left:var(--border0); overflow-x: hidden; overflow-y:scroll; scrollbar-width:none; pointer-events:auto;]
+
+[comment]-- reputation heading --[/comment][div=position:absolute; top:0px; width:100%; height:25px; box-siding:border-box; border-bottom:var(--border0); text-align:center; text-transform:uppercase; font-size:16px; line-height:26px; font-family:var(--font1); letter-spacing:1.3px; color:var(--stcolor); -webkit-text-stroke:var(--stbold);][comment]
+
+---- REPUTATION HEADER HERE ----
+[/comment]reputation
+[/div]
+
+[comment]-- pic --[/comment][div=position:absolute; top:26px; width:120px; height:70px; box-siding:border-box; overflow-x:hidden; overflow-y:scroll; scrollbar-width:none; white-space: pre-line; font-family:var(--bodyfont); font-size:var(--body2size); line-height:var(--body2lh); color:var(--textcolor); text-align:justify; padding:10px;][comment]
+
+---- REPUTATION HERE ----
+[/comment]"That lion's on the prowl again, is he? Nisi sodales consequat magna ante condimentum neque at. Primis vulputate ornare sagittis vehicula praesent dui felis. Cursus mi pretium tellus duis convallis tempus leo. Et magnis dis parturient montes nascetur ridiculus mus. Interdum tortor ligula congue sollicitudin erat viverra ac. Accumsan maecenas potenti ultricies habitant morbi senectus netus. Pulvinar vivamus fringilla lacus nec metus bibendum egestas."
+[/div]
+
+[comment]-- pic --[/comment][div=position:absolute; right:0px; bottom:0px; width:100%; height:70px; box-siding:border-box; border-top:var(--border0); overflow:hidden;][div=position:absolute; top:0px; left:0px; width:100%; height:100%; background:var(--tab3a); background-size:var(--tab3asize); background-position:var(--tab3aposition); filter:var(--errorfilter);][div=transparent; height:100%; width:100%; padding:0; background: radial-gradient(2px 2px, var(--accent00), transparent); background-size: 3px 3px; opacity:0.3; position:absolute; top:0; left:0;][/div][/div]
+
+[comment]-- glitch lines --[/comment][div=position:absolute; top:0px; left:0px; width:100%; height:100%; background:var(--tab3aglitch); background-size:var(--tab3asize); background-position:var(--tab3aposition); mix-blend-mode:soft-light; filter:saturate(70%);][/div]
+
+[comment]-- error text --[/comment][div=position:absolute; top:25px; left:45px; width:50px; height:20px; background:var(--bkgd); border:var(--border1); font-family:var(--font1); font-size:11px; line-height:20px; color:var(--errorcolor); text-align:center; text-transform:uppercase; -webkit-text-stroke:var(--errorbold); letter-spacing:0.5px; text-decoration:line-through;][comment]
+
+---- ERROR TAG HERE ----
+[/comment]error!
+[/div]
+
+[comment]-- glitch effect --[/comment][div=position:absolute; top:0px; left:0px; width:100%; height:100%; background:var(--tab3atexturecolor); background-size:var(--tab3asize); background-position:var(--tab3aposition); -webkit-mask-image:var(--tab1btexture); mask-image:var(--tab1btexture); mask-repeat: no-repeat; mask-size:cover; mask-position:center;][/div]
+[/div]
+[/div][comment]---- top right end ----[/comment]
+
+
+[comment]---- bottom start ----[/comment]
+[div=position:absolute; bottom:0px; width:100%; height:269px; box-siding:border-box; border-top:var(--border0);]
+
+
+[comment]-- bottom left start --[/comment]
+[div=position:absolute; top:0px; width:130px; height:25px; box-siding:border-box; border-bottom:var(--border0); border-right:var(--border0); text-align:center; text-transform:uppercase; font-size:16px; line-height:26px; font-family:var(--font1); letter-spacing:1.3px; color:var(--stcolor); -webkit-text-stroke:var(--stbold);][comment]
+
+---- BKGD HEADER HERE ----
+[/comment]background
+[/div]
+
+[comment]-- pic --[/comment][div=position:absolute; bottom:0px; width:130px; height:243px; box-siding:border-box; border-right:var(--border0); background:var(--tab3b); background-size:var(--tab3bsize); background-position:var(--tab3bposition); filter:contrast(1.1);][div=transparent; height:100%; width:100%; padding:0; background: radial-gradient(2px 2px, var(--accent00), transparent); background-size: 3px 3px; opacity:0.2; position:absolute; top:0; left:0;][/div][/div]
+[comment]-- bottom left end --[/comment]
+
+
+[comment]-- bottom right start --[/comment]
+[comment]---- backstory start ----[/comment]
+[div=position:absolute; right:10px; top:9px; width:200px; height:250px; overflow-x:hidden; overflow-y:scroll; scrollbar-width:none; white-space: pre-line; font-family:var(--bodyfont); font-size:var(--body2size); line-height:var(--body2lh); color:var(--textcolor); text-align:justify; pointer-events:auto;][comment]
+
+---- BACKSTORY BODY START: first tag has no additional top margin spacing, so copy any of the other tags to make more! ----
+[/comment][div=margin-bottom:var(--tagbmargin); color:var(--tag3color); -webkit-text-stroke:var(--tag3bold); text-transform:uppercase; font-family:var(--tagfont); font-size:var(--tagsize); letter-spacing:1px;]residence[/div]Ornare sagittis vehicula praesent dui felis venenatis ultrices.
+
+[div=margin-bottom:var(--tagbmargin); margin-top:var(--tagtmargin); color:var(--tag3color); -webkit-text-stroke:var(--tag3bold); text-transform:uppercase; font-family:var(--tagfont); font-size:var(--tagsize); letter-spacing:1px;]family[/div]Porta elementum a enim euismod quam justo lectus. Curabitur facilisi cubilia curae hac habitasse platea dictumst. Nisl malesuada lacinia integer nunc posuere ut hendrerit.
+
+[div=margin-bottom:var(--tagbmargin); margin-top:var(--tagtmargin); color:var(--tag3color); -webkit-text-stroke:var(--tag3bold); text-transform:uppercase; font-family:var(--tagfont); font-size:var(--tagsize); letter-spacing:1px;]history[/div]Consequat magna ante condimentum neque at luctus nibh. Ornare sagittis vehicula praesent dui felis venenatis ultrices. Ligula congue sollicitudin erat viverra ac tincidunt nam. Potenti ultricies habitant morbi senectus netus suscipit auctor. Fringilla lacus nec metus bibendum egestas iaculis massa. Maximus eget fermentum odio phasellus non purus est. Ligula congue sollicitudin erat viverra ac tincidunt nam. Potenti ultricies habitant morbi senectus netus suscipit auctor. Fringilla lacus nec metus bibendum egestas iaculis massa.
+
+[/div][comment]---- backstory end ----[/comment]
+[/div][comment]---- bottom end ----[/comment]
+
+
+[comment]---- tabs cover ----[/comment]
+[div=position:absolute; right:11px; top:7px; width:300px; height:24px; pointer-events:none; opacity:1; box-siding:border-box; overflow:hidden; font-family:var(--font2); font-size:10px; line-height:15px; color:var(--textcolor); text-align:center; -webkit-text-stroke:2px var(--bkgd); letter-spacing:0.2px; paint-order:stroke fill;]
+[div=position:absolute; right:186px; top:0px; width:50px; height:15px; pointer-events:none; opacity:1; background:var(--bkgd); box-siding:border-box; border-radius:20px; border:var(--border0); overflow:hidden;]001[/div]
+[div=position:absolute; right:124px; top:0px; width:50px; height:15px; pointer-events:none; opacity:1; background:var(--bkgd); box-siding:border-box; border-radius:20px; border:var(--border0); overflow:hidden;]002[/div]
+[div=position:absolute; right:62px; top:0px; width:50px; height:15px; pointer-events:none; opacity:1; background:var(--tab3); box-siding:border-box; border-radius:20px; border:var(--border0); overflow:hidden;]003[/div]
+[div=position:absolute; right:0px; top:0px; width:50px; height:15px; pointer-events:none; opacity:1; background:var(--bkgd); box-siding:border-box; border-radius:20px; border:var(--border0); overflow:hidden;]004[/div]
+[/div]
+
+[div=display:none;]backstory/relations[/div]
+[/div][/tab][comment]
+
+
+
+
+---- TAB 4: BACKSTORY ----
+[/comment][tab=.][div=transparent; position:absolute; top:-8px; left:calc(0px - var(--taboffset) + 10px); pointer-events:none; height:var(--innerheight); width:100%; padding:0px 0 0 0; bottom:0px; right:0px; background:var(--bkgd); letter-spacing:0; opacity:1;]
+
+[comment]-- bkgd patch --[/comment][div=position:absolute; top:40px; right:-31px; width:30px; height:50px; background:var(--bkgd);][div=transparent; height:100%; width:100%; padding:0; background: radial-gradient(2px 2px, var(--accent03), transparent); background-size: 3px 3px; opacity:0.1; position:absolute; top:0; left:0;][/div][/div]
+
+[comment]-- hacked outline --[/comment][div=position:absolute; top:-1px; left:-1px; width:350px; height:510px; border:var(--border1); outline:var(--border1); outline-offset:24px;][/div]
+
+
+[comment]---- HEADER START ----[/comment]
+[div=position:absolute; left:0px; top:0px; width:100%; height:30px; box-siding:border-box; border-bottom:var(--border1); overflow:hidden;]
+
+[comment]-- spinner --[/comment][div=position:absolute; top:0px; left:0px; width:28px; height:30px; border-right:var(--border1); font-size:15px; line-height:31px; text-align:center; color:var(--tab4);][fa]fas fa-circle-notch fa-spin[/fa][/div]
+
+[comment]-- header text --[/comment][div=position:absolute; left:35px; top:5px; font-family:var(--font1); font-size:10px; line-height:10px; color:var(--header2color); text-align:left; text-transform:uppercase; -webkit-text-stroke:var(--header2bold); letter-spacing:0.6px;][comment]
+
+---- ORG NAME HERE ----
+[/comment]NCPD:
+[br][/br][div=display:inline; color:var(--tabtitlecolor2); -webkit-text-stroke:var(--tab2bold); text-decoration:line-through;][comment]
+
+---- TAB NAME HERE ----
+[/comment]surveillance
+[/div][/div]
+[/div][comment]---- HEADER END ----[/comment]
+
+
+[comment]---- cctv start ----[/comment]
+[comment]-- pic --[/comment][div=position:absolute; left:10px; top:150px; width:329px; height:220px; box-siding:border-box; border:var(--border1); overflow:hidden;][div=position:absolute; top:0px; left:0px; width:100%; height:100%; background:var(--tab4a); background-size:var(--tab4asize); background-position:var(--tab4aposition); filter:var(--errorfilter);][div=transparent; height:100%; width:100%; padding:0; background: radial-gradient(2px 2px, var(--accent00), transparent); background-size: 3px 3px; opacity:0.3; position:absolute; top:0; left:0;][/div][/div]
+
+[comment]-- glitch lines --[/comment][div=position:absolute; top:0px; left:0px; width:100%; height:100%; background:var(--tab4aglitch); background-size:var(--tab4asize); background-position:var(--tab4aposition); mix-blend-mode:soft-light; filter:saturate(50%); opacity:0.5;][/div]
+
+[comment]---- error text1 start ----[/comment]
+[div=position:absolute; top:49px; left:55px; width:50px; height:20px; background:var(--bkgd); border:var(--border1); font-family:var(--font1); font-size:11px; line-height:20px; color:var(--errorcolor); text-align:center; text-transform:uppercase; -webkit-text-stroke:var(--errorbold); letter-spacing:0.5px; text-decoration:line-through;][comment]
+
+---- ERROR TAG HERE ----
+[/comment]error!
+[/div][comment]---- error text1 end----[/comment]
+
+[comment]---- error text2 start ----[/comment]
+[div=position:absolute; top:85px; left:215px; width:60px; height:25px; background:var(--bkgd); border:var(--border1); font-family:var(--font1); font-size:14px; line-height:25px; color:var(--errorcolor); text-align:center; text-transform:uppercase; -webkit-text-stroke:var(--errorbold); letter-spacing:0.5px; text-decoration:line-through;][comment]
+
+---- ERROR TAG HERE ----
+[/comment]error!
+[/div][comment]---- error text2 end ----[/comment]
+
+[comment]---- error text3 start ----[/comment]
+[comment]-- error text3 --[/comment][div=position:absolute; top:155px; left:85px; width:40px; height:15px; background:var(--bkgd); border:var(--border1); font-family:var(--font1); font-size:8px; line-height:15px; color:var(--errorcolor); text-align:center; text-transform:uppercase; -webkit-text-stroke:var(--errorbold); letter-spacing:0.5px; text-decoration:line-through;][comment]
+
+---- ERROR TAG HERE ----
+[/comment]error!
+[/div][comment]---- error text3 end ----[/comment]
+
+[comment]---- recording text start ----[/comment]
+[div=position:absolute; top:10px; left:25px; width:10px; height:10px; border-radius:10px; background:var(--accent05);][/div]
+[div=position:absolute; top:10px; left:40px; height:10px; font-family:var(--font2); font-size:10px; line-height:10px; color:var(--cctvcolor); text-align:left; text-transform:uppercase; -webkit-text-stroke:var(--cctvbold); letter-spacing:1.2px; text-shadow:-0.8px -0.8px 0px var(--bkgd);][comment]
+
+---- REC TAG HERE ----
+[/comment]rec
+[/div][comment]---- recording text end----[/comment]
+
+[comment]---- cam text start ----[/comment]
+[div=position:absolute; top:10px; right:25px; height:10px; font-family:var(--font2); font-size:10px; line-height:10px; color:var(--cctvcolor); text-align:right; text-transform:uppercase; -webkit-text-stroke:var(--cctvbold); letter-spacing:1.2px; text-shadow:-0.8px -0.8px 0px var(--bkgd);][comment]
+
+---- CAM TAG HERE ----
+[/comment]cam4
+[/div][comment]---- cam text end ----[/comment]
+
+[comment]---- cctv data text ----[/comment]
+[div=position:absolute; bottom:10px; left:25px; height:10px; font-family:var(--font2); font-size:10px; line-height:10px; color:var(--cctvcolor); text-align:left; text-transform:uppercase; -webkit-text-stroke:var(--cctvbold); letter-spacing:1.2px; text-shadow:-0.8px -0.8px 0px var(--bkgd);][comment]
+
+---- TIMESTAMP HERE ----
+[/comment]01:27:00
+[/div]
+[div=position:absolute; bottom:10px; right:25px; height:10px; font-family:var(--font2); font-size:10px; line-height:10px; color:var(--cctvcolor); text-align:right; text-transform:uppercase; -webkit-text-stroke:var(--cctvbold); letter-spacing:1.2px; text-shadow:-0.8px -0.8px 0px var(--bkgd);][comment]
+
+---- VIEW MODE HERE ----
+[/comment]night view active
+[/div][comment]---- cctv data end ----[/comment]
+
+[comment]-- glitch effect --[/comment][div=position:absolute; top:0px; left:0px; width:100%; height:100%; background:var(--tab4atexturecolor); background-size:var(--tab4asize); background-position:var(--tab4aposition); -webkit-mask-image:var(--tab1btexture); mask-image:var(--tab1btexture); mask-repeat: no-repeat; mask-size:cover; mask-position:center;][/div]
+
+[comment]---- corner lines ----[/comment]
+[div=position:absolute; top:9px; left:9px; width:10px; height:2px; background:var(--matchcolor);][/div]
+[div=position:absolute; top:9px; left:9px; width:2px; height:10px; background:var(--matchcolor);][/div]
+[div=position:absolute; bottom:9px; right:9px; width:10px; height:2px; background:var(--matchcolor);][/div]
+[div=position:absolute; bottom:9px; right:9px; width:2px; height:10px; background:var(--matchcolor);][/div]
+[div=position:absolute; top:9px; right:9px; width:10px; height:2px; background:var(--matchcolor);][/div]
+[div=position:absolute; top:9px; right:9px; width:2px; height:10px; background:var(--matchcolor);][/div]
+[div=position:absolute; bottom:9px; left:9px; width:10px; height:2px; background:var(--matchcolor);][/div]
+[div=position:absolute; bottom:9px; left:9px; width:2px; height:10px; background:var(--matchcolor);][/div]
+
+[/div][comment]---- cctv end ----[/comment]
+
+
+[comment]-- pic --[/comment]
+[div=position:absolute; left:135px; top:40px; width:135px; height:125px; background:var(--bkgd); box-siding:border-box; border:var(--border1); overflow:hidden;][/div]
+[div=position:absolute; left:140px; top:45px; width:135px; height:125px; background:var(--bkgd); box-siding:border-box; border:var(--border1); overflow:hidden;][/div]
+[div=position:absolute; left:145px; top:50px; width:135px; height:125px; box-siding:border-box; border:var(--border1); overflow:hidden;][div=position:absolute; top:0px; left:0px; width:100%; height:100%; background:var(--tab4b); background-size:var(--tab4bsize); background-position:var(--tab4bposition); filter:var(--errorfilter);][div=transparent; height:100%; width:100%; padding:0; background: radial-gradient(2px 2px, var(--accent00), transparent); background-size: 3px 3px; opacity:0.3; position:absolute; top:0; left:0;][/div][/div][/div]
+
+[comment]-- pic --[/comment]
+[div=position:absolute; left:60px; top:363px; width:120px; height:125px; background:var(--bkgd); box-siding:border-box; border:var(--border1); overflow:hidden;][/div]
+[div=position:absolute; left:65px; top:368px; width:120px; height:125px; background:var(--bkgd); box-siding:border-box; border:var(--border1); overflow:hidden;][/div]
+[div=position:absolute; left:70px; top:373px; width:120px; height:125px; box-siding:border-box; border:var(--border1); overflow:hidden;][div=position:absolute; top:0px; left:0px; width:100%; height:100%; background:var(--tab4c); background-size:var(--tab4csize); background-position:var(--tab4cposition); filter:var(--errorfilter);][div=transparent; height:100%; width:100%; padding:0; background: radial-gradient(2px 2px, var(--accent00), transparent); background-size: 3px 3px; opacity:0.3; position:absolute; top:0; left:0;][/div][/div][/div]
+
+
+[comment]---- binary text start ----[/comment]
+[div=position:absolute; top:90px; left:40px; width:130px; height:55px; font-family:var(--font2); font-size:6px; line-height:6px; color:var(--accent04); text-align:justify; text-transform:uppercase; -webkit-text-stroke:0.3px var(--accent04); letter-spacing:1.2px; text-shadow:-0.5px -0.5px 0px var(--bkgd);][comment]
+
+---- BINARY HERE ----
+[/comment]011011100110111101110100001000000110011001100001011100110111010000100000011001010110111001101111011101010110011101101000001011000010000001110011011011110010000001110011011000010110010000101110
+[/div]
+[div=position:absolute; top:70px; right:10px; width:75px; height:55px; font-family:var(--font2); font-size:6px; line-height:6px; color:var(--accent04); text-align:justify; text-transform:uppercase; -webkit-text-stroke:0.3px var(--accent04); letter-spacing:1.2px; text-shadow:-0.5px -0.5px 0px var(--bkgd);][comment]
+
+---- BINARY HERE ----
+[/comment]011011100110100101100011011001010010000001110100011100100111100100101100001000000110000101110011011100110110100001101111011011000110010100100001
+[/div]
+[div=position:absolute; bottom:30px; left:10px; width:75px; height:55px; font-family:var(--font2); font-size:6px; line-height:6px; color:var(--accent04); text-align:justify; text-transform:uppercase; -webkit-text-stroke:0.3px var(--accent04); letter-spacing:1.2px; text-shadow:-0.5px -0.5px 0px var(--bkgd);][comment]
+
+---- BINARY HERE ----
+[/comment]01101101011000010111100101100010011001010010000001110011011000010111100100100000011010000110100100100000011001100110100101110010011100110111010000111111
+[/div][comment]---- binary text end ----[/comment]
+
+
+[comment]---- text bubbles start ----[/comment]
+[comment]-- text bubble 1 --[/comment][div=position:absolute; top:60px; left:10px; width:auto; height:16px; background:var(--bkgd); box-siding:border-box; border:var(--border1); text-align:left; text-transform:uppercase; font-size:11px; line-height:16px; font-family:var(--font1); letter-spacing:0.8px; color:var(--textbubblecolor); -webkit-text-stroke:var(--textbubblebold); padding:0 5px 0 5px;]i hear you've been looking for me ...[/div]
+
+[comment]-- text bubble 2 --[/comment][div=position:absolute; bottom:110px; right:40px; width:auto; height:16px; background:var(--bkgd); box-siding:border-box; border:var(--border1); text-align:right; text-transform:uppercase; font-size:11px; line-height:16px; font-family:var(--font1); letter-spacing:0.8px; color:var(--textbubblecolor); -webkit-text-stroke:var(--textbubblebold); padding:0 5px 0 5px;]wanna know more, my dear fan?[/div]
+
+[comment]-- text bubble 3 --[/comment][div=position:absolute; bottom:10px; right:10px; width:auto; height:16px; background:var(--bkgd); box-siding:border-box; border:var(--border1); text-align:right; text-transform:uppercase; font-size:11px; line-height:16px; font-family:var(--font1); letter-spacing:0.8px; color:var(--textbubblecolor); -webkit-text-stroke:var(--textbubblebold); padding:0 5px 0 5px;]... just for you [div=display:inline; margin-left:1px; color:var(--cctvcolor); -webkit-text-stroke:var(--cctvbold);]♡[/div][/div]
+[comment]---- text bubbles end ----[/comment]
+
+
+[comment]---- visuals start ----[/comment]
+[div=position:absolute; bottom:45px; right:25px; width:auto; height:auto; background:var(--bkgd); box-siding:border-box; border:var(--border2); text-align:right; text-transform:uppercase; font-size:11px; line-height:12px; font-family:var(--font1); letter-spacing:0.8px; color:var(--linkboxcolor); -webkit-text-stroke:var(--linkboxbold); padding:2px 5px 2px 5px;][comment]
+
+---- VISUALS TEXT HERE ----
+[/comment]... or maybe some
+[br][/br][comment]
+
+---- MOODBOARD/VISUALS LINK HERE ----
+[/comment][url='https://www.pinterest.com/'][div=display:inline; color:var(--linkcolor); -webkit-text-stroke:var(--linkbold); pointer-events:auto;][comment]
+
+---- VISUALS TEXT CONT. ----
+[/comment]unreleased footage?
+[/div][/url][/div][comment]---- visuals end ----[/comment]
+
+
+[comment]---- playlist start ----[/comment]
+[div=position:absolute; bottom:70px; left:180px; width:auto; height:auto; background:var(--bkgd); box-siding:border-box; border:var(--border2); text-align:left; text-transform:uppercase; font-size:11px; line-height:12px; font-family:var(--font1); letter-spacing:0.8px; color:var(--linkboxcolor); -webkit-text-stroke:var(--linkboxbold); padding:2px 5px 2px 5px;][comment]
+
+---- PLAYLIST TEXT HERE ----
+[/comment]how about a
+[br][/br][comment]
+
+---- PLAYLIST LINK HERE ----
+[/comment][url='https://open.spotify.com/playlist/2KQzuA4cFKtbE80fYPNoqz?si=9767e23a274c4bb4'][div=display:inline; color:var(--linkcolor); -webkit-text-stroke:var(--linkbold); pointer-events:auto;][comment]
+
+---- PLAYLIST TEXT CONT. ----
+[/comment]playlist ...
+[/div][/url][/div][comment]---- playlist end ----[/comment]
+
+
+[comment]---- tabs cover ----[/comment]
+[div=position:absolute; right:11px; top:7px; width:300px; height:24px; pointer-events:none; opacity:1; box-siding:border-box; overflow:hidden; font-family:var(--font2); font-size:10px; line-height:15px; color:var(--accent05); text-align:center; -webkit-text-stroke:2px var(--bkgd); letter-spacing:0.2px; paint-order:stroke fill;]
+[div=position:absolute; right:186px; top:0px; width:50px; height:15px; pointer-events:none; opacity:1; background:var(--bkgd); box-siding:border-box; border-radius:20px; border:var(--border1); overflow:hidden;]001[/div]
+[div=position:absolute; right:124px; top:0px; width:50px; height:15px; pointer-events:none; opacity:1; background:var(--bkgd); box-siding:border-box; border-radius:20px; border:var(--border1); overflow:hidden;]002[/div]
+[div=position:absolute; right:62px; top:0px; width:50px; height:15px; pointer-events:none; opacity:1; background:var(--bkgd); box-siding:border-box; border-radius:20px; border:var(--border1); overflow:hidden;]003[/div]
+[div=position:absolute; right:0px; top:0px; width:50px; height:15px; pointer-events:none; opacity:1; background:var(--tab4); box-siding:border-box; border-radius:20px; border:var(--border1); overflow:hidden;]004[/div]
+[/div]
+
+[div=display:none;]gallery[/div]
+[/div][/tab]
+[/tabs]
+[/div][/div][/div][comment]---- tabs end ----[/comment]
+[/div][comment]---- content end ----[/comment]
+
+[/nobr][/div][/div]

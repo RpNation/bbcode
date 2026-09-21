@@ -1,0 +1,30 @@
+[centerblock=100][size=3][color=#2980b9][url=https://www.rpnation.com/bbcode/]Main[/url][fa]fa-caret-right fa-fw[/fa]Layout & Design[/color]
+[color=#fcfcfc][imageFloat=left][bg=#2980b9;margin-top: -10px;][fa]fa-cubes fa-fw fa-2x[/fa][/bg][/imageFloat]
+[bg=#2980b9; padding: 3px;][/bg][/color][size=8][b][FONT=Signika]Tabs[/FONT][/b][/size][/size][/centerblock]
+[color=#2980b9][b]Purpose[/b][/color][divide=dotted][/divide]
+The Tabs BBCode is used separate out multiple blocks of content into tabs that allow users to cycle through them.
+
+[color=#2980b9][b]Examples & Codes[/b][/color][divide=dotted][/divide]
+
+[CODE]
+[Tabs]
+
+[Tab=Tab A]
+Content For Tab A.
+[/Tab]
+
+[Tab=Tab B]
+Content For Tab B.
+[/Tab]
+
+[/Tabs]
+[/CODE]
+
+[Tabs]
+[Tab=Tab A]
+Content For Tab A.
+[/Tab]
+[Tab=Tab B]
+Content For Tab B.
+[/Tab]
+[/Tabs]

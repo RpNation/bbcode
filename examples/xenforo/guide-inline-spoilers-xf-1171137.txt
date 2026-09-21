@@ -1,0 +1,13 @@
+[centerblock=100][size=3][color=#2980b9][url=https://www.rpnation.com/bbcode/]Main[/url][fa]fa-caret-right fa-fw[/fa]Text Formatting[/color]
+[color=#fcfcfc][imageFloat=left][bg=#2980b9;margin-top: -10px;][fa]fa-paragraph fa-fw fa-2x[/fa][/bg][/imageFloat]
+[bg=#2980b9; padding: 3px;][/bg][/color][size=8][b][FONT=Signika]Inline Spoilers[/FONT][/b][/size][/size][/centerblock]
+[color=#2980b9][b]Purpose[/b][/color][divide=dotted][/divide]
+The Inline Spoiler is designed to be a code used for small amount of spoilers, where having a spoiler tag would be unnecessary. (Such as saying who dies in a new episode of a show)
+
+[color=#2980b9][b]Examples & Codes[/b][/color][divide=dotted][/divide]
+
+[inlineSpoiler]This is a Secret[/inlineSpoiler]
+[code][inlineSpoiler]This is a Secret[/inlineSpoiler][/code]
+
+[color=#2980b9][b][fa]fa-flag fa-fw[/fa]Note:[/b][/color]
+We are aware that there are issues with this code on Light theme.

@@ -1,0 +1,133 @@
+[CENTER][SIZE=36px][B]Accordions[/B][/SIZE]
+
+[/CENTER]
+
+
+
+[B]Purpose:[/B] The accordion bbcode is designed to give users a sleek alternative to the popular Tabs bbcode and another option to organize their post contents in a friendly manner that also works with all of our other bbcodes.
+
+
+[accordion]
+
+
+{slide=Testing 1}Info{/slide}
+
+
+{slide=Testing 2}Testing{/slide}
+
+
+{slide=Testing 3}Stuff{/slide}
+
+
+[/accordion]
+
+
+The example above is accomplished with the following code:
+
+[CODE]
+[accordion]
+{slide=Testing 1}Info{/slide}
+{slide=Testing 2}Testing{/slide}
+{slide=Testing 3}Stuff{/slide}
+[/accordion]
+[/CODE]
+
+You can add different codes together with |
+
+[SPOILER]
+
+[LIST=1]
+[*]number%: Set the width of the accordion box
+[*]fleft: block will float left
+[*]fright: block will float right
+[*]bleft: align the block to the left
+[*]bcenter: align the block to the center
+[*]bright: align the block to the right
+[/LIST]
+
+[LIST=1]
+[*]left: title of the slide will be align to the left
+[*]center: title of the slide will be align to the center This one is enabled by default for slide titles.
+[*]right: title of the slide will be align to the right
+[*]open: the slide will be opened by default
+[/LIST]
+
+
+You are welcomed to add as many slides as you want and change their name/contents. However the important thing to note about this addon is the ability to alter their size and the way some of their aspects work.
+
+
+Another important thing to note is that the above example is set to 100 percent width. To alter the size you have to decrease it.
+
+
+For example:
+
+
+[accordion=35%]
+
+
+{slide=Testing 1}Info{/slide}
+
+
+{slide=Testing 2}Testing{/slide}
+
+
+{slide=Testing 3}Stuff{/slide}
+
+
+[/accordion]
+
+
+This can be accomplished by
+
+
+
+[accordion=35%]
+{slide=Testing 1}Info{/slide}
+{slide=Testing 2}Testing{/slide}
+{slide=Testing 3}Stuff{/slide}
+[/accordion]
+
+[CODE][accordion=35%]
+{slide=Testing 1}Info{/slide}
+{slide=Testing 2}Testing{/slide}
+{slide=Testing 3}Stuff{/slide}
+[/accordion][/CODE]
+
+You'll notice that I added the 35% tag code to the accordion tag instead of the slides.
+
+
+You can also do things like move it to the right/left or the center. Here is an example of it being centered.
+
+
+[accordion=35%|bcenter]
+
+
+{slide=Testing 1}Info{/slide}
+
+
+{slide=Testing 2}Testing{/slide}
+
+
+{slide=Testing 3}Stuff{/slide}
+
+
+[/accordion]
+
+
+The code for that as an example is as follows:
+
+
+
+[accordion=35%|bcenter]
+{slide=Testing 1}Info{/slide}
+{slide=Testing 2}Testing{/slide}
+{slide=Testing 3}Stuff{/slide}
+[/accordion]
+
+[CODE][accordion=35%|bcenter]
+{slide=Testing 1}Info{/slide}
+{slide=Testing 2}Testing{/slide}
+{slide=Testing 3}Stuff{/slide}
+[/accordion][/CODE]
+
+[/SPOILER]

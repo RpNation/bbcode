@@ -1,0 +1,762 @@
+[nobr][comment]code by sox
+
+[font=Bricolage Grotesque]body[/font]
+[/comment][div=height:auto; width:100%; overflow-x:auto; overflow-y:hidden;
+
+/*colors*/
+--bkgd1: #000;
+--bkgd2: #bf6a3f;
+--border1: 1px solid var(--bkgd2);
+--border2: 1px solid var(--bkgd1);
+--text: #000;
+
+/*accents -- update the color names as you edit! trust me it helps! */
+--color1: #6e1524;
+
+/*fonts*/
+--header: 'Bricolage Grotesque', sans-serif;
+
+/*urls*/
+--mainpic: url('https://i.pinimg.com/1200x/f8/ac/8f/f8ac8fb8ec3b0ebe19f40f6bd7dae8cd.jpg');
+
+][div=margin:auto; margin-top:5px; margin-bottom:30px; width:390px; height:250px;]
+[div=position:absolute; width:190px; height:250px; background: var(--bkgd1); margin-right:10px; outline: var(--border1); outline-offset: -10px;]
+[div=position:absolute; top:30px; left:20px; font-size: 16px; line-height:16px; font-family: var(--header); font-weight: bold; color: var(--bkgd2);]
+
+Midnight.
+
+[/div]
+[div=position:absolute; top:33px; right:20px; font-size: 10px; line-height:12px; font-family: var(--header); color: var(--color1);]
+[URL='https://pastebin.com/raw/gm7uyWi7'][div=display:inline; color:var(--color1);][fa]fas fa-link[/fa][/div][/URL]
+[/div]
+[div=position:absolute; top:50px; left:20px; width:150px; height:150px; background: var(--mainpic); background-size:cover; background-position:50% 30%; filter:contrast(1.1) grayscale(30%);][/div]
+[div=position:absolute; top:205px; left:20px; font-size: 13px; line-height:14px; font-family: var(--header); font-weight: bold; color: var(--color1);]
+
+/018.
+
+[/div]
+[div=position:absolute; top:205px; left:50px; width:120px; text-align:right; font-size: 7px; line-height:7px; font-family: var(--header); font-weight: bold; color: var(--bkgd2);]
+
+# character sheet
+[br][/br]
+# mobile friendly
+
+[/div][/div]
+
+[div=position:absolute; margin-left:200px; width:190px; height:250px; background: var(--bkgd2); margin-right:10px; outline: var(--border2); outline-offset: -10px;]
+[div=position:absolute; top:30px; left:30px; width:150px; height:190px; overflow:hidden;]
+[div=font-size: 8px; line-height:9px; width:145px; height:190px; padding:0 40px 0 0; font-family: var(--header); color: var(--text); overflow-y:scroll; text-align: justify;]
+
+an eerie glimpse into who awakens in time for the witching hour— [B][I]midnight.[/I][/B]
+[br][/br][br][/br]
+[B]first link:[/B] dark version
+[br][/br][br][/br]
+this is a [B]character sheet[/B] code in celebration of spooky season because that's objectively the best time of year. i had meant to post this at the start of october, but better late than never! this code has three main scrolls and no buttons aside from the music player, so hopefully it shouldn't be too difficult to navigate.
+[br][/br][br][/br]
+i don't plan on making a light version of this [I]yet,[/I] mostly because this code is draining my life force as i type, but i'll be sure to update this thread once that comes together!
+[br][/br][br][/br]
+please pay careful attention to the notes i've left throughout to help you when editing the code to suit your needs! most values you'd want to edit are at the very top, but i've detailed most of it anyways in case you wanna play around with the code.
+[br][/br][br][/br]
+another thing to note is that background will not show up on light mode if it's set to white (please don't i beg it's so hideous if you turn the dark background into a light one ;-; ) so be mindful of that when choosing your palette! i also highly suggest updating the color names within the comments to help you keep track of what's what.
+[br][/br][br][/br]
+as usual, if anything is confusing you, please feel free to DM me!
+[/div][/div][/div][/div][/div][/nobr]
+[comment]code by sox
+
+[font=Instrument Serif]titles[/font]
+[font=Kantumruy Pro]subtitles[/font]
+[font=Inconsolata]body[/font]
+
+[/comment][div=height:auto; width:100%; overflow-x:auto; overflow-y:hidden;
+
+/* ---- FONTS ---- */
+/* ---- if you edit these, make sure to change them in the comments above, too! ---- */
+--font1: 'Instrument Serif', serif;   /*titles*/
+--font2: 'Kantumruy Pro', sans-serif;   /*subtitles*/
+--font3: 'Inconsolata', sans-serif;   /*body*/
+
+
+
+/* ---- COLORS ---- */
+--accent00: #080808;   /*bkgd: off-black*/
+--accent01: #8c8489;   /*neutral: gray*/
+--accent02: #bf6a3f;   /*brighter: orange*/
+--accent03: #7a2735;   /*muted: pink*/
+--accent04: #fff;   /*text: white*/
+
+
+
+/* ---- PICS ---- */
+--roundpic: url('https://i.imgur.com/yjsRV55.png');   /*round character picture*/
+--roundsize: cover;   /*pic size*/
+--roundposition: 50% 50%;   /*pic positioning*/
+
+--shrine: url('https://i.pinimg.com/736x/5d/67/fa/5d67faa5d6889ee5ae115b2b4008855f.jpg');   /*shrine character picture*/
+--shrinesize: cover;   /*pic size*/
+--shrineposition: 50% 50%;   /*pic positioning*/
+
+
+
+/* ---- VALUES TO EDIT ---- */
+
+/*dialogue colors*/
+--d1color:  var(--accent02);   /*dialogue 1 color*/
+--d2color:  var(--accent01);   /*dialogue 2 color*/
+--d3color:  var(--accent03);   /*dialogue 3 color*/
+--d4color: # ;   /*dialogue 4: extra, insert a hex color!*/
+--d4color: # ;   /*dialogue 5: extra, insert a hex color!*/
+
+/*borders*/
+--border1: 2px solid var(--bkgd);    /*main border*/
+--border2: 0.8px solid var(--accent03);
+--border3: 0.8px solid var(--accent02);
+--middleoutline: 0.5px solid var(--cornercolor);    /*middle section border*/
+--roundpicborder: 1px solid var(--accent03);
+--planetborder: 1px solid var(--accent02);
+
+
+/*text/icon colors*/
+--text: var(--accent04);   /*default text color - applies to text NOT SET in the values below*/
+--namecolor: var(--accent02);   /*character name color*/
+--suitcolor: var(--accent03);   /*suit/icon color*/
+--tagcolor: var(--accent02);   /*details tag color*/
+--quotecolor: var(--accent02);   /*quote text color*/
+--subtitlecolor: var(--accent01);   /*persona subsection title color*/
+--dividercolor: var(--accent01);   /*persona subsection divider color*/
+--subtitle2color: var(--accent02);   /*backstory subsection title color*/
+--vvcolor: var(--accent02);   /*vices/virtues title color*/
+--vvbodycolor: var(--accent01);   /*vices/virtues body color*/
+--rship: var(--accent01);   /*relationship name color*/
+--playcolor: var(--accent03);   /*music play symbol color*/
+--songcolor: var(--accent02);   /*song title color*/
+--artistcolor: var(--accent01);   /*song artist color*/
+--dashcolor: var(--accent03);   /*song hyphen color*/
+
+/*overlays*/
+--framecolor: radial-gradient(var(--accent03) 56%, var(--accent02) 59%);   /*round frame color*/
+--graveyardcolor: linear-gradient(to top, var(--accent03) 20%, var(--accent01) 60%);   /*graveyard color*/
+--raycolor: linear-gradient(to right, transparent, var(--accent01) 80%, transparent);   /*moon ray color*/
+--skycolor: linear-gradient(to bottom, var(--accent03) 20%, var(--accent00) 70%);   /*sky/clouds color*/
+--cornercolor: var(--accent03);   /*corner accent color*/
+--olplanet: var(--accent02);   /*planet color*/
+--olframe: var(--accent02);   /*square frame color*/
+--olcandletop: var(--accent02);   /*candle flame color*/
+--olcandlebottom: var(--accent01);   /*candle wax color*/
+--ollace: var(--accent01);   /*lace color*/
+
+/*other text*/
+--namesize: 30px;    /*character name*/
+--namelh: 30px;
+--namefont: var(--font1);
+--suitsize: 20px;    /*icon/suit*/
+--suitlh: 30px;
+
+--contentsize: 11px;    /*body text*/
+--contentlh: 13px;
+--contentfont: var(--font3);
+
+--detailsize: 10px;    /*basics/visage details*/
+--detaillh: 20px;
+--detailfont: var(--font2);
+
+--quotesize: 19px;    /*quote*/
+--quotelh: 20px;
+--quotefont: var(--font1);
+
+--subsectionsize: 11px;    /*persona subsection*/
+--subsectionlh: 1px;
+--subsectionfont: var(--font1);
+
+--vvtitlesize: 15px;    /*virtues/vices title*/
+--vvtitlelh: 15px;
+--vvtitlefont: var(--font1);
+--vvsize: 9px;    /*virtues/vices body*/
+--vvlh: 15px;
+--vvfont: var(--font2);
+
+--sectionsize: 15px;    /*backstory section*/
+--sectionlh: 25px;
+--sectionfont: var(--font2);
+
+--musicsize: 12px;    /*song/artist*/
+--musiclh: 12px;
+--musicfont: var(--font1);
+
+
+
+/* ---- VALUES you probably don't need to edit ---- */
+--bkgd: var(--accent00);   /*background color*/
+--shadow: #000;   /*black: picture inset shadows*/
+
+/*details sizing*/
+--categoryw: 30%;
+--inputw: 70%;
+--tagspacen: 5.8px 0px 5.8px 0px;
+--tagspacec: 5.8px 0px 5.8px 0px;
+--tagsize: 13px;
+--tagfont: var(--font1);
+
+/*manual bold settings -- i use these instead of bold tags to preserve the font style on mobile*/
+--tagbold: 0.5px var(--tagcolor);
+--quotebold: 0.2px var(--quotecolor);
+--subtitlebold: 0.5px var(--subtitlecolor);
+--subtitle2bold: 0.5px var(--subtitle2color);
+--rshipbold: 0.5px var(--rship);
+--d1bold: 0.5px var(--d1color);
+--d2bold: 0.5px var(--d2color);
+--d3bold: 0.5px var(--d3color);
+--d4bold: 0.5px var(--d4color);    /*extra*/
+--d5bold: 0.5px var(--d5color);    /*extra*/
+
+/*decorations*/
+--corner: url('https://i.imgur.com/MIKA3JC.png');   /*corner pic url*/
+--cornersize: cover;   /*pic size*/
+--cornerposition: 50% 50%;   /*pic positioning*/
+--texture: url('https://i.imgur.com/W1J8fVs.gif');   /*texture gif url*/
+--texturesize: cover;   /*pic size*/
+--textureposition: 50% 50%;   /*pic positioning*/
+--frame: url('https://i.imgur.com/HldEuSJ.png');   /*round frame transparent png*/
+--moon: url('https://i.imgur.com/IqHjjMZ.png');   /*moon transparent png*/
+--sky: url('https://i.imgur.com/SEX6hX8.png');   /*sky/clouds transparent png*/
+--graveyard: url('https://i.imgur.com/HA6zN6V.png');   /*graveyard transparent png*/
+--lace: url('https://i.imgur.com/okTCPrX.png');   /*sky/clouds transparent png*/
+--squareframe: url('https://i.imgur.com/8c5Rgqi.png');   /*square frame transparent png*/
+--candle: url('https://i.imgur.com/FJaoj3L.gif');   /*candle gif*/
+--musicpic: url('https://i.imgur.com/m53OSQ0.gif');   /*music player button gif*/
+
+
+][div=margin:auto; position:relative; width:fit-content; height:fit-content; display:flex; flex-flow:row wrap; justify-content:center; align-items:center; margin-top:80px; margin-bottom:80px; border-radius:15px; box-sizing:border-box; outline:var(--border1); outline-offset:3px; cursor: url(https://imgur.com/5ex8RXq.png), auto; font-family:var(--font1); color:var(--text);][nobr]
+
+[comment]---- LEFT START ----[/comment]
+[div=position:relative; margin:0px; border-radius:15px 0 0 15px; width:300px; height:450px; background:var(--bkgd);]
+
+
+[comment]---- bottom decorations start ----[/comment]
+[comment]-- graveyard --[/comment][div=position:absolute; right:15px; bottom:0px; width:110px; height:210px; background:var(--graveyardcolor); -webkit-mask-image:var(--graveyard); mask-image:var(--graveyard); mask-size:cover; mask-position:67% 50%; box-shadow: inset 10px -10px 15px 20px var(--bkgd);][/div]
+[comment]-- round pic frame --[/comment][div=position:absolute; left:-30px; bottom:-30px; width:245px; height:245px; background:var(--framecolor); -webkit-mask-image:var(--frame); mask-image:var(--frame); mask-size:cover; mask-position:50% 50%;; border-radius:100%;][/div]
+[comment]-- round pic --[/comment][div=position:absolute; left:0px; bottom:0px; width:185px; height:185px; background:var(--roundpic); background-size:var(--roundsize); background-position:var(--roundposition); border-radius:100%; border:var(--roundpicborder); box-shadow: inset 0 0 15px 5px var(--shadow);][/div]
+[comment]---- bottom decorations end ----[/comment]
+
+
+
+[comment]---- details start ----[/comment]
+[div=position:relative; margin:auto; margin-top:15px; width:270px; height:218px; overflow-x:hidden; overflow-y:scroll; scrollbar-width:none; font-family:var(--detailfont); font-size:var(--detailsize); line-height:var(--detaillh); text-transform:uppercase; letter-spacing:1px;]
+
+
+[comment] ----- DETAIL TAGS SCROLL START ----- [/comment]
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border2);][div=display:inline-block; float:left; width:var(--categoryw); text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]name
+[/div][div=display:inline-block; float:right; width:var(--inputw); text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]lee donghyuck
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border2);][div=display:inline-block; float:left; width:var(--categoryw); text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]age
+[/div][div=display:inline-block; float:right; width:var(--inputw); text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]twenty-five
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border2);][div=display:inline-block; float:left; width:var(--categoryw); text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]gender
+[/div][div=display:inline-block; float:right; width:var(--inputw); text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]cis male
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border2);][div=display:inline-block; float:left; width:var(--categoryw); text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]sexuality
+[/div][div=display:inline-block; float:right; width:var(--inputw); text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]who knows
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border2);][div=display:inline-block; float:left; width:var(--categoryw); text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]role
+[/div][div=display:inline-block; float:right; width:var(--inputw); text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]the full sun
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border2);][div=display:inline-block; float:left; width:var(--categoryw); text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]faction
+[/div][div=display:inline-block; float:right; width:var(--inputw); text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]nct
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border2);][div=display:inline-block; float:left; width:var(--categoryw); text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]unit
+[/div][div=display:inline-block; float:right; width:var(--inputw); text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]127, dream
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border2);][div=display:inline-block; float:left; width:var(--categoryw); text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]height
+[/div][div=display:inline-block; float:right; width:var(--inputw); text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]5' 8"
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border2);][div=display:inline-block; float:left; width:var(--categoryw); text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]weight
+[/div][div=display:inline-block; float:right; width:var(--inputw); text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]126 lbs
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border2);][div=display:inline-block; float:left; width:var(--categoryw); text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]hair
+[/div][div=display:inline-block; float:right; width:var(--inputw); text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]dark burgundy
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border2);][div=display:inline-block; float:left; width:var(--categoryw); text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]eyes
+[/div][div=display:inline-block; float:right; width:var(--inputw); text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]warm chestnut
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border2);][div=display:inline-block; float:left; width:var(--categoryw); text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]skin
+[/div][div=display:inline-block; float:right; width:var(--inputw); text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]warm tan
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border2);][div=display:inline-block; float:left; width:var(--categoryw); text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]mods
+[/div][div=display:inline-block; float:right; width:var(--inputw); text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]x x x
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border2);][div=display:inline-block; float:left; width:var(--categoryw); text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]mbti
+[/div][div=display:inline-block; float:right; width:var(--inputw); text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]enfp
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+[comment]-- TAG START: copy me to add another! --[/comment]
+[div=display:flex; position:relative; width:100%; border-bottom:var(--border2);][div=display:inline-block; float:left; width:var(--categoryw); text-align:left; padding:var(--tagspacen); color:var(--tagcolor); -webkit-text-stroke:var(--tagbold);][comment]
+
+---- TAG TITLE HERE ----
+[/comment]love language
+[/div][div=display:inline-block; float:right; width:var(--inputw); text-align:right; padding:var(--tagspacec); vertical-align:top;][comment]
+
+---- TAG CONTENT HERE ----
+[/comment]physical touch, words of affirmation
+[/div][/div][comment]-- TAG END: copy me too! --[/comment]
+
+
+[comment] ----- DETAIL TAGS SCROLL END ----- [/comment]
+[/div][comment]---- details end ----[/comment]
+
+[/div][comment]---- LEFT END ----[/comment]
+
+
+
+
+[comment]---- MIDDLE START ----[/comment]
+[div=position:relative; margin:0px; width:300px; height:450px; overflow:hidden; background:var(--bkgd);]
+
+[comment] ---- content box ---- [/comment]
+[div=position:relative; margin:auto; margin-top:35px; width:245px; height:380px; overflow-x:hidden; overflow-y:scroll; scrollbar-width:none; font-family:var(--contentfont); font-size:var(--contentsize); line-height:var(--contentlh); outline:var(--middleoutline); outline-offset:20px; border-radius:.1px;][comment]
+
+---- CONTENT STARTS HERE ----
+[/comment]
+
+
+[comment] ---- shrine start ---- [/comment]
+[div=position:relative; width:100%; height:120px; margin-bottom:30px;]
+
+[comment] ---- picture frame ---- [/comment]
+[comment]-- frame pic --[/comment][div=position:absolute; left:28px; top:0px; width:190px; height:100%; background:var(--squareframe); background-color: var(--bkgd); background-size:cover; background-position:50% 50%; mix-blend-mode:luminosity;][/div]
+[comment]-- overlay 1 --[/comment][div=position:absolute; left:52px; bottom:0px; width:145px; height:130px; background:var(--olframe); mix-blend-mode: overlay;][/div]
+[comment]-- character pic --[/comment][div=position:absolute; left:74px; bottom:23px; width:99px; height:75px; background:var(--shrine); background-size:var(--shrinesize); background-position:var(--shrineposition); mask: radial-gradient(7px at 40px 40px, transparent 98%, black) -40px -40px;][/div]
+
+[comment] ---- left candle ---- [/comment]
+[div=position:absolute; left:10px; bottom:-10px; width:30px; height:100px; overflow:hidden;]
+[comment]-- candle gif --[/comment][div=position:absolute; left:0px; top:0px; width:100px; height:100px; background:var(--candle); background-color: var(--bkgd); background-size:150%; background-position:100% 90%; mix-blend-mode:luminosity;][/div]
+[comment]-- overlay 1 --[/comment][div=position:absolute; left:16px; top:10px; width:9px; height:18px; background:var(--olcandletop); mix-blend-mode: overlay; border-radius:100%;][/div]
+[comment]-- overlay 2--[/comment][div=position:absolute; left:11px; top:29px; width:24px; height:55px; background:var(--olcandlebottom); mix-blend-mode: overlay; border-radius:5px;][/div]
+[/div]
+
+[comment] ---- right candle ---- [/comment]
+[div=position:absolute; right:10px; bottom:-10px; width:30px; height:100px; overflow:hidden;]
+[comment]-- candle gif --[/comment][div=position:absolute; right:0px; top:0px; width:100px; height:100px; background:var(--candle); background-color: var(--bkgd); background-size:150%; background-position:100% 90%; mix-blend-mode:luminosity; transform: scaleX(-1);][/div]
+[comment]-- overlay 1 --[/comment][div=position:absolute; right:16px; top:10px; width:9px; height:18px; background:var(--olcandletop); mix-blend-mode: overlay; border-radius:100%;][/div]
+[comment]-- overlay 2--[/comment][div=position:absolute; right:11px; top:29px; width:24px; height:55px; background:var(--olcandlebottom); mix-blend-mode: overlay; border-radius:5px;][/div]
+[/div]
+
+[comment] ---- bottom lace ---- [/comment]
+[div=position:absolute; left:0px; bottom:0px; width:100%; height:20px; background:var(--ollace); -webkit-mask-image:var(--lace); mask-image:var(--lace); mask-size:cover; mask-position:50% 50%; transform:scaley(-1);][/div]
+
+[/div][comment] ---- shrine end---- [/comment]
+
+
+
+[comment] ---- virtues/vices start ---- [/comment]
+[div=display:flex; position:relative; width:100%; height:auto; text-align:center; margin-top:30px; margin-bottom:30px;]
+[div=display:inline-block; float:left; width:50%; border-right:var(--border2);][div=width:100%; color:var(--vvcolor); font-family:var(--vvtitlefont); font-size:var(--vvtitlesize); line-height:var(--vvtitlelh); text-transform:uppercase; margin-bottom:10px;][comment]
+
+---- VIRTUES TITLE HERE ----
+[/comment]virtues
+[/div]
+[div=position:relative; width:100%; border-top:var(--border2); padding-top:10px; color:var(--vvbodycolor); font-family:var(--vvfont); font-size:var(--vvsize); line-height:var(--vvlh); white-space:pre-line; text-transform:uppercase;][comment]
+
+---- VIRTUES HERE ----
+[/comment]Multi-talented
+Intelligent
+Capable
+Virtue Four
+Virtue Five
+Virtue Six
+[/div][/div]
+
+[div=display:inline-block; float:right; width:50%;][div=width:100%; color:var(--vvcolor); -webkit-text-stroke:var(--vvbold); letter-spacing:0.2px; font-family:var(--vvtitlefont); font-size:var(--vvtitlesize); line-height:var(--vvtitlelh); text-transform:uppercase; margin-bottom:10px;][comment]
+
+---- VICES TITLE HERE ----
+[/comment]vices
+[/div]
+[div=position:relative; width:100%; border-top:var(--border2); padding-top:10px; color:var(--vvbodycolor); font-family:var(--vvfont); font-size:var(--vvsize); line-height:var(--vvlh); white-space:pre-line; text-transform:uppercase;][comment]
+
+---- VICES HERE ----
+[/comment]Short-tempered
+Unambitious
+Picky
+Vice Four
+Vice Five
+Vice Six
+[/div][/div]
+
+[/div][comment] ---- virtues/vices end---- [/comment]
+
+
+[comment] ---- quote ---- [/comment]
+[div=position:relative; width:100%; height:auto; margin:30px 0 60px 0; color:var(--quotecolor); font-family:var(--quotefont); font-size:var(--quotesize); line-height:var(--quotelh); text-align:center; text-transform:uppercase;-webkit-text-stroke:var(--quotebold);]❝ [comment]
+
+---- QUOTE HERE ----
+[/comment]in the silence, only the shutter sound keeps echoing, echoing...
+ ❞[/div]
+
+
+[comment] ---- subsection start: copy me to make a new one! ---- [/comment]
+[div=position:relative; margin-top:40px; margin-bottom:20px; width:100%; height:0.5px; background:var(--dividercolor);][div=margin:auto; padding:0 10px 0 10px; width:fit-content; height:auto; font-family:var(--subsectionfont); font-size:var(--subsectionsize); line-height:var(--subsectionlh); text-transform:uppercase; text-align:center; background:var(--bkgd); color:var(--subtitle2color); letter-spacing:3px; -webkit-text-stroke:var(--subtitle2bold);][comment]
+
+---- SUBSECTION TITLE HERE ----
+[/comment]style[/div][/div]
+
+[div=position:relative; width:100%; height:auto; margin-bottom:20px;text-align:justify; white-space:pre-line;][comment]
+
+---- SUBSECTION TEXT HERE ----
+[/comment]Morbi eget varius mauris. Nam id dolor nibh. Maecenas nec mauris vitae diam cursus condimentum. Praesent vitae sodales ante. Proin consequat faucibus felis ac pharetra. Fusce hendrerit vitae mauris vitae congue. Nam id dolor nibh. Maecenas nec mauris vitae diam cursus condimentum. Praesent vitae sodales ante. Proin consequat faucibus felis ac pharetra. Fusce hendrerit vitae mauris vitae congue.
+[/div][comment] ---- subsection end: copy me too! ---- [/comment]
+
+
+[comment] ---- subsection start: copy me to make a new one! ---- [/comment]
+[div=position:relative; margin-top:40px; margin-bottom:20px; width:100%; height:0.5px; background:var(--dividercolor);][div=margin:auto; padding:0 10px 0 10px; width:fit-content; height:auto; font-family:var(--subsectionfont); font-size:var(--subsectionsize); line-height:var(--subsectionlh); text-transform:uppercase; text-align:center; background:var(--bkgd); color:var(--subtitle2color); letter-spacing:3px; -webkit-text-stroke:var(--subtitle2bold);][comment]
+
+---- SUBSECTION TITLE HERE ----
+[/comment]ambitions[/div][/div]
+
+[div=position:relative; width:100%; height:auto; margin-bottom:20px;text-align:justify; white-space:pre-line;][comment]
+
+---- SUBSECTION TEXT HERE ----
+[/comment]Lorem ipsum dolor sit amet, consectetur adipiscing elit. In placerat mauris vitae suscipit fringilla. Morbi eget varius mauris. Nam id dolor nibh. Maecenas nec mauris vitae diam cursus condimentum. Praesent vitae sodales ante. Proin consequat faucibus felis ac pharetra. Fusce hendrerit vitae mauris vitae congue.
+[/div][comment] ---- subsection end: copy me too! ---- [/comment]
+
+
+[comment] ---- subsection start: copy me to make a new one! ---- [/comment]
+[div=position:relative; margin-top:40px; margin-bottom:20px; width:100%; height:0.5px; background:var(--dividercolor);][div=margin:auto; padding:0 10px 0 10px; width:fit-content; height:auto; font-family:var(--subsectionfont); font-size:var(--subsectionsize); line-height:var(--subsectionlh); text-transform:uppercase; text-align:center; background:var(--bkgd); color:var(--subtitle2color); letter-spacing:3px; -webkit-text-stroke:var(--subtitle2bold);][comment]
+
+---- SUBSECTION TITLE HERE ----
+[/comment]fears[/div][/div]
+
+[div=position:relative; width:100%; height:auto; margin-bottom:20px;text-align:justify; white-space:pre-line;][comment]
+
+---- SUBSECTION TEXT HERE ----
+[/comment]In placerat mauris vitae suscipit fringilla. Morbi eget varius mauris. Nam id dolor nibh. Maecenas nec mauris vitae diam cursus condimentum. Praesent vitae sodales ante. Proin consequat faucibus felis ac pharetra. Fusce hendrerit vitae mauris vitae congue.
+[/div][comment] ---- subsection end: copy me too! ---- [/comment]
+
+
+[comment] ---- subsection start: copy me to make a new one! ---- [/comment]
+[div=position:relative; margin-top:40px; margin-bottom:20px; width:100%; height:0.5px; background:var(--dividercolor);][div=margin:auto; padding:0 10px 0 10px; width:fit-content; height:auto; font-family:var(--subsectionfont); font-size:var(--subsectionsize); line-height:var(--subsectionlh); text-transform:uppercase; text-align:center; background:var(--bkgd); color:var(--subtitle2color); letter-spacing:3px; -webkit-text-stroke:var(--subtitle2bold);][comment]
+
+---- SUBSECTION TITLE HERE ----
+[/comment]hobbies[/div][/div]
+
+[div=position:relative; width:100%; height:auto; margin-bottom:20px;text-align:justify; white-space:pre-line;][comment]
+
+---- SUBSECTION TEXT HERE ----
+[/comment]Morbi consequat varius massa, quis eleifend diam dictum non. Fusce viverra lacus et nunc malesuada, vitae finibus sem tempor. Phasellus lobortis ipsum ut sapien gravida vulputate. Vestibulum ornare maximus quam sed pretium.
+[/div][comment] ---- subsection end: copy me too! ---- [/comment]
+
+
+[comment] ---- subsection start: copy me to make a new one! ---- [/comment]
+[div=position:relative; margin-top:40px; margin-bottom:20px; width:100%; height:0.5px; background:var(--dividercolor);][div=margin:auto; padding:0 10px 0 10px; width:fit-content; height:auto; font-family:var(--subsectionfont); font-size:var(--subsectionsize); line-height:var(--subsectionlh); text-transform:uppercase; text-align:center; background:var(--bkgd); color:var(--subtitle2color); letter-spacing:3px; -webkit-text-stroke:var(--subtitle2bold);][comment]
+
+---- SUBSECTION TITLE HERE ----
+[/comment]aversions[/div][/div]
+
+[div=position:relative; width:100%; height:auto; margin-bottom:20px;text-align:justify; white-space:pre-line;][comment]
+
+---- SUBSECTION TEXT HERE ----
+[/comment]Praesent ac aliquam ex. Nunc eget ex turpis. Nam id erat quis dolor dictum consectetur. Donec efficitur urna vitae odio rhoncus, sit amet dapibus purus semper. Suspendisse semper est sit amet metus scelerisque vestibulum. Vestibulum ornare maximus quam sed pretium.
+[/div][comment] ---- subsection end: copy me too! ---- [/comment]
+
+
+[comment] ---- subsection start: copy me to make a new one! ---- [/comment]
+[div=position:relative; margin-top:40px; margin-bottom:20px; width:100%; height:0.5px; background:var(--dividercolor);][div=margin:auto; padding:0 10px 0 10px; width:fit-content; height:auto; font-family:var(--subsectionfont); font-size:var(--subsectionsize); line-height:var(--subsectionlh); text-transform:uppercase; text-align:center; background:var(--bkgd); color:var(--subtitle2color); letter-spacing:3px; -webkit-text-stroke:var(--subtitle2bold);][comment]
+
+---- SUBSECTION TITLE HERE ----
+[/comment]relationships[/div][/div]
+
+[div=position:relative; width:100%; height:auto; margin-bottom:20px;text-align:justify; white-space:pre-line;][comment]
+
+---- SUBSECTION TEXT HERE ----
+[/comment][div=padding-left:10px; display:inline; color:var(--rship); -webkit-text-stroke:var(--rshipbold);]⇾ Name Lastname[/div]
+Description of relationship ornare maximus quam sed pretium. Nam id erat quis dolor dictum consectetur.
+
+[div=padding-left:10px; display:inline; color:var(--rship); -webkit-text-stroke:var(--rshipbold);]⇾ Name Lastname[/div]
+Description of relationship ornare maximus quam sed pretium. Vestibulum ornare maximus quam sed pretium. Nam id erat quis dolor dictum consectetur.
+
+[div=padding-left:10px; display:inline; color:var(--rship); -webkit-text-stroke:var(--rshipbold);]⇾ Name Lastname[/div]
+Description of relationship ornare maximus quam sed pretium. Nam id erat quis dolor dictum consectetur.
+
+[div=padding-left:10px; display:inline; color:var(--rship); -webkit-text-stroke:var(--rshipbold);]⇾ Name Lastname[/div]
+Description of relationship ornare maximus quam sed pretium. Vestibulum ornare maximus quam sed pretium. Nam id erat quis dolor dictum consectetur.
+[/div][comment] ---- subsection end: copy me too! ---- [/comment]
+
+
+[/div][comment] ---- content box end ---- [/comment]
+
+
+[comment]---- corners start ----[/comment]
+[comment]-- top left --[/comment][div=position:absolute; left:0.3px; top:8px; width:45px; height:45px; background:var(--cornercolor); -webkit-mask-image:var(--corner); mask-image:var(--corner); mask-size:var(--cornersize); mask-position:var(--cornerposition); transform:rotate(90deg);][/div]
+[comment]-- top right --[/comment][div=position:absolute; right:0.5px; top:8px; width:45px; height:45px; background:var(--cornercolor); -webkit-mask-image:var(--corner); mask-image:var(--corner); mask-size:var(--cornersize); mask-position:var(--cornerposition); transform:rotate(180deg);][/div]
+[comment]-- bottom left --[/comment][div=position:absolute; left:0.5px; bottom:8px; width:45px; height:45px; background:var(--cornercolor); -webkit-mask-image:var(--corner); mask-image:var(--corner); mask-size:var(--cornersize); mask-position:var(--cornerposition); transform:rotate(0deg);][/div]
+[comment]-- bottom right --[/comment][div=position:absolute; right:0.3px; bottom:8px; width:45px; height:45px; background:var(--cornercolor); -webkit-mask-image:var(--corner); mask-image:var(--corner); mask-size:var(--cornersize); mask-position:var(--cornerposition); transform:rotate(270deg);][/div]
+[comment]---- corners end ----[/comment]
+
+[/div][comment]---- MIDDLE END ----[/comment]
+
+
+
+
+[comment]---- RIGHT START ----[/comment]
+[div=position:relative; margin:0px; border-radius:0 15px 15px 0; width:300px; height:450px; background:var(--bkgd);]
+
+
+[comment]---- name header start ----[/comment]
+
+[comment]---- sky ----[/comment]
+[div=position:absolute; left:0px; top:10px; width:230px; height:160px; background:var(--skycolor); -webkit-mask-image:var(--sky); mask-image:var(--sky); mask-size:cover;; mask-position:67% 50%; box-shadow: inset 0px 0px 5px 15px var(--bkgd);][/div]
+
+[comment]---- planet start ----[/comment]
+[comment]-- texture gif --[/comment][div=position:absolute; right:-15px; top:15px; width:95px; height:95px; background:var(--texture); background-size:cover; background-position:50% 50%; border-radius:100%; border:var(--planetborder); box-shadow: inset 0 0 10px var(--bkgd); mix-blend-mode:luminosity;][/div]
+[comment]-- color overlay --[/comment][div=position:absolute; right:-15px; top:15px; width:95px; height:95px; background:var(--olplanet); mix-blend-mode: overlay; border-radius:100%;][/div]
+[comment]-- moon --[/comment][div=position:absolute; right:-8px; top:19px; width:95px; height:95px; background:var(--moon); background-size:cover; background-position:100% 50%; border-radius:100%; mix-blend-mode:color-dodge; opacity:0.5;][/div]
+[comment]---- planet end----[/comment]
+
+[comment]---- rays start ----[/comment][div=z-index:3;]
+[div=position:absolute; right:80px; top:20px; width:100px; height:2px; background:var(--raycolor); transform:rotate(25deg); border-radius:50%;][/div]
+[div=position:absolute; right:65px; top:0px; width:60px; height:2px; background:var(--raycolor); transform:rotate(45deg); border-radius:50%;][/div]
+[div=position:absolute; right:25px; top:-35px; width:100px; height:2px; background:var(--raycolor); transform:rotate(65deg); border-radius:50%;][/div]
+[div=position:absolute; right:10px; top:-20px; width:50px; height:2px; background:var(--raycolor); transform:rotate(85deg); border-radius:50%;][/div]
+[div=position:absolute; right:80px; top:105px; width:100px; height:2px; z-index:3; opacity:0.6; background:var(--raycolor); transform:rotate(-25deg); border-radius:50%;][/div]
+[div=position:absolute; right:65px; top:125px; width:60px; height:2px; z-index:3; opacity:0.5; background:var(--raycolor); transform:rotate(-45deg); border-radius:50%;][/div]
+[div=position:absolute; right:25px; top:160px; width:100px; height:2px; z-index:3; opacity:0.4; background:var(--raycolor); transform:rotate(-65deg); border-radius:50%;][/div]
+[div=position:absolute; right:10px; top:145px; width:50px; height:2px; z-index:3; opacity:0.4; background:var(--raycolor); transform:rotate(-85deg); border-radius:50%;][/div]
+[/div][comment]---- rays end ----[/comment]
+
+[comment]---- name start ----[/comment]
+[comment]-- bkgd shadow --[/comment][div=position:absolute; top:52px; right:15px; width:65px; height:23px; background:var(--bkgd); box-shadow:0 0 5px 5px var(--bkgd); border-radius:15px; mix-blend-mode:darken; opacity:0.5;][/div]
+[comment]-- name --[/comment][div=position:absolute; top:49px; right:55px; width:100%; height:30px; text-align:right; font-family:var(--namefont); font-size:var(--namesize); line-height:var(--namelh); color:var(--namecolor); text-transform:uppercase; text-shadow:0 0 5px var(--bkgd);][comment]
+
+---- CHARACTER NAME HERE ----
+[/comment]lee haechan
+
+[/div][comment]-- icon/suit --[/comment][div=position:absolute; top:49px; right:21px; width:100%; height:30px; text-align:right; display:inline; font-size:var(--suitsize); line-height:var(--suitlh); color:var(--suitcolor);][comment]
+
+---- ICON/SUIT HERE ----
+[/comment][fa]fal fa-spade[/fa]
+
+[/div][comment]---- name end ----[/comment]
+[comment]---- name header end ----[/comment]
+
+
+[comment] ---- backstory content start ---- [/comment]
+[div=position:absolute; bottom:45px; left:15px; width:270px; height:270px; background:var(--bkgd); overflow-x:hidden; overflow-y:scroll; scrollbar-width:none; font-size:var(--contentsize); line-height:var(--contentlh); font-family:var(--contentfont);]
+
+[comment] ---- section start: copy me to make a new one! ---- [/comment]
+[div=position:sticky; top:0; z-index:1; margin:auto; background:var(--bkgd); height:40px;][div=display:inline; width:fit-content; height:25px; padding:0 10px 5px 0; border-right:var(--border2); border-bottom:var(--border2); font-family:var(--sectionfont); font-size:var(--sectionsize); line-height:var(--sectionlh); text-transform:uppercase; color:var(--subtitlecolor);][div=display:inline; -webkit-text-stroke:var(--subtitlebold);][comment]
+
+---- SECTION NAME PT1 HERE ----
+[/comment]chapter i:
+[/div] [comment]
+
+---- SECTION NAME PT2 HERE ----
+[/comment]conception
+[/div][/div]
+
+[div=position:relative; width:255px; height:auto; margin-bottom:20px; background:var(--bkgd); border-left:var(--border2); padding-left:15px; text-align:justify; white-space:pre-line;][comment]
+
+---- BODY TEXT HERE ----
+[/comment]Maecenas dictum dui ut lorem semper gravida. In pretium vitae arcu eget posuere.
+
+In placerat sodales urna suscipit tempus. Ut sit amet quam vitae libero vestibulum accumsan. Vestibulum et nisl pretium ante ultrices faucibus. Pellentesque eget consectetur mi, eu ullamcorper leo. In hac habitasse platea dictumst. Aenean ut est at leo bibendum malesuada. In viverra eget tellus id laoreet. Proin tempus magna vitae leo hendrerit pretium.
+
+Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce ut dui ac ante eleifend hendrerit. Nunc lacinia et velit eu fermentum. In id orci sit amet velit auctor condimentum. Curabitur a est vitae magna viverra gravida nec ac justo.
+
+[div=display:inline; color:var(--d1color); -webkit-text-stroke:var(--d1bold);]"Donec eros nisi, blandit sed nulla in, consectetur pulvinar elit."[/div]
+
+Pellentesque id efficitur felis, vitae viverra sapien. Nullam sagittis id mauris et finibus. Praesent id fringilla purus, id maximus magna. Vestibulum pellentesque dolor sit amet erat ultricies, non finibus magna commodo. Quisque ultrices ac ante sit amet malesuada. Morbi varius scelerisque odio, et blandit metus sollicitudin ac. Aliquam maximus, tellus non ultrices suscipit, lacus sem rhoncus eros, ac pellentesque urna nulla ut ex. Maecenas consectetur laoreet lorem.
+[/div][comment] ---- section end: copy me too! ---- [/comment]
+
+
+[comment] ---- section start: copy me to make a new one! ---- [/comment]
+[div=position:sticky; top:0; z-index:1; margin:auto; background:var(--bkgd); height:40px;][div=display:inline; width:fit-content; height:25px; padding:0 10px 5px 0; border-right:var(--border2); border-bottom:var(--border2); font-family:var(--sectionfont); font-size:var(--sectionsize); line-height:var(--sectionlh); text-transform:uppercase; color:var(--subtitlecolor);][div=display:inline; -webkit-text-stroke:var(--subtitlebold);][comment]
+
+---- SECTION NAME PT1 HERE ----
+[/comment]chapter ii:
+[/div] [comment]
+
+---- SECTION NAME PT2 HERE ----
+[/comment]growth
+[/div][/div]
+
+[div=position:relative; width:255px; height:auto;  margin-bottom:20px; background:var(--bkgd); border-left:var(--border2); padding-left:15px; text-align:justify; white-space:pre-line;][comment]
+
+---- BODY TEXT HERE ----
+[/comment]Maecenas dictum dui ut lorem semper gravida. In pretium vitae arcu eget posuere. In placerat sodales urna suscipit tempus. Ut sit amet quam vitae libero vestibulum accumsan. Vestibulum et nisl pretium ante ultrices faucibus. Pellentesque eget consectetur mi, eu ullamcorper leo. In hac habitasse platea dictumst. Aenean ut est at leo bibendum malesuada. In viverra eget tellus id laoreet. Proin tempus magna vitae leo hendrerit pretium. Donec eros nisi, blandit sed nulla in, consectetur pulvinar elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce ut dui ac ante eleifend hendrerit. Nunc lacinia et velit eu fermentum. In id orci sit amet velit auctor condimentum. Curabitur a est vitae magna viverra gravida nec ac justo.
+
+Pellentesque id efficitur felis, vitae viverra sapien. Nullam sagittis id mauris et finibus. Praesent id fringilla purus, id maximus magna. Vestibulum pellentesque dolor sit amet erat ultricies, non finibus magna commodo. Quisque ultrices ac ante sit amet malesuada. Morbi varius scelerisque odio, et blandit metus sollicitudin ac. Aliquam maximus, tellus non ultrices suscipit, lacus sem rhoncus eros, ac pellentesque urna nulla ut ex. Maecenas consectetur laoreet lorem.
+[/div][comment] ---- section end: copy me too! ---- [/comment]
+
+
+[comment] ---- section start: copy me to make a new one! ---- [/comment]
+[div=position:sticky; top:0; z-index:1; margin:auto; background:var(--bkgd); height:40px;][div=display:inline; width:fit-content; height:25px; padding:0 10px 5px 0; border-right:var(--border2); border-bottom:var(--border2); font-family:var(--sectionfont); font-size:var(--sectionsize); line-height:var(--sectionlh); text-transform:uppercase; color:var(--subtitlecolor);][div=display:inline; -webkit-text-stroke:var(--subtitlebold);][comment]
+
+---- SECTION NAME PT1 HERE ----
+[/comment]chapter iii:
+[/div] [comment]
+
+---- SECTION NAME PT2 HERE ----
+[/comment]present
+[/div][/div]
+
+[div=position:relative; width:255px; height:auto;  margin-bottom:20px; background:var(--bkgd); border-left:var(--border2); padding-left:15px; text-align:justify; white-space:pre-line;][comment]
+
+---- BODY TEXT HERE ----
+[/comment]Maecenas dictum dui ut lorem semper gravida. In pretium vitae arcu eget posuere. In placerat sodales urna suscipit tempus. Ut sit amet quam vitae libero vestibulum accumsan. Vestibulum et nisl pretium ante ultrices faucibus. Pellentesque eget consectetur mi, eu ullamcorper leo. In hac habitasse platea dictumst. Aenean ut est at leo bibendum malesuada. In viverra eget tellus id laoreet. Proin tempus magna vitae leo hendrerit pretium. Donec eros nisi, blandit sed nulla in, consectetur pulvinar elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce ut dui ac ante eleifend hendrerit. Nunc lacinia et velit eu fermentum. In id orci sit amet velit auctor condimentum. Curabitur a est vitae magna viverra gravida nec ac justo.
+
+Pellentesque id efficitur felis, vitae viverra sapien. Nullam sagittis id mauris et finibus. Praesent id fringilla purus, id maximus magna. Vestibulum pellentesque dolor sit amet erat ultricies, non finibus magna commodo. Quisque ultrices ac ante sit amet malesuada. Morbi varius scelerisque odio, et blandit metus sollicitudin ac. Aliquam maximus, tellus non ultrices suscipit, lacus sem rhoncus eros, ac pellentesque urna nulla ut ex. Maecenas consectetur laoreet lorem.
+[/div][comment] ---- section end: copy me too! ---- [/comment]
+
+
+[/div][comment] ---- backstory content end ---- [/comment]
+
+
+
+
+[comment]---- music start ----[/comment]
+[div=position:absolute; bottom:15px; right:47px; width:250px; height:12px; text-align:right; font-family:var(--musicfont); font-size:var(--musicsize); line-height:var(--musiclh); text-transform:uppercase; color:var(--artistcolor);][comment]
+
+---- ARTIST NAME HERE ----
+[/comment]haechan
+
+[div=display:inline; color:var(--dashcolor);]—[/div] [div=display:inline; color:var(--songcolor);][comment]
+
+---- SONG NAME HERE ----
+[/comment]camera lights
+
+[/div][/div]
+
+[comment] ---- MUSIC PLAYER BUTTON
+---- graciously granted to me by uxie ty queen ily [/comment]
+[div=position:absolute; bottom:30px; right:15px; width:20px; height:12px;]
+[div=height:40px; width:100%; flex-shrink:0; box-sizing:border-box; display:flex; flex-flow:row nowrap; align-items:center;]
+
+[comment] ---- play button ---- [/comment]
+[div=height:12px; width:20px; border-radius:100%; position:relative; flex-shrink:0;][div=height:100%; width:100%; background-size:cover; position:relative; z-index:2; pointer-events:none;][div=position:absolute; left:0px; top:0px; width:20px; height:12px; background:var(--playcolor); -webkit-mask-image:var(--musicpic); mask-image:var(--musicpic); mask-repeat: no-repeat; mask-size:cover; mask-position:center;][/div][/div]
+
+[comment] ---- media files ---- [/comment]
+[border=transparent; height:100%; width:100%; padding:0; position:absolute; top:0; left:0; z-index:1; display:flex; align-items:center; justify-content:center; overflow:hidden; opacity:0.01%;][border=transparent; height:20px; width:20px; padding:0; position:relative; pointer-events:auto;]
+
+[comment]---- SOUNDCLOUD ---- (replace the soundcloud link within media tag with your own) ---- [/comment]
+[border=transparent; height:80px; width:180px; padding:0; margin-top:-16px; margin-left:-14px; position:absolute; top:0; left:0;]
+[media=soundcloud]https://soundcloud.com/gvorluelz6qa/haechan-camera-lights[/media][/border]
+
+[comment]---- GOOGLE DRIVE ---- (replace the google file code within media tag with your own) ---- [/comment]
+[border=transparent; height:500px; width:500px; margin-top:-170px; margin-left:-93px; padding:0px;/*remove this to use me, and add it to the other*/ display:none;]
+[media=googledrive]1EwyiuGOGDy8NrbyIm2mfdHc7szRnCMBC[/MEDIA]
+
+[/border][/border][/border]
+[/div][/div][/div][comment]---- music end ----[/comment]
+
+[/div][comment]---- RIGHT END ----[/comment]
+
+[/nobr][/div][/div]

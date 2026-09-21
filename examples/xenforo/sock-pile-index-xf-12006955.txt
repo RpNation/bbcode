@@ -1,0 +1,138 @@
+[nobr][comment]code by sox
+
+[font=Bricolage Grotesque]body[/font]
+[/comment][div=height:auto; width:100%; overflow-x:auto; overflow-y:hidden;
+
+/*colors*/
+--bkgd1: #191919;
+--bkgd2: #dbd1c8;
+--border1: 1px solid var(--bkgd2);
+--border2: 1px solid var(--bkgd1);
+--border3: 1px solid var(--color1);
+--text: #000;
+
+/*accents -- update the color names as you edit! trust me it helps! */
+--color1: #804a49;
+--color2: #506b80;
+
+/*fonts*/
+--header: 'Bricolage Grotesque', sans-serif;
+
+/*urls*/
+--mainpic: url('https://i.pinimg.com/736x/90/84/ca/9084cae8f227d767ba9bfb71217ef9ee.jpg');
+
+][div=margin:auto; margin-top:5px; margin-bottom:5px; width:390px; height:520px;]
+[div=position:absolute; width:190px; height:250px; background: var(--bkgd1); margin-right:10px; outline: var(--border1); outline-offset: -10px;]
+[div=position:absolute; top:30px; left:20px; font-size: 16px; line-height:16px; font-family: var(--header); font-weight: bold; color: var(--bkgd2);]
+
+The Sock Pile.
+
+[/div]
+[div=position:absolute; top:33px; left:156px; font-size: 12px; line-height:12px; font-family: var(--header); color: var(--color1);][fa]fas fa-socks[/fa][/div]
+[div=position:absolute; top:50px; left:20px; width:150px; height:150px; background: var(--mainpic); background-size:cover; background-position:50% 50%; filter:contrast(1.1) grayscale(50%);][/div]
+[div=position:absolute; top:205px; left:20px; font-size: 13px; line-height:14px; font-family: var(--header); font-weight: bold; color: var(--color1);]
+
+/000.
+
+[/div]
+[div=position:absolute; top:205px; left:50px; width:120px; text-align:right; font-size: 7px; line-height:7px; font-family: var(--header); font-weight: bold; color: var(--bkgd2);]
+
+# code workshop
+[br][/br]
+# freebies
+
+[/div][/div]
+
+[div=position:absolute; margin-left:200px; width:190px; height:250px; background: var(--bkgd2); margin-right:10px; outline: var(--border2); outline-offset: -10px;]
+[div=position:absolute; top:30px; left:30px; width:150px; height:190px; overflow:hidden;]
+[div=font-size: 8px; line-height:9px; width:145px; height:190px; padding:0 40px 0 0; font-family: var(--header); color: var(--bkgd1); overflow-y:scroll; text-align: justify;]
+
+[B]hello all & welcome to my new code workshop![/B]
+[br][/br][br][/br]
+i once said i'd be back whenever i learned how to code without relying on bbcode+, and i'm finally here several years later (lmao) to make good on that promise with some fun little projects as i slowly work on them. i don't plan on updating this thread on a fixed schedule as of now, but hopefully i can get a few things i've been fiddling with launched in here soon!
+[br][/br][br][/br]
+all raw codes can be found by clicking the [B]link button next to the name[/B] of the code. in the case that there are [B]two versions,[/B] the first link will always be the light version, while the second will always be the dark version.
+[br][/br][br][/br]
+as usual, all of my codes are [B]freebies[/B]— the only thing i ask is that you please [B]don't remove[/B] [B]the credit[/B] in the code (it shouldn't be visible once posted). leaving a cookie on the ones you use would also be much appreciated, but that's just so i can check out all your fun customizations. as of right now [B]i don't take requests[/B], but if anything breaks or you have any questions about how to edit something, please feel free to message me on here and i'll try my best to help get it sorted for you!
+[br][/br][br][/br]
+also, i sincerely apologize to anyone who knew my old code thread and the sticky codes in there— i have, in fact, [I]not[/I] stopped position:absolute -ing all over the place.
+[br][/br][br][/br]
+so in that vein: are my codes [B]mobile friendly?[/B] well, kinda sorta! flexboxes and i are still not on speaking terms, so my codes won't necessarily be [I]optimized[/I] for mobile, but you should still be able to scroll left and right on them to see the whole design on any device without a problem. tabs/buttons are another feature that still eludes me, so until i learn how to properly implement those without javascript, almost everything will be [B]static or scrolls only.[/B]
+[br][/br][br][/br]
+with all that out of the way, go ahead and take a look around!
+[/div][/div][/div]
+
+[div=position:absolute; margin-top:260px; width:390px; height:250px; margin-right:10px; border:var(--border2); outline: var(--border3); outline-offset: -10px;]
+[div=position:absolute; right:15px; top:15px; width:100px; height:10px; text-align: right; font-family:var(--header); font-size:8px; line-height:10px; font-weight:500; text-transform:uppercase; opacity:0.5;]scroll [div=display:inline; font-size:6px;][fa]fal fa-arrow-down[/fa][/div][/div]
+
+[div=position:absolute; top:30px; left:30px; width:165px; height:190px; overflow:hidden;]
+[div=font-size: 10px; line-height:12px; width:330px; height:190px; font-family: var(--header); overflow-y:scroll; text-align: justify;]
+[div=width:50%;]
+
+[comment]-- cs --[/comment]
+[div=display:inline; color:var(--bkgd2); background:var(--bkgd1); padding:5px; font-size:12px; line-height:22px; font-family:var(--header); font-weight:bold;]Character Sheet:[/div]
+[LIST]
+[*][URL='https://www.rpnation.com/threads/the-sock-pile-workshop-freebies.547824/post-12006956']001[/URL] — simulation.
+[*][URL='https://www.rpnation.com/threads/the-sock-pile-workshop-freebies.547824/post-12015259']005[/URL] — virtual insanity.
+[*][URL='https://www.rpnation.com/threads/the-sock-pile-workshop-freebies.547824/post-12030946']008[/URL] — backbone.
+[*][URL='https://www.rpnation.com/threads/the-sock-pile-workshop-freebies.547824/post-12043788']010[/URL] — document.
+[*][URL='https://www.rpnation.com/threads/the-sock-pile-workshop-freebies.547824/post-12107510']013[/URL] — archive.
+[*][URL='https://www.rpnation.com/threads/the-sock-pile-workshop-freebies.547824/post-12201301']016[/URL] — cyberkill.
+[*][URL='https://www.rpnation.com/threads/the-sock-pile-workshop-freebies.547824/post-12295501']018[/URL] — midnight.
+[*][URL='https://www.rpnation.com/threads/the-sock-pile-workshop-freebies.547824/post-12394448']003[/URL] — forfeit.
+[/LIST]
+[br][/br]
+
+[comment]-- placeholder --[/comment]
+[div=display:inline; color:var(--bkgd2); background:var(--bkgd1); padding:5px; font-size:12px; line-height:22px; font-family:var(--header); font-weight:bold;]Placeholder:[/div]
+[LIST]
+[*][URL='https://www.rpnation.com/threads/the-sock-pile-workshop-freebies.547824/post-12009189']004[/URL] — cinematic.
+[*][URL='https://www.rpnation.com/threads/the-sock-pile-workshop-freebies.547824/post-12072003']011[/URL] — aesthete.
+[*][URL='https://www.rpnation.com/threads/the-sock-pile-workshop-freebies.547824/post-12086694']012[/URL] — authorized.
+[*][URL='https://www.rpnation.com/threads/the-sock-pile-workshop-freebies.547824/post-12125849']014[/URL] — spotify.
+[*][URL='https://www.rpnation.com/threads/the-sock-pile-workshop-freebies.547824/post-12203643']016[/URL] — cyberkill.
+[*][URL='https://www.rpnation.com/threads/the-sock-pile-workshop-freebies.547824/post-12295502']018[/URL] — midnight.
+[*][URL='https://www.rpnation.com/threads/the-sock-pile-workshop-freebies.547824/post-12394448']003[/URL] — forfeit.
+[/LIST]
+[/div][/div][/div]
+
+[div=position:absolute; top:30px; right:30px; width:165px; height:190px; overflow:hidden;]
+[div=font-size: 10px; line-height:12px; width:330px; height:190px; font-family: var(--header); overflow-y:scroll; text-align: justify;]
+[div=width:50%;]
+
+[comment]-- in character --[/comment]
+[div=display:inline; color:var(--bkgd2); background:var(--bkgd1); padding:5px; font-size:12px; line-height:22px; font-family:var(--header); font-weight:bold;]In-Character:[/div]
+[LIST]
+[*][URL='https://www.rpnation.com/threads/the-sock-pile-workshop-freebies.547824/post-12008341']003[/URL] — on record.
+[*][URL='https://www.rpnation.com/threads/the-sock-pile-workshop-freebies.547824/post-12015355']005[/URL] — virtual insanity.
+[*][URL='https://www.rpnation.com/threads/the-sock-pile-workshop-freebies.547824/post-12026906']007[/URL] — coup d'œil.
+[*][URL='https://www.rpnation.com/threads/the-sock-pile-workshop-freebies.547824/post-12034846']009[/URL] — starling.
+[*][URL='https://www.rpnation.com/threads/the-sock-pile-workshop-freebies.547824/post-12043790']010[/URL] — document.
+[*][URL='https://www.rpnation.com/threads/the-sock-pile-workshop-freebies.547824/post-12113751']013[/URL] — archive.
+[*][URL='https://www.rpnation.com/threads/the-sock-pile-workshop-freebies.547824/post-12202815']016[/URL] — cyberkill.
+[*][URL='https://www.rpnation.com/threads/the-sock-pile-workshop-freebies.547824/post-12235157']017[/URL] — complement.
+[*][URL='https://www.rpnation.com/threads/the-sock-pile-workshop-freebies.547824/post-12295502']018[/URL] — midnight.
+[*][URL='https://www.rpnation.com/threads/the-sock-pile-workshop-freebies.547824/post-12394449']003[/URL] — forfeit.
+[/LIST]
+[br][/br]
+
+[comment]-- interest check --[/comment]
+[div=display:inline; color:var(--bkgd2); background:var(--bkgd1); padding:5px; font-size:12px; line-height:22px; font-family:var(--header); font-weight:bold;]Interest Check:[/div]
+[LIST]
+[*][URL='https://www.rpnation.com/threads/the-sock-pile-workshop-freebies.547824/post-12007666']002[/URL] — bonded.
+[*][URL='https://www.rpnation.com/threads/the-sock-pile-workshop-freebies.547824/post-12023485']006[/URL] — permafrost.
+[*][URL='https://www.rpnation.com/threads/the-sock-pile-workshop-freebies.547824/post-12160996']015[/URL] — judgment.
+[*][URL='https://www.rpnation.com/threads/the-sock-pile-workshop-freebies.547824/post-12394447']003[/URL] — forfeit.
+[/LIST]
+[br][/br]
+
+[comment]-- progression --[/comment]
+[div=display:inline; color:var(--bkgd2); background:var(--bkgd1); padding:5px; font-size:12px; line-height:22px; font-family:var(--header); font-weight:bold;]Progression:[/div]
+[LIST]
+[*][URL='https://www.rpnation.com/threads/the-sock-pile-workshop-freebies.547824/post-12394449']003[/URL] — forfeit.
+[/LIST]
+[br][/br]
+[/div][/div][/div]
+
+[/div]
+[/div][/div][/nobr]

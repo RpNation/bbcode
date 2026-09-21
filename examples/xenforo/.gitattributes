@@ -1,0 +1,2 @@
+# Preserve original BBCode whitespace and line endings in reference posts.
+*.txt -text -whitespace

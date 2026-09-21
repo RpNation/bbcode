@@ -1,0 +1,638 @@
+[nobr][comment]code by sox
+
+[font=Bricolage Grotesque]body[/font]
+[/comment][div=height:auto; width:100%; overflow-x:auto; overflow-y:hidden;
+
+/*colors*/
+--bkgd1: #000;
+--bkgd2: #ffbddf;
+--border1: 1px solid var(--bkgd2);
+--border2: 1px solid var(--bkgd1);
+--text: #000;
+
+/*accents -- update the color names as you edit! trust me it helps! */
+--color1: #6794b8;
+
+/*fonts*/
+--header: 'Bricolage Grotesque', sans-serif;
+
+/*urls*/
+--mainpic: url('https://w0.peakpx.com/wallpaper/227/650/HD-wallpaper-happy-thoughts-80s-black-butterfly-drawing-lady-lettering-light-neon-neon-light-pink-thumbnail.jpg');
+
+][div=margin:auto; margin-top:5px; margin-bottom:5px; width:390px; height:250px;]
+[div=position:absolute; width:190px; height:250px; background: var(--bkgd1); margin-right:10px; outline: var(--border1); outline-offset: -10px;]
+[div=position:absolute; top:30px; left:20px; font-size: 16px; line-height:16px; font-family: var(--header); font-weight: bold; color: var(--bkgd2);]
+
+Sim-ulation.
+
+[/div]
+[div=position:absolute; top:33px; left:145px; font-size: 10px; line-height:12px; font-family: var(--header); color: var(--color1);][URL='https://pastebin.com/raw/ywUsizx4'][fa]fas fa-link[/fa][/URL][URL='https://pastebin.com/raw/1Jby0Dbe'][fa]fas fa-link[/fa][/URL][/div]
+[div=position:absolute; top:50px; left:20px; width:150px; height:150px; background: var(--mainpic); background-size:cover; background-position:50% 50%; filter:contrast(1.1);][/div]
+[div=position:absolute; top:205px; left:20px; font-size: 13px; line-height:14px; font-family: var(--header); font-weight: bold; color: var(--color1);]
+
+/001.
+
+[/div]
+[div=position:absolute; top:205px; left:50px; width:120px; text-align:right; font-size: 7px; line-height:7px; font-family: var(--header); font-weight: bold; color: var(--bkgd2);]
+
+# character sheet
+[br][/br]
+# mobile friendly-ish
+
+[/div][/div]
+
+[div=position:absolute; margin-left:200px; width:190px; height:250px; background: var(--bkgd2); margin-right:10px; outline: var(--border2); outline-offset: -10px;]
+[div=position:absolute; top:30px; left:30px; width:150px; height:190px; overflow:hidden;]
+[div=font-size: 8px; line-height:9px; width:145px; height:190px; padding:0 40px 0 0; font-family: var(--header); color: var(--bkgd1); overflow-y:scroll; text-align: justify;]
+
+introducing my first official code of 2024 — [B][I]sim-ulation.[/I][/B]
+[br][/br][br][/br]
+[B]first link:[/B] light version
+[br][/br]
+[B]second link:[/B] dark version
+[br][/br][br][/br]
+this is a [B]character sheet[/B] with one scroll box for character details and lots of outfit photos, originally made with high society or slice-of-life roleplays in mind. of course, it isn't limited to that! the icons above the gallery can also be swapped out to make it look more like an inventory or arsenal for characters whose fashion style isn't as important, e.g. for survival roleplays or superpower visuals.
+[br][/br][br][/br]
+i based the design of this code on the sims character creation screen but tweaked a few aspects to make it easier to work with; that being said, please pay careful attention to the comments i've left throughout to help you when editing the colors/images to suit your needs!
+[br][/br][br][/br]
+for the [B]transparent pictures[/B], i recommend using [URL='https://www.adobe.com/express/feature/image/remove-background']adobe's free background remover tool[/URL] for the cleanest results without using an editing software. there are also a few RGB values to edit when customizing the colors in this code, which i've marked with a comment towards the top! i highly suggest writing the color names within the comments to help you keep track of what's what.
+[br][/br][br][/br]
+as usual, if anything is confusing you, please feel free to DM me!
+[/div][/div][/div][/div][/div][/nobr]
+[comment]code by sox
+
+[font=Tilt Neon]body[/font]
+[/comment][div=height:auto; width:100%; overflow-x:auto; overflow-y:hidden;
+
+/*colors*/
+--bkgd: linear-gradient(to right, var(--color1), var(--color2));
+--decoration: #fff;
+--galshadow: rgba(0,0,0,0.3);
+--icons: #fff;
+--lightwhite: rgba(255, 255, 255, 0.3);
+--meter: #fff;
+--shading: rgba(0, 0, 0, 0.3);
+--shadow: #000;
+--subheading: linear-gradient(to bottom, white, var(--color5));
+--tagtray: rgba(0, 0, 0, 0.1);
+--text: #fff;
+
+/*colors you'll need to edit the rgbs for*/
+--bottombar: linear-gradient(to right, rgba(255, 255, 255, .3), rgba(255, 255, 255, 1));        /*rgb of: --decoration;  don't change 4th value*/
+--galbox: linear-gradient(to right, rgba(255, 163, 191, 0.1), rgba(255, 163, 191, 1));             /*rgbs of: a lil lighter than --color1*/
+--meterbase: rgba(250, 230, 247, 0.6);                                                         /*rgb of: --highlight;  don't change 4th value*/
+--shading3: rgba(65, 119, 163, 0.2);                                                                         /*rgb of: dark version of --color2;  don't change 4th value*/
+
+/*accents -- update the color names as you edit! trust me it helps! */
+--color1: #ffa3bf; /* light pink */
+--color2: #87b7de; /* light blue */
+--color3: #66676e; /* gray */
+--color4: #A5A5A5; /* light gray */
+--color5: #dcebfa; /* pastel blue  --  light color2*/
+--color6: #fce3f4; /* pastel pink  --  light color1*/
+--highlight: #fcedfb; /* halfway between --color1 and --color2, but make it very pastel */
+
+/*fonts*/
+--header: 'Tilt Neon', sans-serif;
+
+/*fc pics  ---  i use this site to remove backgrounds: https://www.adobe.com/express/feature/image/remove-background*/
+--mainpic: url('https://i.imgur.com/Biio74X.png');
+--headshot: url('https://i.imgur.com/8rhTCTe.png');
+
+/*gallery pics*/
+--gal1: url('https://i.pinimg.com/474x/5b/bb/4e/5bbb4e456b1b8eca4b9c6e9952273334.jpg');
+--gal2: url('https://i.pinimg.com/474x/5d/02/c9/5d02c93aa258a5a22ac78de7a3e48642.jpg');
+--gal3: url('https://i.pinimg.com/564x/17/85/67/1785670530f5c57257538fa2c88a6e7f.jpg');
+--gal4: url('https://i.pinimg.com/474x/20/49/e6/2049e65235526783faa73719fb863a86.jpg');
+--gal5: url('https://i.pinimg.com/474x/4e/68/b7/4e68b70db0591344e63645a9cd648fe8.jpg');
+--gal6: url('https://i.pinimg.com/474x/04/96/14/049614a74da675acd5b4dc7b0e4ec1d1.jpg');
+
+/*icon pics*/
+--sims: url('https://i.imgur.com/4SUhTe1.gif');
+
+][div=position:relative; overflow:hidden; width:800px; height:500px; margin:auto; margin-top: 10px; bottom: 10px; background:var(--bkgd); border: 2px solid var(--decoration); cursor: url('https://i.imgur.com/bb5FSYK.png'), auto; border-radius:20px; font-style:var(--header);]
+[div=position:absolute; width:210px; height:50px; background:var(--decoration); top:-25px; left:-25px; border-radius:50px;][div=position:absolute; left: 30px; bottom: -15px; width:35px; height:35px; border-radius: 100%; background:var(--color5); border: 2px solid var(--decoration);][div=position:relative; margin:auto; margin-top:0px; width:20px; height:35px; background: var(--sims); background-size:cover; background-position: 50% 50%; filter: brightness(90%) contrast(1.2) hue-rotate(120deg);][comment]
+
+---- edit this hue for sims logo color ^ some example values:
+--------- 0deg: green
+--------- 70deg: teal
+--------- 120deg: blue
+--------- 160deg: purple
+--------- 220deg: pink
+--------- 250deg: red
+--------- 270deg: orange
+--------- 315deg: yellow
+
+[/comment][/div][/div][div=position:absolute; bottom:2px; left: 80px; color:var(--color3); font-family:var(--header); font-weight:bold; text-transform:uppercase; font-size:12px; color: var(--color3);][comment]
+
+----- TOP LEFT NAME HERE -----
+-----> structure: {div}first letter of first name{/div}{div}last letter of first name{/div}  {div}first letter of last name{/div}{div}last letter of first name{/div}
+
+[/comment][div=display:inline; font-size:15px;]u[/div]nnamed [div=display:inline; font-size:15px;]s[/div]im[/div][/div]
+
+[comment] ---- bkgd highlights ---- [/comment]
+[div=position:absolute; top:65px; left:135px; width:550px; height:275px; background: var(--highlight); filter: blur(80px); opacity: 60%;][/div]
+[div=position:absolute; top:400px; left:50px; width:315px; height:60px; background: var(--highlight); filter: blur(40px); opacity: 80%; border-radius:100%;][/div]
+
+
+[comment] ---- MODEL START ---- [/comment]
+
+[comment] ---- platform ---- [/comment]
+[div=position:absolute; top:430px; left:75px; width:250px; height:40px; background: var(--highlight); border-radius:100%; filter: blur(0px); opacity:100%; box-shadow: 0px 2px 5px var(--shading);][/div]
+
+[comment] ---- body shadows ----
+---- feel free to delete one or both these if you get frustrated with positioning them lmfao ---- [/comment]
+[div=position:absolute; top:435px; left:115px; width:110px; height:15px; background: var(--shadow); filter: blur(2px); opacity: 12%; border-radius:100%;][/div]
+[div=position:absolute; top:447px; left:85px; width:70px; height:14px; background: var(--shadow); filter: blur(2px); opacity: 14%; border-radius:100%;][/div]
+
+[comment] ---- full body pic ----
+---- use the 1st background-position % value to move the model left or right ---- [/comment]
+[div=position:absolute; top: 45px; left:100px; width:200px; height: 435px; background: var(--mainpic); background-repeat: no-repeat; background-size:cover; background-position: 50% 0%; filter: contrast(0.9) brightness(110%) saturate(110%);][/div]
+
+[comment] ---- platform arrows ---- [/comment]
+[div=position:absolute; top:420px; left:60px; width:40px; height:40px; transform: skew(0deg, -15deg) rotate(-30deg) scalex(.7) scaley(1.5) rotatex(-60deg) rotatey(-20deg); font-size:30px; line-height:60px; color:var(--color2);][fa]fas fa-share[/fa][/div]
+[div=position:absolute; top:440px; left:300px; width:40px; height:40px; transform: skew(0deg, -15deg) rotate(150deg) scalex(.7) scaley(1.5) rotatex(-60deg) rotatey(-20deg); font-size:30px; line-height:60px; color:var(--color1);][fa]fas fa-share[/fa][/div]
+
+[comment] ---- MODEL END---- [/comment]
+
+
+[comment] ---- HEIGHT METER START ---- [/comment]
+
+[comment] ---- meter capacity ---- [/comment]
+[div=position:absolute; top:150px; left:-70px; height: 200px; width: 200px; transform: rotate(40deg); overflow:hidden;][div=position:absolute; top:-100px; left:100px; width:200px; height:200px; border-radius:200px; border:8px solid var(--meterbase);][/div][/div]
+
+[comment] ---- meter shadow---- [/comment]
+[div=position:absolute; top:150px; left:-70px; height: 200px; width: 200px; transform: rotate(35deg); overflow:hidden;][div=position:absolute; top:-180px; left:10px; height:400px; width:400px; overflow:hidden;transform:rotate(275deg);][div=position:absolute; width:200px; height:200px; top:0px; left:0px; transform: rotate(90deg); overflow:hidden;][div=position:absolute; top:-108px; left:92px; width:200px; height:200px; border-radius:200px; border:8px solid var(--lightwhite);][/div][/div][/div][/div]
+
+[comment] ---- meter gauge ---- [/comment]
+[div=position:absolute; top:150px; left:-70px; height: 200px; width: 200px; transform: rotate(35deg); overflow:hidden;][div=position:absolute; top:-180px; left:10px; height:400px; width:400px; overflow:hidden;transform:rotate(250deg);][comment]
+
+ ---- EDIT HEIGHT GAUGE LEVEL HERE ^ min: 192deg, max: 275deg----
+
+[/comment][div=position:absolute; width:200px; height:200px; top:0px; left:0px; transform: rotate(90deg); overflow:hidden;][div=position:absolute; top:-108px; left:92px; width:200px; height:200px; border-radius:200px; border:8px solid var(--color2);][/div][/div][/div][/div]
+
+[comment] ---- height icons ---- [/comment]
+[div=position:absolute; top:230px; left:15px; width:40px; height:40px; color:var(--icons); font-size:18px; line-height:40px; text-align:center;][fa]fas fa-person[/fa][/div]
+[div=position:absolute; top:230px; left:25px; width:40px; height:40px; color:var(--icons); font-size:15px; line-height:40px; transform:rotate(-45deg); text-align:center;][fa]fas fa-solid fa-up-right-and-down-left-from-center[/fa][/div]
+
+[comment] ---- meter ticks---- [/comment]
+[div=position:absolute; top:180px; left:82px; height:1px; width:9px; background:var(--decoration); transform:rotate(38deg);][/div]
+[div=position:absolute; top:212px; left:63.5px; height:1px; width:9px; background:var(--decoration); transform:rotate(18deg);][/div]
+[div=position:absolute; top:250px; left:57.5px; height:1px; width:9px; background:var(--decoration); transform:rotate(0deg);][/div]
+[div=position:absolute; top:286px; left:65px; height:1px; width:9px; background:var(--decoration); transform:rotate(-22deg);][/div]
+[div=position:absolute; top:316px; left:83.5px; height:1px; width:9px; background:var(--decoration); transform:rotate(-42deg);][/div]
+
+[comment] ---- HEIGHT METER END ---- [/comment]
+
+
+[comment] ---- GALLERY PANEL START ---- [/comment]
+
+[div=position:absolute; top:30px; left: 560px; width:200px; height:380px; background: var(--galbox); border-radius: 10px; border-right: 1px solid var(--color6);][/div]
+
+[comment] ---- icons start ---- free font awesome icons, so they can be replaced with different shapes [/comment]
+[div=position:absolute; top:40px; left:580px; width:30px; height:30px; border-radius:100%; background: var(--color2); border: 1px solid var(--highlight); text-align: center; color: var(--icons); font-size:16px; line-height:30px;][fa]fas fa-sun[/fa][/div]
+[div=position:absolute; top:40px; left:614px; width:30px; height:30px; border-radius:100%; background: var(--color2); border: 1px solid var(--highlight); text-align: center; color: var(--icons); font-size:16px; line-height:30px;][fa]fas fa-user-tie[/fa][/div]
+[div=position:absolute; top:40px; left:648px; width:30px; height:30px; border-radius:100%; background: var(--color2); border: 1px solid var(--highlight); text-align: center; color: var(--icons); font-size:16px; line-height:30px;][fa]fas fa-baseball[/fa][/div]
+[div=position:absolute; top:40px; left:682px; width:30px; height:30px; border-radius:100%; background: var(--color2); border: 1px solid var(--highlight); text-align: center; color: var(--icons); font-size:19px; line-height:30px;][fa]fas fa-moon[/fa][/div]
+[div=position:absolute; top:40px; left:716px; width:30px; height:30px; border-radius:100%; background: var(--color2); border: 1px solid var(--highlight); text-align: center; color: var(--icons); font-size:16px; line-height:30px;][fa]fas fa-cake-candles[/fa][/div]
+[comment] ---- icons end ---- [/comment]
+
+[comment] ---- tag tray ---- [/comment]
+[div=position:absolute; top:80px; left:575px; width:175px; height:20px; background: var(--tagtray); border-radius: 5px;][div=position:relative; width: 80px; height:14px; background: var(--decoration); border-radius: 4px; margin:3px 0 0 3px; font-size: 10px; line-height:15px; color: var(--color3); font-family:var(--header); font-weight:bold; padding: 0 0 0 6px;]Daily Wear[/div][/div][div=position:absolute; top:85px; left:650px; font-size:8px; line-height:12px; color: var(--color4); font-family:var(--header); font-weight:bold; ][fa]fas fa-xmark[/fa][/div]
+
+
+[comment] ---- picture grid section ---- [/comment]
+[div=position:absolute; top:110px; left:575px; height:300px; width:175px; padding:1px 0 0 0; box-sizing:border-box; display:grid; grid-template-rows: repeat(3, minmax(90px, 1fr)); grid-template-columns: 1fr 1fr; grid-template-areas: "a b" "c d" "e f"; grid-gap: 8px; scroll-snap-align:start;]
+
+   [comment]----pic 1----[/comment]
+   [div=grid-area:a; border-radius: 5px; border:1px solid var(--highlight); box-shadow: 1px 1px 3px var(--galshadow); box-sizing:border-box; background: var(--gal1); background-size:cover; background-position:50% 50%; filter:brightness(110%);][/div]
+
+   [comment]----pic 2----[/comment]
+   [div=grid-area:b; border-radius: 5px; border:1px solid var(--highlight); box-shadow: 1px 1px 3px var(--galshadow); box-sizing:border-box; background: var(--gal2); background-size:cover; background-position:50% 50%; filter:hue-rotate(10deg) grayscale(30%) brightness(110%);][/div]
+
+   [comment]----pic 3----[/comment]
+   [div=grid-area:c; border-radius: 5px; border:1px solid var(--highlight); box-shadow: 1px 1px 3px var(--galshadow); box-sizing:border-box; background: var(--gal3); background-size:cover; background-position:50% 50%; filter:brightness(110%);][/div]
+
+   [comment]----pic 4----[/comment]
+   [div=grid-area:d; border-radius: 5px; border:1px solid var(--highlight); box-shadow: 1px 1px 3px var(--galshadow); box-sizing:border-box; background: var(--gal4); background-size:cover; background-position:50% 50%; filter:brightness(110%);][/div]
+
+   [comment]----pic 5----[/comment]
+   [div=grid-area:e; border-radius: 5px; border:1px solid var(--highlight); box-shadow: 1px 1px 3px var(--galshadow); box-sizing:border-box; background: var(--gal5); background-size:cover; background-position:50% 50%; filter:brightness(110%);][/div]
+
+   [comment]----pic 6----[/comment]
+   [div=grid-area:f; border-radius: 5px; border:1px solid var(--highlight); box-shadow: 1px 1px 3px var(--galshadow); box-sizing:border-box; background: var(--gal6); background-size:cover; background-position:50% 50%; filter:brightness(110%);][/div]
+[/div]
+[comment] ---- picture section end ---- [/comment]
+
+[comment] ---- GALLERY PANEL END ---- [/comment]
+
+
+[comment] ---- CONTENT PANEL START ---- [/comment]
+
+[comment] ---- corner icon ---- [/comment]
+[div=position:absolute; top:52px; left:322px; width:40px; height:40px; border: 1px solid var(--lightwhite); border-radius:100%; background:var(--lightwhite); font-size:25px; line-height:40px; text-align:center; transform:scaley(-1) rotate(20deg); color:var(--icons);][fa]fas fa-gears[/fa][/div]
+
+[comment] ---- main body ---- [/comment]
+[div=position:absolute; top:80px; left:350px; width:215px; height:370px; background: var(--color2); border-radius:10px; border-right: 1px solid var(--color5);][div=position:relative; width:190px; height:22px; margin:auto; margin-top:10px; border-left: 1px solid var(--shading); border-right: 1px solid var(--shading); background: var(--subheading); border-radius:5px; padding: 0 0 0 6px; font-size: 13px; line-height:22px; color: var(--color3); font-family:var(--header); font-weight:bold;][comment]
+
+---- SUBHEADING HERE ----
+
+[/comment]"Bella Goth, you're next!"[/div][div=position:absolute; top:15px; left:185px; width:10px; height:10px; color: var(--color4); font-size:12px; line-height:10px; text-align:center;][fa]fas fa-caret-down[/fa][/div][div=position:relative; width:195px; height:327px; overflow:hidden; padding: 0px 0px 0px 0px; margin:1px 0 0 10px; background: var(--shading3); border-radius:0 0 8px 8px;][div=position:relative; width:185px; height:310px; overflow-y:scroll; margin:5px 10px 10px 10px; padding: 4px 30px 0 0; font-family: var(--header); font-size:10px; line-height:12px; text-align:justify; color:var(--text);][comment]
+
+---- TOGGLES/TEXT START HERE ----
+
+[/comment][comment]
+
+--------- details section ---------
+
+[/comment][comment]
+
+---- divider start: copy this whole thing to make a new divider, including the comment tags ^ ----
+
+[/comment][div=display:inline-block; height:13px; border-radius: 5px; text-align:center; color:var(--color5); font-family:var(--header); font-weight:bold; font-size:11px; line-height: 13px; padding:2px 4px 2px 2px;]Details[/div][div=border: 1px solid var(--color2); height:0; padding:0; width:98%; margin:auto;][/div][comment]
+
+---- divider end: copy this comment too! ----
+
+[/comment]
+[div=display:inline; background: var(--color3); border: 2px solid var(--decoration); border-radius:10px; margin: 0 3px 1px 0; padding: 0px 10px 0px 0px;][div=display:inline; background: var(--decoration); border-radius:7px; margin: -2px -1px 0 0; padding: 2px 5px 2px 5px; color:var(--color3); font-family:var(--header); font-weight:bold; font-size:9px; line-height: 9px;]Name[/div][/div] Unnamed Sim
+
+[div=display:inline; background: var(--color3); border: 2px solid var(--decoration); border-radius:10px; margin: 0 3px 1px 0; padding: 0px 10px 0px 0px;][div=display:inline; background: var(--decoration); border-radius:7px; margin: -2px -1px 0 0; padding: 2px 5px 2px 5px; color:var(--color3); font-family:var(--header); font-weight:bold; font-size:9px; line-height: 9px;]Nickname[/div][/div] Slim Reaper
+
+[div=display:inline; background: var(--color3); border: 2px solid var(--decoration); border-radius:10px; margin: 0 3px 1px 0; padding: 0px 0px 0px 10px;][div=display:inline; background: var(--decoration); border-radius:7px; margin: -2px 0 0 -1px; padding: 2px 5px 2px 5px; color:var(--color1); font-family:var(--header); font-weight:bold; font-size:9px; line-height: 9px;]Age[/div][/div] 28
+
+[div=display:inline; background: var(--color3); border: 2px solid var(--decoration); border-radius:10px; margin: 0 3px 1px 0; padding: 0px 0px 0px 10px;][div=display:inline; background: var(--decoration); border-radius:7px; margin: -2px 0 0 -1px; padding: 2px 5px 2px 5px; color:var(--color1); font-family:var(--header); font-weight:bold; font-size:9px; line-height: 9px;]Gender[/div][/div] Unknown
+
+[div=display:inline; background: var(--color3); border: 2px solid var(--decoration); border-radius:10px; margin: 0 3px 1px 0; padding: 0px 10px 0px 0px;][div=display:inline; background: var(--decoration); border-radius:7px; margin: -2px -1px 0 0; padding: 2px 5px 2px 5px; color:var(--color3); font-family:var(--header); font-weight:bold; font-size:9px; line-height: 9px;]Sexuality[/div][/div] Pansexual
+
+[div=display:inline; background: var(--color3); border: 2px solid var(--decoration); border-radius:10px; margin: 0 3px 1px 0; padding: 0px 0px 0px 10px;][div=display:inline; background: var(--decoration); border-radius:7px; margin: -2px 0 0 -1px; padding: 2px 5px 2px 5px; color:var(--color1); font-family:var(--header); font-weight:bold; font-size:9px; line-height: 9px;]Title[/div][/div] Acting Grim Reaper
+
+[div=display:inline; background: var(--color3); border: 2px solid var(--decoration); border-radius:10px; margin: 0 3px 1px 0; padding: 0px 10px 0px 0px;][div=display:inline; background: var(--decoration); border-radius:7px; margin: -2px -1px 0 0; padding: 2px 5px 2px 5px; color:var(--color3); font-family:var(--header); font-weight:bold; font-size:9px; line-height: 9px;]Faction[/div][/div] The Rules That Govern
+
+[div=display:inline; background: var(--color3); border: 2px solid var(--decoration); border-radius:10px; margin: 0 3px 1px 0; padding: 0px 0px 0px 10px;][div=display:inline; background: var(--decoration); border-radius:7px; margin: -2px 0 0 -1px; padding: 2px 5px 2px 5px; color:var(--color1); font-family:var(--header); font-weight:bold; font-size:9px; line-height: 9px;]Role[/div][/div] Townie... ostensibly?
+
+[comment]
+
+--------- overview section ---------
+
+[/comment]
+[comment]
+
+---- divider start: copy this whole thing to make a new divider, including the comment tags ^ ----
+
+[/comment][div=display:inline-block; height:13px; border-radius: 5px; text-align:center; color:var(--color5); font-family:var(--header); font-weight:bold; font-size:11px; line-height: 13px; padding:2px 4px 2px 2px;]Overview[/div][div=border: 1px solid var(--color2); height:0; padding:0; width:98%; margin:auto;][/div][comment]
+
+---- divider end: copy this comment too! ----
+
+[/comment]
+No one really knows where the Slim Reaper came from or how they avoid suspicion, but Willow Creek has never been the same since their arrival. Disguised among the townsfolk wearing the skin of one of their own, they fulfill the duties of the Grim Reaper while he enjoys a lavish vacation in Oasis Springs with his newfound family of three, that lovesick fool.
+
+[comment]
+
+--------- visage section ---------
+
+[/comment]
+[comment]
+
+---- divider start: copy this whole thing to make a new divider, including the comment tags ^ ----
+
+[/comment][div=display:inline-block; height:13px; border-radius: 5px; text-align:center; color:var(--color5); font-family:var(--header); font-weight:bold; font-size:11px; line-height: 13px; padding:2px 4px 2px 2px;]Visage[/div][div=border: 1px solid var(--color2); height:0; padding:0; width:98%; margin:auto;][/div][comment]
+
+---- divider end: copy this comment too! ----
+
+[/comment]
+[div=display:inline; background: var(--color3); border: 2px solid var(--decoration); border-radius:10px; margin: 0 3px 1px 0; padding: 0px 10px 0px 0px;][div=display:inline; background: var(--decoration); border-radius:7px; margin: -2px -1px 0 0; padding: 2px 5px 2px 5px; color:var(--color3); font-family:var(--header); font-weight:bold; font-size:9px; line-height: 9px;]Hair[/div][/div] Dark Brown
+
+[div=display:inline; background: var(--color3); border: 2px solid var(--decoration); border-radius:10px; margin: 0 3px 1px 0; padding: 0px 10px 0px 0px;][div=display:inline; background: var(--decoration); border-radius:7px; margin: -2px -1px 0 0; padding: 2px 5px 2px 5px; color:var(--color3); font-family:var(--header); font-weight:bold; font-size:9px; line-height: 9px;]Eyes[/div][/div] Amber
+
+[div=display:inline; background: var(--color3); border: 2px solid var(--decoration); border-radius:10px; margin: 0 3px 1px 0; padding: 0px 0px 0px 10px;][div=display:inline; background: var(--decoration); border-radius:7px; margin: -2px 0 0 -1px; padding: 2px 5px 2px 5px; color:var(--color1); font-family:var(--header); font-weight:bold; font-size:9px; line-height: 9px;]Height[/div][/div] 5' 8"
+
+[div=display:inline; background: var(--color3); border: 2px solid var(--decoration); border-radius:10px; margin: 0 3px 1px 0; padding: 0px 10px 0px 0px;][div=display:inline; background: var(--decoration); border-radius:7px; margin: -2px -1px 0 0; padding: 2px 5px 2px 5px; color:var(--color3); font-family:var(--header); font-weight:bold; font-size:9px; line-height: 9px;]Build[/div][/div] Ectomorph
+
+[div=display:inline; background: var(--color3); border: 2px solid var(--decoration); border-radius:10px; margin: 0 3px 1px 0; padding: 0px 0px 0px 10px;][div=display:inline; background: var(--decoration); border-radius:7px; margin: -2px 0 0 -1px; padding: 2px 5px 2px 5px; color:var(--color1); font-family:var(--header); font-weight:bold; font-size:9px; line-height: 9px;]Tattoos[/div][/div] [URL='https://i.imgur.com/cHLmsqY.jpeg']x[/URL] [URL='https://i.imgur.com/6rTUhoQ.png']x[/URL] [URL='https://i.imgur.com/3Gq61jH.png']x[/URL]
+
+[div=display:inline; background: var(--color3); border: 2px solid var(--decoration); border-radius:10px; margin: 0 3px 1px 0; padding: 0px 10px 0px 0px;][div=display:inline; background: var(--decoration); border-radius:7px; margin: -2px -1px 0 0; padding: 2px 5px 2px 5px; color:var(--color3); font-family:var(--header); font-weight:bold; font-size:9px; line-height: 9px;]Ailments[/div][/div] Undead
+
+[div=display:inline; background: var(--color3); border: 2px solid var(--decoration); border-radius:10px; margin: 0 3px 1px 0; padding: 0px 10px 0px 0px;][div=display:inline; background: var(--decoration); border-radius:7px; margin: -2px -1px 0 0; padding: 2px 5px 2px 5px; color:var(--color3); font-family:var(--header); font-weight:bold; font-size:9px; line-height: 9px;]Faceclaim[/div][/div] Alanna Panday
+
+[comment]
+
+--------- backstory section ---------
+
+[/comment]
+[comment]
+
+---- divider start: copy this whole thing to make a new divider, including the comment tags ^ ----
+
+[/comment][div=display:inline-block; height:13px; border-radius: 5px; text-align:center; color:var(--color5); font-family:var(--header); font-weight:bold; font-size:11px; line-height: 13px; padding:2px 4px 2px 2px;]Backstory[/div][div=border: 1px solid var(--color2); height:0; padding:0; width:98%; margin:auto;][/div][comment]
+
+---- divider end: copy this comment too! ----
+
+[/comment]
+Lorem ipsum odor amet, consectetuer adipiscing elit. Pulvinar sollicitudin libero vehicula pellentesque non lectus nascetur finibus hendrerit. Tristique dictum neque cras ridiculus id mus et vitae ultrices. Ac fringilla purus dapibus amet cursus aenean. Himenaeos lectus eu magnis maximus aenean duis sapien. Eleifend volutpat justo morbi; auctor etiam id. Aptent ex amet sagittis pellentesque hac, pretium consequat arcu porta? Ultricies nibh primis mus dui lobortis. Amet semper ultrices congue fames; cursus suscipit ipsum hendrerit mattis?
+
+Nam convallis sodales feugiat euismod sapien mi integer. Laoreet risus phasellus metus duis volutpat lacus massa. Et pulvinar sollicitudin felis feugiat aenean nunc tellus ipsum rhoncus. Euismod potenti erat accumsan, mi pulvinar quis risus phasellus mollis. Taciti at at dolor dictum torquent aptent nullam. Sit varius auctor faucibus orci eu lacinia pharetra? Faucibus faucibus morbi justo pharetra senectus libero condimentum. Velit habitasse vehicula nam gravida sociosqu consectetur massa. Non condimentum nunc vivamus dui interdum.
+
+Morbi turpis bibendum est rutrum ipsum eros. Litora netus taciti massa ad at suspendisse habitasse neque. Risus quisque habitant class ullamcorper magnis varius habitant. Arcu elit augue nibh interdum ridiculus ad netus et. Pretium diam praesent dis semper eget laoreet justo senectus. Ornare at eros elit mi facilisi ultrices. Praesent inceptos blandit ligula cras; vivamus eget quam. Litora laoreet non magnis mollis euismod hac quisque enim. Curabitur tristique accumsan per curabitur consectetur hac.
+[/div][/div][/div]
+
+[comment] ---- CONTENT PANEL END ---- [/comment]
+
+
+[comment] ---- BOTTOM BORDER START ---- [/comment]
+
+[div=position:absolute; bottom:0px; width:100%; height:15px; background: var(--bottombar);][/div]
+[div=position:absolute; bottom:0px; left:10px; width:50px; height:50px; background: var(--headshot); background-size: contain; background-repeat: no-repeat; background-position: 0% 0%; filter: brightness(115%) contrast(0.9);][/div][div=position:absolute; bottom:3px; left:60px; font-size:30px; line-height:30px; color:var(--decoration); font-family: var(--header); font-weight:bold; text-shadow: 0 0 3px var(--color3);]+[/div]
+[div=position:absolute; top:450px; left:750px; width:40px; height:40px; border-radius:100%; background: var(--color5); border: 2px solid var(--decoration); color: var(--color2); font-size:25px; line-height:40px; text-align:center;][fa]fas fa-check[/fa][/div]
+[div=position:absolute; top:460px; left:716px; width:30px; height:30px; border-radius:100%; background: var(--color6); border: 2px solid var(--decoration); color: var(--color1); font-size:16px; line-height:30px; text-align:center;][fa]fas fa-xmark[/fa][/div]
+
+[comment] ---- BOTTOM BORDER END ---- [/comment]
+[/div][/div]
+[comment]code by sox
+
+[font=Tilt Neon]body[/font]
+[/comment][div=height:auto; width:100%; overflow-x:auto; overflow-y:hidden;
+
+/*colors*/
+--bkgd: linear-gradient(to right, var(--color1), var(--color2));
+--decoration: #000;
+--galshadow: rgba(0,0,0,0.3);
+--icons: #000;
+--lightwhite: rgba(255, 255, 255, 0.3);
+--meter: #000;
+--shading: rgba(255, 255, 255, 0.3);
+--shadow: #000;
+--subheading: linear-gradient(to bottom, var(--color5), black);
+--tagtray: rgba(0, 0, 0, 0.1);
+--text: #000;
+--white: #fff;
+
+/*colors you'll need to edit the rgbs for*/
+--bottombar: linear-gradient(to right, rgba(0, 0, 0, .3), rgba(0, 0, 0, 1));        /*rgb of: --decoration;  don't change 4th value*/
+--galbox: linear-gradient(to right, rgba(207, 201, 194, 0.1), rgba(207, 201, 194, 1));             /*rgbs of: a lil lighter than --color1*/
+--meterbase: rgba(217, 217, 217, 0.6);                                                         /*rgb of: --highlight;  don't change 4th value*/
+--shading3: rgba(247, 201, 200, 0.2);                                                               /*rgb of: light version of --color2;  don't change 4th value*/
+
+/*accents -- update the color names as you edit! trust me it helps! */
+--color1: #aba69f; /* beige */
+--color2: #ba5d5b; /* red */
+--color3: #a19d9a; /* warm gray */
+--color4: #A5A5A5; /* gray */
+--color5: #452020; /* dark color2 */
+--color6: #423e39; /* dark color1*/
+--highlight: #424242; /* halfway between --color1 and --color2 */
+
+/*fonts*/
+--header: 'Tilt Neon', sans-serif;
+
+/*fc pics  ---  i use this site to remove backgrounds: https://www.adobe.com/express/feature/image/remove-background*/
+--mainpic: url('https://i.imgur.com/Wmb7yWC.png');
+--headshot: url('https://i.imgur.com/8rhTCTe.png');
+
+/*gallery pics*/
+--gal1: url('https://i.imgur.com/yLuEAGj.png');
+--gal2: url('https://i.pinimg.com/736x/56/68/0c/56680c7bea4b04849def09b60edc64db.jpg');
+--gal3: url('https://i.pinimg.com/474x/7c/cd/50/7ccd509c3a865be18fd0cdac34f6b74a.jpg');
+--gal4: url('https://i.pinimg.com/736x/fb/8c/10/fb8c10d90c1ae25b2643f5ea1814dfc0.jpg');
+--gal5: url('https://i.pinimg.com/736x/6a/31/42/6a3142fbbf6fb897495cf5ff4864e0ba.jpg');
+--gal6: url('https://i.imgur.com/eHkzDkO.png');
+
+/*icon pics*/
+--sims: url('https://i.imgur.com/4SUhTe1.gif');
+
+][div=position:relative; overflow:hidden; width:800px; height:500px; margin:auto; margin-top: 10px; bottom: 10px; background:var(--bkgd); border: 2px solid var(--decoration); cursor: url('https://i.imgur.com/bb5FSYK.png'), auto; border-radius:20px; font-style:var(--header);]
+[div=position:absolute; width:210px; height:50px; background:var(--decoration); top:-25px; left:-25px; border-radius:50px;][div=position:absolute; left: 30px; bottom: -15px; width:35px; height:35px; border-radius: 100%; background:var(--color5); border: 2px solid var(--decoration);][div=position:relative; margin:auto; margin-top:0px; width:20px; height:35px; background: var(--sims); background-size:cover; background-position: 50% 50%; filter: brightness(90%) contrast(1.2) hue-rotate(250deg);][comment]
+
+---- edit this hue for sims logo color ^ some example values:
+--------- 0deg: green
+--------- 70deg: teal
+--------- 120deg: blue
+--------- 160deg: purple
+--------- 220deg: pink
+--------- 250deg: red
+--------- 270deg: orange
+--------- 315deg: yellow
+
+[/comment][/div][/div][div=position:absolute; bottom:2px; left: 80px; color:var(--color3); font-family:var(--header); font-weight:bold; text-transform:uppercase; font-size:12px; color: var(--color3);][comment]
+
+----- TOP LEFT NAME HERE -----
+-----> structure: {div}first letter of first name{/div}{div}last letter of first name{/div}  {div}first letter of last name{/div}{div}last letter of first name{/div}
+
+[/comment][div=display:inline; font-size:15px;]u[/div]nnamed [div=display:inline; font-size:15px;]s[/div]im[/div][/div]
+
+[comment] ---- bkgd highlights ---- [/comment]
+[div=position:absolute; top:65px; left:135px; width:550px; height:275px; background: var(--highlight); filter: blur(80px); opacity: 60%;][/div]
+[div=position:absolute; top:400px; left:50px; width:315px; height:60px; background: var(--highlight); filter: blur(40px); opacity: 80%; border-radius:100%;][/div]
+
+
+[comment] ---- MODEL START ---- [/comment]
+
+[comment] ---- platform ---- [/comment]
+[div=position:absolute; top:430px; left:75px; width:250px; height:40px; background: var(--highlight); border-radius:100%; filter: blur(0px); opacity:100%; box-shadow: 0px 2px 5px var(--shading);][/div]
+
+[comment] ---- body shadows ----
+---- feel free to delete one or both these if you get frustrated with positioning them lmfao ---- [/comment]
+[div=position:absolute; top:435px; left:115px; width:110px; height:15px; background: var(--shadow); filter: blur(2px); opacity: 13%; border-radius:100%;][/div]
+[div=position:absolute; top:448px; left:115px; width:60px; height:13px; background: var(--shadow); filter: blur(2px); opacity: 12%; border-radius:100%;][/div]
+
+[comment] ---- full body pic ----
+---- use the 1st background-position % value to move the model left or right ---- [/comment]
+[div=position:absolute; top: 45px; left:100px; width:200px; height: 435px; background: var(--mainpic); background-repeat: no-repeat; background-size:cover; background-position: 50% 0%; filter: contrast(0.9) brightness(110%) saturate(110%);][/div]
+
+[comment] ---- platform arrows ---- [/comment]
+[div=position:absolute; top:420px; left:60px; width:40px; height:40px; transform: skew(0deg, -15deg) rotate(-30deg) scalex(.7) scaley(1.5) rotatex(-60deg) rotatey(-20deg); font-size:30px; line-height:60px; color:var(--color2);][fa]fas fa-share[/fa][/div]
+[div=position:absolute; top:440px; left:300px; width:40px; height:40px; transform: skew(0deg, -15deg) rotate(150deg) scalex(.7) scaley(1.5) rotatex(-60deg) rotatey(-20deg); font-size:30px; line-height:60px; color:var(--color1);][fa]fas fa-share[/fa][/div]
+
+[comment] ---- MODEL END---- [/comment]
+
+
+[comment] ---- HEIGHT METER START ---- [/comment]
+
+[comment] ---- meter capacity ---- [/comment]
+[div=position:absolute; top:150px; left:-70px; height: 200px; width: 200px; transform: rotate(40deg); overflow:hidden;][div=position:absolute; top:-100px; left:100px; width:200px; height:200px; border-radius:200px; border:8px solid var(--meterbase);][/div][/div]
+
+[comment] ---- meter shadow---- [/comment]
+[div=position:absolute; top:150px; left:-70px; height: 200px; width: 200px; transform: rotate(35deg); overflow:hidden;][div=position:absolute; top:-180px; left:10px; height:400px; width:400px; overflow:hidden;transform:rotate(275deg);][div=position:absolute; width:200px; height:200px; top:0px; left:0px; transform: rotate(90deg); overflow:hidden;][div=position:absolute; top:-108px; left:92px; width:200px; height:200px; border-radius:200px; border:8px solid var(--lightwhite);][/div][/div][/div][/div]
+
+[comment] ---- meter gauge ---- [/comment]
+[div=position:absolute; top:150px; left:-70px; height: 200px; width: 200px; transform: rotate(35deg); overflow:hidden;][div=position:absolute; top:-180px; left:10px; height:400px; width:400px; overflow:hidden;transform:rotate(250deg);][comment]
+
+ ---- EDIT HEIGHT GAUGE LEVEL HERE ^ min: 192deg, max: 275deg----
+
+[/comment][div=position:absolute; width:200px; height:200px; top:0px; left:0px; transform: rotate(90deg); overflow:hidden;][div=position:absolute; top:-108px; left:92px; width:200px; height:200px; border-radius:200px; border:8px solid var(--color2);][/div][/div][/div][/div]
+
+[comment] ---- height icons ---- [/comment]
+[div=position:absolute; top:230px; left:15px; width:40px; height:40px; color:var(--icons); font-size:18px; line-height:40px; text-align:center;][fa]fas fa-person[/fa][/div]
+[div=position:absolute; top:230px; left:25px; width:40px; height:40px; color:var(--icons); font-size:15px; line-height:40px; transform:rotate(-45deg); text-align:center;][fa]fas fa-solid fa-up-right-and-down-left-from-center[/fa][/div]
+
+[comment] ---- meter ticks---- [/comment]
+[div=position:absolute; top:180px; left:82px; height:1px; width:9px; background:var(--decoration); transform:rotate(38deg);][/div]
+[div=position:absolute; top:212px; left:63.5px; height:1px; width:9px; background:var(--decoration); transform:rotate(18deg);][/div]
+[div=position:absolute; top:250px; left:57.5px; height:1px; width:9px; background:var(--decoration); transform:rotate(0deg);][/div]
+[div=position:absolute; top:286px; left:65px; height:1px; width:9px; background:var(--decoration); transform:rotate(-22deg);][/div]
+[div=position:absolute; top:316px; left:83.5px; height:1px; width:9px; background:var(--decoration); transform:rotate(-42deg);][/div]
+
+[comment] ---- HEIGHT METER END ---- [/comment]
+
+
+[comment] ---- GALLERY PANEL START ---- [/comment]
+
+[div=position:absolute; top:30px; left: 560px; width:200px; height:380px; background: var(--galbox); border-radius: 10px; border-right: 1px solid var(--color6);][/div]
+
+[comment] ---- icons start ---- free font awesome icons, so they can be replaced with different shapes [/comment]
+[div=position:absolute; top:40px; left:580px; width:30px; height:30px; border-radius:100%; background: var(--color2); border: 1px solid var(--highlight); text-align: center; color: var(--icons); font-size:16px; line-height:30px;][fa]fas fa-sun[/fa][/div]
+[div=position:absolute; top:40px; left:614px; width:30px; height:30px; border-radius:100%; background: var(--color2); border: 1px solid var(--highlight); text-align: center; color: var(--icons); font-size:16px; line-height:30px;][fa]fas fa-user-tie[/fa][/div]
+[div=position:absolute; top:40px; left:648px; width:30px; height:30px; border-radius:100%; background: var(--color2); border: 1px solid var(--highlight); text-align: center; color: var(--icons); font-size:16px; line-height:30px;][fa]fas fa-baseball[/fa][/div]
+[div=position:absolute; top:40px; left:682px; width:30px; height:30px; border-radius:100%; background: var(--color2); border: 1px solid var(--highlight); text-align: center; color: var(--icons); font-size:19px; line-height:30px;][fa]fas fa-moon[/fa][/div]
+[div=position:absolute; top:40px; left:716px; width:30px; height:30px; border-radius:100%; background: var(--color2); border: 1px solid var(--highlight); text-align: center; color: var(--icons); font-size:16px; line-height:30px;][fa]fas fa-cake-candles[/fa][/div]
+[comment] ---- icons end ---- [/comment]
+
+[comment] ---- tag tray ---- [/comment]
+[div=position:absolute; top:80px; left:575px; width:175px; height:20px; background: var(--tagtray); border-radius: 5px;][div=position:relative; width: 60px; height:14px; background: var(--decoration); border-radius: 4px; margin:3px 0 0 3px; font-size: 10px; line-height:15px; color: var(--color3); font-family:var(--header); font-weight:bold; padding: 0 0 0 6px;]Evening[/div][/div][div=position:absolute; top:85px; left:630px; font-size:8px; line-height:12px; color: var(--white); font-family:var(--header); font-weight:bold;][fa]fas fa-xmark[/fa][/div]
+
+
+[comment] ---- picture grid section ---- [/comment]
+[div=position:absolute; top:110px; left:575px; height:300px; width:175px; padding:1px 0 0 0; box-sizing:border-box; display:grid; grid-template-rows: repeat(3, minmax(90px, 1fr)); grid-template-columns: 1fr 1fr; grid-template-areas: "a b" "c d" "e f"; grid-gap: 8px; scroll-snap-align:start;]
+
+   [comment]----gallery 1----[/comment]
+   [div=grid-area:a; border-radius: 5px; border:1px solid var(--highlight); box-shadow: 1px 1px 3px var(--galshadow); box-sizing:border-box; background: var(--gal1); background-size:cover; background-position:50% 50%; filter:brightness(120%) grayscale(60%);][/div]
+
+   [comment]----gallery 2----[/comment]
+   [div=grid-area:b; border-radius: 5px; border:1px solid var(--highlight); box-shadow: 1px 1px 3px var(--galshadow); box-sizing:border-box; background: var(--gal2); background-size:cover; background-position:50% 50%; filter:brightness(100%) hue-rotate(10deg);][/div]
+
+   [comment]----gallery 3----[/comment]
+   [div=grid-area:c; border-radius: 5px; border:1px solid var(--highlight); box-shadow: 1px 1px 3px var(--galshadow); box-sizing:border-box; background: var(--gal3); background-size:cover; background-position:50% 50%; filter:brightness(110%);][/div]
+
+   [comment]----gallery 4----[/comment]
+   [div=grid-area:d; border-radius: 5px; border:1px solid var(--highlight); box-shadow: 1px 1px 3px var(--galshadow); box-sizing:border-box; background: var(--gal4); background-size:cover; background-position:50% 50%; filter:brightness(110%);][/div]
+
+   [comment]----gallery 5----[/comment]
+   [div=grid-area:e; border-radius: 5px; border:1px solid var(--highlight); box-shadow: 1px 1px 3px var(--galshadow); box-sizing:border-box; background: var(--gal5); background-size:cover; background-position:50% 50%; filter:brightness(110%) grayscale(50%);][/div]
+
+   [comment]----gallery 6----[/comment]
+   [div=grid-area:f; border-radius: 5px; border:1px solid var(--highlight); box-shadow: 1px 1px 3px var(--galshadow); box-sizing:border-box; background: var(--gal6); background-size:cover; background-position:50% 50%; filter:brightness(100%) grayscale(20%);][/div]
+[/div]
+[comment] ---- picture section end ---- [/comment]
+
+[comment] ---- GALLERY PANEL END ---- [/comment]
+
+
+[comment] ---- CONTENT PANEL START ---- [/comment]
+
+[comment] ---- corner icon ---- [/comment]
+[div=position:absolute; top:52px; left:322px; width:40px; height:40px; border: 1px solid var(--lightwhite); border-radius:100%; background:var(--lightwhite); font-size:25px; line-height:40px; text-align:center; transform:scaley(-1) rotate(20deg); color:var(--icons);][fa]fas fa-gears[/fa][/div]
+
+[comment] ---- main body ---- [/comment]
+[div=position:absolute; top:80px; left:350px; width:215px; height:370px; background: var(--color2); border-radius:10px; border-right: 1px solid var(--color5);][div=position:relative; width:190px; height:22px; margin:auto; margin-top:10px; border-left: 1px solid var(--shading); border-right: 1px solid var(--shading); background: var(--subheading); border-radius:5px; padding: 0 0 0 6px; font-size: 13px; line-height:22px; color: var(--color3); font-family:var(--header); font-weight:bold;][comment]
+
+---- SUBHEADING HERE ----
+
+[/comment]"Bella Goth, you're next!"[/div][div=position:absolute; top:15px; left:185px; width:10px; height:10px; color: var(--white); font-size:12px; line-height:10px; text-align:center;][fa]fas fa-caret-down[/fa][/div][div=position:relative; width:195px; height:327px; overflow:hidden; padding: 0px 0px 0px 0px; margin:1px 0 0 10px; background: var(--shading3); border-radius:0 0 8px 8px;][div=position:relative; width:185px; height:310px; overflow-y:scroll; margin:5px 10px 10px 10px; padding: 4px 30px 0 0; font-family: var(--header); font-size:10px; line-height:12px; text-align:justify; color:var(--text);][comment]
+
+---- TOGGLES/TEXT START HERE ----
+
+[/comment][comment]
+
+--------- details section ---------
+
+[/comment][comment]
+
+---- divider start: copy this whole thing to make a new divider, including the comment tags ^ ----
+
+[/comment][div=display:inline-block; height:13px; border-radius: 5px; text-align:center; color:var(--white); font-family:var(--header); font-weight:bold; font-size:11px; line-height: 13px; padding:2px 4px 2px 2px;]Details[/div][div=border: 1px solid var(--color2); height:0; padding:0; width:98%; margin:auto;][/div][comment]
+
+---- divider end: copy this comment too! ----
+
+[/comment]
+[div=display:inline; background: var(--color3); border: 2px solid var(--decoration); border-radius:10px; margin: 0 3px 1px 0; padding: 0px 10px 0px 0px;][div=display:inline; background: var(--decoration); border-radius:7px; margin: -2px -1px 0 0; padding: 2px 5px 2px 5px; color:var(--color1); font-family:var(--header); font-weight:bold; font-size:9px; line-height: 9px;]Name[/div][/div] Unnamed Sim
+
+[div=display:inline; background: var(--color3); border: 2px solid var(--decoration); border-radius:10px; margin: 0 3px 1px 0; padding: 0px 10px 0px 0px;][div=display:inline; background: var(--decoration); border-radius:7px; margin: -2px -1px 0 0; padding: 2px 5px 2px 5px; color:var(--color1); font-family:var(--header); font-weight:bold; font-size:9px; line-height: 9px;]Nickname[/div][/div] Slim Reaper
+
+[div=display:inline; background: var(--color3); border: 2px solid var(--decoration); border-radius:10px; margin: 0 3px 1px 0; padding: 0px 0px 0px 10px;][div=display:inline; background: var(--decoration); border-radius:7px; margin: -2px 0 0 -1px; padding: 2px 5px 2px 5px; color:var(--white); font-family:var(--header); font-weight:bold; font-size:9px; line-height: 9px;]Age[/div][/div] 28
+
+[div=display:inline; background: var(--color3); border: 2px solid var(--decoration); border-radius:10px; margin: 0 3px 1px 0; padding: 0px 0px 0px 10px;][div=display:inline; background: var(--decoration); border-radius:7px; margin: -2px 0 0 -1px; padding: 2px 5px 2px 5px; color:var(--white); font-family:var(--header); font-weight:bold; font-size:9px; line-height: 9px;]Gender[/div][/div] Unknown
+
+[div=display:inline; background: var(--color3); border: 2px solid var(--decoration); border-radius:10px; margin: 0 3px 1px 0; padding: 0px 10px 0px 0px;][div=display:inline; background: var(--decoration); border-radius:7px; margin: -2px -1px 0 0; padding: 2px 5px 2px 5px; color:var(--color1); font-family:var(--header); font-weight:bold; font-size:9px; line-height: 9px;]Sexuality[/div][/div] Pansexual
+
+[div=display:inline; background: var(--color3); border: 2px solid var(--decoration); border-radius:10px; margin: 0 3px 1px 0; padding: 0px 0px 0px 10px;][div=display:inline; background: var(--decoration); border-radius:7px; margin: -2px 0 0 -1px; padding: 2px 5px 2px 5px; color:var(--white); font-family:var(--header); font-weight:bold; font-size:9px; line-height: 9px;]Title[/div][/div] Acting Grim Reaper
+
+[div=display:inline; background: var(--color3); border: 2px solid var(--decoration); border-radius:10px; margin: 0 3px 1px 0; padding: 0px 10px 0px 0px;][div=display:inline; background: var(--decoration); border-radius:7px; margin: -2px -1px 0 0; padding: 2px 5px 2px 5px; color:var(--color1); font-family:var(--header); font-weight:bold; font-size:9px; line-height: 9px;]Faction[/div][/div] The Rules That Govern
+
+[div=display:inline; background: var(--color3); border: 2px solid var(--decoration); border-radius:10px; margin: 0 3px 1px 0; padding: 0px 0px 0px 10px;][div=display:inline; background: var(--decoration); border-radius:7px; margin: -2px 0 0 -1px; padding: 2px 5px 2px 5px; color:var(--white); font-family:var(--header); font-weight:bold; font-size:9px; line-height: 9px;]Role[/div][/div] Townie... ostensibly?
+
+[comment]
+
+--------- overview section ---------
+
+[/comment]
+[comment]
+
+---- divider start: copy this whole thing to make a new divider, including the comment tags ^ ----
+
+[/comment][div=display:inline-block; height:13px; border-radius: 5px; text-align:center; color:var(--white); font-family:var(--header); font-weight:bold; font-size:11px; line-height: 13px; padding:2px 4px 2px 2px;]Overview[/div][div=border: 1px solid var(--color2); height:0; padding:0; width:98%; margin:auto;][/div][comment]
+
+---- divider end: copy this comment too! ----
+
+[/comment]
+No one really knows where the Slim Reaper came from or how they avoid suspicion, but Willow Creek has never been the same since their arrival. Disguised among the townsfolk wearing the skin of one of their own, they fulfill the duties of the Grim Reaper while he enjoys a lavish vacation in Oasis Springs with his newfound family of three, that lovesick fool.
+
+[comment]
+
+--------- visage section ---------
+
+[/comment]
+[comment]
+
+---- divider start: copy this whole thing to make a new divider, including the comment tags ^ ----
+
+[/comment][div=display:inline-block; height:13px; border-radius: 5px; text-align:center; color:var(--white); font-family:var(--header); font-weight:bold; font-size:11px; line-height: 13px; padding:2px 4px 2px 2px;]Visage[/div][div=border: 1px solid var(--color2); height:0; padding:0; width:98%; margin:auto;][/div][comment]
+
+---- divider end: copy this comment too! ----
+
+[/comment]
+[div=display:inline; background: var(--color3); border: 2px solid var(--decoration); border-radius:10px; margin: 0 3px 1px 0; padding: 0px 10px 0px 0px;][div=display:inline; background: var(--decoration); border-radius:7px; margin: -2px -1px 0 0; padding: 2px 5px 2px 5px; color:var(--color1); font-family:var(--header); font-weight:bold; font-size:9px; line-height: 9px;]Hair[/div][/div] Dark Brown
+
+[div=display:inline; background: var(--color3); border: 2px solid var(--decoration); border-radius:10px; margin: 0 3px 1px 0; padding: 0px 10px 0px 0px;][div=display:inline; background: var(--decoration); border-radius:7px; margin: -2px -1px 0 0; padding: 2px 5px 2px 5px; color:var(--color1); font-family:var(--header); font-weight:bold; font-size:9px; line-height: 9px;]Eyes[/div][/div] Amber
+
+[div=display:inline; background: var(--color3); border: 2px solid var(--decoration); border-radius:10px; margin: 0 3px 1px 0; padding: 0px 0px 0px 10px;][div=display:inline; background: var(--decoration); border-radius:7px; margin: -2px 0 0 -1px; padding: 2px 5px 2px 5px; color:var(--white); font-family:var(--header); font-weight:bold; font-size:9px; line-height: 9px;]Height[/div][/div] 5' 8"
+
+[div=display:inline; background: var(--color3); border: 2px solid var(--decoration); border-radius:10px; margin: 0 3px 1px 0; padding: 0px 10px 0px 0px;][div=display:inline; background: var(--decoration); border-radius:7px; margin: -2px -1px 0 0; padding: 2px 5px 2px 5px; color:var(--color1); font-family:var(--header); font-weight:bold; font-size:9px; line-height: 9px;]Build[/div][/div] Ectomorph
+
+[div=display:inline; background: var(--color3); border: 2px solid var(--decoration); border-radius:10px; margin: 0 3px 1px 0; padding: 0px 0px 0px 10px;][div=display:inline; background: var(--decoration); border-radius:7px; margin: -2px 0 0 -1px; padding: 2px 5px 2px 5px; color:var(--white); font-family:var(--header); font-weight:bold; font-size:9px; line-height: 9px;]Tattoos[/div][/div] [URL='https://i.imgur.com/cHLmsqY.jpeg']x[/URL] [URL='https://i.imgur.com/6rTUhoQ.png']x[/URL] [URL='https://i.imgur.com/3Gq61jH.png']x[/URL]
+
+[div=display:inline; background: var(--color3); border: 2px solid var(--decoration); border-radius:10px; margin: 0 3px 1px 0; padding: 0px 10px 0px 0px;][div=display:inline; background: var(--decoration); border-radius:7px; margin: -2px -1px 0 0; padding: 2px 5px 2px 5px; color:var(--color1); font-family:var(--header); font-weight:bold; font-size:9px; line-height: 9px;]Ailments[/div][/div] Undead
+
+[div=display:inline; background: var(--color3); border: 2px solid var(--decoration); border-radius:10px; margin: 0 3px 1px 0; padding: 0px 10px 0px 0px;][div=display:inline; background: var(--decoration); border-radius:7px; margin: -2px -1px 0 0; padding: 2px 5px 2px 5px; color:var(--color1); font-family:var(--header); font-weight:bold; font-size:9px; line-height: 9px;]Faceclaim[/div][/div] Alanna Panday
+
+[comment]
+
+--------- backstory section ---------
+
+[/comment]
+[comment]
+
+---- divider start: copy this whole thing to make a new divider, including the comment tags ^ ----
+
+[/comment][div=display:inline-block; height:13px; border-radius: 5px; text-align:center; color:var(--white); font-family:var(--header); font-weight:bold; font-size:11px; line-height: 13px; padding:2px 4px 2px 2px;]Backstory[/div][div=border: 1px solid var(--color2); height:0; padding:0; width:98%; margin:auto;][/div][comment]
+
+---- divider end: copy this comment too! ----
+
+[/comment]
+Lorem ipsum odor amet, consectetuer adipiscing elit. Pulvinar sollicitudin libero vehicula pellentesque non lectus nascetur finibus hendrerit. Tristique dictum neque cras ridiculus id mus et vitae ultrices. Ac fringilla purus dapibus amet cursus aenean. Himenaeos lectus eu magnis maximus aenean duis sapien. Eleifend volutpat justo morbi; auctor etiam id. Aptent ex amet sagittis pellentesque hac, pretium consequat arcu porta? Ultricies nibh primis mus dui lobortis. Amet semper ultrices congue fames; cursus suscipit ipsum hendrerit mattis?
+
+Nam convallis sodales feugiat euismod sapien mi integer. Laoreet risus phasellus metus duis volutpat lacus massa. Et pulvinar sollicitudin felis feugiat aenean nunc tellus ipsum rhoncus. Euismod potenti erat accumsan, mi pulvinar quis risus phasellus mollis. Taciti at at dolor dictum torquent aptent nullam. Sit varius auctor faucibus orci eu lacinia pharetra? Faucibus faucibus morbi justo pharetra senectus libero condimentum. Velit habitasse vehicula nam gravida sociosqu consectetur massa. Non condimentum nunc vivamus dui interdum.
+
+Morbi turpis bibendum est rutrum ipsum eros. Litora netus taciti massa ad at suspendisse habitasse neque. Risus quisque habitant class ullamcorper magnis varius habitant. Arcu elit augue nibh interdum ridiculus ad netus et. Pretium diam praesent dis semper eget laoreet justo senectus. Ornare at eros elit mi facilisi ultrices. Praesent inceptos blandit ligula cras; vivamus eget quam. Litora laoreet non magnis mollis euismod hac quisque enim. Curabitur tristique accumsan per curabitur consectetur hac.
+[/div][/div][/div]
+
+[comment] ---- CONTENT PANEL END ---- [/comment]
+
+
+[comment] ---- BOTTOM BORDER START ---- [/comment]
+
+[div=position:absolute; bottom:0px; width:100%; height:15px; background: var(--bottombar);][/div]
+[div=position:absolute; bottom:0px; left:10px; width:50px; height:50px; background: var(--headshot); background-size: contain; background-repeat: no-repeat; background-position: 0% 0%; filter: brightness(115%) contrast(0.9);][/div][div=position:absolute; bottom:3px; left:60px; font-size:30px; line-height:30px; color:var(--decoration); font-family: var(--header); font-weight:bold; text-shadow: 0 0 3px var(--color3);]+[/div]
+[div=position:absolute; top:450px; left:750px; width:40px; height:40px; border-radius:100%; background: var(--color5); border: 2px solid var(--decoration); color: var(--color2); font-size:25px; line-height:40px; text-align:center;][fa]fas fa-check[/fa][/div]
+[div=position:absolute; top:460px; left:716px; width:30px; height:30px; border-radius:100%; background: var(--color6); border: 2px solid var(--decoration); color: var(--color1); font-size:16px; line-height:30px; text-align:center;][fa]fas fa-xmark[/fa][/div]
+
+[comment] ---- BOTTOM BORDER END ---- [/comment]
+[/div][/div]
