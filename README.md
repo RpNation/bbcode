@@ -4,9 +4,18 @@
 
 RpNation's Official BBCode Implementation for Discourse
 
-See: [https://www.rpnation.com]
+See [RpNation](https://www.rpnation.com).
 
-The goal of this repo and plugin is to provide users with the BBCode suite that they have grown accustomed to when it comes to using our site before our migration to Discourse and make sure that old posts rebake correctly. Above in the chart is marked our status on each BBCode which will hopefully co-exist in tandom even with the markdown/htlm versions provided in the box experience by the Discourse Software.
+This plugin adds RpNation's custom BBCode to Discourse while using native
+Discourse formatting where it already exists. Use Markdown for lists and tables,
+and Discourse's own inline bold, italic, underline, and strikethrough tags.
+Custom layout tags remain available for designs that need them.
+
+Imported XenForo posts may need source conversion before rebaking: this plugin
+does not add XenForo list/table syntax or automatically repair malformed tags.
+Markdown headings also work inside layout tags; write `\# label` when the hash
+should be literal. See the [integration notes](INTEGRATION_NOTES.md) for migration
+and rendering boundaries.
 
 ## Features/Planned
 
@@ -52,7 +61,8 @@ The goal of this repo and plugin is to provide users with the BBCode suite that 
 - [x] Sides
 - [x] Tabs
 - [x] Accordions
-- [x] ~~Tables~~ now using markdown tables
+- [x] Native Discourse Markdown tables
+- [x] Native Discourse numbered and bulleted lists
 - [x] Center Block
 - [x] Background
 - [x] Border
@@ -105,6 +115,24 @@ For more, see the [Discourse Docker Guide](https://meta.discourse.org/docs?topic
 
 ## Architecture
 
-The architecture of this project is for all BBCode Parser related code to be contained in `/bbcode-src`, which would then be minified into a module and added to the appropriate location in `/assets/javascripts` to be used by the discourse plugin proper. This is to work around the weird way discourse requires libraries to be loaded in. There will be a Rollup config and github action setup to automate minifying and moving the module.
+Parser and tag implementations live in `bbcode-src`. Run
+`pnpm install --frozen-lockfile` and `pnpm build` to regenerate the checked-in
+parser bundle and source map after source changes. Install the full plugin in
+Discourse's `plugins/bbcode` directory.
 
-Honestly, if anyone has a better solution, please send help.
+The same parser bundle serves server cooking and browser previews. A registered
+Markdown plugin uses a markdown-it core rule to detect custom BBCode and process
+it through BBob. Ordinary Markdown, core inline formatting, and Markdown code
+examples containing BBCode keep native behavior when no custom BBCode occurs
+outside those examples.
+
+Processing remains per post: a post containing custom BBCode uses the plugin's
+legacy whitespace and paragraph behavior throughout the post, including its
+surrounding Markdown. This is not isolation of each BBCode span. Rendered output
+still passes through Discourse's sanitizer.
+
+Deploying a parser change does not refresh saved cooked HTML. Restart Discourse
+web processes and Sidekiq, then follow the
+[deployment and rebake instructions](INTEGRATION_NOTES.md#deployment-and-rebaking)
+on the destination server. Existing CSS containment, parser resets, and CSS
+image rehosting remain in place. BBScript remains optional and disabled by default.

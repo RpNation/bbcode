@@ -41,7 +41,13 @@ function cleanMultilineMDBlocks(raw) {
 function renderHoistedCodeBlocks(raw, data) {
   const hoistMap = data.hoistMap;
   for (const [uuid, content] of Object.entries(hoistMap)) {
-    raw = raw.replaceAll(uuid, content);
+    // These examples bypass Markdown's text renderer while hoisted. Escape
+    // them when restoring them, so HTML examples stay text inside code/plain.
+    const escaped = content
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;");
+    raw = raw.replaceAll(uuid, escaped);
   }
   return raw;
 }
@@ -56,7 +62,10 @@ function createClassStyleTagTemplate(raw, data) {
   if (data.styles.length === 0) {
     return raw;
   }
-  const template = '<template data-bbcode-plus="class">' + data.styles.join("\n") + "</template>";
+  const template =
+    '<template data-bbcode-plus="class">' +
+    data.styles.join("\n") +
+    "</template>";
   return template + raw;
 }
 

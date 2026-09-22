@@ -21,8 +21,42 @@ const options = {
 };
 const presetTags = preset();
 
+// BBob matches mixed-case tags but retains their spelling in the parsed tree.
+// Preset handlers, including the internal saveNL tag, are keyed by lowercase names.
+function normalizeTagNames(tree) {
+  return tree.walk((node) => {
+    if (node.tag) {
+      node.tag = node.tag.toLowerCase();
+    }
+    return node;
+  });
+}
+// Core handles its inline formatting unless a custom layout needs the BBCode tree.
+const nativeInlineTags = new Set(["b", "i", "u", "s"]);
+const customTagPattern = new RegExp(
+  `\\[(?:${availableTags.filter((tag) => tag !== "savenl" && !nativeInlineTags.has(tag)).join("|")})(?=[\\s=\\]])`,
+  "i"
+);
+
+export function containsBBCode(code) {
+  // Hoist native fenced/inline code before deciding whether this post needs
+  // legacy whitespace rules. A BBCode example is still ordinary Markdown.
+  // Indented code can only start at the document start or after a blank line;
+  // indentation continuing an ordinary paragraph is not a Markdown code block.
+  // This is detection only: indenting nested tags in legacy layouts must not
+  // turn those layouts into code when actual BBCode exists outside examples.
+  const withoutIndentedCode = code
+    .replace(/\r\n?/g, "\n")
+    .replace(
+      /(^|\n[ \t]*\n)(?:(?: {4}| {0,3}\t)[^\n]*(?:\n|$)|[ \t]*\n)+/g,
+      "$1"
+    );
+  const [preprocessed] = preprocessRaw(withoutIndentedCode);
+  return customTagPattern.test(preprocessed);
+}
+
 export const RpNBBCode = (code, opts) => {
-  const plugins = [presetTags];
+  const plugins = [normalizeTagNames, presetTags];
   if (opts.preserveWhitespace) {
     plugins.push(preserveWhitespace());
   }
@@ -42,4 +76,4 @@ export const RpNBBCode = (code, opts) => {
   });
 };
 
-export { postprocess };
+export { availableTags, postprocess };

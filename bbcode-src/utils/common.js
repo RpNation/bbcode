@@ -106,7 +106,11 @@ const toOriginalEndTag = (node, raw) => {
  */
 const toRawTag = (node, raw) => {
   if (node.end) {
-    return [toOriginalStartTag(node, raw), ...node.content, toOriginalEndTag(node, raw)];
+    return [
+      toOriginalStartTag(node, raw),
+      ...node.content,
+      toOriginalEndTag(node, raw),
+    ];
   }
   return toOriginalStartTag(node, raw);
 };
@@ -131,10 +135,15 @@ const URL_REGEX =
   /(http|ftp|https|upload):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])/;
 const MD_URL_REGEX =
   /\!?\[.*\]\((http|ftp|https|upload):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])\)/;
-const URL_REGEX_SINGLE_LINE = new RegExp(`^${URL_REGEX.source}|${MD_URL_REGEX.source}$`);
+const URL_REGEX_SINGLE_LINE = new RegExp(
+  `^${URL_REGEX.source}|${MD_URL_REGEX.source}$`
+);
+// Both ends of an inline-code delimiter must be whole backtick runs. In
+// particular, never retry shorter openers from inside an unmatched long run.
 const ESCAPABLES_REGEX =
-  /((\n|^)(?<fence>```+|~~~+)(?<fenceInfo>.*\n))|(?<bbcode>\[(?<bbcodeTag>i?code|plain)(=.*)?\])|(?<backtick>(?<tickStart>`{1,2})(.*)(?<tickEnd>\k<tickStart>))/im;
-const MD_TABLE_REGEX = /^(\|[^\n]+\|\r?\n)((?:\| ?:?[-]+:? ?)+\|)(\n(?:\|[^\n]+\|\r?\n?)*)?$/m;
+  /((\n|^)(?<fence>```+|~~~+)(?<fenceInfo>.*\n))|(?<bbcode>\[(?<bbcodeTag>i?code|plain)(=[^\]\r\n]*)?\])|(?<backtick>(?<!`)(?<tickStart>`+)(?!`)([\s\S]*?)(?<tickEnd>(?<!`)\k<tickStart>)(?!`))/im;
+const MD_TABLE_REGEX =
+  /^(\|[^\n]+\|\r?\n)((?:\| ?:?[-]+:? ?)+\|)(\n(?:\|[^\n]+\|\r?\n?)*)?$/m;
 
 const MD_BROKEN_ORDERED_LIST = "</ol>\n<br><ol>";
 const MD_BROKEN_UNORDERED_LIST = "</ul>\n<br><ul>";
@@ -153,7 +162,7 @@ function generateGUID() {
   }
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
     // eslint-disable-next-line no-bitwise
-    const r = (d + Math.random() * 16) % 16 | 0;
+    const r = ((d + Math.random() * 16) % 16) | 0;
     d = Math.floor(d / 16);
     // eslint-disable-next-line no-bitwise
     return (c === "x" ? r : (r & 0x3) | 0x8).toString(16);

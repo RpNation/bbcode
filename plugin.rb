@@ -49,15 +49,10 @@ after_initialize do
   # when false, it does nothing, which allows for persistence of non-default whitespace.
   class ::TextCleaner # rubocop:disable Discourse/Plugins/NoMonkeyPatching
     module Optional_normalize_whitespace
-      def title_options
-        options = super
-        options[:normalize_whitespace_opt] = SiteSetting.discourse_normalize_whitespace
-        options
-      end
       def normalize_whitespaces(text)
-        options = title_options
-        text = super(text) if (options[:normalize_whitespace_opt])
-        text
+        return text if SiteSetting.bbcode_enabled && !SiteSetting.discourse_normalize_whitespace
+
+        super
       end
     end
     singleton_class.prepend Optional_normalize_whitespace
