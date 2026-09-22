@@ -1,119 +1,73 @@
-/**
- * Processes inputted BBCode string using custom configured 3rd party library (see /bbcode-src)
- * @param {string} raw content to preprocess into HTML
- * @returns processed HTML string to pass into markdown-it
- */
-function preprocessor(raw, opts, previewing = false) {
-  // eslint-disable-next-line no-undef
-  if (!bbcodeParser) {
-    // parser doesn't exist. Something horrible has happened and somehow the parser wasn't imported/initialized
-    // give up and send it straight back.
-    // eslint-disable-next-line no-console
-    console.warn(
-      "Attempted to get the bbcode parser: does not exist. Defaulting to standard markdown-it.",
-      "\ncalled on: \n",
-      raw
-    );
-    return [raw, {}];
-  }
-  const parser = globalThis.bbcodeParser.RpNBBCode;
-  opts.previewing = previewing;
-
-  const processed = parser(raw, opts);
-  return [processed.html, processed.tree.options.data];
-}
-
-/**
- * Processes the output of both the markdown-it and the bbcode parser, concatenating additional content if necessary
- * @param {string} raw processed string
- * @param {boolean} previewing flag
- * @param {any} data from preprocessor
- * @returns processed string
- */
-function postprocessor(raw, previewing = false, data = {}) {
-  // eslint-disable-next-line no-undef
-  if (!bbcodeParser) {
-    // parser doesn't exist. Something horrible has happened and somehow the parser wasn't imported/initialized
-    // give up and send it straight back.
-    // eslint-disable-next-line no-console
-    console.warn(
-      "Attempted to get the bbcode parser: does not exist. Defaulting to standard markdown-it.",
-      "\ncalled on: \n",
-      raw
-    );
-    return raw;
-  }
-  // preview auto clear doesn't check against the live dom, so if a onebox is at the end of the post,
-  // it won't be cleared and could cause a fatal error
-  const append = previewing ? '<div style="display:none;"></div>' : "";
-  return globalThis.bbcodeParser.postprocess(raw, data) + append;
-}
-
+// Keep the BBCode parser inside Discourse's registered Markdown pipeline.
+// Its output still passes through the normal sanitizer on both server and client.
 export function setup(helper) {
-  if (!helper.markdownIt) {
-    return;
-  }
-
-  helper.registerOptions((opts, siteSettings) => {
-    // Key must match this module's basename — that is the id the markdown
-    // pipeline gates registerPlugin and allowList on.
-    opts.features["bbcode-plugin"] = siteSettings.bbcode_enabled;
-    if (opts.engine || !siteSettings.bbcode_enabled) {
-      return;
-    }
-    //Add check site settings for options to send to RpNBBCode
-    let preprocessor_options = {
-      preserveWhitespace:
-        siteSettings.preserve_whitespace &&
-        !siteSettings.discourse_normalize_whitespace,
-    };
-
-    Object.defineProperty(opts, "engine", {
-      configurable: true,
-      set(engine) {
-        const md = engine.render;
-        engine.set({ breaks: false }); // disable breaks. Let BBob handle line breaks.
-
-        engine.render = function (raw) {
-          if (engine.options?.discourse?.featuresOverride !== undefined) {
-            // if featuresOverride is set, we're in a chat message and should not preprocess
-            return md.apply(this, [raw]);
-          }
-          const [preprocessed, data] = preprocessor(
-            raw,
-            preprocessor_options,
-            engine.options?.discourse?.previewing
-          );
-          const processed = md.apply(this, [preprocessed]);
-          const postprocessed = postprocessor(
-            processed,
-            engine.options?.discourse?.previewing,
-            data
-          );
-          return postprocessed;
-        };
-        Object.defineProperty(opts, "engine", {
-          configurable: true,
-          enumerable: true,
-          writable: true,
-          value: engine,
-        });
-      },
-    });
+  helper.registerOptions((options, siteSettings) => {
+    options.features["bbcode-plugin"] = !!siteSettings.bbcode_enabled;
+    options.bbcodePreserveWhitespace =
+      siteSettings.preserve_whitespace &&
+      !siteSettings.discourse_normalize_whitespace;
   });
 
   helper.registerPlugin((md) => {
-    // disable paragraph rendering
-    md.renderer.rules.paragraph_open = function () {
-      return "";
-    };
-    md.renderer.rules.paragraph_close = function () {
-      return "";
-    };
+    const parser = globalThis.bbcodeParser;
+    if (!parser) {
+      throw new Error("The registered BBCode parser asset is missing");
+    }
 
-    // this rule is where an indent (space/indent) is converted to a code block
-    // rarely used in the wild, but it's a common source of confusion
-    md.disable("code");
+    const parsedTokens = new WeakMap();
+
+    md.core.ruler.before("normalize", "rpn-bbcode", (state) => {
+      // Plain Markdown keeps native paragraphs, whitespace and code blocks.
+      // Restricted cooks (including chat) do not enable this feature.
+      state.env.rpnBBCode = false;
+      if (!parser.containsBBCode(state.src)) {
+        return;
+      }
+
+      const processed = parser.RpNBBCode(state.src, {
+        preserveWhitespace: md.options.discourse.bbcodePreserveWhitespace,
+        previewing: md.options.discourse.previewing,
+      });
+      state.src = processed.html;
+      state.env.rpnBBCode = true;
+      parsedTokens.set(state.tokens, processed.tree.options.data);
+    });
+
+    // Legacy layouts indent nested tags for readability. After conversion the
+    // generated HTML must not become an indented Markdown code block. Capture
+    // the native rule through Ruler's public API while registering the plugin,
+    // then keep it enabled for every ordinary Markdown cook.
+    const blockRules = md.block.ruler.getRules("");
+    md.block.ruler.disable("code", true);
+    const withoutCode = new Set(md.block.ruler.getRules(""));
+    const nativeCode = blockRules.find((rule) => !withoutCode.has(rule));
+    if (nativeCode) {
+      md.block.ruler.at("code", (state, ...args) => {
+        return !state.env.rpnBBCode && nativeCode(state, ...args);
+      });
+      md.block.ruler.enable("code");
+    }
+
+    for (const name of ["paragraph_open", "paragraph_close", "softbreak"]) {
+      const renderRule = md.renderer.rules[name];
+      md.renderer.rules[name] = (tokens, index, options, env, renderer) => {
+        if (env.rpnBBCode) {
+          return name === "softbreak" ? "\n" : "";
+        }
+        return renderRule
+          ? renderRule(tokens, index, options, env, renderer)
+          : renderer.renderToken(tokens, index, options);
+      };
+    }
+
+    // A renderer extension preserves the parser's hoisted code, styles and
+    // scripts without intercepting Discourse's engine initialization.
+    const render = md.renderer.render;
+    md.renderer.render = function (tokens, options, env) {
+      const html = render.call(this, tokens, options, env);
+      const data = parsedTokens.get(tokens);
+      return data ? parser.postprocess(html, data) : html;
+    };
   });
 
   helper.allowList([
@@ -141,6 +95,7 @@ export function setup(helper) {
     "div.bb-email-subject",
     "div.bb-float-left",
     "div.bb-float-right",
+    "div.bb-fieldset",
     "div.bb-height-restrict",
     "div.bb-img",
     "div.bb-justify",
@@ -157,6 +112,7 @@ export function setup(helper) {
     "div.bb-progress",
     "div.bb-progress-bar",
     "div.bb-progress-other",
+    "div.bb-progress-bar-other",
     "div.bb-progress-text",
     "div.bb-progress-thin",
     "div.bb-ooc",
@@ -205,6 +161,14 @@ export function setup(helper) {
       // custom attr allowlist for anchor tags
       if (tag === "a" && name === "id" && value.startsWith("user-anchor-")) {
         return true;
+      }
+
+      if (tag === "div" && name === "data-span") {
+        return /^column-width-span\d+$/.test(value);
+      }
+
+      if (tag === "span" && name === "data-font") {
+        return value.startsWith("https://fonts.googleapis.com/css2?");
       }
 
       // custom attr allowlist for tabs

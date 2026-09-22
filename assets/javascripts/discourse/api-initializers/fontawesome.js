@@ -5,7 +5,7 @@ const postsMissingFontAwesome = [];
 
 export default apiInitializer((api) => {
   const siteSettings = api.container.lookup("service:site-settings");
-  if (!siteSettings.fontawesome_kit_url) {
+  if (!siteSettings.bbcode_enabled || !siteSettings.fontawesome_kit_url) {
     return;
   }
   window.FontAwesomeConfig = {
