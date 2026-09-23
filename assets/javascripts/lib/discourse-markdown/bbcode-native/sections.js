@@ -1,6 +1,7 @@
 // Tags whose body is a list of section children: [tabs]/[tab] and
 // [accordion]/[slide] (both the bracket form and the older {slide=...} form).
 
+import { defineTags } from "./define";
 import { findClose, parseLooseTag, PHANTOM } from "./scanner";
 import { guidFor, isBlockState } from "./tokens";
 
@@ -190,9 +191,9 @@ function pushInlineContent(state, text) {
 
 const ACCORDION_ALIGNMENTS = ["bright", "bcenter", "bleft", "fleft", "fright"];
 
-const SECTION_SPECS = {
+const SECTION_TAGS = defineTags({
   tabs: {
-    kind: "sections",
+    content: "sections",
     sections: tabSections,
     open(state, info) {
       info.group = nextGroupId(state);
@@ -232,7 +233,7 @@ const SECTION_SPECS = {
   },
 
   accordion: {
-    kind: "sections",
+    content: "sections",
     sections: slideSections,
     open(state, info) {
       const attrs = info.attrs;
@@ -279,6 +280,6 @@ const SECTION_SPECS = {
       state.push("bbcode_slide_close", "details", -1);
     },
   },
-};
+});
 
-export { SECTION_SPECS };
+export { SECTION_TAGS };

@@ -17,7 +17,7 @@ RSpec.describe PrettyText do
     html = cook("[div=height:auto; width:100%;\n\npadding:7px]text[/div]")
 
     expect(html).to include(%(style="height:auto; width:100%;\n\npadding:7px"))
-    expect(html).to end_with("\ntext</div>")
+    expect(html).to end_with(">text</div>")
   end
 
   it "reads quoted key=value attributes and suffixes class names per post" do
@@ -47,6 +47,20 @@ RSpec.describe PrettyText do
     expect(html).not_to include("\\")
   end
 
+  it "closes a mis-nested tag with its parent and drops its later close" do
+    expect(cook("[b]bold [i]both[/b] italic[/i]")).to eq(
+      %(<span class="bbcode-b">bold <span class="bbcode-i">both</span></span> italic),
+    )
+    expect(cook("[center][b]x[/center] y[/b]")).to match(
+      %r{<span class="bbcode-b">x</span></div>\s*y\z},
+    )
+    expect(cook("[url=https://e.com][b]x[/url] y[/b]")).to include(
+      %(<span class="bbcode-b">x</span></a> y),
+    )
+    expect(cook("[b]a[plain][i]x[/b][/plain] c[/b]")).to include("a[i]x[/b] c</span>")
+    expect(cook("[b][i]x[/b]")).to eq(%(<span class="bbcode-b">[i]x</span>))
+  end
+
   it "leaves unclosed and unmatched tags as literal text" do
     expect(cook("[div=a:b]unclosed")).to eq("[div=a:b]unclosed")
     expect(cook("text [/b] more")).to eq("text [/b] more")
@@ -59,7 +73,7 @@ RSpec.describe PrettyText do
   end
 
   it "turns every newline between blocks and inside containers into a line break" do
-    expect(cook("a\n[div=x]b[/div]")).to eq(%(a<br><div style="x">\nb</div>))
+    expect(cook("a\n[div=x]b[/div]")).to eq(%(a<br><div style="x">b</div>))
     expect(cook("[div=x]\nb\n[/div]")).to include("<br>\nb<br>\n</div>")
   end
 
@@ -72,6 +86,27 @@ RSpec.describe PrettyText do
 
     expect(html).to include(%(<template data-bbcode-plus="class">.x__post-GUID {))
     expect(html).to include(%(<div class="x__post-GUID">))
+  end
+
+  it "renders script and animation templates and fa icons" do
+    html = cook("[script class=box on=click version=2]\nshow box\n[/script]")
+    expect(html).to include(
+      %(<template data-bbcode-plus="script" data-bbscript-id="post-GUID" data-bbscript-class="box" data-bbscript-on="click" data-bbscript-ver="2">),
+    )
+
+    animation =
+      cook("[animation=spin][keyframe=0]a: b;[/keyframe][keyframe=to]c: d;[/keyframe][/animation]")
+    expect(animation).to include("@keyframes post-GUIDspin { 0%{ a: b; }\nto{ c: d; } }")
+    expect(cook("[keyframe=0]stray[/keyframe]")).to eq("[keyframe=0]stray[/keyframe]")
+
+    expect(cook(%(x [fa style="color:red" primary-color=red]fa-star[/fa] y))).to include(
+      %(<i data-bbcode-fa=""><i class="fa-star" style="color:red; --fa-primary-color: red"),
+    )
+  end
+
+  it "renders heading tags" do
+    expect(cook("[h1]Title[/h1]")).to match(%r{<h1>\s*Title</h1>})
+    expect(cook("x [sh]mid[/sh] y")).to eq("x <h2>mid</h2> y")
   end
 
   it "keeps tags nested in a link working" do
@@ -130,6 +165,27 @@ RSpec.describe PrettyText do
     expect(html).to include("<h1>", "<li>a</li>")
     expect(cook("[size=5]\n# T\n[/size]")).to start_with(%(<div data-size="5">))
     expect(cook("[color=red]\n# T\n[/color]")).to start_with(%(<div style="color: red">))
+  end
+
+  it "keeps inline styling tags inline across lines unless they hold markdown blocks" do
+    expect(cook("x [color=red]a\nb[/color] y")).to eq(
+      %(x <span style="color: red">a<br>\nb</span> y),
+    )
+    expect(cook("[b]a\n\nb[/b] tail")).to start_with(%(<span class="bbcode-b">a<br>))
+    expect(cook("x [i]# not a heading\nb[/i] y")).to include(%(<span class="bbcode-i"># not))
+    expect(cook("x [b]a\n[plain]\n# literal\n[/plain][/b]")).to include(%(<span class="bbcode-b">))
+
+    html = cook("[b]\n# heading\n- item\n[/b]")
+    expect(html).to start_with(%(<div class="bbcode-b">))
+    expect(html).to include("<h1>", "<li>item</li>")
+    expect(cook("x [i]a\n- one\n- two[/i] y")).to include(%(<div class="bbcode-i">), "<li>one</li>")
+  end
+
+  it "renders markdown blocks in a container nested in an inline tag" do
+    html = cook("[b]text [div=x]a\n\n# heading\n- item\n[/div] more[/b]")
+
+    expect(html).to start_with(%(<div class="bbcode-b">))
+    expect(html).to include(%(<div style="x">), "<h1>", "<li>item</li>")
   end
 
   it "keeps a single-line font at the start of a line inline" do
@@ -238,6 +294,34 @@ RSpec.describe PrettyText do
     expect(cook("x [inlinespoiler]\na\n[/inlinespoiler] y")).to include(
       %(<span class="bb-inline-spoiler">a</span>),
     )
+  end
+
+  it "renders a code tag spanning lines as a code block wherever its tags sit" do
+    expect(cook("[code]a\n\nb[/code] tail")).to include(
+      %(<pre><code class="lang-auto">a\n\nb</code></pre>),
+    )
+    expect(cook("x [code]a\nb[/code] y")).to match(
+      %r{\Ax<pre><code class="lang-auto">a\nb</code></pre>\s*y\z},
+    )
+    expect(cook("x [code]a[/code] y")).to eq("x <code>a</code> y")
+  end
+
+  it "never reads content on the same line as both tags as markdown blocks" do
+    expect(cook("[div=x]+[/div]")).to eq(%(<div style="x">+</div>))
+    expect(cook("[center]# Title[/center]")).to eq(%(<div class="bb-center"># Title</div>))
+    expect(cook("[center]\n# Title\n[/center]")).to include("<h1>")
+    expect(cook("[tabs][tab=A]- x[/tab][/tabs]")).to include(
+      %(<div class="bb-tab-content">- x</div>),
+    )
+  end
+
+  it "trims the line breaks just inside blockquote, ooc and progress" do
+    expect(cook("[blockquote=Al]\n\nhi\n\n[/blockquote]")).to match(
+      /bb-blockquote-content">\s*hi<div class="bb-blockquote-speaker">/,
+    )
+    expect(cook("[ooc]\nx\n[/ooc]")).to match(%r{<div class="bb-ooc">\s*x</div>})
+    expect(cook("[progress=40]\nx\n[/progress]")).to match(%r{bb-progress-text">\s*x</div>})
+    expect(cook("[progress=40]x[/progress]")).to include(%(<div class="bb-progress-bar-other">))
   end
 
   it "keeps code content as written, apart from the lines the tags sit on" do

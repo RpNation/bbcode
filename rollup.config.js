@@ -27,11 +27,10 @@ export default [
     ],
     watch: {
       include: "bbcode-src/**",
-      exclude: "bbcode-src/bbscript/**",
     },
   },
   {
-    input: "bbcode-src/bbscript/index.js",
+    input: "bbscript-src/index.js",
     output: {
       file: "public/javascripts/bbscript-parser.min.js",
       name: "bbscriptParser",
@@ -44,10 +43,10 @@ export default [
     external: ["jquery"],
     plugins: [
       nodeResolve(),
-      terser({ format: { preamble: "/* Source code in bbcode-src/bbscript */" } }),
+      terser({ format: { preamble: "/* Source code in bbscript-src */" } }),
     ],
     watch: {
-      include: "bbcode-src/bbscript/**",
+      include: "bbscript-src/**",
     },
   },
 ];

@@ -105,6 +105,8 @@ For more, see the [Discourse Docker Guide](https://meta.discourse.org/docs?topic
 
 ## Architecture
 
+BBScript, the scripting language behind `[script]`, lives in `/bbscript-src` and is built into `/public/javascripts/bbscript-parser.min.js`, which the client loads only when `enable_bbscript` is on.
+
 The architecture of this project is for all BBCode Parser related code to be contained in `/bbcode-src`, which would then be minified into a module and added to the appropriate location in `/assets/javascripts` to be used by the discourse plugin proper. This is to work around the weird way discourse requires libraries to be loaded in. There will be a Rollup config and github action setup to automate minifying and moving the module.
 
 Honestly, if anyone has a better solution, please send help.

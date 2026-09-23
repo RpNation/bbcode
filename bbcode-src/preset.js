@@ -116,7 +116,15 @@ const tags = {
 };
 
 // no line breaks just inside these tags
-const TRIM_INSIDE = ["inlinespoiler", "quote", "spoiler"];
+const TRIM_INSIDE = [
+  "blockquote",
+  "inlinespoiler",
+  "ooc",
+  "progress",
+  "quote",
+  "spoiler",
+  "thinprogress",
+];
 // XenForo drops the line break right after these tags' close
 const TRIM_AFTER = [
   "block",

@@ -1,7 +1,7 @@
 en:
   site_settings:
     bbcode_enabled: "Enable Custom BBCode parser"
-    bbcode_native_tags: "Tags rendered by the markdown parser instead of the BBCode preprocessor. Use * for all tags (development only, disables the preprocessor)."
+    bbcode_native_tags: "Tags rendered by the markdown parser instead of the BBCode preprocessor. * (the default) renders all tags with the markdown parser; leave empty to use the preprocessor."
     discourse_normalize_whitespace: "Activate to set all whitespace to the default space character (U+0020)"
     preserve_whitespace: "Activate to set repeating spaces (U+0020) to non-breaking spaces (U+00A0).
       Note that discourse_normalize_whitespace must be disabled to preserve non-breaking spaces."

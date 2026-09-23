@@ -7,6 +7,7 @@ export default defineConfig([
     "public/javascripts/**",
     "rollup.config.js",
     "bbcode-src/**",
+    "bbscript-src/**",
   ]),
   ...DiscourseRecommended,
 ]);

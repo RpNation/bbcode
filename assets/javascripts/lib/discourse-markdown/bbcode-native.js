@@ -1,58 +1,51 @@
 // Native bbcode rules for markdown-it. Tags are found by a scanner that accepts
-// the loose attribute syntax existing content uses, and each tag is rendered in
-// one of these ways:
+// the loose attribute syntax existing content uses, and each tag is rendered as
+// its definition says (see ./bbcode-native/define.js for the format, and
+// ./bbcode-native/tags.js for the tags).
 //
-//  container  content is parsed as markdown blocks when the tag starts its own
-//             line, and as flowing text when it starts mid-line
-//  blockflow  block wrapper whose content is one flowing run of text
-//  flow       inline span; content is one flowing run of text, even across
-//             blank lines
-//  text       content is emitted literally
-//  opaque     the whole tag is rendered by BBob (data tags such as [class])
-//
-// Tags without a native implementation are "delegated": BBob renders only the
-// wrapper HTML, and markdown-it renders the content natively.
-//
-// The scanner and tag tables live in ./bbcode-native/*; this file wires them
-// into markdown-it's block/inline/core rulers. Self-contained on purpose:
-// plugin markdown modules can't import core helpers such as parseBBCodeTag.
+// This file wires the definitions into markdown-it's block/inline/core rulers.
+// Self-contained on purpose: plugin markdown modules can't import core helpers
+// such as parseBBCodeTag.
 
+import { bbcodePlusTemplates, PLUS_TAGS } from "./bbcode-native/plus";
 import {
   findClose,
   LITERAL_TAGS,
   literalRanges,
+  needsBlocks,
   NEWLINE_SENTINEL,
   NOBR_SENTINEL,
   parseLooseTag,
   PHANTOM,
+  repairNesting,
   restoreNewlines,
 } from "./bbcode-native/scanner";
-import { SECTION_SPECS } from "./bbcode-native/sections";
-import { CORE_SPECS } from "./bbcode-native/specs";
+import { SECTION_TAGS } from "./bbcode-native/sections";
+import { TAGS } from "./bbcode-native/tags";
 import {
-  delegateSpec,
   flowText,
   hardenBreaks,
-  OPAQUE,
   pushHtml,
-  pushOpaque,
   pushText,
-  renderWithBBob,
-  wrapperHalves,
 } from "./bbcode-native/tokens";
-import { WRAPPER_SPECS } from "./bbcode-native/wrappers";
 
-const SPECS = { ...CORE_SPECS, ...WRAPPER_SPECS, ...SECTION_SPECS };
+const SPECS = { ...TAGS, ...SECTION_TAGS, ...PLUS_TAGS };
+// tags whose newlines are not line breaks ([nobr])
+const NO_BREAK_TAGS = Object.keys(SPECS).filter(
+  (tag) => SPECS[tag].lineBreaks === false
+);
 
-// Tags BBob still renders. Wrapper tags: BBob produces the wrapper HTML and
-// markdown-it the content. Opaque tags need BBob to see their whole content
-// (CSS, scripts) or their child tags (tabs, accordion).
-const DELEGATES = {};
-for (const tag of [...["h", "h1", "h2", "h3", "h4", "h5", "h6", "sh"]]) {
-  DELEGATES[tag] = delegateSpec("container");
-}
-for (const tag of ["class", "animation", "script", "fa"]) {
-  DELEGATES[tag] = OPAQUE;
+// not rendered here, but their closes still close the tags nested in them
+const NESTING_ONLY = ["url", "quote", "tab", "slide"];
+
+// every token of a tag with `lineBreaks: false`
+function markNoBreaks(tokens) {
+  for (const token of tokens) {
+    token.meta = { ...token.meta, nobr: true };
+    token.children?.forEach((child) => {
+      child.meta = { ...child.meta, nobr: true };
+    });
+  }
 }
 
 const isBreakable = (token) =>
@@ -118,10 +111,10 @@ function insertBreaks(tokens, Token) {
   return out;
 }
 
-const specFor = (tag) => SPECS[tag] || DELEGATES[tag];
-const bbobAvailable = () => !!globalThis.bbcodeParser?.RpNBBCode;
+const specFor = (tag) => SPECS[tag];
 // spans that stay in one paragraph however many blank lines they contain
-const alwaysFlat = (spec) => spec.kind === "flow" || spec.kind === "text";
+const alwaysFlat = (spec) =>
+  spec.content === "inline" || spec.content === "literal";
 
 export function setup(helper) {
   helper.registerOptions((opts, siteSettings) => {
@@ -130,7 +123,7 @@ export function setup(helper) {
       .map((t) => t.trim().toLowerCase())
       .filter(Boolean);
     const tags = configured.includes("*")
-      ? [...Object.keys(SPECS), ...Object.keys(DELEGATES)]
+      ? Object.keys(SPECS)
       : configured.filter(specFor);
     opts.bbcodeNativeTags = tags;
     opts.features["bbcode-native"] =
@@ -140,6 +133,8 @@ export function setup(helper) {
   helper.registerPlugin((md) => {
     const enabled = new Set(md.options.discourse?.bbcodeNativeTags || []);
     const isKnown = (tag) => enabled.has(tag);
+    // our tags, plus core's and the section children they commonly nest in
+    const isNestable = (tag) => isKnown(tag) || NESTING_ONLY.includes(tag);
     // BBob is out of the picture: the rules below produce the whole document
     const standalone = !!md.options.discourse?.bbcodeBypass;
 
@@ -164,6 +159,7 @@ export function setup(helper) {
       if (!enabled.size) {
         return;
       }
+      state.src = repairNesting(state.src, isNestable);
       const src = state.src;
       const openRe = new RegExp(
         `\\[(${[...enabled].join("|")})(?=[\\]=\\s])`,
@@ -205,11 +201,17 @@ export function setup(helper) {
       }
 
       const nobrRanges = [];
-      if (enabled.has("nobr")) {
-        const nobrRe = /\[nobr\]/gi;
+      const noBreakTags = NO_BREAK_TAGS.filter(isKnown);
+      if (noBreakTags.length) {
+        const nobrRe = new RegExp(
+          `\\[(${noBreakTags.join("|")})(?=[\\]=\\s])`,
+          "gi"
+        );
         let nobr;
         while ((nobr = nobrRe.exec(src))) {
-          const nobrClose = findClose(src, nobr.index + 6, "nobr", isKnown);
+          const info = parseLooseTag(src, nobr.index, isKnown);
+          const nobrClose =
+            info && findClose(src, nobr.index + info.length, info.tag, isKnown);
           if (nobrClose) {
             nobrRanges.push([nobr.index, nobrClose.start]);
           }
@@ -229,10 +231,26 @@ export function setup(helper) {
         if (!info || info.closing) {
           continue;
         }
-        const flat =
-          alwaysFlat(specFor(info.tag)) || inRange(urlRanges, openAt);
+        const spec = specFor(info.tag);
         const lineStart = src.lastIndexOf("\n", openAt - 1) + 1;
         const startsLine = /^[ \t]*$/.test(src.slice(lineStart, openAt));
+        const alwaysFlow = alwaysFlat(spec) || inRange(urlRanges, openAt);
+        // a line-start block container needs no close here: the block rule
+        // finds it
+        const close =
+          !startsLine || alwaysFlow || spec.content === "auto"
+            ? findClose(src, openAt + info.length, info.tag, isKnown)
+            : null;
+        const flat =
+          alwaysFlow ||
+          (spec.content === "auto" &&
+            !(
+              close &&
+              needsBlocks(
+                src.slice(openAt + info.length, close.start),
+                startsLine
+              )
+            ));
         if (startsLine && !flat) {
           // markdown-it never lets a line indented 4+ spaces interrupt a
           // paragraph, and indentation carries no meaning here
@@ -245,7 +263,6 @@ export function setup(helper) {
           }
           continue;
         }
-        const close = findClose(src, openAt + info.length, info.tag, isKnown);
         if (!close) {
           continue;
         }
@@ -267,7 +284,41 @@ export function setup(helper) {
         flattened.push([openAt, close.start]);
       }
 
-      for (const edit of edits.reverse()) {
+      // Core renders a [code] spanning lines as a code block only when its
+      // tags sit on lines of their own; XenForo always does, so they are given
+      // their own lines. Mid-line, the one added before it isn't the author's.
+      const codeRe = /\[code(?=[\]=\s])[^\]]*\]/gi;
+      while ((match = codeRe.exec(src))) {
+        const openAt = match.index;
+        const openEnd = codeRe.lastIndex;
+        const closeAt = src.toLowerCase().indexOf("[/code]", openEnd);
+        if (
+          inLiteral(openAt) ||
+          inRange(flattened, openAt) ||
+          closeAt === -1 ||
+          !src.slice(openEnd, closeAt).includes("\n")
+        ) {
+          continue;
+        }
+        const closeEnd = closeAt + "[/code]".length;
+        const lineStart = src.lastIndexOf("\n", openAt - 1) + 1;
+        const closeLineStart = src.lastIndexOf("\n", closeAt - 1) + 1;
+        if (src.slice(lineStart, openAt).trim()) {
+          edits.push({ at: openAt, remove: 0, insert: PHANTOM + "\n" });
+        }
+        if (!/^[ \t]*(\n|$)/.test(src.slice(openEnd))) {
+          edits.push({ at: openEnd, remove: 0, insert: "\n" });
+        }
+        if (src.slice(closeLineStart, closeAt).trim()) {
+          edits.push({ at: closeAt, remove: 0, insert: "\n" });
+        }
+        if (!/^[ \t]*(\n|$)/.test(src.slice(closeEnd))) {
+          edits.push({ at: closeEnd, remove: 0, insert: "\n" });
+        }
+        codeRe.lastIndex = closeEnd;
+      }
+
+      for (const edit of edits.sort((a, b) => b.at - a.at)) {
         out =
           out.slice(0, edit.at) +
           edit.insert +
@@ -322,6 +373,17 @@ export function setup(helper) {
       return tokens;
     };
 
+    // one line of content: read as text, like a paragraph, but never as
+    // markdown blocks
+    const lineTokens = (state, text) => {
+      const inline = new state.Token("inline", "", 0);
+      inline.content = text.trim();
+      inline.children = [];
+      inline.level = state.level;
+      inline.block = true;
+      return [inline];
+    };
+
     md.block.ruler.after(
       "fence",
       "bbcode-native-block",
@@ -338,16 +400,8 @@ export function setup(helper) {
         if (!info || info.closing) {
           return false;
         }
-        let spec = specFor(info.tag);
-        if (
-          spec.inlineOnly ||
-          !["container", "blockflow", "opaque", "sections", "text"].includes(
-            spec.kind
-          )
-        ) {
-          return false;
-        }
-        if (spec.delegate && !bbobAvailable()) {
+        const spec = specFor(info.tag);
+        if (spec.inlineOnly || spec.content === "inline") {
           return false;
         }
         const close = findClose(text, lead + info.length, info.tag, isKnown);
@@ -355,13 +409,13 @@ export function setup(helper) {
           return false;
         }
         if (
-          spec.spansLines &&
-          !text.slice(lead + info.length, close.start).includes("\n")
+          spec.content === "auto" &&
+          !needsBlocks(text.slice(lead + info.length, close.start), true)
         ) {
           return false;
         }
         const sections =
-          spec.kind === "sections"
+          spec.content === "sections"
             ? spec.sections(
                 text.slice(lead + info.length, close.start),
                 isKnown
@@ -372,11 +426,6 @@ export function setup(helper) {
         }
         if (silent) {
           return true;
-        }
-
-        if (spec !== OPAQUE && spec.delegate) {
-          info.halves = wrapperHalves(state, info);
-          spec = info.halves ? spec : OPAQUE;
         }
 
         const closeLine =
@@ -406,25 +455,24 @@ export function setup(helper) {
               }
             };
             breaks(leading);
-            const tokens = parseBlocks(state, body.trim());
-            state.tokens.push(...tokens);
+            state.tokens.push(
+              ...(body.includes("\n")
+                ? parseBlocks(state, body.trim())
+                : lineTokens(state, body))
+            );
             breaks(trailing);
             spec.sectionClose(state, section);
           });
           spec.close(state, info);
-        } else if (spec.kind === "text") {
+        } else if (spec.content === "literal") {
           const content = text.slice(lead + info.length, close.start);
-          const token = pushText(state, spec, restoreNewlines(content));
-          token.map = map;
-          token.meta = { ...token.meta, breakable: true };
-        } else if (spec === OPAQUE) {
-          const html = renderWithBBob(
-            state,
-            restoreNewlines(text.slice(lead, close.end))
-          );
-          const token = pushOpaque(state, html);
-          if (token) {
+          const token = pushText(state, spec, restoreNewlines(content), info);
+          if (token.children.length) {
             token.map = map;
+            token.meta = { ...token.meta, breakable: true };
+          } else {
+            // data tags ([class], [script], ...) render nothing here
+            state.tokens.pop();
           }
         } else {
           const content = text.slice(lead + info.length, close.start);
@@ -440,7 +488,8 @@ export function setup(helper) {
           if (open) {
             open.map = map;
           }
-          if (spec.decorate) {
+          const noBreaks = spec.lineBreaks === false;
+          if (noBreaks) {
             // the line breaks before this tag are counted from the marker; the
             // tokens inside it only know their own position within the tag
             const start = pushHtml(state, "");
@@ -448,7 +497,7 @@ export function setup(helper) {
             start.meta = { breakable: true };
           }
           const pushBreaks = (count) => {
-            if (count > 0 && standalone && !spec.decorate) {
+            if (count > 0 && standalone && !noBreaks) {
               pushHtml(state, "<br>".repeat(Math.min(count, 20))).meta = {
                 br: true,
               };
@@ -456,21 +505,27 @@ export function setup(helper) {
           };
           pushBreaks(leading);
 
-          if (spec.kind === "container") {
-            const tokens = parseBlocks(state, content.trim());
-            spec.decorate?.(tokens);
-            state.tokens.push(...tokens);
-          } else {
+          if (spec.content === "text") {
             const inline = state.push("inline", "", 0);
             inline.content = flowText(content.replace(/^\n|\n$/g, "")).trim();
             inline.meta = { flow: true };
             inline.children = [];
             inline.map = map;
+          } else {
+            // content on the same line as both tags is never markdown blocks:
+            // [div]+[/div] is a "+", not a list
+            const tokens = content.includes("\n")
+              ? parseBlocks(state, content.trim())
+              : lineTokens(state, content);
+            if (noBreaks) {
+              markNoBreaks(tokens);
+            }
+            state.tokens.push(...tokens);
           }
           pushBreaks(trailing);
           spec.close(state, info);
           markTrimAfter(state, spec);
-          if (spec.decorate) {
+          if (noBreaks) {
             // and the next block's count starts from where it ends
             const marker = pushHtml(state, "");
             marker.map = map;
@@ -501,10 +556,7 @@ export function setup(helper) {
       if (!info || info.closing) {
         return false;
       }
-      let spec = specFor(info.tag);
-      if (spec.delegate && !bbobAvailable()) {
-        return false;
-      }
+      const spec = specFor(info.tag);
       const close = findClose(
         state.src,
         state.pos + info.length,
@@ -516,7 +568,7 @@ export function setup(helper) {
         return false;
       }
       const sections =
-        spec.kind === "sections"
+        spec.content === "sections"
           ? spec.sections(
               state.src.slice(state.pos + info.length, close.start),
               isKnown
@@ -535,8 +587,8 @@ export function setup(helper) {
       state.pushPending();
       const inner = state.src.slice(state.pos + info.length, close.start);
 
-      if (spec.kind === "text") {
-        spec.render(state, restoreNewlines(inner));
+      if (spec.content === "literal") {
+        spec.render(state, restoreNewlines(inner), info);
       } else if (sections) {
         spec.open(state, info);
         sections.forEach((section, index) => {
@@ -557,38 +609,25 @@ export function setup(helper) {
         });
         spec.close(state, info);
       } else {
-        if (spec !== OPAQUE && spec.delegate) {
-          info.halves = wrapperHalves(state, info);
-          spec = info.halves ? spec : OPAQUE;
+        spec.open(state, info);
+        const tokens = [];
+        const text = flowText(inner);
+        state.md.inline.parse(
+          spec.trimInside ? text.trim() : text,
+          state.md,
+          state.env,
+          tokens
+        );
+        hardenBreaks(tokens);
+        for (const token of tokens) {
+          token.level += state.level;
         }
-
-        if (spec === OPAQUE) {
-          pushOpaque(
-            state,
-            renderWithBBob(
-              state,
-              restoreNewlines(state.src.slice(state.pos, close.end))
-            )
-          );
-        } else {
-          spec.open(state, info);
-          const tokens = [];
-          const text = flowText(inner);
-          state.md.inline.parse(
-            spec.trimInside ? text.trim() : text,
-            state.md,
-            state.env,
-            tokens
-          );
-          hardenBreaks(tokens);
-          for (const token of tokens) {
-            token.level += state.level;
-          }
-          spec.decorate?.(tokens);
-          state.tokens.push(...tokens);
-          spec.close(state, info);
-          markTrimAfter(state, spec);
+        if (spec.lineBreaks === false) {
+          markNoBreaks(tokens);
         }
+        state.tokens.push(...tokens);
+        spec.close(state, info);
+        markTrimAfter(state, spec);
       }
 
       state.pos = close.end;
@@ -664,21 +703,15 @@ export function setup(helper) {
       state.tokens.forEach(restore);
     });
 
-    // the styles and scripts BBob produced, emitted once for the whole post
+    // the post's [class]/[animation] CSS and [script]s, emitted once
     md.core.ruler.push("bbcode-native-templates", (state) => {
-      const styles = state.env.bbcodeStyles || [];
-      const scripts = state.env.bbcodeScripts || [];
-      if (!styles.length && !scripts.length) {
+      const templates = bbcodePlusTemplates(state.env);
+      if (!templates) {
         return;
       }
       const token = new state.Token("html_block", "", 0);
       token.block = true;
-      token.content =
-        globalThis.bbcodeParser.postprocess("", {
-          styles,
-          bbscripts: scripts,
-          hoistMap: {},
-        }) + "\n";
+      token.content = templates + "\n";
       state.tokens.unshift(token);
     });
   });
@@ -688,6 +721,13 @@ export function setup(helper) {
     "div.bb-spoiler-content",
     "div.bb-background",
     "span.bb-pindent",
+    // inline styling tags around markdown blocks
+    "div.bbcode-b",
+    "div.bbcode-i",
+    "div.bbcode-u",
+    "div.bbcode-s",
+    "div.bb-pindent",
+    "div.bb-highlight",
     "summary",
     "div[style=*]",
     "span[style=*]",

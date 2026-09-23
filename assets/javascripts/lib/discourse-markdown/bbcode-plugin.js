@@ -215,7 +215,7 @@ export function setup(helper) {
     "div.bb-print-parchment",
     "div.bb-progress",
     "div.bb-progress-bar",
-    "div.bb-progress-other",
+    "div.bb-progress-bar-other",
     "div.bb-progress-text",
     "div.bb-progress-thin",
     "div.bb-ooc",

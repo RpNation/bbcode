@@ -3,11 +3,11 @@ plugins:
     default: true
     client: true
   bbcode_native_tags:
-    default: ""
+    default: "*"
     type: list
     client: true
     description:
-      en: "Tags rendered by the native markdown-it rules instead of the BBob preprocessor. Use * to bypass BBob entirely (development only)."
+      en: "Tags rendered by the native markdown-it rules instead of the BBob preprocessor. * (the default) renders everything natively; empty uses BBob."
   enable_markdown_typographer:
     client: false
     default: false
