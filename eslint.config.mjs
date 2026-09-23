@@ -3,10 +3,8 @@ import { defineConfig, globalIgnores } from "eslint/config";
 
 export default defineConfig([
   globalIgnores([
-    "assets/bundled/**",
     "public/javascripts/**",
     "rollup.config.js",
-    "bbcode-src/**",
     "bbscript-src/**",
   ]),
   ...DiscourseRecommended,

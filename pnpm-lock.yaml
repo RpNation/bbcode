@@ -4,36 +4,10 @@ settings:
   autoInstallPeers: false
   excludeLinksFromLockfile: false
 
-overrides:
-  '@bbob/core': 4.4.1
-  '@bbob/parser': 4.4.1
-  '@bbob/plugin-helper': 4.4.1
-  '@bbob/preset': 4.4.1
-  '@bbob/types': 4.4.1
-
 importers:
 
   .:
-    dependencies:
-      '@bbob/core':
-        specifier: 4.4.1
-        version: 4.4.1
-      '@bbob/html':
-        specifier: 4.4.1
-        version: 4.4.1
-      '@bbob/plugin-helper':
-        specifier: 4.4.1
-        version: 4.4.1
-      '@bbob/preset':
-        specifier: 4.4.1
-        version: 4.4.1
-      '@bbob/preset-html5':
-        specifier: 4.4.1
-        version: 4.4.1
     devDependencies:
-      '@bbob/types':
-        specifier: 4.4.1
-        version: 4.4.1
       '@discourse/lint-configs':
         specifier: 3.2.0
         version: 3.2.0(@typescript-eslint/parser@8.70.0(eslint@10.6.0)(typescript@5.9.3))(eslint@10.6.0)(postcss@8.5.28)(prettier@3.8.1)(stylelint@17.5.0(typescript@5.9.3))
@@ -43,9 +17,6 @@ importers:
       '@rollup/plugin-node-resolve':
         specifier: ^15.1.0
         version: 15.3.1(rollup@4.63.3)
-      '@rollup/plugin-replace':
-        specifier: ^5.0.7
-        version: 5.0.7(rollup@4.63.3)
       '@rollup/plugin-terser':
         specifier: ^0.4.3
         version: 0.4.4(rollup@4.63.3)
@@ -296,27 +267,6 @@ packages:
   '@babel/types@8.0.5':
     resolution: {integrity: sha512-eVdMqi3ej5aHhyQ2Si6yD2cAWeV8FJK9UrhK5aL0Sd8hu5GhT+YswhVNbVheOGVYMg8kuGuMaUpkB3stjj4z8A==}
     engines: {node: ^22.18.0 || >=24.11.0}
-
-  '@bbob/core@4.4.1':
-    resolution: {integrity: sha512-+/p5zQryGVbviM6MUCtHZL3TBtsPFLynCClgiWpQgonYunzIifVaPq8wkA3tnYRrz8rTVC2CMEaiGr16/KV+zw==}
-
-  '@bbob/html@4.4.1':
-    resolution: {integrity: sha512-pR2SruL2LmQEDDjZ+HrkW1wFtUkyTJN4tdUWQelLiRggAzR1XOH5ZtVSGfPlWzX5HvdjGjITxkvtCBuGaESegw==}
-
-  '@bbob/parser@4.4.1':
-    resolution: {integrity: sha512-Hs6caDSsY5zJdZZpj7ohTz4hQZGKPL+ZgZy+qbgDtfD9WV2YGxFGtXQf7PBu/aIRKOrkGgbCQxDYWlCEyONi9w==}
-
-  '@bbob/plugin-helper@4.4.1':
-    resolution: {integrity: sha512-vTjwNiiIHhihyD41DuxrUFVCuGPr1EB1fXvy5+HHnmcvWmOH5BzPSgSEs+KCdpWF+hIDMAho2toAHiDmYurCJQ==}
-
-  '@bbob/preset-html5@4.4.1':
-    resolution: {integrity: sha512-rk8T9NnaVQRciHklMY1s5FefswT777XKZ+uQISGToUzrkTPQh2B3E5tLlJN4Z0Cb0n9IKCuDxy6sqaCVfPwxOg==}
-
-  '@bbob/preset@4.4.1':
-    resolution: {integrity: sha512-QX68ZKgmX8oLzB7TRaoUlXXX+CN/Mf/TtczH29QIHzwWNTXze04/4njYNulzmIJC7/VcABkK7feEbw8M96rU8Q==}
-
-  '@bbob/types@4.4.1':
-    resolution: {integrity: sha512-IDu7H3J9yMQG0U//0X4Akbbm3SOIKfeLmgPHO4s3s+WPsl+AeGb6dy4XBFLEDcDIN/N3f8WPibhIjLr0gFQ7Fg==}
 
   '@cacheable/memory@2.2.0':
     resolution: {integrity: sha512-CTLKqLItRCEixEAewD3/j9DB3/o96gpTPD4eJ1v+DGOlxZRZncRQkGYqqnAGCscYd6RNeXfGeiuCphsPtqyIfQ==}
@@ -668,15 +618,6 @@ packages:
     engines: {node: '>=14.0.0'}
     peerDependencies:
       rollup: ^2.78.0||^3.0.0||^4.0.0
-    peerDependenciesMeta:
-      rollup:
-        optional: true
-
-  '@rollup/plugin-replace@5.0.7':
-    resolution: {integrity: sha512-PqxSfuorkHz/SPpyngLyg5GCEkOcee9M1bkxiVDr41Pd61mqP1PLOoDPbpl44SB2mQGKwV/In74gqQmGITOhEQ==}
-    engines: {node: '>=14.0.0'}
-    peerDependencies:
-      rollup: ^1.20.0||^2.0.0||^3.0.0||^4.0.0
     peerDependenciesMeta:
       rollup:
         optional: true
@@ -1567,9 +1508,6 @@ packages:
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
 
-  magic-string@0.30.21:
-    resolution: {integrity: sha512-vd2F4YUyEXKGcLHoq+TEyCjxueSeHnFxyyjNp80yg0XV4vUhnDer/lvvlqM/arB5bXQN5K2/3oinyCRyx8T2CQ==}
-
   mathml-tag-names@4.0.0:
     resolution: {integrity: sha512-aa6AU2Pcx0VP/XWnh8IGL0SYSgQHDT6Ucror2j2mXeFAlN3ahaNs8EZtG1YiticMkSLj3Gt6VPFfZogt7G5iFQ==}
 
@@ -2423,40 +2361,6 @@ snapshots:
       '@babel/helper-string-parser': 8.0.0
       '@babel/helper-validator-identifier': 8.0.4
 
-  '@bbob/core@4.4.1':
-    dependencies:
-      '@bbob/parser': 4.4.1
-      '@bbob/plugin-helper': 4.4.1
-      '@bbob/types': 4.4.1
-
-  '@bbob/html@4.4.1':
-    dependencies:
-      '@bbob/core': 4.4.1
-      '@bbob/plugin-helper': 4.4.1
-      '@bbob/types': 4.4.1
-
-  '@bbob/parser@4.4.1':
-    dependencies:
-      '@bbob/plugin-helper': 4.4.1
-      '@bbob/types': 4.4.1
-
-  '@bbob/plugin-helper@4.4.1':
-    dependencies:
-      '@bbob/types': 4.4.1
-
-  '@bbob/preset-html5@4.4.1':
-    dependencies:
-      '@bbob/plugin-helper': 4.4.1
-      '@bbob/preset': 4.4.1
-      '@bbob/types': 4.4.1
-
-  '@bbob/preset@4.4.1':
-    dependencies:
-      '@bbob/plugin-helper': 4.4.1
-      '@bbob/types': 4.4.1
-
-  '@bbob/types@4.4.1': {}
-
   '@cacheable/memory@2.2.0':
     dependencies:
       '@cacheable/utils': 2.5.0
@@ -2777,13 +2681,6 @@ snapshots:
       deepmerge: 4.3.1
       is-module: 1.0.0
       resolve: 1.22.12
-    optionalDependencies:
-      rollup: 4.63.3
-
-  '@rollup/plugin-replace@5.0.7(rollup@4.63.3)':
-    dependencies:
-      '@rollup/pluginutils': 5.4.0(rollup@4.63.3)
-      magic-string: 0.30.21
     optionalDependencies:
       rollup: 4.63.3
 
@@ -3635,10 +3532,6 @@ snapshots:
   lru-cache@5.1.1:
     dependencies:
       yallist: 3.1.1
-
-  magic-string@0.30.21:
-    dependencies:
-      '@jridgewell/sourcemap-codec': 1.6.0
 
   mathml-tag-names@4.0.0: {}
 

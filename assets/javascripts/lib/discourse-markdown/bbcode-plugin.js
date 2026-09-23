@@ -1,86 +1,5 @@
-// Private-use characters delimiting a stashed tag. See protectNativeTags.
-const STASH_OPEN = "\uE001";
-const STASH_CLOSE = "\uE002";
-
-/**
- * Hides tags rendered by the native markdown-it rules so BBob never sees them.
- * Letting BBob reject them instead doesn't work: it re-serializes rejected tags
- * with rewritten attributes. A tag ends at its first "]", matching how BBob and
- * the native scanner read attribute values spanning spaces and lines.
- * @param {string} raw input before BBob
- * @param {string[]} tags lowercase tag names rendered natively
- * @returns {{ raw: string, restore: (html: string) => string }}
- */
-function protectNativeTags(raw, tags) {
-  if (!tags.length) {
-    return { raw, restore: (html) => html };
-  }
-  const stash = [];
-  const tagRegex = new RegExp(
-    `\\[/?(?:${tags.join("|")})(?=[\\]=\\s])[^\\]]*\\]`,
-    "gi"
-  );
-  const tokenRegex = new RegExp(`${STASH_OPEN}(\\d+)${STASH_CLOSE}`, "g");
-  return {
-    raw: raw.replace(tagRegex, (tag) => {
-      stash.push(tag);
-      return `${STASH_OPEN}${stash.length - 1}${STASH_CLOSE}`;
-    }),
-    restore: (html) => html.replace(tokenRegex, (_, index) => stash[index]),
-  };
-}
-
-/**
- * Processes inputted BBCode string using custom configured 3rd party library (see /bbcode-src)
- * @param {string} raw content to preprocess into HTML
- * @returns processed HTML string to pass into markdown-it
- */
-function preprocessor(raw, opts, previewing = false) {
-  // eslint-disable-next-line no-undef
-  if (!bbcodeParser) {
-    // parser doesn't exist. Something horrible has happened and somehow the parser wasn't imported/initialized
-    // give up and send it straight back.
-    // eslint-disable-next-line no-console
-    console.warn(
-      "Attempted to get the bbcode parser: does not exist. Defaulting to standard markdown-it.",
-      "\ncalled on: \n",
-      raw
-    );
-    return [raw, {}];
-  }
-  const parser = globalThis.bbcodeParser.RpNBBCode;
-  opts.previewing = previewing;
-
-  const native = protectNativeTags(raw, opts.nativeTags);
-  const processed = parser(native.raw, opts);
-  return [native.restore(processed.html), processed.tree.options.data];
-}
-
-/**
- * Processes the output of both the markdown-it and the bbcode parser, concatenating additional content if necessary
- * @param {string} raw processed string
- * @param {boolean} previewing flag
- * @param {any} data from preprocessor
- * @returns processed string
- */
-function postprocessor(raw, previewing = false, data = {}) {
-  // eslint-disable-next-line no-undef
-  if (!bbcodeParser) {
-    // parser doesn't exist. Something horrible has happened and somehow the parser wasn't imported/initialized
-    // give up and send it straight back.
-    // eslint-disable-next-line no-console
-    console.warn(
-      "Attempted to get the bbcode parser: does not exist. Defaulting to standard markdown-it.",
-      "\ncalled on: \n",
-      raw
-    );
-    return raw;
-  }
-  // preview auto clear doesn't check against the live dom, so if a onebox is at the end of the post,
-  // it won't be cleared and could cause a fatal error
-  const append = previewing ? '<div style="display:none;"></div>' : "";
-  return globalThis.bbcodeParser.postprocess(raw, data) + append;
-}
+// The bbcode tags are rendered by ./bbcode-native.js. This module holds the
+// sanitizer allowlist for their HTML and a fix for the composer preview.
 
 export function setup(helper) {
   if (!helper.markdownIt) {
@@ -91,60 +10,24 @@ export function setup(helper) {
     // Key must match this module's basename — that is the id the markdown
     // pipeline gates registerPlugin and allowList on.
     opts.features["bbcode-plugin"] = siteSettings.bbcode_enabled;
-    opts.bbcodeBypass = (siteSettings.bbcode_native_tags || "")
-      .split("|")
-      .includes("*");
     if (opts.engine || !siteSettings.bbcode_enabled) {
       return;
     }
-    //Add check site settings for options to send to RpNBBCode
-    // "*" bypasses BBob entirely so the native rules can be exercised alone
-    const bypassBBob = opts.bbcodeBypass;
-    let preprocessor_options = {
-      preserveWhitespace:
-        siteSettings.preserve_whitespace &&
-        !siteSettings.discourse_normalize_whitespace,
-    };
 
     Object.defineProperty(opts, "engine", {
       configurable: true,
       set(engine) {
-        const md = engine.render;
-        if (!bypassBBob) {
-          engine.set({ breaks: false }); // disable breaks. Let BBob handle line breaks.
-        }
-
+        const render = engine.render;
         engine.render = function (raw) {
-          if (engine.options?.discourse?.featuresOverride !== undefined) {
-            // if featuresOverride is set, we're in a chat message and should not preprocess
-            return md.apply(this, [raw]);
-          }
-          if (bypassBBob) {
-            // the native rules render everything; see bbcode-native.js
-            const html = md.apply(this, [raw]);
-            return engine.options?.discourse?.previewing
-              ? html + '<div style="display:none;"></div>'
-              : html;
-          }
-          // tags implemented by bbcode-native are hidden from BBob
-          preprocessor_options.nativeTags =
-            engine.options?.discourse?.bbcodeNativeTags || [];
-          const [preprocessed, data] = preprocessor(
-            raw,
-            preprocessor_options,
-            engine.options?.discourse?.previewing
-          );
-          // share BBob's per-post GUID so [div class=x] and [class name=x] match
-          const processed = md.apply(this, [
-            preprocessed,
-            { bbcodeGuid: data?.commonGUID },
-          ]);
-          const postprocessed = postprocessor(
-            processed,
-            engine.options?.discourse?.previewing,
-            data
-          );
-          return postprocessed;
+          const html = render.apply(this, [raw]);
+          const discourse = engine.options?.discourse;
+          // Preview auto clear doesn't check against the live DOM, so a onebox
+          // at the end of the post would never be cleared and could cause a
+          // fatal error. Chat messages (featuresOverride) aren't previews.
+          return discourse?.previewing &&
+            discourse.featuresOverride === undefined
+            ? html + '<div style="display:none;"></div>'
+            : html;
         };
         Object.defineProperty(opts, "engine", {
           configurable: true,
@@ -156,30 +39,9 @@ export function setup(helper) {
     });
   });
 
-  helper.registerPlugin((md) => {
-    if (md.options.discourse?.bbcodeBypass) {
-      return;
-    }
-    // disable paragraph rendering
-    md.renderer.rules.paragraph_open = function () {
-      return "";
-    };
-    md.renderer.rules.paragraph_close = function () {
-      return "";
-    };
-
-    // this rule is where an indent (space/indent) is converted to a code block
-    // rarely used in the wild, but it's a common source of confusion
-    md.disable("code");
-  });
-
   helper.allowList([
     "div.bb-accordion",
     "div.bb-background",
-    "table.bb-block",
-    "td.bb-block-content",
-    "td.bb-block-icon",
-    "table[data-bb-block=*]",
     "div.bb-block",
     "div[data-bb-block=*]",
     "div.bb-blockquote",
@@ -243,12 +105,10 @@ export function setup(helper) {
     "details.bb-spoiler",
     "i[data-bbcode-fa]",
     "i[data-fa-transform]",
-    "span.bb-divide",
     "div.bb-divide",
     "span.bb-highlight",
     "span.bb-inline-spoiler",
     "span.bb-pindent",
-    "span.hidden",
     "span[style=*]",
     "summary",
     "summary.bb-slide-title",

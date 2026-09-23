@@ -22,11 +22,9 @@
     "update-skeleton": "pnpx @discourse/update-skeleton@latest"
   },
   "devDependencies": {
-    "@bbob/types": "4.4.1",
     "@discourse/lint-configs": "3.2.0",
     "@glint/ember-tsc": "1.8.11",
     "@rollup/plugin-node-resolve": "^15.1.0",
-    "@rollup/plugin-replace": "^5.0.7",
     "@rollup/plugin-terser": "^0.4.3",
     "concurrently": "^9.2.3",
     "discourse": "npm:@discourse/types@2026.3.0-d02b2966",
@@ -36,22 +34,6 @@
     "prettier": "3.8.1",
     "rollup": "^4.30.1",
     "stylelint": "17.5.0"
-  },
-  "dependencies": {
-    "@bbob/core": "4.4.1",
-    "@bbob/html": "4.4.1",
-    "@bbob/plugin-helper": "4.4.1",
-    "@bbob/preset": "4.4.1",
-    "@bbob/preset-html5": "4.4.1"
-  },
-  "pnpm": {
-    "overrides": {
-      "@bbob/core": "4.4.1",
-      "@bbob/parser": "4.4.1",
-      "@bbob/plugin-helper": "4.4.1",
-      "@bbob/preset": "4.4.1",
-      "@bbob/types": "4.4.1"
-    }
   },
   "engines": {
     "node": ">= 22",

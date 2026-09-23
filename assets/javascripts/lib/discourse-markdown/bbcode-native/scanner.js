@@ -12,7 +12,7 @@ const NOBR_SENTINEL = String.fromCharCode(0xe001);
 const PHANTOM = String.fromCharCode(0xe002);
 const NAME_RE = /[a-z][a-z0-9]*/iy;
 
-// Mirrors BBob's lexer: everything up to the first "]" is the tag. With no
+// As existing content expects: everything up to the first "]" is the tag. With no
 // whitespace before the first "=" the remainder is one raw value (this is what
 // lets [div=height:auto; width:100%] work); otherwise it is key=value pairs.
 export function parseLooseTag(src, pos, isKnown) {

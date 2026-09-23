@@ -2,12 +2,6 @@ plugins:
   bbcode_enabled:
     default: true
     client: true
-  bbcode_native_tags:
-    default: "*"
-    type: list
-    client: true
-    description:
-      en: "Tags rendered by the native markdown-it rules instead of the BBob preprocessor. * (the default) renders everything natively; empty uses BBob."
   enable_markdown_typographer:
     client: false
     default: false
@@ -19,12 +13,6 @@ plugins:
     client: true
     description:
       en: "Activate to set all whitespace to the default space character (U+0020)"
-  preserve_whitespace:
-    default: false
-    client: true
-    description:
-      en: "Activate to set repeating spaces (U+0020) to non-breaking spaces (U+00A0).
-      Note that discourse_normalize_whitespace must be disabled to preserve non-breaking spaces."
   enable_bbscript:
     default: false
     client: true

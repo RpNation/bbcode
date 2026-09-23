@@ -118,51 +118,34 @@ const alwaysFlat = (spec) =>
 
 export function setup(helper) {
   helper.registerOptions((opts, siteSettings) => {
-    const configured = (siteSettings.bbcode_native_tags || "")
-      .split("|")
-      .map((t) => t.trim().toLowerCase())
-      .filter(Boolean);
-    const tags = configured.includes("*")
-      ? Object.keys(SPECS)
-      : configured.filter(specFor);
-    opts.bbcodeNativeTags = tags;
-    opts.features["bbcode-native"] =
-      !!siteSettings.bbcode_enabled && tags.length > 0;
+    opts.features["bbcode-native"] = !!siteSettings.bbcode_enabled;
   });
 
   helper.registerPlugin((md) => {
-    const enabled = new Set(md.options.discourse?.bbcodeNativeTags || []);
-    const isKnown = (tag) => enabled.has(tag);
+    const isKnown = (tag) => Object.hasOwn(SPECS, tag);
     // our tags, plus core's and the section children they commonly nest in
     const isNestable = (tag) => isKnown(tag) || NESTING_ONLY.includes(tag);
-    // BBob is out of the picture: the rules below produce the whole document
-    const standalone = !!md.options.discourse?.bbcodeBypass;
 
-    // same as the BBob path: deeply indented bbcode must not become code blocks
+    // deeply indented bbcode must not become code blocks
     md.disable("code");
 
-    if (standalone) {
-      // Existing content writes every newline as a line break, and a blank line
-      // as two, with no paragraphs.
-      md.set({ breaks: true });
-      md.renderer.rules.paragraph_close = () => "";
-      md.renderer.rules.paragraph_open = () => "";
-      md.renderer.rules.softbreak = (tokens, idx) =>
-        tokens[idx].meta?.nobr ? "\n" : "<br>\n";
-    }
+    // Existing content writes every newline as a line break, and a blank line
+    // as two, with no paragraphs.
+    md.set({ breaks: true });
+    md.renderer.rules.paragraph_close = () => "";
+    md.renderer.rules.paragraph_open = () => "";
+    md.renderer.rules.softbreak = (tokens, idx) =>
+      tokens[idx].meta?.nobr ? "\n" : "<br>\n";
 
     // Blank lines would end the paragraph before the inline rule can see a
     // span that is flow text, so every newline inside one is swapped for a
     // sentinel first. A container that spans lines but starts mid-line is a
     // block wherever it starts, so it is moved onto its own line instead.
     md.core.ruler.after("normalize", "bbcode-native-flatten", (state) => {
-      if (!enabled.size) {
-        return;
-      }
       state.src = repairNesting(state.src, isNestable);
       const src = state.src;
       const openRe = new RegExp(
-        `\\[(${[...enabled].join("|")})(?=[\\]=\\s])`,
+        `\\[(${Object.keys(SPECS).join("|")})(?=[\\]=\\s])`,
         "gi"
       );
       const literal = literalRanges(src, LITERAL_TAGS);
@@ -201,10 +184,9 @@ export function setup(helper) {
       }
 
       const nobrRanges = [];
-      const noBreakTags = NO_BREAK_TAGS.filter(isKnown);
-      if (noBreakTags.length) {
+      if (NO_BREAK_TAGS.length) {
         const nobrRe = new RegExp(
-          `\\[(${noBreakTags.join("|")})(?=[\\]=\\s])`,
+          `\\[(${NO_BREAK_TAGS.join("|")})(?=[\\]=\\s])`,
           "gi"
         );
         let nobr;
@@ -327,41 +309,39 @@ export function setup(helper) {
       state.src = out;
     });
 
-    if (standalone) {
-      md.core.ruler.after("block", "bbcode-native-breaks", (state) => {
-        state.tokens = insertBreaks(state.tokens, state.Token);
-      });
+    md.core.ruler.after("block", "bbcode-native-breaks", (state) => {
+      state.tokens = insertBreaks(state.tokens, state.Token);
+    });
 
-      // Core's own block bbcode ([quote], [code], ...) doesn't record which
-      // lines it covers, which the line breaks around it are counted from.
-      const coreRule = md.block.ruler.__rules__.find(
-        (rule) => rule.name === "bbcode"
+    // Core's own block bbcode ([quote], [code], ...) doesn't record which
+    // lines it covers, which the line breaks around it are counted from.
+    const coreRule = md.block.ruler.__rules__.find(
+      (rule) => rule.name === "bbcode"
+    );
+    if (coreRule) {
+      const apply = coreRule.fn;
+      md.block.ruler.at(
+        "bbcode",
+        (state, startLine, endLine, silent) => {
+          const from = state.tokens.length;
+          if (!apply(state, startLine, endLine, silent)) {
+            return false;
+          }
+          const first = state.tokens[from];
+          if (!silent && first && !first.map) {
+            first.map = [startLine, state.line];
+            first.meta = { ...first.meta, breakable: true };
+            const opener = state.src.slice(
+              state.bMarks[startLine] + state.tShift[startLine]
+            );
+            if (/^\[quote(?=[\]=\s])/i.test(opener)) {
+              markTrimAfter(state, { trimAfter: true });
+            }
+          }
+          return true;
+        },
+        { alt: coreRule.alt }
       );
-      if (coreRule) {
-        const apply = coreRule.fn;
-        md.block.ruler.at(
-          "bbcode",
-          (state, startLine, endLine, silent) => {
-            const from = state.tokens.length;
-            if (!apply(state, startLine, endLine, silent)) {
-              return false;
-            }
-            const first = state.tokens[from];
-            if (!silent && first && !first.map) {
-              first.map = [startLine, state.line];
-              first.meta = { ...first.meta, breakable: true };
-              const opener = state.src.slice(
-                state.bMarks[startLine] + state.tShift[startLine]
-              );
-              if (/^\[quote(?=[\]=\s])/i.test(opener)) {
-                markTrimAfter(state, { trimAfter: true });
-              }
-            }
-            return true;
-          },
-          { alt: coreRule.alt }
-        );
-      }
     }
 
     const parseBlocks = (state, text) => {
@@ -445,8 +425,8 @@ export function setup(helper) {
             const body = section.body;
             const edge = (pattern) =>
               (body.match(pattern)?.[0].match(/\n/g) || []).length;
-            const leading = standalone ? edge(/^\s*/) : 0;
-            const trailing = standalone && body.trim() ? edge(/\s*$/) : 0;
+            const leading = edge(/^\s*/);
+            const trailing = body.trim() ? edge(/\s*$/) : 0;
             const breaks = (count) => {
               if (count > 0) {
                 pushHtml(state, "<br>".repeat(Math.min(count, 20))).meta = {
@@ -497,7 +477,7 @@ export function setup(helper) {
             start.meta = { breakable: true };
           }
           const pushBreaks = (count) => {
-            if (count > 0 && standalone && !noBreaks) {
+            if (count > 0 && !noBreaks) {
               pushHtml(state, "<br>".repeat(Math.min(count, 20))).meta = {
                 br: true,
               };
@@ -652,45 +632,40 @@ export function setup(helper) {
       }
     });
 
-    if (standalone) {
-      // XenForo drops the line break right after some tags' close (and after
-      // code blocks). Only a break that directly follows the close goes: text
-      // in between keeps it.
-      md.core.ruler.push("bbcode-native-trim-after", (state) => {
-        const trims = (token) =>
-          token?.meta?.trimAfter || token?.type === "fence";
-        const dropBreak = (token) => {
-          if (
-            token?.type === "html_block" &&
-            token.content.startsWith("<br>")
-          ) {
-            token.content = token.content.slice(4);
-          }
-        };
-        state.tokens.forEach((token, index) => {
-          if (trims(token)) {
-            dropBreak(state.tokens[index + 1]);
-          }
-          if (token.type !== "inline" || !token.children) {
-            return;
-          }
-          token.children = token.children.filter(
-            (child, i, children) =>
-              !(
-                ["softbreak", "hardbreak"].includes(child.type) &&
-                trims(children[i - 1])
-              )
-          );
-          // a paragraph that ends with the close: the break after the paragraph
-          if (
-            trims(token.children.at(-1)) &&
-            state.tokens[index + 1]?.type === "paragraph_close"
-          ) {
-            dropBreak(state.tokens[index + 2]);
-          }
-        });
+    // XenForo drops the line break right after some tags' close (and after
+    // code blocks). Only a break that directly follows the close goes: text
+    // in between keeps it.
+    md.core.ruler.push("bbcode-native-trim-after", (state) => {
+      const trims = (token) =>
+        token?.meta?.trimAfter || token?.type === "fence";
+      const dropBreak = (token) => {
+        if (token?.type === "html_block" && token.content.startsWith("<br>")) {
+          token.content = token.content.slice(4);
+        }
+      };
+      state.tokens.forEach((token, index) => {
+        if (trims(token)) {
+          dropBreak(state.tokens[index + 1]);
+        }
+        if (token.type !== "inline" || !token.children) {
+          return;
+        }
+        token.children = token.children.filter(
+          (child, i, children) =>
+            !(
+              ["softbreak", "hardbreak"].includes(child.type) &&
+              trims(children[i - 1])
+            )
+        );
+        // a paragraph that ends with the close: the break after the paragraph
+        if (
+          trims(token.children.at(-1)) &&
+          state.tokens[index + 1]?.type === "paragraph_close"
+        ) {
+          dropBreak(state.tokens[index + 2]);
+        }
       });
-    }
+    });
 
     // a sentinel that no rule consumed must not leak out
     md.core.ruler.push("bbcode-native-cleanup", (state) => {

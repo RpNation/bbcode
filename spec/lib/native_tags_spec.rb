@@ -3,7 +3,6 @@
 RSpec.describe PrettyText do
   before do
     SiteSetting.bbcode_enabled = true
-    SiteSetting.bbcode_native_tags = "*"
     PrettyText.reset_context
   end
 
@@ -124,7 +123,7 @@ RSpec.describe PrettyText do
     expect(cook("```\n[div=x]\n\nq\n[/div]\n```")).to include("[div=x]\n\nq\n[/div]")
   end
 
-  it "renders wrapper tags with the same HTML the BBob path produces" do
+  it "renders wrapper tags" do
     expect(cook("[progress=40]a[/progress]")).to include(
       %(<div class="bb-progress">),
       %(<div class="bb-progress-text">),
@@ -339,44 +338,12 @@ RSpec.describe PrettyText do
     expect(cook("[plain]a[/plain]\nnext")).to include("a<br>")
   end
 
-  context "with the BBob renderer" do
-    before do
-      SiteSetting.bbcode_native_tags = ""
-      PrettyText.reset_context
-    end
+  it "writes the newlines in plain text as line breaks and drops the one after a fence" do
+    expect(cook("x\n[plain]\na\n[/plain]\ny").scan("<br>").size).to eq(4)
+    expect(cook("```\na\n```\nnext")).not_to include("<br>")
+  end
 
-    it "breaks lines like the native renderer" do
-      expect(cook("text[divide][/divide]\nnext")).not_to include("<br>")
-      expect(cook("text[divide][/divide]\n\nnext").scan("<br>").size).to eq(1)
-      expect(cook("[divide][/divide] tail\nnext").scan("<br>").size).to eq(1)
-      expect(cook("[quote]\na\n[/quote]\n\nnext").scan("<br>").size).to eq(1)
-      expect(cook("[code]\na\n[/code]\nnext")).not_to include("<br>")
-      expect(cook("[spoiler=T]a[/spoiler]\nnext")).not_to include("<br>")
-      expect(cook("[div=x]a[/div]\nnext").scan("<br>").size).to eq(1)
-      expect(cook("x\n[plain]\na\n[/plain]\ny").scan("<br>").size).to eq(4)
-      expect(cook("```\na\n```\nnext")).not_to include("<br>")
-    end
-
-    it "trims the line breaks just inside spoilers and quotes" do
-      expect(cook("[spoiler=T]\n\na\n\n[/spoiler]")).to include(%(bb-spoiler-content">a</div>))
-      expect(cook("[quote]\n\na\n\n[/quote]")).to match(%r{<blockquote>\s*a</blockquote>})
-      expect(cook("x [inlinespoiler]\na\n[/inlinespoiler] y")).to include(
-        %(<span class="bb-inline-spoiler">a</span>),
-      )
-    end
-
-    it "matches tags regardless of case" do
-      expect(cook("[CENTER]a[/center]")).to include(%(<div class="bb-center">a</div>))
-    end
-
-    it "keeps the words of a multi-line attribute value apart" do
-      expect(cook("[div=border:1px\nsolid\tred]a[/div]")).to include(
-        %(style="border:1px solid red"),
-      )
-    end
-
-    it "renders a quote without an author" do
-      expect(cook("[quote]a[/quote]")).not_to include("undefined")
-    end
+  it "matches tags regardless of case" do
+    expect(cook("[CENTER]a[/center]")).to include(%(<div class="bb-center">a</div>))
   end
 end

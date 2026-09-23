@@ -1,5 +1,5 @@
-// This file is used to fix some of the issues with the way markdown and bbob interact
-// This is usually a hack to remove the extra line break after a block to respect tight spacing
+// Removes the line break between consecutive lists and blockquotes, which
+// would otherwise add an empty line between them
 :is(ul, ol, blockquote) + br:has(+ ul, + ol, + blockquote) {
   display: none;
 }
