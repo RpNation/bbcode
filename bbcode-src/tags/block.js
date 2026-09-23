@@ -27,12 +27,5 @@ export const block = (node, options) => {
   // Default to block option if user did not provide anything valid
   const blockOption = OPTIONS.includes(blockAttr) ? blockAttr : defaultOp;
 
-  return toNode("table", { class: "bb-block", "data-bb-block": blockOption }, [
-    toNode("tbody", [
-      toNode("tr", [
-        toNode("td", { class: "bb-block-icon" }),
-        toNode("td", { class: "bb-block-content" }, node.content),
-      ]),
-    ]),
-  ]);
+  return toNode("div", { class: "bb-block", "data-bb-block": blockOption }, node.content);
 };

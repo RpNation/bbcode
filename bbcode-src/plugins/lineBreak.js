@@ -34,6 +34,9 @@ const walk = (t, disableLineBreakConversion = false) => {
       tree.push(MD_NEWLINE_INJECT);
     }
     for (let idx = 0; idx < tree.length; idx++) {
+      if (tree[idx]?.trimLineBreakAfter) {
+        dropLineBreakAfter(tree, idx);
+      }
       const child = walk(tree[idx], disableLineBreakConversion);
       if (Array.isArray(child)) {
         tree.splice(idx, 1, ...child);
@@ -68,6 +71,23 @@ const walk = (t, disableLineBreakConversion = false) => {
   }
 
   return tree;
+};
+
+/**
+ * The newline right after the node at `idx` gets no `<br/>`, unless text comes
+ * first. It keeps its injected blank line, which ends any HTML block for
+ * markdown-it.
+ * @param {(string|Object)[]} words
+ * @param {number} idx
+ */
+const dropLineBreakAfter = (words, idx) => {
+  let next = idx + 1;
+  if (isString(words[next]) && !isEOL(words[next]) && !words[next].trim()) {
+    next++;
+  }
+  if (isString(words[next]) && isEOL(words[next])) {
+    words[next] = MD_NEWLINE_INJECT;
+  }
 };
 
 /**

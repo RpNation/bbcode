@@ -1,57 +1,47 @@
-table.bb-block {
-  width: 100%;
-  height: 125px;
+div.bb-block {
+  --bb-block-color: transparent;
   position: relative;
-  display: flex;
-  flex-flow: row wrap;
-  border-color: transparent !important;
+  box-sizing: border-box;
+  min-height: 125px;
 
-  td.bb-block-content {
-    border-left-width: 3px;
-    border-right-width: 3px;
-    border-top-width: 0;
-    border-bottom-width: 0;
-    border-style: dotted;
-    padding: 30px;
-    width: auto;
-    flex: 1;
+  // the icon and title hang in the space the margin makes
+  margin-left: 107px;
+  padding: 30px;
+  border-style: dotted;
+  border-width: 0 3px;
+  border-color: var(--bb-block-color);
+
+  &::before {
+    content: "Block";
+    position: absolute;
+    top: 0;
+    left: -107px;
+    box-sizing: border-box;
+    width: 130px;
+    height: 100%;
+    padding: 0 10px;
+    line-height: 20px;
+    font-size: 16px;
+    text-align: center;
+    color: white;
+    background:
+      linear-gradient(var(--bb-block-color), var(--bb-block-color)) 0 0 / 100%
+        20px no-repeat,
+      url("/plugins/bbcode/images/block.png") 0 25px no-repeat;
+    background-clip: border-box;
+    pointer-events: none;
   }
 
-  td.bb-block-icon {
-    height: 100%;
-    width: 100px;
-    background-position: 0 25px;
-    background-repeat: no-repeat;
-    background-image: url("/plugins/bbcode/images/block.png");
-    margin-right: 7px;
-
-    &::before {
-      padding: 0 10px;
-      display: block;
-      height: 20px;
-      width: 110px;
-      line-height: 20px;
-      font-size: 16px;
-      text-align: center;
-      color: white;
-      position: absolute;
-      top: 0;
-      left: 0;
-      content: "Block";
-      background-color: transparent;
-    }
-
-    &::after {
-      position: absolute;
-      top: 20px;
-      left: 114px;
-      content: "";
-      width: 0;
-      height: 0;
-      border-style: solid;
-      border-width: 15px 15px 0 0;
-      border-color: transparent transparent transparent transparent;
-    }
+  &::after {
+    content: "";
+    position: absolute;
+    top: 20px;
+    left: 7px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 15px 15px 0 0;
+    border-color: var(--bb-block-color) transparent transparent transparent;
   }
 
   /// Creates the content needed for a block
@@ -71,21 +61,13 @@ table.bb-block {
     $image: "/plugins/bbcode/images/block.png"
   ) {
     &[data-bb-block="#{$name}"] {
-      td.bb-block-content {
-        border-color: $color;
-      }
+      --bb-block-color: #{$color};
 
-      td.bb-block-icon {
-        background-image: url($image);
-
-        &::before {
-          content: $title;
-          background: $color;
-        }
-
-        &::after {
-          border-color: $color transparent transparent transparent;
-        }
+      &::before {
+        content: $title;
+        background:
+          linear-gradient($color, $color) 0 0 / 100% 20px no-repeat,
+          url($image) 0 25px no-repeat;
       }
     }
   }
@@ -165,13 +147,17 @@ table.bb-block {
 }
 
 @media screen and (width <= 600px) {
-  table.bb-block td.bb-block-icon {
-    height: 75px;
-    background-size: 50px;
-    background-position: 25px center;
-  }
-}
+  div.bb-block {
+    margin-left: 57px;
 
-.bb-block td {
-  border-style: none;
+    &::before {
+      left: -57px;
+      background-size:
+        100% 20px,
+        50px;
+      background-position:
+        0 0,
+        25px 30px;
+    }
+  }
 }

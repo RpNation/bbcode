@@ -1,3 +1,35 @@
+// Private-use characters delimiting a stashed tag. See protectNativeTags.
+const STASH_OPEN = "\uE001";
+const STASH_CLOSE = "\uE002";
+
+/**
+ * Hides tags rendered by the native markdown-it rules so BBob never sees them.
+ * Letting BBob reject them instead doesn't work: it re-serializes rejected tags
+ * with rewritten attributes. A tag ends at its first "]", matching how BBob and
+ * the native scanner read attribute values spanning spaces and lines.
+ * @param {string} raw input before BBob
+ * @param {string[]} tags lowercase tag names rendered natively
+ * @returns {{ raw: string, restore: (html: string) => string }}
+ */
+function protectNativeTags(raw, tags) {
+  if (!tags.length) {
+    return { raw, restore: (html) => html };
+  }
+  const stash = [];
+  const tagRegex = new RegExp(
+    `\\[/?(?:${tags.join("|")})(?=[\\]=\\s])[^\\]]*\\]`,
+    "gi"
+  );
+  const tokenRegex = new RegExp(`${STASH_OPEN}(\\d+)${STASH_CLOSE}`, "g");
+  return {
+    raw: raw.replace(tagRegex, (tag) => {
+      stash.push(tag);
+      return `${STASH_OPEN}${stash.length - 1}${STASH_CLOSE}`;
+    }),
+    restore: (html) => html.replace(tokenRegex, (_, index) => stash[index]),
+  };
+}
+
 /**
  * Processes inputted BBCode string using custom configured 3rd party library (see /bbcode-src)
  * @param {string} raw content to preprocess into HTML
@@ -19,8 +51,9 @@ function preprocessor(raw, opts, previewing = false) {
   const parser = globalThis.bbcodeParser.RpNBBCode;
   opts.previewing = previewing;
 
-  const processed = parser(raw, opts);
-  return [processed.html, processed.tree.options.data];
+  const native = protectNativeTags(raw, opts.nativeTags);
+  const processed = parser(native.raw, opts);
+  return [native.restore(processed.html), processed.tree.options.data];
 }
 
 /**
@@ -58,10 +91,15 @@ export function setup(helper) {
     // Key must match this module's basename — that is the id the markdown
     // pipeline gates registerPlugin and allowList on.
     opts.features["bbcode-plugin"] = siteSettings.bbcode_enabled;
+    opts.bbcodeBypass = (siteSettings.bbcode_native_tags || "")
+      .split("|")
+      .includes("*");
     if (opts.engine || !siteSettings.bbcode_enabled) {
       return;
     }
     //Add check site settings for options to send to RpNBBCode
+    // "*" bypasses BBob entirely so the native rules can be exercised alone
+    const bypassBBob = opts.bbcodeBypass;
     let preprocessor_options = {
       preserveWhitespace:
         siteSettings.preserve_whitespace &&
@@ -72,19 +110,35 @@ export function setup(helper) {
       configurable: true,
       set(engine) {
         const md = engine.render;
-        engine.set({ breaks: false }); // disable breaks. Let BBob handle line breaks.
+        if (!bypassBBob) {
+          engine.set({ breaks: false }); // disable breaks. Let BBob handle line breaks.
+        }
 
         engine.render = function (raw) {
           if (engine.options?.discourse?.featuresOverride !== undefined) {
             // if featuresOverride is set, we're in a chat message and should not preprocess
             return md.apply(this, [raw]);
           }
+          if (bypassBBob) {
+            // the native rules render everything; see bbcode-native.js
+            const html = md.apply(this, [raw]);
+            return engine.options?.discourse?.previewing
+              ? html + '<div style="display:none;"></div>'
+              : html;
+          }
+          // tags implemented by bbcode-native are hidden from BBob
+          preprocessor_options.nativeTags =
+            engine.options?.discourse?.bbcodeNativeTags || [];
           const [preprocessed, data] = preprocessor(
             raw,
             preprocessor_options,
             engine.options?.discourse?.previewing
           );
-          const processed = md.apply(this, [preprocessed]);
+          // share BBob's per-post GUID so [div class=x] and [class name=x] match
+          const processed = md.apply(this, [
+            preprocessed,
+            { bbcodeGuid: data?.commonGUID },
+          ]);
           const postprocessed = postprocessor(
             processed,
             engine.options?.discourse?.previewing,
@@ -103,6 +157,9 @@ export function setup(helper) {
   });
 
   helper.registerPlugin((md) => {
+    if (md.options.discourse?.bbcodeBypass) {
+      return;
+    }
     // disable paragraph rendering
     md.renderer.rules.paragraph_open = function () {
       return "";
@@ -123,6 +180,8 @@ export function setup(helper) {
     "td.bb-block-content",
     "td.bb-block-icon",
     "table[data-bb-block=*]",
+    "div.bb-block",
+    "div[data-bb-block=*]",
     "div.bb-blockquote",
     "div.bb-blockquote-content",
     "div.bb-blockquote-left",
@@ -185,6 +244,7 @@ export function setup(helper) {
     "i[data-bbcode-fa]",
     "i[data-fa-transform]",
     "span.bb-divide",
+    "div.bb-divide",
     "span.bb-highlight",
     "span.bb-inline-spoiler",
     "span.bb-pindent",

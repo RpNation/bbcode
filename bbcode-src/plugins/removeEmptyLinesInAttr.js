@@ -1,17 +1,19 @@
 import { isTagNode } from "@bbob/plugin-helper";
 
-const CONSECUTIVE_NEWLINE_REGEX = /\n{2,}/gm;
+// BBob drops control characters from attribute values, which would join the
+// lines of a multi-line value (`border:1px\nsolid`) into one word
+const LINE_BREAKS_REGEX = /\s*[\t\n\v\f\r]\s*/g;
 
 /**
- * Removes empty lines from a string
+ * Replaces line breaks and tabs (and the whitespace around them) with a single space
  * @param {string} text
  */
 const removeEmptyLines = (text) => {
-  return text.replace(CONSECUTIVE_NEWLINE_REGEX, "\n");
+  return text.replace(LINE_BREAKS_REGEX, " ");
 };
 
 /**
- * Removes empty lines from attributes
+ * Removes line breaks from attributes
  * @type {import('@bbob/types').BBobPluginFunction}
  */
 export const removeEmptyLinePlugin = (tree) => {

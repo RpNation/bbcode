@@ -1,6 +1,7 @@
 import bbob from "@bbob/core";
 import { render } from "@bbob/html";
 import { lineBreakPlugin } from "./plugins/lineBreak";
+import { lowercaseTagsPlugin } from "./plugins/lowercaseTags";
 import { preserveWhitespace } from "./plugins/preserveWhitespace";
 import { removeEmptyLinePlugin } from "./plugins/removeEmptyLinesInAttr";
 import { availableTags, preset, preventParsing } from "./preset";
@@ -22,7 +23,7 @@ const options = {
 const presetTags = preset();
 
 export const RpNBBCode = (code, opts) => {
-  const plugins = [presetTags];
+  const plugins = [lowercaseTagsPlugin, presetTags];
   if (opts.preserveWhitespace) {
     plugins.push(preserveWhitespace());
   }

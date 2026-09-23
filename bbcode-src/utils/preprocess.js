@@ -1,5 +1,14 @@
 import { ESCAPABLES_REGEX, generateGUID, MD_TABLE_REGEX, regexIndexOf } from "./common";
 
+// Hoisted content skips the line break plugin. Code keeps its newlines for
+// <pre>, minus the ones the tags sit on; [plain] is ordinary text, so every
+// newline is a line break.
+const HOISTED_TEXT = {
+  code: (text) => text.replace(/^\n|\n$/g, ""),
+  icode: (text) => text.replace(/^\n|\n$/g, ""),
+  plain: (text) => text.replaceAll("\n", "<br>\n"),
+};
+
 /**
  * Find all code blocks and hoist them out of the content and into a map for later insertion
  * @param {string} raw input to preprocess
@@ -10,7 +19,12 @@ function fenceCodeBlockPreprocess(content, data) {
   const hoistMap = {};
   let index = 0;
 
-  const addHoistAndReturnNewStartPoint = (cutOffStart, cutOffEnd, expected, trim = false) => {
+  const addHoistAndReturnNewStartPoint = (
+    cutOffStart,
+    cutOffEnd,
+    expected,
+    transform = (hoisted) => hoisted,
+  ) => {
     const uuid = generateGUID();
     if (cutOffEnd !== -1) {
       hoistMap[uuid] = content.substring(cutOffStart, cutOffEnd);
@@ -19,14 +33,7 @@ function fenceCodeBlockPreprocess(content, data) {
       hoistMap[uuid] = content.substring(cutOffStart);
       content = content.substring(0, cutOffStart) + uuid + expected;
     }
-    if (trim) {
-      if (hoistMap[uuid].startsWith("\n")) {
-        hoistMap[uuid] = hoistMap[uuid].substring(1);
-      }
-      if (hoistMap[uuid].endsWith("\n")) {
-        hoistMap[uuid] = hoistMap[uuid].substring(0, hoistMap[uuid].length - 1);
-      }
-    }
+    hoistMap[uuid] = transform(hoistMap[uuid]);
     return cutOffStart + uuid.length + expected.length;
   };
 
@@ -49,7 +56,7 @@ function fenceCodeBlockPreprocess(content, data) {
         hoistMap[uuid] = content.substring(index + fence.length + fenceInfo.length);
       }
       // inject bbcode tag before and after the code block. This is to prevent BBob plugin from injecting newlines
-      const replacement = `[saveNL]\n${fence}${fenceInfo}${uuid}\n${fence}\n[/saveNL]`;
+      const replacement = `[saveFence]\n${fence}${fenceInfo}${uuid}\n${fence}\n[/saveFence]`;
       content =
         content.substring(0, index) +
         replacement +
@@ -60,7 +67,12 @@ function fenceCodeBlockPreprocess(content, data) {
       const bbcodeTag = match.groups.bbcodeTag.toLowerCase(); // coerce to lowercase for caseinsensitive matching
       const closingTag = `[/${bbcodeTag}]`;
       const nextIndex = content.toLowerCase().indexOf(closingTag, index + 1);
-      index = addHoistAndReturnNewStartPoint(index + bbcode.length, nextIndex, closingTag, true);
+      index = addHoistAndReturnNewStartPoint(
+        index + bbcode.length,
+        nextIndex,
+        closingTag,
+        HOISTED_TEXT[bbcodeTag],
+      );
     } else if (match.groups.backtick) {
       const backtick = match.groups.backtick; // contains whole content
       const tickStart = match.groups.tickStart;

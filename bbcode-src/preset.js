@@ -94,6 +94,8 @@ const tags = {
   ...rowcolumn,
   thinprogress,
   savenl,
+  // a hoisted markdown code fence
+  savefence: savenl,
   sh,
   script,
   scroll,
@@ -112,6 +114,56 @@ const tags = {
   u: underline,
   s: strike,
 };
+
+// no line breaks just inside these tags
+const TRIM_INSIDE = ["inlinespoiler", "quote", "spoiler"];
+// XenForo drops the line break right after these tags' close
+const TRIM_AFTER = [
+  "block",
+  "check",
+  "code",
+  "divide",
+  "imagefloat",
+  "justify",
+  "newspaper",
+  "ooc",
+  "print",
+  "quote",
+  "savefence",
+  "side",
+  "spoiler",
+];
+
+const isBlank = (value) => typeof value === "string" && !value.trim();
+
+const trimInside = (tagFn) => (node, options) => {
+  if (Array.isArray(node.content)) {
+    const content = [...node.content];
+    while (isBlank(content[0])) {
+      content.shift();
+    }
+    while (isBlank(content.at(-1))) {
+      content.pop();
+    }
+    node.content = content;
+  }
+  return tagFn(node, options);
+};
+
+// read by the line break plugin
+const trimAfter = (tagFn) => (node, options) => {
+  const result = tagFn(node, options);
+  if (Array.isArray(result)) {
+    return { content: result, trimLineBreakAfter: true };
+  }
+  if (result && typeof result === "object") {
+    result.trimLineBreakAfter = true;
+  }
+  return result;
+};
+
+TRIM_INSIDE.forEach((tag) => (tags[tag] = trimInside(tags[tag])));
+TRIM_AFTER.forEach((tag) => (tags[tag] = trimAfter(tags[tag])));
 
 const availableTags = Object.keys(tags);
 const preventParsing = ["plain", "code", "icode", "class", "fa"];
