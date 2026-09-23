@@ -9,6 +9,7 @@
 
 import { bbcodePlusTemplates, PLUS_TAGS } from "./bbcode-native/plus";
 import {
+  covers,
   findClose,
   literalRanges,
   needsBlocks,
@@ -196,11 +197,14 @@ export function setup(helper) {
         "gi"
       );
       const literal = literalRanges(src);
-      const inRange = (ranges, pos) =>
-        ranges.some(([from, to]) => pos >= from && pos < to);
+      // ranges added in order of where they start, looked up with covers()
+      const rangeList = () => Object.assign([], { furthest: [] });
+      const addRange = (ranges, range) => {
+        ranges.push(range);
+        ranges.furthest.push(Math.max(ranges.furthest.at(-1) ?? -1, range[1]));
+      };
       // strictly inside: the literal tag's own opener still gets flattened
-      const inLiteral = (pos) =>
-        literal.some(([from, to]) => pos > from && pos < to);
+      const inLiteral = (pos) => covers(literal, pos, true);
 
       // [url] is core's own inline-only tag: its content can never cross a
       // blank line, even with the plugin disabled entirely. A native
@@ -208,7 +212,7 @@ export function setup(helper) {
       // it already is inside [b]/[color]/etc, or a blank line inside it would
       // both break [url]'s own matching and put a block element inside an <a>.
       const isUrlTag = (tag) => tag === "url";
-      const urlRanges = [];
+      const urlRanges = rangeList();
       const urlRe = /\[url(?=[\]=\s])/gi;
       let urlMatch;
       while ((urlMatch = urlRe.exec(src))) {
@@ -226,11 +230,11 @@ export function setup(helper) {
           isUrlTag
         );
         if (close) {
-          urlRanges.push([urlMatch.index, close.start]);
+          addRange(urlRanges, [urlMatch.index, close.start]);
         }
       }
 
-      const nobrRanges = [];
+      const nobrRanges = rangeList();
       if (NO_BREAK_TAGS.length) {
         const nobrRe = new RegExp(
           `\\[(${NO_BREAK_TAGS.join("|")})(?=[\\]=\\s])`,
@@ -242,14 +246,13 @@ export function setup(helper) {
           const nobrClose =
             info && findClose(src, nobr.index + info.length, info.tag, isKnown);
           if (nobrClose) {
-            nobrRanges.push([nobr.index, nobrClose.start]);
+            addRange(nobrRanges, [nobr.index, nobrClose.start]);
           }
         }
       }
 
-      const flattened = [];
+      const flattened = rangeList();
       const edits = [];
-      let out = src;
       let match;
       while ((match = openRe.exec(src))) {
         const openAt = match.index;
@@ -263,7 +266,7 @@ export function setup(helper) {
         const spec = specFor(info.tag);
         const lineStart = src.lastIndexOf("\n", openAt - 1) + 1;
         const startsLine = /^[ \t]*$/.test(src.slice(lineStart, openAt));
-        const alwaysFlow = alwaysFlat(spec) || inRange(urlRanges, openAt);
+        const alwaysFlow = alwaysFlat(spec) || covers(urlRanges, openAt);
         // a line-start block container needs no close here: the block rule
         // finds it
         const close =
@@ -301,31 +304,28 @@ export function setup(helper) {
         if (!src.slice(openAt, close.start).includes("\n")) {
           continue;
         }
-        if (!flat && !startsLine && !inRange(flattened, openAt)) {
+        if (!flat && !startsLine && !covers(flattened, openAt)) {
           edits.push({ at: openAt, remove: 0, insert: PHANTOM + "\n" });
           continue;
         }
-        const sentinel = inRange(nobrRanges, openAt)
+        const sentinel = covers(nobrRanges, openAt)
           ? NOBR_SENTINEL
           : NEWLINE_SENTINEL;
-        out =
-          out.slice(0, openAt) +
-          out.slice(openAt, close.start).replaceAll("\n", sentinel) +
-          out.slice(close.start);
-        flattened.push([openAt, close.start]);
+        addRange(flattened, [openAt, close.start, sentinel]);
       }
 
       // Core renders a [code] spanning lines as a code block only when its
       // tags sit on lines of their own; XenForo always does, so they are given
       // their own lines. Mid-line, the one added before it isn't the author's.
       const codeRe = /\[code(?=[\]=\s])[^\]]*\]/gi;
+      const lowerSrc = src.toLowerCase();
       while ((match = codeRe.exec(src))) {
         const openAt = match.index;
         const openEnd = codeRe.lastIndex;
-        const closeAt = src.toLowerCase().indexOf("[/code]", openEnd);
+        const closeAt = lowerSrc.indexOf("[/code]", openEnd);
         if (
           inLiteral(openAt) ||
-          inRange(flattened, openAt) ||
+          covers(flattened, openAt) ||
           closeAt === -1 ||
           !src.slice(openEnd, closeAt).includes("\n")
         ) {
@@ -349,13 +349,32 @@ export function setup(helper) {
         codeRe.lastIndex = closeEnd;
       }
 
-      for (const edit of edits.sort((a, b) => b.at - a.at)) {
-        out =
-          out.slice(0, edit.at) +
-          edit.insert +
-          out.slice(edit.at + edit.remove);
+      // Built in one pass each, as posts can be long. Where flattened spans
+      // overlap, the one opened first picks the sentinel; edits at the same
+      // position go in the reverse of the order they were added.
+      const flatParts = [];
+      let done = 0;
+      for (const [from, to, sentinel] of flattened) {
+        if (to > done) {
+          const start = Math.max(from, done);
+          flatParts.push(
+            src.slice(done, start),
+            src.slice(start, to).replaceAll("\n", sentinel)
+          );
+          done = to;
+        }
       }
-      state.src = out;
+      flatParts.push(src.slice(done));
+      const out = flatParts.join("");
+
+      const edited = [];
+      let pos = 0;
+      for (const edit of edits.reverse().sort((a, b) => a.at - b.at)) {
+        edited.push(out.slice(pos, edit.at), edit.insert);
+        pos = Math.max(pos, edit.at + edit.remove);
+      }
+      edited.push(out.slice(pos));
+      state.src = edited.join("");
     });
 
     md.core.ruler.after("block", "bbcode-native-breaks", (state) => {
@@ -417,6 +436,21 @@ export function setup(helper) {
       return [inline];
     };
 
+    // the first line after the one `pos` is on
+    const lineAfter = (state, startLine, endLine, pos) => {
+      let low = startLine + 1;
+      let high = endLine;
+      while (low < high) {
+        const mid = Math.floor((low + high) / 2);
+        if (state.bMarks[mid] < pos) {
+          low = mid + 1;
+        } else {
+          high = mid;
+        }
+      }
+      return low;
+    };
+
     md.block.ruler.after(
       "fence",
       "bbcode-native-block",
@@ -427,17 +461,47 @@ export function setup(helper) {
           return false;
         }
 
-        const text = state.getLines(startLine, endLine, state.blkIndent, false);
+        // This runs for every line starting with "[", including each time
+        // markdown-it checks whether a paragraph ends there, so the tag is
+        // matched in the source first and only the lines up to its close are
+        // copied out.
+        const opener = parseLooseTag(state.src, first, isKnown);
+        if (!opener || opener.closing) {
+          return false;
+        }
+        const spec = specFor(opener.tag);
+        if (spec.inlineOnly || spec.content === "inline") {
+          return false;
+        }
+        const sourceClose = findClose(
+          state.src,
+          first + opener.length,
+          opener.tag,
+          isKnown,
+          state.eMarks[endLine - 1]
+        );
+        const lines = sourceClose
+          ? lineAfter(state, startLine, endLine, sourceClose.end)
+          : endLine;
+
+        let text = state.getLines(startLine, lines, state.blkIndent, false);
         const lead = text.length - text.trimStart().length;
         const info = parseLooseTag(text, lead, isKnown);
         if (!info || info.closing) {
           return false;
         }
-        const spec = specFor(info.tag);
-        if (spec.inlineOnly || spec.content === "inline") {
-          return false;
+        const offset = state.bMarks[startLine];
+        // the lines as they are in the source: nothing stripped from them
+        const unchanged =
+          sourceClose && text.length === state.eMarks[lines - 1] - offset;
+        let close = unchanged
+          ? { start: sourceClose.start - offset, end: sourceClose.end - offset }
+          : findClose(text, lead + info.length, info.tag, isKnown);
+        // container markers (a blockquote's ">") are only in the source
+        if (!close && lines < endLine) {
+          text = state.getLines(startLine, endLine, state.blkIndent, false);
+          close = findClose(text, lead + info.length, info.tag, isKnown);
         }
-        const close = findClose(text, lead + info.length, info.tag, isKnown);
         if (!close) {
           return false;
         }

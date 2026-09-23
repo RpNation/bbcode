@@ -15,7 +15,8 @@ const NAME_RE = /[a-z][a-z0-9]*/iy;
 // As existing content expects: everything up to the first "]" is the tag. With no
 // whitespace before the first "=" the remainder is one raw value (this is what
 // lets [div=height:auto; width:100%] work); otherwise it is key=value pairs.
-export function parseLooseTag(src, pos, isKnown) {
+// With `lengthOnly`, an opening tag's attributes are left unread.
+export function parseLooseTag(src, pos, isKnown, lengthOnly = false) {
   if (src.charCodeAt(pos) !== 0x5b) {
     return null;
   }
@@ -55,16 +56,17 @@ export function parseLooseTag(src, pos, isKnown) {
   if (end === -1) {
     return null;
   }
+  const inner = src.slice(pos + 1, end);
+  if (inner.includes("[") || !inner.includes("=")) {
+    return null;
+  }
+  if (lengthOnly) {
+    return { tag, closing: false, length: end - pos + 1 };
+  }
   // the flatten pass may have swapped newlines in the attribute value
   const raw = restoreNewlines(src.slice(pos, end + 1));
   const tagStr = raw.slice(1, -1);
-  if (tagStr.includes("[")) {
-    return null;
-  }
   const eq = tagStr.indexOf("=");
-  if (eq === -1) {
-    return null;
-  }
 
   const attrs = {};
   if (!/\s/.test(tagStr.slice(0, eq).trim())) {
@@ -99,31 +101,46 @@ export function parseLooseTag(src, pos, isKnown) {
 // same priority: none of them is re-parsed as bbcode, and none of them is aware
 // of bbcode nested inside the others.
 let literalTags = ["code"];
-// literal regions by source text: several rules scan the same text within one
-// cook. Kept small, as each entry holds its text.
-const literalCache = new Map();
-const LITERAL_CACHE_SIZE = 20;
+// Literal regions and matched closes by source text: several rules scan the
+// same text within one cook, markdown-it's checks for the end of a paragraph
+// many times over. Kept small, as each entry holds its text.
+const textCache = new Map();
+const TEXT_CACHE_SIZE = 20;
+const closeRes = new Map();
 
 export function setLiteralTags(tags) {
   literalTags = ["code", ...tags];
-  literalCache.clear();
+  textCache.clear();
 }
 
 // Depth-aware search for the matching close tag. Returns null when the tag is
 // never closed, so the caller refuses and the text is left untouched.
 export function findClose(src, from, tag, isKnown, limit = src.length) {
+  // of the predicate, only whether `tag` itself is known changes the result
+  const closes = cachedFor(src).closes;
+  const key = `${tag}:${from}:${isKnown(tag)}`;
+  let close = closes.get(key);
+  if (close === undefined) {
+    close = scanForClose(src, from, tag, isKnown);
+    closes.set(key, close);
+  }
+  return close && close.start < limit ? close : null;
+}
+
+function scanForClose(src, from, tag, isKnown) {
   // text shown as a literal example (e.g. "[nobr]" inside [plain]) must not
   // count as a real occurrence of the tag being searched for
   const skip = literalTags.includes(tag) ? [] : literalRanges(src);
-  const inSkip = (pos) => skip.some(([from2, to]) => pos >= from2 && pos < to);
-  const re = new RegExp(`\\[(/?)${tag}(?![a-z0-9])`, "gi");
+  const inSkip = (pos) => covers(skip, pos);
+  let re = closeRes.get(tag);
+  if (!re) {
+    re = new RegExp(`\\[(/?)${tag}(?![a-z0-9])`, "gi");
+    closeRes.set(tag, re);
+  }
   re.lastIndex = from;
   let depth = 1;
   let match;
   while ((match = re.exec(src))) {
-    if (match.index >= limit) {
-      return null;
-    }
     if (inSkip(match.index)) {
       continue;
     }
@@ -135,7 +152,7 @@ export function findClose(src, from, tag, isKnown, limit = src.length) {
         return { start: match.index, end: match.index + match[0].length + 1 };
       }
     } else {
-      const open = parseLooseTag(src, match.index, isKnown);
+      const open = parseLooseTag(src, match.index, isKnown, true);
       if (open) {
         depth++;
         re.lastIndex = match.index + open.length;
@@ -151,8 +168,7 @@ export function findClose(src, from, tag, isKnown, limit = src.length) {
 // that are never closed, and closes that match nothing, are left alone.
 export function repairNesting(src, isKnown) {
   const literal = literalRanges(src);
-  const inLiteral = (pos) =>
-    literal.some(([from, to]) => pos >= from && pos < to);
+  const inLiteral = (pos) => covers(literal, pos);
 
   const tags = [];
   const re = /\[(\/?)([a-z][a-z0-9]*)/gi;
@@ -173,7 +189,7 @@ export function repairNesting(src, isKnown) {
       }
       continue;
     }
-    const open = parseLooseTag(src, match.index, isKnown);
+    const open = parseLooseTag(src, match.index, isKnown, true);
     if (open) {
       tags.push({ tag, closing: false, at: match.index });
       re.lastIndex = match.index + open.length;
@@ -260,15 +276,25 @@ function fenceRanges(src) {
 // Text that is shown as written: tags inside it must not be looked at at all.
 // Callers must not modify the ranges returned, as they are shared.
 function literalRanges(src) {
-  let ranges = literalCache.get(src);
-  if (!ranges) {
-    ranges = findLiteralRanges(src);
-    if (literalCache.size >= LITERAL_CACHE_SIZE) {
-      literalCache.delete(literalCache.keys().next().value);
+  const entry = cachedFor(src);
+  entry.ranges ??= findLiteralRanges(src);
+  return entry.ranges;
+}
+
+function cachedFor(src) {
+  let entry = textCache.get(src);
+  if (entry) {
+    // most recently used last, so a whole post outlives the many tag contents
+    // parsed in between
+    textCache.delete(src);
+  } else {
+    entry = { ranges: null, closes: new Map() };
+    if (textCache.size >= TEXT_CACHE_SIZE) {
+      textCache.delete(textCache.keys().next().value);
     }
-    literalCache.set(src, ranges);
   }
-  return ranges;
+  textCache.set(src, entry);
+  return entry;
 }
 
 function findLiteralRanges(src) {
@@ -299,7 +325,32 @@ function findLiteralRanges(src) {
       ranges.push([match.index, match.index + match[0].length]);
     }
   }
+
+  // sorted by start, with the furthest end reached so far at each index, for
+  // covers()
+  ranges.sort((a, b) => a[0] - b[0]);
+  let furthest = -1;
+  ranges.furthest = ranges.map(([, to]) => (furthest = Math.max(furthest, to)));
   return ranges;
+}
+
+// Whether a literal range covers `pos`. `strictly` leaves out a range's first
+// character, so a literal tag's own opener doesn't count as inside it.
+function covers(ranges, pos, strictly = false) {
+  let low = 0;
+  let high = ranges.length - 1;
+  let last = -1;
+  while (low <= high) {
+    const mid = Math.floor((low + high) / 2);
+    const from = ranges[mid][0];
+    if (strictly ? from < pos : from <= pos) {
+      last = mid;
+      low = mid + 1;
+    } else {
+      high = mid - 1;
+    }
+  }
+  return last !== -1 && ranges.furthest[last] > pos;
 }
 
 // markdown-it reads a setext underline from the line above it, so it isn't
@@ -317,7 +368,7 @@ export function needsBlocks(content, startsLine, parent, rules) {
   }
   const literal = literalRanges(content);
   // a literal span's own opening line still counts (a fence or [code])
-  const inLiteral = (pos) => literal.some(([a, b]) => pos > a && pos < b);
+  const inLiteral = (pos) => covers(literal, pos, true);
   const state = new parent.md.block.State(content, parent.md, parent.env, []);
   for (let line = startsLine ? 0 : 1; line < state.lineMax; line++) {
     if (state.isEmpty(line) || inLiteral(state.bMarks[line])) {
@@ -350,6 +401,7 @@ export {
   NEWLINE_SENTINEL,
   NOBR_SENTINEL,
   PHANTOM,
+  covers,
   literalRanges,
   restoreNewlines,
 };

@@ -25,6 +25,7 @@ end
 
 require_relative "lib/bb_code/engine"
 require_relative "lib/bb_code/css_hotlinked_media"
+require_relative "lib/bb_code/hidden_content"
 
 after_initialize do
   # Code which should run after Rails has finished booting
@@ -39,6 +40,12 @@ after_initialize do
   ::InlineUploads.singleton_class.prepend(::BbCode::CssHotlinkedMedia::RewriteRawCssUrls)
 
   on(:post_process_cooked) { |doc, post| ::BbCode::CssHotlinkedMedia.rewrite_doc!(doc, post) }
+
+  on(:reduce_excerpt) { |doc, _options| ::BbCode::HiddenContent.reduce_excerpt!(doc) }
+  on(:reduce_cooked) { |doc, post| ::BbCode::HiddenContent.reduce_email!(doc, post) }
+  register_modifier(:post_search_index_text) do |text, _post_id, cooked, _locale|
+    ::BbCode::HiddenContent.search_text(text, cooked)
+  end
 
   # overrides the default normalize_whitespaces function in discourse/lib/text_cleaner.rb
   # adds discourse_normalize_whitespace setting (defaults to false)
