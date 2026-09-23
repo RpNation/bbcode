@@ -10,7 +10,6 @@
 import { bbcodePlusTemplates, PLUS_TAGS } from "./bbcode-native/plus";
 import {
   findClose,
-  LITERAL_TAGS,
   literalRanges,
   needsBlocks,
   NEWLINE_SENTINEL,
@@ -19,6 +18,7 @@ import {
   PHANTOM,
   repairNesting,
   restoreNewlines,
+  setLiteralTags,
 } from "./bbcode-native/scanner";
 import { SECTION_TAGS } from "./bbcode-native/sections";
 import { TAGS } from "./bbcode-native/tags";
@@ -30,13 +30,19 @@ import {
 } from "./bbcode-native/tokens";
 
 const SPECS = { ...TAGS, ...SECTION_TAGS, ...PLUS_TAGS };
+const tagsWhere = (test) =>
+  Object.keys(SPECS).filter((tag) => test(SPECS[tag]));
 // tags whose newlines are not line breaks ([nobr])
-const NO_BREAK_TAGS = Object.keys(SPECS).filter(
-  (tag) => SPECS[tag].lineBreaks === false
-);
+const NO_BREAK_TAGS = tagsWhere((spec) => spec.lineBreaks === false);
+setLiteralTags(tagsWhere((spec) => spec.content === "literal"));
 
-// not rendered here, but their closes still close the tags nested in them
-const NESTING_ONLY = ["url", "quote", "tab", "slide"];
+// Core's tags and section children: not rendered by these rules, but their
+// closes still close the tags nested in them
+const NESTING_ONLY = [
+  "url",
+  "quote",
+  ...Object.values(SPECS).flatMap((spec) => spec.children || []),
+];
 
 // every token of a tag with `lineBreaks: false`
 function markNoBreaks(tokens) {
@@ -48,12 +54,33 @@ function markNoBreaks(tokens) {
   }
 }
 
+// Markdown blocks whose margin already stands for one blank line around them
+const MARGIN_BLOCKS = [
+  "heading_open",
+  "bullet_list_open",
+  "ordered_list_open",
+  "table_open",
+  "blockquote_open",
+  "hr",
+];
+
 const isBreakable = (token) =>
   token.type === "paragraph_open" ||
   token.type === "fence" ||
+  MARGIN_BLOCKS.includes(token.type) ||
   token.meta?.breakable ||
   (token.nesting === 1 &&
     (token.type.startsWith("bbcode_") || token.type === "html_block"));
+
+// The line breaks for `newlines` newlines between two blocks. Next to a
+// markdown block, its margin replaces one blank line; a break right after text
+// only ends that line, so it doesn't show.
+function gapBreaks(newlines, last, token) {
+  if (!last.margin && !MARGIN_BLOCKS.includes(token.type)) {
+    return newlines;
+  }
+  return newlines < 2 ? 0 : newlines - 2 + (last.text ? 1 : 0);
+}
 
 // the close a tag just pushed, for bbcode-native-trim-after
 function markTrimAfter(state, spec) {
@@ -66,9 +93,16 @@ function markTrimAfter(state, spec) {
 // Existing content writes every newline as a line break. Text inside a
 // paragraph gets them from `breaks`; the newlines between two blocks are worked
 // out from where the blocks sit in the source.
-function insertBreaks(tokens, Token) {
+function insertBreaks(tokens, Token, lines) {
   const out = [];
   const previous = [];
+  // a list's span includes the blank lines after it; they are the gap
+  const lastLine = ([start, end]) => {
+    while (end > start + 1 && !lines[end - 1]?.trim()) {
+      end--;
+    }
+    return end;
+  };
   tokens.forEach((token, index) => {
     if (token.meta?.br && token.meta.nobr) {
       return;
@@ -79,7 +113,11 @@ function insertBreaks(tokens, Token) {
       if (token.map && isBreakable(token) && !token.meta?.nobr) {
         const last = previous[token.level];
         if (last) {
-          const count = token.map[0] - last.end + 1 - last.phantom;
+          const count = gapBreaks(
+            token.map[0] - last.end + 1 - last.phantom,
+            last,
+            token
+          );
           if (count > 0) {
             const br = new Token("html_block", "", 0);
             br.block = true;
@@ -98,7 +136,14 @@ function insertBreaks(tokens, Token) {
           inline.content = inline.content.slice(0, -1).trimEnd();
           phantom = 1;
         }
-        previous[token.level] = { end: token.map[1], phantom };
+        previous[token.level] = {
+          end: MARGIN_BLOCKS.includes(token.type)
+            ? lastLine(token.map)
+            : token.map[1],
+          phantom,
+          margin: MARGIN_BLOCKS.includes(token.type),
+          text: token.type === "paragraph_open",
+        };
       } else {
         previous[token.level] = null;
       }
@@ -136,6 +181,8 @@ export function setup(helper) {
     md.renderer.rules.paragraph_open = () => "";
     md.renderer.rules.softbreak = (tokens, idx) =>
       tokens[idx].meta?.nobr ? "\n" : "<br>\n";
+    md.renderer.rules.bbcode_plain_text = (tokens, idx) =>
+      md.utils.escapeHtml(tokens[idx].content);
 
     // Blank lines would end the paragraph before the inline rule can see a
     // span that is flow text, so every newline inside one is swapped for a
@@ -148,7 +195,7 @@ export function setup(helper) {
         `\\[(${Object.keys(SPECS).join("|")})(?=[\\]=\\s])`,
         "gi"
       );
-      const literal = literalRanges(src, LITERAL_TAGS);
+      const literal = literalRanges(src);
       const inRange = (ranges, pos) =>
         ranges.some(([from, to]) => pos >= from && pos < to);
       // strictly inside: the literal tag's own opener still gets flattened
@@ -230,7 +277,9 @@ export function setup(helper) {
               close &&
               needsBlocks(
                 src.slice(openAt + info.length, close.start),
-                startsLine
+                startsLine,
+                state,
+                blockStarts()
               )
             ));
         if (startsLine && !flat) {
@@ -310,7 +359,11 @@ export function setup(helper) {
     });
 
     md.core.ruler.after("block", "bbcode-native-breaks", (state) => {
-      state.tokens = insertBreaks(state.tokens, state.Token);
+      state.tokens = insertBreaks(
+        state.tokens,
+        state.Token,
+        state.src.split("\n")
+      );
     });
 
     // Core's own block bbcode ([quote], [code], ...) doesn't record which
@@ -390,7 +443,12 @@ export function setup(helper) {
         }
         if (
           spec.content === "auto" &&
-          !needsBlocks(text.slice(lead + info.length, close.start), true)
+          !needsBlocks(
+            text.slice(lead + info.length, close.start),
+            true,
+            state,
+            blockStarts()
+          )
         ) {
           return false;
         }
@@ -527,6 +585,16 @@ export function setup(helper) {
       },
       { alt: ["paragraph", "reference", "blockquote", "list"] }
     );
+
+    // What starts a block inside a paragraph: markdown-it's rules and other
+    // plugins'. A nested bbcode tag isn't one; it flows with the text.
+    const nativeBlock = md.block.ruler.__rules__.find(
+      (rule) => rule.name === "bbcode-native-block"
+    ).fn;
+    const blockStarts = () =>
+      md.block.ruler
+        .getRules("paragraph")
+        .filter((rule) => rule !== nativeBlock);
 
     md.inline.ruler.before("link", "bbcode-native-inline", (state, silent) => {
       if (state.src.charCodeAt(state.pos) !== 0x5b) {

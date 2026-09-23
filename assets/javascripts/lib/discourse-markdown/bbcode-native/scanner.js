@@ -1,7 +1,7 @@
 // Scans raw bbcode text for tag boundaries: the loose (unquoted, multi-line)
 // attribute syntax existing content uses, matching close tags at the right
-// depth, and the spans (fenced code, [code], [icode], [plain]) that must
-// never be re-parsed as bbcode.
+// depth, and the spans (code, and the "literal" tags) that must never be
+// re-parsed as bbcode.
 
 // stands in for a newline inside spans that must stay in one paragraph, so
 // blank lines don't split them before the inline rule sees them
@@ -95,19 +95,26 @@ export function parseLooseTag(src, pos, isKnown) {
   return { tag, closing: false, attrs, length: end - pos + 1, raw };
 }
 
+// Fenced code, core's [code] and the "literal" tags are all literal text at the
+// same priority: none of them is re-parsed as bbcode, and none of them is aware
+// of bbcode nested inside the others.
+let literalTags = ["code"];
+// literal regions by source text: several rules scan the same text within one
+// cook. Kept small, as each entry holds its text.
+const literalCache = new Map();
+const LITERAL_CACHE_SIZE = 20;
+
+export function setLiteralTags(tags) {
+  literalTags = ["code", ...tags];
+  literalCache.clear();
+}
+
 // Depth-aware search for the matching close tag. Returns null when the tag is
 // never closed, so the caller refuses and the text is left untouched.
-// Fenced code, [code], [icode] and [plain] are all literal text at the same
-// priority: none of them is re-parsed as bbcode, and none of them is aware
-// of bbcode nested inside the others.
-const LITERAL_TAGS = ["code", "icode", "plain"];
-
 export function findClose(src, from, tag, isKnown, limit = src.length) {
   // text shown as a literal example (e.g. "[nobr]" inside [plain]) must not
   // count as a real occurrence of the tag being searched for
-  const skip = LITERAL_TAGS.includes(tag)
-    ? []
-    : literalRanges(src, LITERAL_TAGS);
+  const skip = literalTags.includes(tag) ? [] : literalRanges(src);
   const inSkip = (pos) => skip.some(([from2, to]) => pos >= from2 && pos < to);
   const re = new RegExp(`\\[(/?)${tag}(?![a-z0-9])`, "gi");
   re.lastIndex = from;
@@ -143,7 +150,7 @@ export function findClose(src, from, tag, isKnown, limit = src.length) {
 // close is dropped, so `[b][i]x[/b] y[/i]` reads `[b][i]x[/i][/b] y`. Tags
 // that are never closed, and closes that match nothing, are left alone.
 export function repairNesting(src, isKnown) {
-  const literal = literalRanges(src, LITERAL_TAGS);
+  const literal = literalRanges(src);
   const inLiteral = (pos) =>
     literal.some(([from, to]) => pos >= from && pos < to);
 
@@ -251,12 +258,25 @@ function fenceRanges(src) {
 }
 
 // Text that is shown as written: tags inside it must not be looked at at all.
-function literalRanges(src, tags = ["code"]) {
+// Callers must not modify the ranges returned, as they are shared.
+function literalRanges(src) {
+  let ranges = literalCache.get(src);
+  if (!ranges) {
+    ranges = findLiteralRanges(src);
+    if (literalCache.size >= LITERAL_CACHE_SIZE) {
+      literalCache.delete(literalCache.keys().next().value);
+    }
+    literalCache.set(src, ranges);
+  }
+  return ranges;
+}
+
+function findLiteralRanges(src) {
   const ranges = fenceRanges(src);
   const covered = (pos) => ranges.some(([from, to]) => pos >= from && pos < to);
 
   const blockRe = new RegExp(
-    `\\[(${tags.join("|")})(?=[\\]=\\s])[^\\]]*\\]`,
+    `\\[(${literalTags.join("|")})(?=[\\]=\\s])[^\\]]*\\]`,
     "gi"
   );
   let match;
@@ -282,32 +302,40 @@ function literalRanges(src, tags = ["code"]) {
   return ranges;
 }
 
-// A line markdown starts a block with: heading, list item, blockquote, fence,
-// rule, setext underline, table delimiter row, or core's block bbcode
-const MARKDOWN_BLOCK_RE =
-  /^(?:#{1,6}(?:\s|$)|[-*+]\s|\d{1,9}[.)]\s|>|```|~~~|([-*_])(?:[ \t]*\1){2,}[ \t]*$|=+[ \t]*$|\|?[ \t]*:?-+:?[ \t]*\||\[(?:quote|details|poll|code)(?=[\]=\s]))/i;
+// markdown-it reads a setext underline from the line above it, so it isn't
+// one of the rules that interrupt a paragraph
+const SETEXT_RE = /^ {0,3}(?:=+|-+)[ \t]*$/;
 
 // Whether a tag's content spans lines and has a line markdown reads as a
-// block, so an inline tag around it must render it as blocks. The first line
-// only counts when the tag starts its own line.
-export function needsBlocks(content, startsLine) {
-  const lines = content.split("\n");
-  if (lines.length === 1) {
+// block, so an inline tag around it must render it as blocks. `rules` are the
+// block rules that can end a paragraph, run as markdown-it runs them, so
+// blocks other plugins add count too. The first line only counts when the tag
+// starts its own line.
+export function needsBlocks(content, startsLine, parent, rules) {
+  if (!content.includes("\n")) {
     return false;
   }
-  const literal = literalRanges(content, LITERAL_TAGS);
+  const literal = literalRanges(content);
   // a literal span's own opening line still counts (a fence or [code])
   const inLiteral = (pos) => literal.some(([a, b]) => pos > a && pos < b);
-  let start = 0;
-  return lines.some((line, index) => {
-    const lineStart = start;
-    start += line.length + 1;
-    return (
-      (index > 0 || startsLine) &&
-      !inLiteral(lineStart) &&
-      MARKDOWN_BLOCK_RE.test(line.trimStart())
-    );
-  });
+  const state = new parent.md.block.State(content, parent.md, parent.env, []);
+  for (let line = startsLine ? 0 : 1; line < state.lineMax; line++) {
+    if (state.isEmpty(line) || inLiteral(state.bMarks[line])) {
+      continue;
+    }
+    // everything before the first block found is paragraph text
+    const afterText = line > 0 && !state.isEmpty(line - 1);
+    const text = content.slice(state.bMarks[line], state.eMarks[line]);
+    if (afterText && SETEXT_RE.test(text)) {
+      return true;
+    }
+    state.parentType = afterText ? "paragraph" : "root";
+    state.line = line;
+    if (rules.some((rule) => rule(state, line, state.lineMax, true))) {
+      return true;
+    }
+  }
+  return false;
 }
 
 function restoreNewlines(text) {
@@ -322,7 +350,6 @@ export {
   NEWLINE_SENTINEL,
   NOBR_SENTINEL,
   PHANTOM,
-  LITERAL_TAGS,
   literalRanges,
   restoreNewlines,
 };

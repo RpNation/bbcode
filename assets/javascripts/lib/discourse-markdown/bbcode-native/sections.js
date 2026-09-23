@@ -194,6 +194,7 @@ const ACCORDION_ALIGNMENTS = ["bright", "bcenter", "bleft", "fleft", "fright"];
 const SECTION_TAGS = defineTags({
   tabs: {
     content: "sections",
+    children: ["tab"],
     sections: tabSections,
     open(state, info) {
       info.group = nextGroupId(state);
@@ -234,6 +235,7 @@ const SECTION_TAGS = defineTags({
 
   accordion: {
     content: "sections",
+    children: ["slide"],
     sections: slideSections,
     open(state, info) {
       const attrs = info.attrs;

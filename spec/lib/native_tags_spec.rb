@@ -76,6 +76,15 @@ RSpec.describe PrettyText do
     expect(cook("[div=x]\nb\n[/div]")).to include("<br>\nb<br>\n</div>")
   end
 
+  it "counts one blank line around a markdown block as its margin" do
+    visible = ->(raw) { cook(raw).gsub(%r{<a name[^>]*></a>}, "").delete("\n") }
+
+    expect(visible["a\n\n# H\n\nb"]).to eq("a<br><h1>H</h1>b")
+    expect(visible["a\n\n\n# H\n\n\nb"]).to eq("a<br><br><h1>H</h1><br>b")
+    expect(visible["a\n\n\n- x\n\n\nb"]).to eq("a<br><br><ul><li>x</li></ul><br>b")
+    expect(visible["# A\n\n\n# B"]).to eq("<h1>A</h1><br><h1>B</h1>")
+  end
+
   it "suppresses line breaks inside nobr" do
     expect(cook("[nobr]a\nb\n\n[div=x]c[/div][/nobr]")).not_to include("<br>")
   end
@@ -178,6 +187,26 @@ RSpec.describe PrettyText do
     expect(html).to start_with(%(<div class="bbcode-b">))
     expect(html).to include("<h1>", "<li>item</li>")
     expect(cook("x [i]a\n- one\n- two[/i] y")).to include(%(<div class="bbcode-i">), "<li>one</li>")
+  end
+
+  it "counts the blocks markdown-it and other plugins end a paragraph with, and no others" do
+    SiteSetting.discourse_math_enabled = true
+
+    expect(cook("[b]a\n$$\nx\n$$\nb[/b]")).to include(
+      %(<div class="bbcode-b">),
+      %(<div class="math">),
+    )
+    expect(cook("[b]a\n[wrap=x]\ny\n[/wrap]\nb[/b]")).to include(
+      %(<div class="bbcode-b">),
+      %(<div class="d-wrap" data-wrap="x">),
+    )
+    expect(cook("[b]a\n<details>\n<summary>s</summary>\nx\n</details>\nb[/b]")).to start_with(
+      %(<div class="bbcode-b">),
+    )
+    expect(cook("[b]a\n-\nb[/b]")).to include("<h2>")
+    # only a list starting at 1 can interrupt text
+    expect(cook("[b]a\n2. two\nb[/b]")).to start_with(%(<span class="bbcode-b">))
+    expect(cook("[b]a\n[bg=red]x[/bg]\nb[/b]")).to start_with(%(<span class="bbcode-b">))
   end
 
   it "renders markdown blocks in a container nested in an inline tag" do
@@ -331,6 +360,22 @@ RSpec.describe PrettyText do
   it "keeps icode and plain spanning a blank line mid-paragraph literal" do
     expect(cook("x [icode][b]a\n\nb[/b][/icode] y")).to include("<code>[b]a")
     expect(cook("x [plain][b]a[/b]\n\nb[/plain] y")).to include("[b]a[/b]")
+  end
+
+  it "shows plain text exactly as written" do
+    expect(cook("[plain]:smile: @system #general <b>x</b> & https://e.com[/plain]")).to eq(
+      ":smile: @system #general &lt;b&gt;x&lt;/b&gt; &amp; https://e.com",
+    )
+  end
+
+  it "ignores tags inside literal tags when matching others" do
+    expect(cook("[div=x]a [comment]old [div] start[/comment] b[/div]")).to eq(
+      %(<div style="x">a <!--old [div] start--> b</div>),
+    )
+    expect(cook("[div=x][script]x[/div]y[/script]z[/div]")).to include(
+      ">x[/div]y</template>",
+      %(<div style="x">z</div>),
+    )
   end
 
   it "keeps the line break after plain and icode that start a line" do

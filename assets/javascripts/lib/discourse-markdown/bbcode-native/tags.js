@@ -514,7 +514,9 @@ const TAGS = defineTags({
         if (index) {
           state.push("hardbreak", "br", 0);
         }
-        state.push("text", "", 0).content = line;
+        // not "text": emoji, mentions, hashtags and links are made from text
+        // tokens, and plain text shows exactly as written
+        state.push("bbcode_plain_text", "", 0).content = line;
       });
     },
   },

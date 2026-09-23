@@ -7,7 +7,8 @@
 //                  markdown blocks (see needsBlocks)
 //     "inline"     one run of text, always
 //     "text"       a block whose content is one run of text
-//     "literal"    used as written, by `render(state, content, info)`
+//     "literal"    used as written, by `render(state, content, info)`; like
+//                  code, tags inside it never count when matching other tags
 //     "sections"   a list of child sections (see sections.js)
 //   element      (value, info, block, state) => { open, after }: the HTML
 //                around the content. `open` lists elements opened before it;
@@ -21,6 +22,8 @@
 //                does
 //   lineBreaks   false: newlines inside are not line breaks
 //   inlineOnly   never matched as a block, even at the start of a line
+//   children     with "sections": the child tags ([tab], [slide]); closing
+//                the parent also closes tags left open inside them
 
 import { isBlockState } from "./tokens";
 

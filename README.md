@@ -130,7 +130,7 @@ markdown-it cooks a post in stages: core rules run over the whole source, block 
 3. **Inline rule** (`bbcode-native-inline`) handles a tag inside a paragraph; its content is parsed as inline text.
 4. **Post-passes** (core rules after parsing) add the line breaks (see below), drop the break after tags that trim it, and put the `[class]`/`[script]` templates at the top of the post.
 
-Tags are matched by the scanner, not by markdown-it's own bbcode parser, because existing content uses unquoted attribute values with spaces and newlines: everything up to the first `]` is the tag, so `[div=height:auto; width:100%]` has one value. A close tag is matched by name and depth. Text inside code, `[icode]` and `[plain]` is never read as bbcode. A tag that is never closed, and a close that matches nothing, stay as literal text.
+Tags are matched by the scanner, not by markdown-it's own bbcode parser, because existing content uses unquoted attribute values with spaces and newlines: everything up to the first `]` is the tag, so `[div=height:auto; width:100%]` has one value. A close tag is matched by name and depth. Text inside code and the `literal` tags (`[plain]`, `[icode]`, `[comment]`, `[class]`, `[script]`, ...) is never read as bbcode, not even when matching the close of a tag around it. A tag that is never closed, and a close that matches nothing, stay as literal text.
 
 ### Line breaks
 
@@ -139,6 +139,8 @@ Posts are written the way XenForo displays them: every newline is a line break, 
 - `trimInside`: no line breaks just inside the tag (`[spoiler]`, `[blockquote]`, `[ooc]`, `[progress]`, ...)
 - `trimAfter`: the line break right after the close is dropped, as XenForo does (`[divide]`, `[spoiler]`, `[imagefloat]`, code blocks, ...)
 - `lineBreaks: false`: newlines inside are not line breaks (`[nobr]`)
+
+Markdown headings, lists, tables, rules and blockquotes have their own margins, which stand for one blank line: `a\n\n# Heading` looks the same as `a\n# Heading`, and each blank line beyond the first adds a line break.
 
 ### Adding a tag
 
@@ -156,7 +158,7 @@ Posts are written the way XenForo displays them: every newline is a line break, 
    - `auto`: inline, even across blank lines, unless the content has markdown blocks (`[b]`, `[color]`)
    - `inline`: always inline (`[sub]`, `[inlinespoiler]`)
    - `text`: a block around one run of text (`[bg]`)
-   - `literal`: the content is used as written, by a `render` function (`[plain]`, `[icode]`)
+   - `literal`: the content is used as written, by a `render` function; it is never read as bbcode or markdown (`[plain]`, `[icode]`, `[script]`)
 
 2. Allow its HTML in the sanitizer allowlist in `bbcode-plugin.js`.
 3. Add its CSS to `assets/stylesheets/common/` and import it from `index.scss`.
