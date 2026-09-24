@@ -9,9 +9,6 @@
 
 enabled_site_setting :bbcode_enabled
 
-register_asset "bundled/bbcode-parser.min.js", :vendored_pretty_text
-register_asset "bundled/bbcode-parser.min.js"
-register_asset "bundled/bbcode-parser.min.js.map"
 register_asset "stylesheets/common/index.scss"
 
 add_admin_route "bbcode.title", "bbcode", use_new_show_route: true
@@ -28,10 +25,11 @@ end
 
 require_relative "lib/bb_code/engine"
 require_relative "lib/bb_code/css_hotlinked_media"
+require_relative "lib/bb_code/hidden_content"
+require_relative "lib/bb_code/comments"
 
 after_initialize do
-  # Code which should run after Rails has finished booting
-  # should clear out the context so the initial setup logic for bbcode parser runs
+  # rebuild the markdown engine with this plugin's rules
   PrettyText.reset_context()
 
   unless Rails.env.test?
@@ -43,10 +41,15 @@ after_initialize do
 
   on(:post_process_cooked) { |doc, post| ::BbCode::CssHotlinkedMedia.rewrite_doc!(doc, post) }
 
-  # overrides the default normalize_whitespaces function in discourse/lib/text_cleaner.rb
-  # adds discourse_normalize_whitespace setting (defaults to false)
-  # when true, normalize_whitespace runs as normal
-  # when false, it does nothing, which allows for persistence of non-default whitespace.
+  Plugin::Filter.register(:after_post_cook) { |_post, cooked| ::BbCode::Comments.restore(cooked) }
+
+  on(:reduce_excerpt) { |doc, _options| ::BbCode::HiddenContent.reduce_excerpt!(doc) }
+  on(:reduce_cooked) { |doc, post| ::BbCode::HiddenContent.reduce_email!(doc, post) }
+  register_modifier(:post_search_index_text) do |text, _post_id, cooked, _locale|
+    ::BbCode::HiddenContent.search_text(text, cooked)
+  end
+
+  # with discourse_normalize_whitespace off, titles keep non-standard whitespace
   class ::TextCleaner # rubocop:disable Discourse/Plugins/NoMonkeyPatching
     module Optional_normalize_whitespace
       def title_options

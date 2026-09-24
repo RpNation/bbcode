@@ -9,16 +9,30 @@ import { apiInitializer } from "discourse/lib/api";
  */
 function addInlineSpoilerCode(post) {
   post.querySelectorAll(".bb-inline-spoiler").forEach((el) => {
+    el.setAttribute("role", "button");
+    el.setAttribute("tabindex", "0");
+    el.setAttribute("aria-expanded", "false");
     el.addEventListener("click", toggleInlineSpoiler);
+    el.addEventListener("keydown", onInlineSpoilerKeydown);
   });
 }
 
 function toggleInlineSpoiler(event) {
-  const inlinespoiler = event.target;
-  if (inlinespoiler.attributes.getNamedItem("data-displayed") === null) {
-    inlinespoiler.setAttribute("data-displayed", true);
+  // currentTarget, since the click can land on formatting inside the spoiler
+  const inlinespoiler = event.currentTarget;
+  const displayed = !inlinespoiler.hasAttribute("data-displayed");
+  if (displayed) {
+    inlinespoiler.setAttribute("data-displayed", "true");
   } else {
     inlinespoiler.removeAttribute("data-displayed");
+  }
+  inlinespoiler.setAttribute("aria-expanded", String(displayed));
+}
+
+function onInlineSpoilerKeydown(event) {
+  if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    toggleInlineSpoiler(event);
   }
 }
 

@@ -1,0 +1,160 @@
+// BBCode+ data tags: [class]/[animation] CSS and [script]s, scoped to the post
+// and emitted once at its top, and [fa] icons. Their content isn't bbcode.
+
+import { defineTags } from "./define";
+import { findClose, parseLooseTag } from "./scanner";
+import { CLASS_NAME_RE, scopedClassName } from "./scoping";
+import { guidFor } from "./tokens";
+
+const CLASS_STATES = [
+  "hover",
+  "focus",
+  "active",
+  "focus-within",
+  "focus-visible",
+];
+const CSS_LENGTH_RE = /^[0-9]+[a-z]+$/;
+const KEYFRAME_STOP = String.raw`(?:from|to|\d+(?:\.\d+)?%?)`;
+const KEYFRAME_SELECTOR_RE = new RegExp(
+  String.raw`^${KEYFRAME_STOP}(?:\s*,\s*${KEYFRAME_STOP})*$`,
+  "i"
+);
+const SCRIPT_EVENTS = [
+  "init",
+  "click",
+  "change",
+  "input",
+  "dblclick",
+  "mouseenter",
+  "mouseleave",
+  "scroll",
+];
+const FA_VARIABLES = [
+  "primary-color",
+  "secondary-color",
+  "primary-opacity",
+  "secondary-opacity",
+  "rotate-angle",
+];
+
+// braces and brackets can't break out of the rule they are written in
+const cssBody = (text) => text.replaceAll(/[[\]{}]/g, "");
+
+const styles = (state) => (state.env.bbcodeStyles ||= []);
+
+// only [keyframe]s count; anything else inside [animation] is dropped
+function keyframes(content) {
+  const isKeyframe = (tag) => tag === "keyframe";
+  const re = /\[keyframe(?=[\]=\s])/gi;
+  const frames = [];
+  let match;
+  while ((match = re.exec(content))) {
+    const info = parseLooseTag(content, match.index, isKeyframe);
+    const close =
+      info &&
+      findClose(content, match.index + info.length, "keyframe", isKeyframe);
+    if (!close) {
+      continue;
+    }
+    re.lastIndex = close.end;
+    const ident = (info.attrs._default || "").trim();
+    // the selector sits outside the braces cssBody guards
+    if (!KEYFRAME_SELECTOR_RE.test(ident)) {
+      continue;
+    }
+    const body = cssBody(content.slice(match.index + info.length, close.start));
+    frames.push(`${ident}${/^\d+$/.test(ident) ? "%" : ""}{ ${body} }`);
+  }
+  return frames;
+}
+
+const PLUS_TAGS = defineTags({
+  class: {
+    content: "literal",
+    render(state, content, { attrs }) {
+      const name = attrs.name || attrs._default;
+      if (!CLASS_NAME_RE.test(name || "")) {
+        return;
+      }
+      const suffix = guidFor(state);
+      const pseudo = attrs.state?.toLowerCase();
+      const selector = attrs.selector
+        ? attrs.selector.replace(/[,{}\\\n]/g, "")
+        : CLASS_STATES.includes(pseudo)
+          ? `:${pseudo}`
+          : "";
+      const media = ["min", "max"]
+        .filter((bound) => CSS_LENGTH_RE.test(attrs[`${bound}Width`] || ""))
+        .map((bound) => `(${bound}-width: ${attrs[`${bound}Width`]})`);
+      let css = `.${scopedClassName(name, suffix)}${selector} {${cssBody(content.replaceAll("{post_id}", suffix))}}`;
+      if (media.length) {
+        css = `@media ${media.join(" and ")} {${css}}`;
+      }
+      styles(state).push(css);
+    },
+  },
+
+  animation: {
+    content: "literal",
+    render(state, content, { attrs }) {
+      const name = attrs._default || "";
+      if (name && !CLASS_NAME_RE.test(name)) {
+        return;
+      }
+      styles(state).push(
+        `@keyframes ${guidFor(state)}${name} { ${keyframes(content).join("\n")} }`
+      );
+    },
+  },
+
+  script: {
+    content: "literal",
+    render(state, content, { attrs }) {
+      const on = attrs.on?.toLowerCase();
+      (state.env.bbcodeScripts ||= []).push({
+        id: guidFor(state),
+        class: CLASS_NAME_RE.test(attrs.class || "") ? attrs.class : "",
+        on: SCRIPT_EVENTS.includes(on) ? on : "init",
+        version: attrs.version || "",
+        content,
+      });
+    },
+  },
+
+  fa: {
+    content: "literal",
+    render(state, content, { attrs }) {
+      const style = [
+        attrs.style,
+        ...FA_VARIABLES.filter((name) => attrs[name]).map(
+          (name) => `--fa-${name}: ${attrs[name]}`
+        ),
+      ]
+        .map((declaration) => declaration?.trim().replace(/;$/, ""))
+        .filter(Boolean)
+        .join("; ");
+      state.push("bbcode_fa_open", "i", 1).attrSet("data-bbcode-fa", "");
+      const icon = state.push("bbcode_fa_icon_open", "i", 1);
+      icon.attrSet("class", content.trim());
+      icon.attrSet("style", style);
+      icon.attrSet("data-fa-transform", attrs["fa-transform"] || "");
+      state.push("bbcode_fa_icon_close", "i", -1);
+      state.push("bbcode_fa_close", "i", -1);
+    },
+  },
+});
+
+function bbcodePlusTemplates(state) {
+  const env = state.env;
+  const escape = (value) => state.md.utils.escapeHtml(String(value));
+  const scripts = (env.bbcodeScripts || []).map(
+    (script) =>
+      `<template data-bbcode-plus="script" data-bbscript-id="${escape(script.id)}" data-bbscript-class="${escape(script.class)}" data-bbscript-on="${escape(script.on)}" data-bbscript-ver="${escape(script.version)}">${escape(script.content)}</template>`
+  );
+  const css = env.bbcodeStyles?.length
+    ? `<template data-bbcode-plus="class">${escape(env.bbcodeStyles.join("\n"))}</template>`
+    : "";
+  return scripts.join("") + css;
+}
+
+export { bbcodePlusTemplates, PLUS_TAGS };
