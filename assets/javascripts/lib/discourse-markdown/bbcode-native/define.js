@@ -91,6 +91,8 @@ function defineTags(definitions) {
       tag,
       {
         ...(definition.element ? elementHooks(definition.element) : noHooks),
+        // no HTML of its own ([nobr]), so nothing marks where it starts
+        bare: !definition.element && !definition.open,
         ...definition,
       },
     ])

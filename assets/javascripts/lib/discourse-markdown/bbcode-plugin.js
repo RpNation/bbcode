@@ -110,6 +110,7 @@ export function setup(helper) {
     "span[style=*]",
     "summary",
     "summary.bb-slide-title",
+    "template[data-bbcode-comment]",
     "template[data-bbcode-plus=class]",
     "template[data-bbcode-plus=script]",
     "template[data-bbscript-id=*]",

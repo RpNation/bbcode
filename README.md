@@ -118,6 +118,7 @@ BBCode is parsed by markdown-it itself: the plugin adds rules to the same markdo
 | `…/bbcode-plugin.js`                                         | the sanitizer allowlist and a composer preview fix                             |
 | `lib/bb_code/hidden_content.rb`                              | keeps templates and spoilers out of excerpts, emails and the search index      |
 | `lib/bb_code/css_hotlinked_media.rb`                         | rehosts images referenced from bbcode CSS, as core does for `<img>`            |
+| `lib/bb_code/comments.rb`                                    | turns `[comment]` templates into HTML comments when a post is cooked           |
 | `spec/lib/`, `test/javascripts/`                             | server specs, and composer tests that expect the same output                   |
 
 ### How a post is parsed
@@ -171,7 +172,7 @@ Markdown headings, lists, tables, rules and blockquotes have their own margins, 
 
 - A block tag inside a markdown blockquote (`> `) or list item ends up outside it, and so does an inline tag spanning lines inside a blockquote. Use a blank `[quote]` instead of `> `.
 - A `[/b]` inside a `$…$` math span still closes the `[b]` around it.
-- `[comment]` renders a real HTML comment, which Discourse restores after sanitizing with one search over the post per comment; posts with hundreds of comments cook noticeably slower.
+- `[comment]` cooks to a `<template data-bbcode-comment>`, because the sanitizer drops HTML comments; `lib/bb_code/comments.rb` turns it into a real HTML comment when a post is cooked. The composer preview and content not cooked as a post (bios, category descriptions) keep the template, which is equally invisible.
 
 ### BBScript
 

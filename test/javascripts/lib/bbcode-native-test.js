@@ -69,6 +69,18 @@ module("Unit | Lib | bbcode-native", function (hooks) {
       "[div=a]unclosed",
       "an unclosed tag stays literal"
     );
+    await assertCooks(
+      assert,
+      "\\[b][i]x[/b] y[/i]",
+      `[b]<span class="bbcode-i">x[/b] y</span>`,
+      "a backslash-escaped opener is text"
+    );
+    await assertCooks(
+      assert,
+      "[b]x [nobr]a\nb[/nobr][/b]",
+      `<span class="bbcode-b">x a\nb</span>`,
+      "a nested nobr keeps its newlines from becoming line breaks"
+    );
   });
 
   test("bbcode-plus templates", async function (assert) {
@@ -98,6 +110,12 @@ module("Unit | Lib | bbcode-native", function (hooks) {
       "[plain][b]x[/b] :smile:[/plain]",
       "[b]x[/b] :smile:",
       "plain text is read as neither bbcode nor markdown"
+    );
+    await assertCooks(
+      assert,
+      "`[plain]`\n[color=red]red[/color]\n`[/plain]`",
+      `<code>[plain]</code><br>\n<span style="color: red">red</span><br>\n<code>[/plain]</code>`,
+      "a literal tag shown in a code span doesn't start literal text"
     );
   });
 });

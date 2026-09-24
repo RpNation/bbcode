@@ -10,17 +10,11 @@ function guidFor(state) {
 }
 
 // Newlines are kept, so nested tags such as [plain] see the text unchanged;
-// hardenBreaks then makes each one a line break.
+// each becomes a softbreak, which renders as a line break.
 function flowText(text) {
-  return text.replaceAll(NOBR_SENTINEL, " ").replaceAll(NEWLINE_SENTINEL, "\n");
-}
-
-function hardenBreaks(tokens) {
-  for (const token of tokens) {
-    if (token.type === "softbreak" && !token.meta?.nobr) {
-      token.type = "hardbreak";
-    }
-  }
+  return text
+    .replaceAll(NOBR_SENTINEL, "\n")
+    .replaceAll(NEWLINE_SENTINEL, "\n");
 }
 
 function isBlockState(state) {
@@ -38,9 +32,12 @@ function brs(count) {
   return "<br>".repeat(Math.min(count, 20));
 }
 
+// inside [nobr] they stay newlines
 function pushBreaks(state, count) {
   if (count > 0) {
-    pushHtml(state, brs(count)).meta = { br: true };
+    state.push("html_block", "", 0).content = state.env.bbcodeNoBreaks
+      ? "\n".repeat(count)
+      : brs(count) + "\n";
   }
 }
 
@@ -94,7 +91,6 @@ export {
   edgeNewlines,
   flowText,
   guidFor,
-  hardenBreaks,
   isBlockState,
   parseInline,
   pushBreaks,

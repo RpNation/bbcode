@@ -24,10 +24,19 @@ div.bb-block {
     font-size: 16px;
     text-align: center;
     color: white;
-    background:
-      linear-gradient(var(--bb-block-color), var(--bb-block-color)) 0 0 / 100%
-        20px no-repeat,
-      url("/plugins/bbcode/images/block.png") 0 25px no-repeat;
+
+    // longhands, so named blocks change only the image and the mobile
+    // size and position still apply
+    background-image:
+      linear-gradient(var(--bb-block-color), var(--bb-block-color)),
+      url("/plugins/bbcode/images/block.png");
+    background-size:
+      100% 20px,
+      auto;
+    background-position:
+      0 0,
+      0 25px;
+    background-repeat: no-repeat;
     background-clip: border-box;
     pointer-events: none;
   }
@@ -65,9 +74,7 @@ div.bb-block {
 
       &::before {
         content: $title;
-        background:
-          linear-gradient($color, $color) 0 0 / 100% 20px no-repeat,
-          url($image) 0 25px no-repeat;
+        background-image: linear-gradient($color, $color), url($image);
       }
     }
   }

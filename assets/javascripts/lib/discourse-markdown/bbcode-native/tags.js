@@ -521,8 +521,10 @@ const TAGS = defineTags({
       );
     },
   },
-  // An HTML comment, as XenForo renders it. Fonts named inside still load:
-  // authors use [font] in a comment just for that.
+  // An HTML comment, as XenForo renders it. The sanitizer drops comments, so
+  // this is a <template> that lib/bb_code/comments.rb turns into one when the
+  // post is cooked. Fonts named inside still load: authors use [font] in a
+  // comment just for that.
   comment: {
     content: "literal",
     inlineOnly: true,
@@ -533,9 +535,8 @@ const TAGS = defineTags({
           .attrSet("data-font", url);
         state.push("bbcode_font_loader_close", "span", -1);
       }
-      // escaped, so a "-->" inside can't end it
-      state.push("html_raw", "", 0).content =
-        `<!--${state.md.utils.escapeHtml(content)}-->`;
+      state.push("html_inline", "", 0).content =
+        `<template data-bbcode-comment>${state.md.utils.escapeHtml(content)}</template>`;
     },
   },
 });

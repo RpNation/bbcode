@@ -8,8 +8,9 @@ RSpec.describe PrettyText do
 
   after { PrettyText.reset_context }
 
+  # as a post is cooked, [comment]s included
   def cook(raw)
-    PrettyText.cook(raw).gsub(/post-[a-z0-9]{5}/, "post-GUID")
+    BbCode::Comments.restore(PrettyText.cook(raw)).gsub(/post-[a-z0-9]{5}/, "post-GUID")
   end
 
   it "reads unquoted multi-token and multi-line attribute values as a single value" do
@@ -63,6 +64,16 @@ RSpec.describe PrettyText do
   it "leaves unclosed and unmatched tags as literal text" do
     expect(cook("[div=a:b]unclosed")).to eq("[div=a:b]unclosed")
     expect(cook("text [/b] more")).to eq("text [/b] more")
+    expect(cook("[b]a [b]b[/b] c")).to eq(%([b]a <span class="bbcode-b">b</span> c))
+  end
+
+  it "reads a backslash-escaped opener as text, as markdown does" do
+    expect(cook("\\[b][i]x[/b] y[/i]")).to eq(%([b]<span class="bbcode-i">x[/b] y</span>))
+    expect(cook("[b]a \\[b] c[/b] d[/b]")).to eq(%(<span class="bbcode-b">a [b] c</span> d[/b]))
+  end
+
+  it "keeps a backslash before a close as text, as XenForo does" do
+    expect(cook("[div=x]a \\[/div] b")).to match(%r{\A<div style="x">a \\</div>\s*b\z})
   end
 
   it "does not touch core markdown" do
@@ -87,6 +98,14 @@ RSpec.describe PrettyText do
 
   it "suppresses line breaks inside nobr" do
     expect(cook("[nobr]a\nb\n\n[div=x]c[/div][/nobr]")).not_to include("<br>")
+    expect(cook("[b]x [nobr]a\nb[/nobr][/b]")).to eq(%(<span class="bbcode-b">x a\nb</span>))
+  end
+
+  it "keeps every newline inside nobr as a newline" do
+    expect(cook("[nobr]a\n\nb[/nobr]")).to eq("a\n\nb")
+    expect(cook("x [nobr]a\n\nb[/nobr] y")).to eq("x a\n\nb y")
+    expect(cook("[b]\n# H\nx [nobr]a\nb[/nobr]\n[/b]")).to include("</h1>\nx a\nb<br>")
+    expect(cook("[nobr]\n[b]a\n\nb[/b]\n[/nobr]")).to eq(%(<span class="bbcode-b">a\n\nb</span>))
   end
 
   it "renders class templates with the same suffix as native tags" do
@@ -311,6 +330,9 @@ RSpec.describe PrettyText do
     expect(html).to include("text-align: right;", "<h1>", "<strong>two</strong>")
     expect(html.scan("<summary").length).to eq(2)
     expect(cook("[accordion]no slides[/accordion]")).to eq("[accordion]no slides[/accordion]")
+    expect(cook("[accordion]{slide=T}Before `{/slide}` after{/slide}[/accordion]")).to include(
+      "Before <code>{/slide}</code> after</div>",
+    )
   end
 
   it "renders textmessage conversations" do
@@ -420,6 +442,13 @@ RSpec.describe PrettyText do
       ">x[/div]y</template>",
       %(<div style="x">z</div>),
     )
+  end
+
+  it "reads a literal tag shown in a code span as code, not as the start of literal text" do
+    expect(cook("`[plain]`\n[color=red]red[/color]\n`[/plain]`")).to eq(
+      %(<code>[plain]</code><br>\n<span style="color: red">red</span><br>\n<code>[/plain]</code>),
+    )
+    expect(cook("[plain]a `b[/plain] [b]c[/b]`")).to eq(%(a `b<span class="bbcode-b">c</span>`))
   end
 
   it "keeps the line break after plain and icode that start a line" do

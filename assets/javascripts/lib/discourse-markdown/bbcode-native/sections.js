@@ -1,12 +1,20 @@
 // Tags whose body is a list of sections: [tabs]/[tab] and [accordion]/[slide].
 
 import { defineTags } from "./define";
-import { findClose, parseLooseTag, PHANTOM } from "./scanner";
+import {
+  coverEnd,
+  findClose,
+  isEscaped,
+  literalRanges,
+  parseLooseTag,
+  PHANTOM,
+} from "./scanner";
 import { guidFor, isBlockState, parseInline } from "./tokens";
 
 // the close of the known tag opening at `index`
 function closeOf(text, index, isKnown) {
-  const info = parseLooseTag(text, index, isKnown, true);
+  const info =
+    !isEscaped(text, index) && parseLooseTag(text, index, isKnown, true);
   return (
     info &&
     !info.closing &&
@@ -14,10 +22,17 @@ function closeOf(text, index, isKnown) {
   );
 }
 
-// top level only: what's nested in another tag belongs to that tag
+// top level only: what's nested in another tag, a code span or a literal
+// tag is not a section boundary
 function findTop(content, from, pattern, isKnown) {
+  const literal = literalRanges(content);
   let index = from;
   while (index < content.length) {
+    const literalEnd = coverEnd(literal, index);
+    if (literalEnd !== -1) {
+      index = literalEnd;
+      continue;
+    }
     pattern.lastIndex = index;
     const match = pattern.exec(content);
     if (match) {

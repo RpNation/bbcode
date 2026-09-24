@@ -88,19 +88,39 @@ export function parseLooseTag(src, pos, isKnown, lengthOnly = false) {
   return { tag, closing: false, attrs, length: end - pos + 1 };
 }
 
+// An odd number of backslashes before it makes a character literal, as in
+// markdown, so `\[b]` is text. Only openers: markdown-it's escapes keep the
+// inline rule from seeing them, while closes are found only here, and XenForo
+// posts write `\[/div]` for a backslash before a close.
+export function isEscaped(src, pos) {
+  let count = 0;
+  while (src.charCodeAt(pos - count - 1) === 0x5c) {
+    count++;
+  }
+  return count % 2 === 1;
+}
+
 // with fenced code, never read as bbcode
-let literalTags = ["code"];
+let literalTags;
+let literalRe;
 // Results per source text: several rules scan the same text in one cook, and
 // markdown-it checks the same lines many times. Emptied per cook.
 const textCache = new Map();
 const TEXT_CACHE_SIZE = 20;
 const closeRes = new Map();
 const literalCloseRes = new Map();
+const CODE_SPAN = String.raw`(?<!\x60)(\x60+)(?!\x60)(?:(?!\n[ \t]*\n)[\s\S])*?(?<!\x60)\1(?!\x60)`;
 
 export function setLiteralTags(tags) {
   literalTags = ["code", ...tags];
+  // code spans and literal tags: whichever starts first wins
+  literalRe = new RegExp(
+    `${CODE_SPAN}|\\[(${literalTags.join("|")})(?=[\\]=\\s])[^\\]]*\\]`,
+    "gi"
+  );
   textCache.clear();
 }
+setLiteralTags([]);
 
 export function resetTextCache() {
   textCache.clear();
@@ -110,10 +130,28 @@ export function resetTextCache() {
 // closed, which leaves the tag as text.
 export function findClose(src, from, tag, isKnown, limit = src.length) {
   // only isKnown(tag) affects the result
-  const close = memoFor(src, `close:${tag}:${from}:${isKnown(tag)}`, () =>
-    scanForClose(src, from, tag, isKnown)
+  const known = isKnown(tag);
+  const pairs = memoFor(src, `pairs:${tag}:${known}`, () =>
+    tagPairs(src, tag, known)
   );
-  return close && close.start < limit ? close : null;
+  const { starts, ends, nextLower } = pairs;
+  // the first opener or close at or after `from`
+  let low = 0;
+  let high = starts.length;
+  while (low < high) {
+    const mid = Math.floor((low + high) / 2);
+    if (starts[mid] < from) {
+      low = mid + 1;
+    } else {
+      high = mid;
+    }
+  }
+  const after = nextLower[low];
+  if (after === -1) {
+    return null;
+  }
+  const close = { start: starts[after - 1], end: ends[after - 1] };
+  return close.start < limit ? close : null;
 }
 
 export function memoFor(src, key, compute) {
@@ -126,38 +164,61 @@ export function memoFor(src, key, compute) {
   return value;
 }
 
-function scanForClose(src, from, tag, isKnown) {
+// Every opener and close of `tag` in one pass, so that each findClose is a
+// lookup: a search from event i closes at the first later point where more
+// closes than openers have been seen, i.e. the next lower running balance.
+function tagPairs(src, tag, known) {
+  const literal = literalTags.includes(tag);
   // a "[nobr]" shown inside [plain] isn't a real one
-  const skip = literalTags.includes(tag) ? [] : literalRanges(src);
-  const inSkip = (pos) => covers(skip, pos);
+  const skip = literal ? [] : literalRanges(src);
+  const isOpener = () => true;
   let re = closeRes.get(tag);
   if (!re) {
     re = new RegExp(`\\[(/?)${tag}(?![a-z0-9])`, "gi");
     closeRes.set(tag, re);
   }
-  re.lastIndex = from;
-  let depth = 1;
+  re.lastIndex = 0;
+  const starts = [];
+  const ends = [];
+  // balances[i]: openers minus closes before event i
+  const balances = [0];
   let match;
   while ((match = re.exec(src))) {
-    if (inSkip(match.index)) {
+    const at = match.index;
+    if (covers(skip, at)) {
       continue;
     }
+    let end;
     if (match[1]) {
-      if (src[match.index + match[0].length] !== "]") {
+      if (src[at + match[0].length] !== "]") {
         continue;
       }
-      if (--depth === 0) {
-        return { start: match.index, end: match.index + match[0].length + 1 };
-      }
+      end = at + match[0].length + 1;
     } else {
-      const open = parseLooseTag(src, match.index, isKnown, true);
-      if (open) {
-        depth++;
-        re.lastIndex = match.index + open.length;
+      // inside literal content a backslash is just text
+      const escaped = !literal && isEscaped(src, at);
+      const open = known && !escaped && parseLooseTag(src, at, isOpener, true);
+      if (!open) {
+        continue;
       }
+      end = at + open.length;
+      re.lastIndex = end;
     }
+    starts.push(at);
+    ends.push(end);
+    balances.push(balances.at(-1) + (match[1] ? -1 : 1));
   }
-  return null;
+
+  // nextLower[i]: the first j > i with a lower balance, or -1
+  const nextLower = new Array(balances.length).fill(-1);
+  const waiting = [];
+  balances.forEach((balance, index) => {
+    while (waiting.length && balances[waiting.at(-1)] > balance) {
+      nextLower[waiting.pop()] = index;
+    }
+    waiting.push(index);
+  });
+  return { starts, ends, nextLower };
 }
 
 // An inner tag still open when its parent closes is closed there and its own
@@ -186,7 +247,9 @@ export function repairNesting(src, isKnown) {
       }
       continue;
     }
-    const open = parseLooseTag(src, match.index, isKnown, true);
+    const open =
+      !isEscaped(src, match.index) &&
+      parseLooseTag(src, match.index, isKnown, true);
     if (open) {
       tags.push({ tag, closing: false, at: match.index });
       re.lastIndex = match.index + open.length;
@@ -299,43 +362,43 @@ function cachedFor(src) {
   return entry;
 }
 
-// Matches of one kind never overlap, so only earlier kinds can cover a match.
+// Fences first, as block-level markdown. Then code spans and literal tags left
+// to right, as the inline parser meets them: "`[plain]`" is code, and
+// "[plain]`[/plain]" is plain text.
 function findLiteralRanges(src) {
   const fences = indexRanges(fenceRanges(src));
-
-  const blocks = [];
-  const blockRe = new RegExp(
-    `\\[(${literalTags.join("|")})(?=[\\]=\\s])[^\\]]*\\]`,
-    "gi"
-  );
+  const found = [];
+  literalRe.lastIndex = 0;
   let match;
-  while ((match = blockRe.exec(src))) {
-    if (covers(fences, match.index)) {
+  while ((match = literalRe.exec(src))) {
+    const at = match.index;
+    const fenceEnd = coverEnd(fences, at);
+    if (fenceEnd !== -1) {
+      literalRe.lastIndex = fenceEnd;
       continue;
     }
-    const tag = match[1].toLowerCase();
+    if (!match[2]) {
+      found.push([at, literalRe.lastIndex]);
+      continue;
+    }
+    if (isEscaped(src, at)) {
+      literalRe.lastIndex = at + 1;
+      continue;
+    }
+    const tag = match[2].toLowerCase();
     let closeRe = literalCloseRes.get(tag);
     if (!closeRe) {
       closeRe = new RegExp(`\\[/${tag}\\]`, "gi");
       literalCloseRes.set(tag, closeRe);
     }
-    closeRe.lastIndex = blockRe.lastIndex;
+    closeRe.lastIndex = literalRe.lastIndex;
     const close = closeRe.exec(src);
     if (close) {
-      blocks.push([match.index, close.index + close[0].length]);
-      blockRe.lastIndex = closeRe.lastIndex;
+      found.push([at, closeRe.lastIndex]);
+      literalRe.lastIndex = closeRe.lastIndex;
     }
   }
-  const covered = indexRanges([...fences, ...blocks]);
-
-  const spans = [];
-  const spanRe = /(?<!`)(`+)(?!`)(?:(?!\n[ \t]*\n)[\s\S])*?(?<!`)\1(?!`)/g;
-  while ((match = spanRe.exec(src))) {
-    if (!covers(covered, match.index)) {
-      spans.push([match.index, match.index + match[0].length]);
-    }
-  }
-  return indexRanges([...covered, ...spans]);
+  return indexRanges([...fences, ...found]);
 }
 
 // covers() needs ranges sorted by start, with the furthest end so far
@@ -358,6 +421,11 @@ function addRange(ranges, range) {
 
 // `strictly` leaves out each range's first character, a literal tag's opener
 function covers(ranges, pos, strictly = false) {
+  return coverEnd(ranges, pos, strictly) !== -1;
+}
+
+// where the ranges covering `pos` end, or -1
+function coverEnd(ranges, pos, strictly = false) {
   let low = 0;
   let high = ranges.length - 1;
   let last = -1;
@@ -371,7 +439,9 @@ function covers(ranges, pos, strictly = false) {
       high = mid - 1;
     }
   }
-  return last !== -1 && ranges.furthest[last] > pos;
+  return last !== -1 && ranges.furthest[last] > pos
+    ? ranges.furthest[last]
+    : -1;
 }
 
 // not among the rules that end a paragraph: markdown-it reads it from above
@@ -425,6 +495,7 @@ export {
   NOBR_SENTINEL,
   PHANTOM,
   addRange,
+  coverEnd,
   covers,
   literalRanges,
   rangeList,

@@ -7,6 +7,7 @@ import {
   applyEdits,
   covers,
   findClose,
+  isEscaped,
   literalRanges,
   memoFor,
   needsBlocks,
@@ -26,7 +27,6 @@ import {
   brs,
   edgeNewlines,
   flowText,
-  hardenBreaks,
   parseInline,
   pushBreaks,
   pushHtml,
@@ -51,14 +51,19 @@ const NESTING_ONLY = [
   ...Object.values(SPECS).flatMap((spec) => spec.children || []),
 ];
 
+// Inside [nobr] a newline stays a newline, for the browser to show as a space.
+function markNoBreak(token) {
+  token.meta = { ...token.meta, nobr: true };
+}
+
 function markNoBreaks(tokens) {
   for (const token of tokens) {
-    token.meta = { ...token.meta, nobr: true };
-    token.children?.forEach((child) => {
-      child.meta = { ...child.meta, nobr: true };
-    });
+    markNoBreak(token);
+    token.children?.forEach(markNoBreak);
   }
 }
+
+const rawNewlines = (count) => "\n".repeat(count);
 
 // their margin stands for one blank line
 const MARGIN_BLOCKS = [
@@ -108,25 +113,22 @@ function insertBreaks(tokens, Token, lines) {
     return end;
   };
   tokens.forEach((token, index) => {
-    if (token.meta?.br && token.meta.nobr) {
-      return;
-    }
     const isOpener = token.nesting === 1;
     if (token.nesting !== -1 && !token.hidden) {
       // a block of unknown span ends the gap count rather than being skipped
-      if (token.map && isBreakable(token) && !token.meta?.nobr) {
+      if (token.map && isBreakable(token)) {
+        const nobr = !!token.meta?.nobr;
         const last = previous[token.level];
-        if (last) {
-          const count = gapBreaks(
-            token.map[0] - last.end + 1 - last.phantom,
-            last,
-            token
-          );
+        // [nobr] has no element, so its content shares a level with the
+        // blocks around it, but its lines are counted from its own start
+        if (last && last.nobr === nobr) {
+          const gap = token.map[0] - last.end + 1 - last.phantom;
+          const count = nobr ? gap : gapBreaks(gap, last, token);
           if (count > 0) {
             const br = new Token("html_block", "", 0);
             br.block = true;
             br.level = token.level;
-            br.content = brs(count);
+            br.content = nobr ? rawNewlines(count) : brs(count);
             out.push(br);
           }
         }
@@ -147,6 +149,7 @@ function insertBreaks(tokens, Token, lines) {
           phantom,
           margin: MARGIN_BLOCKS.includes(token.type),
           text: token.type === "paragraph_open",
+          nobr,
         };
       } else {
         previous[token.level] = null;
@@ -194,8 +197,10 @@ export function setup(helper) {
       state.src = repairNesting(state.src, isNestable);
       const src = state.src;
       const literal = literalRanges(src);
-      // strictly inside: the literal tag's own opener still gets flattened
-      const inLiteral = (pos) => covers(literal, pos, true);
+      // strictly inside: the literal tag's own opener still gets flattened.
+      // A backslash-escaped tag is text too.
+      const inLiteral = (pos) =>
+        covers(literal, pos, true) || isEscaped(src, pos);
 
       // Core's [url] can't cross a blank line, and a block can't go in an
       // <a>, so tags inside one always flow.
@@ -227,6 +232,9 @@ export function setup(helper) {
         NO_BREAK_RE.lastIndex = 0;
         let nobr;
         while ((nobr = NO_BREAK_RE.exec(src))) {
+          if (inLiteral(nobr.index)) {
+            continue;
+          }
           const info = parseLooseTag(src, nobr.index, isKnown, true);
           const nobrClose =
             info && findClose(src, nobr.index + info.length, info.tag, isKnown);
@@ -267,7 +275,12 @@ export function setup(helper) {
           }
           continue;
         }
-        const alwaysFlow = alwaysFlat(spec) || covers(urlRanges, openAt);
+        // Moving a bare tag onto its own line would show: the spaces around
+        // it would be lost.
+        const alwaysFlow =
+          alwaysFlat(spec) ||
+          covers(urlRanges, openAt) ||
+          (spec.bare && !startsLine);
         // the block rule matches a line-start block tag itself
         const close =
           !startsLine || alwaysFlow || spec.content === "auto"
@@ -474,9 +487,11 @@ export function setup(helper) {
           isKnown,
           state.eMarks[endLine - 1]
         );
-        let lines = sourceClose
-          ? lineAfter(state, startLine, endLine, sourceClose.end)
-          : endLine;
+        // taking out a blockquote's ">" can't create a close
+        if (!sourceClose) {
+          return false;
+        }
+        let lines = lineAfter(state, startLine, endLine, sourceClose.end);
 
         let text = state.getLines(startLine, lines, state.blkIndent, false);
         const lead = text.length - text.trimStart().length;
@@ -486,8 +501,7 @@ export function setup(helper) {
         }
         const offset = state.bMarks[startLine];
         // nothing stripped, such as a blockquote's ">", so positions carry over
-        const unchanged =
-          sourceClose && text.length === state.eMarks[lines - 1] - offset;
+        const unchanged = text.length === state.eMarks[lines - 1] - offset;
         let close = unchanged
           ? { start: sourceClose.start - offset, end: sourceClose.end - offset }
           : findClose(text, lead + info.length, info.tag, isKnown);
@@ -558,21 +572,22 @@ export function setup(helper) {
           }
         } else {
           const noBreaks = spec.lineBreaks === false;
-          const [leading, trailing] =
-            spec.trimInside || noBreaks ? [0, 0] : edgeNewlines(content);
+          const [leading, trailing] = spec.trimInside
+            ? [0, 0]
+            : edgeNewlines(content);
           const open = spec.open(state, info);
           if (open) {
             open.map = map;
           }
           if (noBreaks) {
             pushMarker(state, map);
+            state.env.bbcodeNoBreaks = (state.env.bbcodeNoBreaks || 0) + 1;
           }
           pushBreaks(state, leading);
 
           if (spec.content === "text") {
             const inline = state.push("inline", "", 0);
             inline.content = flowText(content.replace(/^\n|\n$/g, "")).trim();
-            inline.meta = { flow: true };
             inline.children = [];
             inline.map = map;
           } else {
@@ -583,6 +598,9 @@ export function setup(helper) {
             state.tokens.push(...tokens);
           }
           pushBreaks(state, trailing);
+          if (noBreaks) {
+            state.env.bbcodeNoBreaks--;
+          }
           spec.close(state, info);
           if (spec.trimAfter) {
             markTrimAfter(state);
@@ -655,9 +673,7 @@ export function setup(helper) {
         spec.open(state, info);
         sections.forEach((section, index) => {
           spec.sectionOpen(state, section, index, info);
-          const tokens = parseInline(state, flowText(section.body));
-          hardenBreaks(tokens);
-          state.tokens.push(...tokens);
+          state.tokens.push(...parseInline(state, flowText(section.body)));
           spec.sectionClose(state);
         });
         spec.close(state, info);
@@ -665,7 +681,6 @@ export function setup(helper) {
         spec.open(state, info);
         const text = flowText(inner);
         const tokens = parseInline(state, spec.trimInside ? text.trim() : text);
-        hardenBreaks(tokens);
         if (spec.lineBreaks === false) {
           markNoBreaks(tokens);
         }
@@ -687,12 +702,7 @@ export function setup(helper) {
           continue;
         }
         if (token.meta?.nobr) {
-          token.children.forEach((child) => {
-            child.meta = { ...child.meta, nobr: true };
-          });
-        }
-        if (token.meta?.flow) {
-          hardenBreaks(token.children);
+          token.children.forEach(markNoBreak);
         }
       }
     });

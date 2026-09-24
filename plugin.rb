@@ -26,6 +26,7 @@ end
 require_relative "lib/bb_code/engine"
 require_relative "lib/bb_code/css_hotlinked_media"
 require_relative "lib/bb_code/hidden_content"
+require_relative "lib/bb_code/comments"
 
 after_initialize do
   # rebuild the markdown engine with this plugin's rules
@@ -39,6 +40,8 @@ after_initialize do
   ::InlineUploads.singleton_class.prepend(::BbCode::CssHotlinkedMedia::RewriteRawCssUrls)
 
   on(:post_process_cooked) { |doc, post| ::BbCode::CssHotlinkedMedia.rewrite_doc!(doc, post) }
+
+  Plugin::Filter.register(:after_post_cook) { |_post, cooked| ::BbCode::Comments.restore(cooked) }
 
   on(:reduce_excerpt) { |doc, _options| ::BbCode::HiddenContent.reduce_excerpt!(doc) }
   on(:reduce_cooked) { |doc, post| ::BbCode::HiddenContent.reduce_email!(doc, post) }
