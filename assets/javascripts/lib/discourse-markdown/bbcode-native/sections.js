@@ -1,13 +1,20 @@
-// Tags whose body is a list of section children: [tabs]/[tab] and
-// [accordion]/[slide] (both the bracket form and the older {slide=...} form).
+// Tags whose body is a list of sections: [tabs]/[tab] and [accordion]/[slide].
 
 import { defineTags } from "./define";
 import { findClose, parseLooseTag, PHANTOM } from "./scanner";
-import { guidFor, isBlockState } from "./tokens";
+import { guidFor, isBlockState, parseInline } from "./tokens";
 
-// Tags whose body is a list of section children (tabs, accordion slides).
-// Sections are found at the top level of the body only: text and tags nested
-// inside another known tag are that tag's own content.
+// the close of the known tag opening at `index`
+function closeOf(text, index, isKnown) {
+  const info = parseLooseTag(text, index, isKnown, true);
+  return (
+    info &&
+    !info.closing &&
+    findClose(text, index + info.length, info.tag, isKnown)
+  );
+}
+
+// top level only: what's nested in another tag belongs to that tag
 function findTop(content, from, pattern, isKnown) {
   let index = from;
   while (index < content.length) {
@@ -16,18 +23,8 @@ function findTop(content, from, pattern, isKnown) {
     if (match) {
       return { index, text: match[0] };
     }
-    if (content[index] === "[") {
-      const info = parseLooseTag(content, index, isKnown);
-      const close =
-        info &&
-        !info.closing &&
-        findClose(content, index + info.length, info.tag, isKnown);
-      if (close) {
-        index = close.end;
-        continue;
-      }
-    }
-    index++;
+    const close = content[index] === "[" && closeOf(content, index, isKnown);
+    index = close ? close.end : index + 1;
   }
   return null;
 }
@@ -36,33 +33,24 @@ function topLevelText(text, isKnown) {
   let out = "";
   let index = 0;
   while (index < text.length) {
-    if (text[index] === "[") {
-      const info = parseLooseTag(text, index, isKnown);
-      const close =
-        info &&
-        !info.closing &&
-        findClose(text, index + info.length, info.tag, isKnown);
-      if (close) {
-        index = close.end;
-        continue;
-      }
+    const close = text[index] === "[" && closeOf(text, index, isKnown);
+    if (close) {
+      index = close.end;
+    } else {
+      out += text[index++];
     }
-    out += text[index++];
   }
   return out;
 }
 
-// The newline the flatten pass adds before a mid-line block would be a stray
-// line break at the very start of a section.
+// the flatten pass's newline before a mid-line block isn't a line break
 const withoutLeadingPhantom = (text) =>
   text.startsWith(PHANTOM + "\n") ? text.slice(2) : text;
 
-function bracketSection(content, hit, tag, isKnown) {
+function bracketSection(content, hit, isKnown) {
   const info = parseLooseTag(content, hit.index, isKnown);
   const close =
-    info &&
-    !info.closing &&
-    findClose(content, hit.index + info.length, tag, isKnown);
+    info && findClose(content, hit.index + info.length, info.tag, isKnown);
   if (!close) {
     return null;
   }
@@ -81,7 +69,7 @@ function tabSections(content, isKnown) {
   let index = 0;
   let hit;
   while ((hit = findTop(content, index, /\[tab(?=[\]=\s])/iy, known))) {
-    const found = bracketSection(content, hit, "tab", known);
+    const found = bracketSection(content, hit, known);
     if (!found) {
       index = hit.index + 1;
       continue;
@@ -109,7 +97,7 @@ function slideSections(content, isKnown) {
     (hit = findTop(content, index, /\{slide=|\[slide(?=[\]=\s])/iy, known))
   ) {
     if (hit.text[0] === "[") {
-      const found = bracketSection(content, hit, "slide", known);
+      const found = bracketSection(content, hit, known);
       if (!found) {
         index = hit.index + 1;
         continue;
@@ -167,8 +155,7 @@ function slideSections(content, isKnown) {
   return sections;
 }
 
-// Ids only need to be unique within a cook; the per-post suffix keeps them
-// unique across a topic and stable when the post is cooked again.
+// the post suffix keeps ids unique across a topic and stable across rebakes
 function nextGroupId(state) {
   state.env.bbcodeGroups = (state.env.bbcodeGroups || 0) + 1;
   return `${guidFor(state)}-${state.env.bbcodeGroups}`;
@@ -181,12 +168,7 @@ function pushInlineContent(state, text) {
     token.children = [];
     return;
   }
-  const tokens = [];
-  state.md.inline.parse(text, state.md, state.env, tokens);
-  for (const token of tokens) {
-    token.level += state.level;
-  }
-  state.tokens.push(...tokens);
+  state.tokens.push(...parseInline(state, text));
 }
 
 const ACCORDION_ALIGNMENTS = ["bright", "bcenter", "bleft", "fleft", "fright"];

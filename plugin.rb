@@ -28,8 +28,7 @@ require_relative "lib/bb_code/css_hotlinked_media"
 require_relative "lib/bb_code/hidden_content"
 
 after_initialize do
-  # Code which should run after Rails has finished booting
-  # should clear out the context so the initial setup logic for bbcode parser runs
+  # rebuild the markdown engine with this plugin's rules
   PrettyText.reset_context()
 
   unless Rails.env.test?
@@ -47,10 +46,7 @@ after_initialize do
     ::BbCode::HiddenContent.search_text(text, cooked)
   end
 
-  # overrides the default normalize_whitespaces function in discourse/lib/text_cleaner.rb
-  # adds discourse_normalize_whitespace setting (defaults to false)
-  # when true, normalize_whitespace runs as normal
-  # when false, it does nothing, which allows for persistence of non-default whitespace.
+  # with discourse_normalize_whitespace off, titles keep non-standard whitespace
   class ::TextCleaner # rubocop:disable Discourse/Plugins/NoMonkeyPatching
     module Optional_normalize_whitespace
       def title_options

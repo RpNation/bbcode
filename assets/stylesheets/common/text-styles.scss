@@ -1,5 +1,4 @@
-// [b]/[i]/[u]/[s] render a div when their content has markdown blocks; core
-// only styles the span form
+// the div form, around markdown blocks; core only styles the span
 div {
   &.bbcode-b {
     font-weight: bold;

@@ -52,8 +52,14 @@ function elementHooks(element) {
     }
     return token;
   };
+  // open() and close() share `info`, so it's built once
   const build = (state, info) =>
-    element(info.attrs._default, info, isBlockState(state), state);
+    (info.element ??= element(
+      info.attrs._default,
+      info,
+      isBlockState(state),
+      state
+    ));
 
   return {
     open(state, info) {

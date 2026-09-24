@@ -1,10 +1,6 @@
-// Helpers that push markdown-it tokens on behalf of a tag spec: the state.push
-// wrappers every spec (native, wrapper, or section) is built from.
-
 import { NEWLINE_SENTINEL, NOBR_SENTINEL } from "./scanner";
 
-// One suffix per post, so [div class=x] and [class name=x] agree on the class
-// name they scope.
+// one per post, so [div class=x] and [class name=x] scope the same class
 function guidFor(state) {
   if (state.md.options.discourse?.previewing) {
     return "preview";
@@ -13,10 +9,8 @@ function guidFor(state) {
   return state.env.bbcodeGuid;
 }
 
-// Flow content is parsed with its newlines intact, so tags nested in it (which
-// may need the raw text, like [plain]) see it unchanged. Every newline in a
-// flow span is a line break, so the soft breaks the parse produces (one per
-// newline, including blank lines) are turned into hard breaks afterwards.
+// Newlines are kept, so nested tags such as [plain] see the text unchanged;
+// hardenBreaks then makes each one a line break.
 function flowText(text) {
   return text.replaceAll(NOBR_SENTINEL, " ").replaceAll(NEWLINE_SENTINEL, "\n");
 }
@@ -33,16 +27,47 @@ function isBlockState(state) {
   return "bMarks" in state;
 }
 
-function pushHtml(state, html, nesting = 0) {
-  const block = isBlockState(state);
-  const token = state.push(block ? "html_block" : "html_inline", "", nesting);
-  token.content = block && html ? html + "\n" : html || "";
+function pushHtml(state, html) {
+  const token = state.push("html_block", "", 0);
+  token.content = html ? html + "\n" : "";
   return token;
 }
 
-// "literal" tags (plain, icode, fa, ...) push tokens via state.push(type, tag,
-// nesting); at block level there is no inline state to push into yet, so this
-// stands in for one, collecting the tokens their render() produces.
+// capped, so a run of blank lines can't blow up a post
+function brs(count) {
+  return "<br>".repeat(Math.min(count, 20));
+}
+
+function pushBreaks(state, count) {
+  if (count > 0) {
+    pushHtml(state, brs(count)).meta = { br: true };
+  }
+}
+
+// [newlines in the leading whitespace, newlines in the trailing whitespace]
+function edgeNewlines(text) {
+  const count = (edge) => edge.split("\n").length - 1;
+  const trimmed = text.trim();
+  if (!trimmed) {
+    return [count(text), 0];
+  }
+  return [
+    count(text.slice(0, text.length - text.trimStart().length)),
+    count(text.slice(text.trimEnd().length)),
+  ];
+}
+
+function parseInline(state, text) {
+  const tokens = [];
+  state.md.inline.parse(text, state.md, state.env, tokens);
+  for (const token of tokens) {
+    token.level += state.level;
+  }
+  return tokens;
+}
+
+// A literal tag's render() pushes inline tokens; at block level this stands in
+// for the inline state it expects.
 function pushText(state, spec, content, info) {
   const inline = state.push("inline", "", 0);
   inline.content = "";
@@ -64,4 +89,15 @@ function pushText(state, spec, content, info) {
   return inline;
 }
 
-export { guidFor, flowText, hardenBreaks, isBlockState, pushHtml, pushText };
+export {
+  brs,
+  edgeNewlines,
+  flowText,
+  guidFor,
+  hardenBreaks,
+  isBlockState,
+  parseInline,
+  pushBreaks,
+  pushHtml,
+  pushText,
+};

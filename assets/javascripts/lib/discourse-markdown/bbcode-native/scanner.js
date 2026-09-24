@@ -1,21 +1,18 @@
-// Scans raw bbcode text for tag boundaries: the loose (unquoted, multi-line)
-// attribute syntax existing content uses, matching close tags at the right
-// depth, and the spans (code, and the "literal" tags) that must never be
-// re-parsed as bbcode.
+// Finds tags in raw text: their boundaries, their matching closes, and the
+// literal regions no tag is read in.
 
-// stands in for a newline inside spans that must stay in one paragraph, so
-// blank lines don't split them before the inline rule sees them
+// Private-use characters, which real text doesn't contain.
+// a newline inside a span that must stay one paragraph
 const NEWLINE_SENTINEL = String.fromCharCode(0xe000);
-// the same, inside [nobr], where newlines must not become line breaks
+// the same inside [nobr], where it isn't a line break
 const NOBR_SENTINEL = String.fromCharCode(0xe001);
-// marks a line that ends with a newline the flatten pass added, not the author
+// ends a line whose newline the flatten pass added, not the author
 const PHANTOM = String.fromCharCode(0xe002);
 const NAME_RE = /[a-z][a-z0-9]*/iy;
 
-// As existing content expects: everything up to the first "]" is the tag. With no
-// whitespace before the first "=" the remainder is one raw value (this is what
-// lets [div=height:auto; width:100%] work); otherwise it is key=value pairs.
-// With `lengthOnly`, an opening tag's attributes are left unread.
+// Everything up to the first "]" is the tag. With no whitespace before the
+// first "=", the rest is one raw value ([div=height:auto; width:100%]);
+// otherwise it is key=value pairs.
 export function parseLooseTag(src, pos, isKnown, lengthOnly = false) {
   if (src.charCodeAt(pos) !== 0x5b) {
     return null;
@@ -40,13 +37,7 @@ export function parseLooseTag(src, pos, isKnown, lengthOnly = false) {
       : null;
   }
   if (next === "]") {
-    return {
-      tag,
-      closing: false,
-      attrs: {},
-      length: afterName + 1 - pos,
-      raw: src.slice(pos, afterName + 1),
-    };
+    return { tag, closing: false, attrs: {}, length: afterName + 1 - pos };
   }
   if (next !== "=" && !/\s/.test(next || "")) {
     return null;
@@ -94,42 +85,49 @@ export function parseLooseTag(src, pos, isKnown, lengthOnly = false) {
       }
     }
   }
-  return { tag, closing: false, attrs, length: end - pos + 1, raw };
+  return { tag, closing: false, attrs, length: end - pos + 1 };
 }
 
-// Fenced code, core's [code] and the "literal" tags are all literal text at the
-// same priority: none of them is re-parsed as bbcode, and none of them is aware
-// of bbcode nested inside the others.
+// with fenced code, never read as bbcode
 let literalTags = ["code"];
-// Literal regions and matched closes by source text: several rules scan the
-// same text within one cook, markdown-it's checks for the end of a paragraph
-// many times over. Kept small, as each entry holds its text.
+// Results per source text: several rules scan the same text in one cook, and
+// markdown-it checks the same lines many times. Emptied per cook.
 const textCache = new Map();
 const TEXT_CACHE_SIZE = 20;
 const closeRes = new Map();
+const literalCloseRes = new Map();
 
 export function setLiteralTags(tags) {
   literalTags = ["code", ...tags];
   textCache.clear();
 }
 
-// Depth-aware search for the matching close tag. Returns null when the tag is
-// never closed, so the caller refuses and the text is left untouched.
+export function resetTextCache() {
+  textCache.clear();
+}
+
+// The matching close, counting nested tags of the same name; null when never
+// closed, which leaves the tag as text.
 export function findClose(src, from, tag, isKnown, limit = src.length) {
-  // of the predicate, only whether `tag` itself is known changes the result
-  const closes = cachedFor(src).closes;
-  const key = `${tag}:${from}:${isKnown(tag)}`;
-  let close = closes.get(key);
-  if (close === undefined) {
-    close = scanForClose(src, from, tag, isKnown);
-    closes.set(key, close);
-  }
+  // only isKnown(tag) affects the result
+  const close = memoFor(src, `close:${tag}:${from}:${isKnown(tag)}`, () =>
+    scanForClose(src, from, tag, isKnown)
+  );
   return close && close.start < limit ? close : null;
 }
 
+export function memoFor(src, key, compute) {
+  const memo = cachedFor(src).memo;
+  let value = memo.get(key);
+  if (value === undefined) {
+    value = compute();
+    memo.set(key, value);
+  }
+  return value;
+}
+
 function scanForClose(src, from, tag, isKnown) {
-  // text shown as a literal example (e.g. "[nobr]" inside [plain]) must not
-  // count as a real occurrence of the tag being searched for
+  // a "[nobr]" shown inside [plain] isn't a real one
   const skip = literalTags.includes(tag) ? [] : literalRanges(src);
   const inSkip = (pos) => covers(skip, pos);
   let re = closeRes.get(tag);
@@ -162,10 +160,9 @@ function scanForClose(src, from, tag, isKnown) {
   return null;
 }
 
-// Rewrites mis-nested tags so every tag closes inside its parent: an inner
-// tag still open when its parent closes is closed there, and its own later
-// close is dropped, so `[b][i]x[/b] y[/i]` reads `[b][i]x[/i][/b] y`. Tags
-// that are never closed, and closes that match nothing, are left alone.
+// An inner tag still open when its parent closes is closed there and its own
+// close dropped: `[b][i]x[/b] y[/i]` reads `[b][i]x[/i][/b] y`. Unclosed tags
+// and unmatched closes are left alone.
 export function repairNesting(src, isKnown) {
   const literal = literalRanges(src);
   const inLiteral = (pos) => covers(literal, pos);
@@ -196,7 +193,7 @@ export function repairNesting(src, isKnown) {
     }
   }
 
-  // closed at all, the way findClose pairs them: by name and depth
+  // paired as findClose pairs them: by name and depth
   const closed = new Set();
   const byName = {};
   for (const item of tags) {
@@ -239,12 +236,19 @@ export function repairNesting(src, isKnown) {
     }
   }
 
-  let out = src;
-  for (const edit of edits.reverse()) {
-    out =
-      out.slice(0, edit.at) + edit.insert + out.slice(edit.at + edit.remove);
+  return applyEdits(src, edits);
+}
+
+// Edits at the same position go in the reverse of the order they were added.
+export function applyEdits(src, edits) {
+  const parts = [];
+  let pos = 0;
+  for (const edit of edits.reverse().sort((a, b) => a.at - b.at)) {
+    parts.push(src.slice(pos, edit.at), edit.insert);
+    pos = Math.max(pos, edit.at + edit.remove);
   }
-  return out;
+  parts.push(src.slice(pos));
+  return parts.join("");
 }
 
 function fenceRanges(src) {
@@ -273,8 +277,7 @@ function fenceRanges(src) {
   return ranges;
 }
 
-// Text that is shown as written: tags inside it must not be looked at at all.
-// Callers must not modify the ranges returned, as they are shared.
+// Shared: callers must not modify the ranges.
 function literalRanges(src) {
   const entry = cachedFor(src);
   entry.ranges ??= findLiteralRanges(src);
@@ -284,11 +287,10 @@ function literalRanges(src) {
 function cachedFor(src) {
   let entry = textCache.get(src);
   if (entry) {
-    // most recently used last, so a whole post outlives the many tag contents
-    // parsed in between
+    // most recently used last, so the post outlives the tag contents
     textCache.delete(src);
   } else {
-    entry = { ranges: null, closes: new Map() };
+    entry = { ranges: null, memo: new Map() };
     if (textCache.size >= TEXT_CACHE_SIZE) {
       textCache.delete(textCache.keys().next().value);
     }
@@ -297,45 +299,64 @@ function cachedFor(src) {
   return entry;
 }
 
+// Matches of one kind never overlap, so only earlier kinds can cover a match.
 function findLiteralRanges(src) {
-  const ranges = fenceRanges(src);
-  const covered = (pos) => ranges.some(([from, to]) => pos >= from && pos < to);
+  const fences = indexRanges(fenceRanges(src));
 
+  const blocks = [];
   const blockRe = new RegExp(
     `\\[(${literalTags.join("|")})(?=[\\]=\\s])[^\\]]*\\]`,
     "gi"
   );
   let match;
   while ((match = blockRe.exec(src))) {
-    if (covered(match.index)) {
+    if (covers(fences, match.index)) {
       continue;
     }
-    const closeRe = new RegExp(`\\[/${match[1]}\\]`, "gi");
+    const tag = match[1].toLowerCase();
+    let closeRe = literalCloseRes.get(tag);
+    if (!closeRe) {
+      closeRe = new RegExp(`\\[/${tag}\\]`, "gi");
+      literalCloseRes.set(tag, closeRe);
+    }
     closeRe.lastIndex = blockRe.lastIndex;
     const close = closeRe.exec(src);
     if (close) {
-      ranges.push([match.index, close.index + close[0].length]);
+      blocks.push([match.index, close.index + close[0].length]);
       blockRe.lastIndex = closeRe.lastIndex;
     }
   }
+  const covered = indexRanges([...fences, ...blocks]);
 
+  const spans = [];
   const spanRe = /(?<!`)(`+)(?!`)(?:(?!\n[ \t]*\n)[\s\S])*?(?<!`)\1(?!`)/g;
   while ((match = spanRe.exec(src))) {
-    if (!covered(match.index)) {
-      ranges.push([match.index, match.index + match[0].length]);
+    if (!covers(covered, match.index)) {
+      spans.push([match.index, match.index + match[0].length]);
     }
   }
+  return indexRanges([...covered, ...spans]);
+}
 
-  // sorted by start, with the furthest end reached so far at each index, for
-  // covers()
+// covers() needs ranges sorted by start, with the furthest end so far
+function indexRanges(ranges) {
   ranges.sort((a, b) => a[0] - b[0]);
   let furthest = -1;
   ranges.furthest = ranges.map(([, to]) => (furthest = Math.max(furthest, to)));
   return ranges;
 }
 
-// Whether a literal range covers `pos`. `strictly` leaves out a range's first
-// character, so a literal tag's own opener doesn't count as inside it.
+// for ranges added in order of their start
+function rangeList() {
+  return Object.assign([], { furthest: [] });
+}
+
+function addRange(ranges, range) {
+  ranges.push(range);
+  ranges.furthest.push(Math.max(ranges.furthest.at(-1) ?? -1, range[1]));
+}
+
+// `strictly` leaves out each range's first character, a literal tag's opener
 function covers(ranges, pos, strictly = false) {
   let low = 0;
   let high = ranges.length - 1;
@@ -353,28 +374,25 @@ function covers(ranges, pos, strictly = false) {
   return last !== -1 && ranges.furthest[last] > pos;
 }
 
-// markdown-it reads a setext underline from the line above it, so it isn't
-// one of the rules that interrupt a paragraph
+// not among the rules that end a paragraph: markdown-it reads it from above
 const SETEXT_RE = /^ {0,3}(?:=+|-+)[ \t]*$/;
 
-// Whether a tag's content spans lines and has a line markdown reads as a
-// block, so an inline tag around it must render it as blocks. `rules` are the
-// block rules that can end a paragraph, run as markdown-it runs them, so
-// blocks other plugins add count too. The first line only counts when the tag
-// starts its own line.
+// Whether an inline tag's content has a line markdown reads as a block, asked
+// of the rules that can end a paragraph (`rules`), so other plugins' blocks
+// count. The first line counts only when the tag starts its own line.
 export function needsBlocks(content, startsLine, parent, rules) {
   if (!content.includes("\n")) {
     return false;
   }
   const literal = literalRanges(content);
-  // a literal span's own opening line still counts (a fence or [code])
+  // a fence or [code]'s own opening line still counts
   const inLiteral = (pos) => covers(literal, pos, true);
   const state = new parent.md.block.State(content, parent.md, parent.env, []);
   for (let line = startsLine ? 0 : 1; line < state.lineMax; line++) {
     if (state.isEmpty(line) || inLiteral(state.bMarks[line])) {
       continue;
     }
-    // everything before the first block found is paragraph text
+    // everything before the first block is paragraph text
     const afterText = line > 0 && !state.isEmpty(line - 1);
     const text = content.slice(state.bMarks[line], state.eMarks[line]);
     if (afterText && SETEXT_RE.test(text)) {
@@ -389,7 +407,12 @@ export function needsBlocks(content, startsLine, parent, rules) {
   return false;
 }
 
+const MARKER_RE = new RegExp(`[${NEWLINE_SENTINEL}${NOBR_SENTINEL}${PHANTOM}]`);
+
 function restoreNewlines(text) {
+  if (!MARKER_RE.test(text)) {
+    return text;
+  }
   return text
     .replaceAll(PHANTOM + "\n", "")
     .replaceAll(NEWLINE_SENTINEL, "\n")
@@ -401,7 +424,9 @@ export {
   NEWLINE_SENTINEL,
   NOBR_SENTINEL,
   PHANTOM,
+  addRange,
   covers,
   literalRanges,
+  rangeList,
   restoreNewlines,
 };

@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-# Keeps text readers never see out of excerpts, emails and the search index.
-# <template>s ([class] CSS, [script]s) never display anything, but core's text
-# extraction reads them like any element. Spoilers are hidden from excerpts and
-# emails the way core's own spoilers are, and stay searchable like them.
+# Core's text extraction reads <template>s ([class] CSS, [script]s) like any
+# element, so they are removed from excerpts, emails and search. Spoilers are
+# hidden from excerpts and emails, and stay searchable, like core's spoilers.
 module ::BbCode
   module HiddenContent
     INLINE_SPOILER = ".bb-inline-spoiler"
@@ -24,8 +23,7 @@ module ::BbCode
         end
     end
 
-    # Rebuilt from the cooked HTML without templates, keeping what other
-    # modifiers appended (discourse-ai's image captions).
+    # keeps what other modifiers appended (discourse-ai's image captions)
     def self.search_text(text, cooked)
       return text if !cooked&.include?("<template")
       doc = Nokogiri::HTML5.fragment(cooked)

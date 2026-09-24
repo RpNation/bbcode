@@ -2,8 +2,7 @@ import { setupTest } from "ember-qunit";
 import { module, test } from "qunit";
 import { cook } from "discourse/lib/text";
 
-// Expected output is what the server cooks (spec/lib/native_tags_spec.rb), so
-// the composer preview can't drift from the post.
+// the server's output, so the composer preview can't drift from the post
 module("Unit | Lib | bbcode-native", function (hooks) {
   setupTest(hooks);
 

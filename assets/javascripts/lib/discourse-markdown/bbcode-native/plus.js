@@ -1,7 +1,5 @@
-// BBCode+ data tags: [class] and [animation] add CSS and [script] adds a
-// script, all scoped to the post and emitted once as templates at the top of
-// it (see bbcodePlusTemplates); [fa] is an icon. Their content is never parsed
-// as bbcode.
+// BBCode+ data tags: [class]/[animation] CSS and [script]s, scoped to the post
+// and emitted once at its top, and [fa] icons. Their content isn't bbcode.
 
 import { defineTags } from "./define";
 import { findClose, parseLooseTag } from "./scanner";
@@ -38,14 +36,7 @@ const cssBody = (text) => text.replaceAll(/[[\]{}]/g, "");
 
 const styles = (state) => (state.env.bbcodeStyles ||= []);
 
-function escapeAttr(value) {
-  return String(value)
-    .replaceAll("&", "&amp;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("<", "&lt;");
-}
-
-// The [keyframe] tags directly inside an [animation]; anything else is ignored
+// only [keyframe]s count; anything else inside [animation] is dropped
 function keyframes(content) {
   const isKeyframe = (tag) => tag === "keyframe";
   const re = /\[keyframe(?=[\]=\s])/gi;
@@ -140,11 +131,12 @@ const PLUS_TAGS = defineTags({
   },
 });
 
-// The templates holding the post's [class]/[animation] CSS and [script]s
-function bbcodePlusTemplates(env) {
+function bbcodePlusTemplates(state) {
+  const env = state.env;
+  const escape = (value) => state.md.utils.escapeHtml(String(value));
   const scripts = (env.bbcodeScripts || []).map(
     (script) =>
-      `<template data-bbcode-plus="script" data-bbscript-id="${escapeAttr(script.id)}" data-bbscript-class="${escapeAttr(script.class)}" data-bbscript-on="${escapeAttr(script.on)}" data-bbscript-ver="${escapeAttr(script.version)}">${script.content}</template>`
+      `<template data-bbcode-plus="script" data-bbscript-id="${escape(script.id)}" data-bbscript-class="${escape(script.class)}" data-bbscript-on="${escape(script.on)}" data-bbscript-ver="${escape(script.version)}">${script.content}</template>`
   );
   const css = env.bbcodeStyles?.length
     ? `<template data-bbcode-plus="class">${env.bbcodeStyles.join("\n")}</template>`

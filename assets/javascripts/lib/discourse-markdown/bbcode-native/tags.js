@@ -1,6 +1,5 @@
-// The bbcode tags, one definition each (see define.js for the format).
-// Structural tags with child sections live in sections.js, and the BBCode+
-// data tags ([class], [script], ...) in plus.js.
+// Tag definitions (format in define.js); section tags are in sections.js and
+// BBCode+ data tags in plus.js.
 
 import { defineTags, div, el, whole } from "./define";
 import { parseLooseTag } from "./scanner";
@@ -83,8 +82,7 @@ function fontAxes(attrs) {
   return axes;
 }
 
-// The client adds one stylesheet link per distinct `data-font` in a post, so
-// nothing needs to be collected here.
+// the client loads each distinct data-font once per post
 function fontElement(attrs, block) {
   const tag = block ? "div" : "span";
   const family = (attrs._default || attrs.family || attrs.name || "").trim();
@@ -119,11 +117,6 @@ function fontElement(attrs, block) {
   };
 }
 
-// Nothing inside may close the comment early: "-->" and "--!>" both need ">".
-const escapeComment = (text) =>
-  text.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
-
-// Google fonts named by [font] tags inside a comment
 function commentFonts(content) {
   const urls = new Set();
   const isFont = (tag) => tag === "font";
@@ -268,8 +261,7 @@ const TAGS = defineTags({
     element: (value) =>
       div({ class: "bb-scroll", style: `height: ${parseHeight(value)}px` }),
   },
-  // a full-width rule: block-level like [center]/[border], not inline like
-  // [color]/[size]
+  // a full-width rule, so a block
   divide: {
     content: "blocks",
     element: (value) =>
@@ -514,8 +506,7 @@ const TAGS = defineTags({
         if (index) {
           state.push("hardbreak", "br", 0);
         }
-        // not "text": emoji, mentions, hashtags and links are made from text
-        // tokens, and plain text shows exactly as written
+        // not "text", which emoji, mentions, hashtags and links are made from
         state.push("bbcode_plain_text", "", 0).content = line;
       });
     },
@@ -523,20 +514,17 @@ const TAGS = defineTags({
   icode: {
     content: "literal",
     render(state, content) {
-      // without the newlines the tags sit on, as core does for [code]
+      // without the tags' own newlines, as core does for [code]
       state.push("code_inline", "code", 0).content = content.replace(
         /^\n|\n$/g,
         ""
       );
     },
   },
-  // An HTML comment, as XenForo renders it: never shown and not in the DOM.
-  // Authors also use [font] inside a comment just to load a font, so each
-  // Google font named inside still gets an empty element the client's font
-  // loader picks up.
+  // An HTML comment, as XenForo renders it. Fonts named inside still load:
+  // authors use [font] in a comment just for that.
   comment: {
     content: "literal",
-    // stays in its paragraph, like the inline tags it used to be grouped with
     inlineOnly: true,
     render(state, content) {
       for (const url of commentFonts(content)) {
@@ -545,8 +533,9 @@ const TAGS = defineTags({
           .attrSet("data-font", url);
         state.push("bbcode_font_loader_close", "span", -1);
       }
+      // escaped, so a "-->" inside can't end it
       state.push("html_raw", "", 0).content =
-        `<!--${escapeComment(content)}-->`;
+        `<!--${state.md.utils.escapeHtml(content)}-->`;
     },
   },
 });

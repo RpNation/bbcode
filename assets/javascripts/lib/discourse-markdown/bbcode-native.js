@@ -1,31 +1,34 @@
-// Native bbcode rules for markdown-it. Tags are found by a scanner that accepts
-// the loose attribute syntax existing content uses, and each tag is rendered as
-// its definition says (see ./bbcode-native/define.js for the format, and
-// ./bbcode-native/tags.js for the tags).
-//
-// This file wires the definitions into markdown-it's block/inline/core rulers.
-// Self-contained on purpose: plugin markdown modules can't import core helpers
-// such as parseBBCodeTag.
+// bbcode as markdown-it rules; the tag definitions are in ./bbcode-native/.
+// Plugin markdown modules can't import core helpers such as parseBBCodeTag.
 
 import { bbcodePlusTemplates, PLUS_TAGS } from "./bbcode-native/plus";
 import {
+  addRange,
+  applyEdits,
   covers,
   findClose,
   literalRanges,
+  memoFor,
   needsBlocks,
   NEWLINE_SENTINEL,
   NOBR_SENTINEL,
   parseLooseTag,
   PHANTOM,
+  rangeList,
   repairNesting,
+  resetTextCache,
   restoreNewlines,
   setLiteralTags,
 } from "./bbcode-native/scanner";
 import { SECTION_TAGS } from "./bbcode-native/sections";
 import { TAGS } from "./bbcode-native/tags";
 import {
+  brs,
+  edgeNewlines,
   flowText,
   hardenBreaks,
+  parseInline,
+  pushBreaks,
   pushHtml,
   pushText,
 } from "./bbcode-native/tokens";
@@ -33,19 +36,20 @@ import {
 const SPECS = { ...TAGS, ...SECTION_TAGS, ...PLUS_TAGS };
 const tagsWhere = (test) =>
   Object.keys(SPECS).filter((tag) => test(SPECS[tag]));
-// tags whose newlines are not line breaks ([nobr])
+const openerRe = (tags) =>
+  new RegExp(`\\[(${tags.join("|")})(?=[\\]=\\s])`, "gi");
+const OPEN_RE = openerRe(Object.keys(SPECS));
 const NO_BREAK_TAGS = tagsWhere((spec) => spec.lineBreaks === false);
+const NO_BREAK_RE = NO_BREAK_TAGS.length ? openerRe(NO_BREAK_TAGS) : null;
 setLiteralTags(tagsWhere((spec) => spec.content === "literal"));
 
-// Core's tags and section children: not rendered by these rules, but their
-// closes still close the tags nested in them
+// not rendered here, but their closes still close the tags nested inside
 const NESTING_ONLY = [
   "url",
   "quote",
   ...Object.values(SPECS).flatMap((spec) => spec.children || []),
 ];
 
-// every token of a tag with `lineBreaks: false`
 function markNoBreaks(tokens) {
   for (const token of tokens) {
     token.meta = { ...token.meta, nobr: true };
@@ -55,7 +59,7 @@ function markNoBreaks(tokens) {
   }
 }
 
-// Markdown blocks whose margin already stands for one blank line around them
+// their margin stands for one blank line
 const MARGIN_BLOCKS = [
   "heading_open",
   "bullet_list_open",
@@ -73,9 +77,8 @@ const isBreakable = (token) =>
   (token.nesting === 1 &&
     (token.type.startsWith("bbcode_") || token.type === "html_block"));
 
-// The line breaks for `newlines` newlines between two blocks. Next to a
-// markdown block, its margin replaces one blank line; a break right after text
-// only ends that line, so it doesn't show.
+// Next to a markdown block its margin replaces one blank line, and a break
+// right after text only ends that line.
 function gapBreaks(newlines, last, token) {
   if (!last.margin && !MARGIN_BLOCKS.includes(token.type)) {
     return newlines;
@@ -83,17 +86,16 @@ function gapBreaks(newlines, last, token) {
   return newlines < 2 ? 0 : newlines - 2 + (last.text ? 1 : 0);
 }
 
-// the close a tag just pushed, for bbcode-native-trim-after
-function markTrimAfter(state, spec) {
+// read by bbcode-native-trim-after
+function markTrimAfter(state) {
   const close = state.tokens.at(-1);
-  if (spec.trimAfter && close) {
+  if (close) {
     close.meta = { ...close.meta, trimAfter: true };
   }
 }
 
-// Existing content writes every newline as a line break. Text inside a
-// paragraph gets them from `breaks`; the newlines between two blocks are worked
-// out from where the blocks sit in the source.
+// Every newline is a line break: `breaks` covers those inside a paragraph, and
+// the ones between blocks are counted from the blocks' source lines.
 function insertBreaks(tokens, Token, lines) {
   const out = [];
   const previous = [];
@@ -123,7 +125,7 @@ function insertBreaks(tokens, Token, lines) {
             const br = new Token("html_block", "", 0);
             br.block = true;
             br.level = token.level;
-            br.content = "<br>".repeat(Math.min(count, 20));
+            br.content = brs(count);
             out.push(br);
           }
         }
@@ -158,7 +160,7 @@ function insertBreaks(tokens, Token, lines) {
 }
 
 const specFor = (tag) => SPECS[tag];
-// spans that stay in one paragraph however many blank lines they contain
+// never split by blank lines
 const alwaysFlat = (spec) =>
   spec.content === "inline" || spec.content === "literal";
 
@@ -169,14 +171,12 @@ export function setup(helper) {
 
   helper.registerPlugin((md) => {
     const isKnown = (tag) => Object.hasOwn(SPECS, tag);
-    // our tags, plus core's and the section children they commonly nest in
     const isNestable = (tag) => isKnown(tag) || NESTING_ONLY.includes(tag);
 
     // deeply indented bbcode must not become code blocks
     md.disable("code");
 
-    // Existing content writes every newline as a line break, and a blank line
-    // as two, with no paragraphs.
+    // as XenForo renders posts: every newline a line break, no paragraphs
     md.set({ breaks: true });
     md.renderer.rules.paragraph_close = () => "";
     md.renderer.rules.paragraph_open = () => "";
@@ -185,32 +185,19 @@ export function setup(helper) {
     md.renderer.rules.bbcode_plain_text = (tokens, idx) =>
       md.utils.escapeHtml(tokens[idx].content);
 
-    // Blank lines would end the paragraph before the inline rule can see a
-    // span that is flow text, so every newline inside one is swapped for a
-    // sentinel first. A container that spans lines but starts mid-line is a
-    // block wherever it starts, so it is moved onto its own line instead.
+    // Newlines inside flow spans become sentinels, so a blank line can't end
+    // the paragraph before the inline rule sees the span. A multi-line block
+    // tag starting mid-line is moved onto its own line instead.
     md.core.ruler.after("normalize", "bbcode-native-flatten", (state) => {
+      resetTextCache();
       state.src = repairNesting(state.src, isNestable);
       const src = state.src;
-      const openRe = new RegExp(
-        `\\[(${Object.keys(SPECS).join("|")})(?=[\\]=\\s])`,
-        "gi"
-      );
       const literal = literalRanges(src);
-      // ranges added in order of where they start, looked up with covers()
-      const rangeList = () => Object.assign([], { furthest: [] });
-      const addRange = (ranges, range) => {
-        ranges.push(range);
-        ranges.furthest.push(Math.max(ranges.furthest.at(-1) ?? -1, range[1]));
-      };
       // strictly inside: the literal tag's own opener still gets flattened
       const inLiteral = (pos) => covers(literal, pos, true);
 
-      // [url] is core's own inline-only tag: its content can never cross a
-      // blank line, even with the plugin disabled entirely. A native
-      // container nested inside one must stay flow (flattened), the same as
-      // it already is inside [b]/[color]/etc, or a blank line inside it would
-      // both break [url]'s own matching and put a block element inside an <a>.
+      // Core's [url] can't cross a blank line, and a block can't go in an
+      // <a>, so tags inside one always flow.
       const isUrlTag = (tag) => tag === "url";
       const urlRanges = rangeList();
       const urlRe = /\[url(?=[\]=\s])/gi;
@@ -219,8 +206,8 @@ export function setup(helper) {
         if (inLiteral(urlMatch.index)) {
           continue;
         }
-        const info = parseLooseTag(src, urlMatch.index, isUrlTag);
-        if (!info || info.closing) {
+        const info = parseLooseTag(src, urlMatch.index, isUrlTag, true);
+        if (!info) {
           continue;
         }
         const close = findClose(
@@ -235,14 +222,11 @@ export function setup(helper) {
       }
 
       const nobrRanges = rangeList();
-      if (NO_BREAK_TAGS.length) {
-        const nobrRe = new RegExp(
-          `\\[(${NO_BREAK_TAGS.join("|")})(?=[\\]=\\s])`,
-          "gi"
-        );
+      if (NO_BREAK_RE) {
+        NO_BREAK_RE.lastIndex = 0;
         let nobr;
-        while ((nobr = nobrRe.exec(src))) {
-          const info = parseLooseTag(src, nobr.index, isKnown);
+        while ((nobr = NO_BREAK_RE.exec(src))) {
+          const info = parseLooseTag(src, nobr.index, isKnown, true);
           const nobrClose =
             info && findClose(src, nobr.index + info.length, info.tag, isKnown);
           if (nobrClose) {
@@ -254,21 +238,36 @@ export function setup(helper) {
       const flattened = rangeList();
       const edits = [];
       let match;
-      while ((match = openRe.exec(src))) {
+      OPEN_RE.lastIndex = 0;
+      while ((match = OPEN_RE.exec(src))) {
         const openAt = match.index;
         if (inLiteral(openAt)) {
           continue;
         }
-        const info = parseLooseTag(src, openAt, isKnown);
-        if (!info || info.closing) {
+        const info = parseLooseTag(src, openAt, isKnown, true);
+        if (!info) {
           continue;
         }
         const spec = specFor(info.tag);
-        const lineStart = src.lastIndexOf("\n", openAt - 1) + 1;
-        const startsLine = /^[ \t]*$/.test(src.slice(lineStart, openAt));
+        let lineStart = openAt;
+        while (src[lineStart - 1] === " " || src[lineStart - 1] === "\t") {
+          lineStart--;
+        }
+        const startsLine = lineStart === 0 || src[lineStart - 1] === "\n";
+        // inside a flattened span, only how far the tag reaches matters
+        if (!startsLine && covers(flattened, openAt)) {
+          const close = findClose(src, openAt + info.length, info.tag, isKnown);
+          if (close && src.slice(openAt, close.start).includes("\n")) {
+            addRange(flattened, [
+              openAt,
+              close.start,
+              covers(nobrRanges, openAt) ? NOBR_SENTINEL : NEWLINE_SENTINEL,
+            ]);
+          }
+          continue;
+        }
         const alwaysFlow = alwaysFlat(spec) || covers(urlRanges, openAt);
-        // a line-start block container needs no close here: the block rule
-        // finds it
+        // the block rule matches a line-start block tag itself
         const close =
           !startsLine || alwaysFlow || spec.content === "auto"
             ? findClose(src, openAt + info.length, info.tag, isKnown)
@@ -286,8 +285,7 @@ export function setup(helper) {
               )
             ));
         if (startsLine && !flat) {
-          // markdown-it never lets a line indented 4+ spaces interrupt a
-          // paragraph, and indentation carries no meaning here
+          // a line indented 4+ spaces can't interrupt a paragraph
           if (openAt > lineStart) {
             edits.push({
               at: lineStart,
@@ -300,7 +298,7 @@ export function setup(helper) {
         if (!close) {
           continue;
         }
-        // the opener's own attribute value can contain blank lines too
+        // counts newlines in the opener's attribute value too
         if (!src.slice(openAt, close.start).includes("\n")) {
           continue;
         }
@@ -314,9 +312,8 @@ export function setup(helper) {
         addRange(flattened, [openAt, close.start, sentinel]);
       }
 
-      // Core renders a [code] spanning lines as a code block only when its
-      // tags sit on lines of their own; XenForo always does, so they are given
-      // their own lines. Mid-line, the one added before it isn't the author's.
+      // Core renders a multi-line [code] as a block only when its tags are on
+      // their own lines; XenForo always does.
       const codeRe = /\[code(?=[\]=\s])[^\]]*\]/gi;
       const lowerSrc = src.toLowerCase();
       while ((match = codeRe.exec(src))) {
@@ -349,9 +346,7 @@ export function setup(helper) {
         codeRe.lastIndex = closeEnd;
       }
 
-      // Built in one pass each, as posts can be long. Where flattened spans
-      // overlap, the one opened first picks the sentinel; edits at the same
-      // position go in the reverse of the order they were added.
+      // where flattened spans overlap, the first one opened picks the sentinel
       const flatParts = [];
       let done = 0;
       for (const [from, to, sentinel] of flattened) {
@@ -365,16 +360,7 @@ export function setup(helper) {
         }
       }
       flatParts.push(src.slice(done));
-      const out = flatParts.join("");
-
-      const edited = [];
-      let pos = 0;
-      for (const edit of edits.reverse().sort((a, b) => a.at - b.at)) {
-        edited.push(out.slice(pos, edit.at), edit.insert);
-        pos = Math.max(pos, edit.at + edit.remove);
-      }
-      edited.push(out.slice(pos));
-      state.src = edited.join("");
+      state.src = applyEdits(flatParts.join(""), edits);
     });
 
     md.core.ruler.after("block", "bbcode-native-breaks", (state) => {
@@ -385,8 +371,7 @@ export function setup(helper) {
       );
     });
 
-    // Core's own block bbcode ([quote], [code], ...) doesn't record which
-    // lines it covers, which the line breaks around it are counted from.
+    // core's block bbcode sets no token.map, which the line-break count needs
     const coreRule = md.block.ruler.__rules__.find(
       (rule) => rule.name === "bbcode"
     );
@@ -407,7 +392,7 @@ export function setup(helper) {
               state.bMarks[startLine] + state.tShift[startLine]
             );
             if (/^\[quote(?=[\]=\s])/i.test(opener)) {
-              markTrimAfter(state, { trimAfter: true });
+              markTrimAfter(state);
             }
           }
           return true;
@@ -425,15 +410,25 @@ export function setup(helper) {
       return tokens;
     };
 
-    // one line of content: read as text, like a paragraph, but never as
-    // markdown blocks
-    const lineTokens = (state, text) => {
+    // content on the same line as both tags is never markdown blocks:
+    // [div]+[/div] is a "+", not a list
+    const contentTokens = (state, text) => {
+      if (text.includes("\n")) {
+        return parseBlocks(state, text.trim());
+      }
       const inline = new state.Token("inline", "", 0);
       inline.content = text.trim();
       inline.children = [];
       inline.level = state.level;
       inline.block = true;
       return [inline];
+    };
+
+    // the line breaks around a [nobr] block are counted from these
+    const pushMarker = (state, map) => {
+      const marker = pushHtml(state, "");
+      marker.map = map;
+      marker.meta = { breakable: true };
     };
 
     // the first line after the one `pos` is on
@@ -455,17 +450,15 @@ export function setup(helper) {
       "fence",
       "bbcode-native-block",
       (state, startLine, endLine, silent) => {
-        // no indentation limit: indented code blocks are disabled for bbcode
+        // any indentation: code blocks are disabled
         const first = state.bMarks[startLine] + state.tShift[startLine];
         if (state.src.charCodeAt(first) !== 0x5b) {
           return false;
         }
 
-        // This runs for every line starting with "[", including each time
-        // markdown-it checks whether a paragraph ends there, so the tag is
-        // matched in the source first and only the lines up to its close are
-        // copied out.
-        const opener = parseLooseTag(state.src, first, isKnown);
+        // Runs for every "[" line, each paragraph-end check included, so the
+        // tag is matched in the source and only its own lines are copied.
+        const opener = parseLooseTag(state.src, first, isKnown, true);
         if (!opener || opener.closing) {
           return false;
         }
@@ -480,7 +473,7 @@ export function setup(helper) {
           isKnown,
           state.eMarks[endLine - 1]
         );
-        const lines = sourceClose
+        let lines = sourceClose
           ? lineAfter(state, startLine, endLine, sourceClose.end)
           : endLine;
 
@@ -491,38 +484,34 @@ export function setup(helper) {
           return false;
         }
         const offset = state.bMarks[startLine];
-        // the lines as they are in the source: nothing stripped from them
+        // nothing stripped, such as a blockquote's ">", so positions carry over
         const unchanged =
           sourceClose && text.length === state.eMarks[lines - 1] - offset;
         let close = unchanged
           ? { start: sourceClose.start - offset, end: sourceClose.end - offset }
           : findClose(text, lead + info.length, info.tag, isKnown);
-        // container markers (a blockquote's ">") are only in the source
         if (!close && lines < endLine) {
-          text = state.getLines(startLine, endLine, state.blkIndent, false);
+          lines = endLine;
+          text = state.getLines(startLine, lines, state.blkIndent, false);
           close = findClose(text, lead + info.length, info.tag, isKnown);
         }
         if (!close) {
           return false;
         }
+        const content = text.slice(lead + info.length, close.start);
+        // markdown-it asks about the same line more than once
         if (
           spec.content === "auto" &&
-          !needsBlocks(
-            text.slice(lead + info.length, close.start),
-            true,
-            state,
-            blockStarts()
+          !memoFor(
+            state.src,
+            `blocks:${startLine}:${lines}:${state.blkIndent}`,
+            () => needsBlocks(content, true, state, blockStarts())
           )
         ) {
           return false;
         }
         const sections =
-          spec.content === "sections"
-            ? spec.sections(
-                text.slice(lead + info.length, close.start),
-                isKnown
-              )
-            : null;
+          spec.content === "sections" ? spec.sections(content, isKnown) : null;
         if (sections && !sections.length) {
           return false;
         }
@@ -530,8 +519,14 @@ export function setup(helper) {
           return true;
         }
 
-        const closeLine =
-          startLine + text.slice(0, close.start).split("\n").length - 1;
+        let closeLine = startLine;
+        for (
+          let nl = text.indexOf("\n");
+          nl !== -1 && nl < close.start;
+          nl = text.indexOf("\n", nl + 1)
+        ) {
+          closeLine++;
+        }
         const map = [startLine, closeLine + 1];
         const lineEnd = text.indexOf("\n", close.end);
         const rest = text.slice(
@@ -544,30 +539,14 @@ export function setup(helper) {
           open.map = map;
           sections.forEach((section, index) => {
             spec.sectionOpen(state, section, index, info);
-            const body = section.body;
-            const edge = (pattern) =>
-              (body.match(pattern)?.[0].match(/\n/g) || []).length;
-            const leading = edge(/^\s*/);
-            const trailing = body.trim() ? edge(/\s*$/) : 0;
-            const breaks = (count) => {
-              if (count > 0) {
-                pushHtml(state, "<br>".repeat(Math.min(count, 20))).meta = {
-                  br: true,
-                };
-              }
-            };
-            breaks(leading);
-            state.tokens.push(
-              ...(body.includes("\n")
-                ? parseBlocks(state, body.trim())
-                : lineTokens(state, body))
-            );
-            breaks(trailing);
-            spec.sectionClose(state, section);
+            const [leading, trailing] = edgeNewlines(section.body);
+            pushBreaks(state, leading);
+            state.tokens.push(...contentTokens(state, section.body));
+            pushBreaks(state, trailing);
+            spec.sectionClose(state);
           });
           spec.close(state, info);
         } else if (spec.content === "literal") {
-          const content = text.slice(lead + info.length, close.start);
           const token = pushText(state, spec, restoreNewlines(content), info);
           if (token.children.length) {
             token.map = map;
@@ -577,35 +556,17 @@ export function setup(helper) {
             state.tokens.pop();
           }
         } else {
-          const content = text.slice(lead + info.length, close.start);
-          const newlines = (edge) => (edge.match(/\n/g) || []).length;
-          const leading = spec.trimInside
-            ? 0
-            : newlines(content.match(/^\s*/)[0]);
-          const trailing =
-            content.trim() && !spec.trimInside
-              ? newlines(content.match(/\s*$/)[0])
-              : 0;
+          const noBreaks = spec.lineBreaks === false;
+          const [leading, trailing] =
+            spec.trimInside || noBreaks ? [0, 0] : edgeNewlines(content);
           const open = spec.open(state, info);
           if (open) {
             open.map = map;
           }
-          const noBreaks = spec.lineBreaks === false;
           if (noBreaks) {
-            // the line breaks before this tag are counted from the marker; the
-            // tokens inside it only know their own position within the tag
-            const start = pushHtml(state, "");
-            start.map = map;
-            start.meta = { breakable: true };
+            pushMarker(state, map);
           }
-          const pushBreaks = (count) => {
-            if (count > 0 && !noBreaks) {
-              pushHtml(state, "<br>".repeat(Math.min(count, 20))).meta = {
-                br: true,
-              };
-            }
-          };
-          pushBreaks(leading);
+          pushBreaks(state, leading);
 
           if (spec.content === "text") {
             const inline = state.push("inline", "", 0);
@@ -614,24 +575,19 @@ export function setup(helper) {
             inline.children = [];
             inline.map = map;
           } else {
-            // content on the same line as both tags is never markdown blocks:
-            // [div]+[/div] is a "+", not a list
-            const tokens = content.includes("\n")
-              ? parseBlocks(state, content.trim())
-              : lineTokens(state, content);
+            const tokens = contentTokens(state, content);
             if (noBreaks) {
               markNoBreaks(tokens);
             }
             state.tokens.push(...tokens);
           }
-          pushBreaks(trailing);
+          pushBreaks(state, trailing);
           spec.close(state, info);
-          markTrimAfter(state, spec);
+          if (spec.trimAfter) {
+            markTrimAfter(state);
+          }
           if (noBreaks) {
-            // and the next block's count starts from where it ends
-            const marker = pushHtml(state, "");
-            marker.map = map;
-            marker.meta = { breakable: true };
+            pushMarker(state, map);
           }
         }
 
@@ -650,8 +606,7 @@ export function setup(helper) {
       { alt: ["paragraph", "reference", "blockquote", "list"] }
     );
 
-    // What starts a block inside a paragraph: markdown-it's rules and other
-    // plugins'. A nested bbcode tag isn't one; it flows with the text.
+    // rules that can end a paragraph, minus ours: a nested bbcode tag flows
     const nativeBlock = md.block.ruler.__rules__.find(
       (rule) => rule.name === "bbcode-native-block"
     ).fn;
@@ -679,13 +634,9 @@ export function setup(helper) {
       if (!close || close.end > state.posMax) {
         return false;
       }
+      const inner = state.src.slice(state.pos + info.length, close.start);
       const sections =
-        spec.content === "sections"
-          ? spec.sections(
-              state.src.slice(state.pos + info.length, close.start),
-              isKnown
-            )
-          : null;
+        spec.content === "sections" ? spec.sections(inner, isKnown) : null;
       if (sections && !sections.length) {
         return false;
       }
@@ -694,10 +645,8 @@ export function setup(helper) {
         return true;
       }
 
-      // tokens pushed without state.push would otherwise land before the text
-      // that precedes the tag
+      // or the text before the tag lands after tokens pushed without state.push
       state.pushPending();
-      const inner = state.src.slice(state.pos + info.length, close.start);
 
       if (spec.content === "literal") {
         spec.render(state, restoreNewlines(inner), info);
@@ -705,49 +654,32 @@ export function setup(helper) {
         spec.open(state, info);
         sections.forEach((section, index) => {
           spec.sectionOpen(state, section, index, info);
-          const tokens = [];
-          state.md.inline.parse(
-            flowText(section.body),
-            state.md,
-            state.env,
-            tokens
-          );
+          const tokens = parseInline(state, flowText(section.body));
           hardenBreaks(tokens);
-          for (const token of tokens) {
-            token.level += state.level;
-          }
           state.tokens.push(...tokens);
-          spec.sectionClose(state, section);
+          spec.sectionClose(state);
         });
         spec.close(state, info);
       } else {
         spec.open(state, info);
-        const tokens = [];
         const text = flowText(inner);
-        state.md.inline.parse(
-          spec.trimInside ? text.trim() : text,
-          state.md,
-          state.env,
-          tokens
-        );
+        const tokens = parseInline(state, spec.trimInside ? text.trim() : text);
         hardenBreaks(tokens);
-        for (const token of tokens) {
-          token.level += state.level;
-        }
         if (spec.lineBreaks === false) {
           markNoBreaks(tokens);
         }
         state.tokens.push(...tokens);
         spec.close(state, info);
-        markTrimAfter(state, spec);
+        if (spec.trimAfter) {
+          markTrimAfter(state);
+        }
       }
 
       state.pos = close.end;
       return true;
     });
 
-    // inline tokens are parsed after the block rules ran, so what they need to
-    // know about their surroundings is passed along in `meta`
+    // inline content is parsed after the block rules, so context comes via meta
     md.core.ruler.push("bbcode-native-inline-meta", (state) => {
       for (const token of state.tokens) {
         if (token.type !== "inline" || !token.children) {
@@ -764,9 +696,7 @@ export function setup(helper) {
       }
     });
 
-    // XenForo drops the line break right after some tags' close (and after
-    // code blocks). Only a break that directly follows the close goes: text
-    // in between keeps it.
+    // XenForo drops the line break directly after some tags and code blocks
     md.core.ruler.push("bbcode-native-trim-after", (state) => {
       const trims = (token) =>
         token?.meta?.trimAfter || token?.type === "fence";
@@ -810,9 +740,9 @@ export function setup(helper) {
       state.tokens.forEach(restore);
     });
 
-    // the post's [class]/[animation] CSS and [script]s, emitted once
+    // [class]/[animation] CSS and [script]s, once per post
     md.core.ruler.push("bbcode-native-templates", (state) => {
-      const templates = bbcodePlusTemplates(state.env);
+      const templates = bbcodePlusTemplates(state);
       if (!templates) {
         return;
       }
@@ -823,20 +753,13 @@ export function setup(helper) {
     });
   });
 
+  // inline styling tags holding markdown blocks; the rest is in bbcode-plugin.js
   helper.allowList([
-    "details.bb-spoiler",
-    "div.bb-spoiler-content",
-    "div.bb-background",
-    "span.bb-pindent",
-    // inline styling tags around markdown blocks
     "div.bbcode-b",
     "div.bbcode-i",
     "div.bbcode-u",
     "div.bbcode-s",
     "div.bb-pindent",
     "div.bb-highlight",
-    "summary",
-    "div[style=*]",
-    "span[style=*]",
   ]);
 }

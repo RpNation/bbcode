@@ -1,5 +1,4 @@
-// The bbcode tags are rendered by ./bbcode-native.js. This module holds the
-// sanitizer allowlist for their HTML and a fix for the composer preview.
+// The sanitizer allowlist for bbcode-native.js's HTML, and a composer preview fix.
 
 export function setup(helper) {
   if (!helper.markdownIt) {
@@ -7,8 +6,7 @@ export function setup(helper) {
   }
 
   helper.registerOptions((opts, siteSettings) => {
-    // Key must match this module's basename — that is the id the markdown
-    // pipeline gates registerPlugin and allowList on.
+    // must match this module's basename, which gates its allowList
     opts.features["bbcode-plugin"] = siteSettings.bbcode_enabled;
     if (opts.engine || !siteSettings.bbcode_enabled) {
       return;
@@ -21,9 +19,9 @@ export function setup(helper) {
         engine.render = function (raw) {
           const html = render.apply(this, [raw]);
           const discourse = engine.options?.discourse;
-          // Preview auto clear doesn't check against the live DOM, so a onebox
-          // at the end of the post would never be cleared and could cause a
-          // fatal error. Chat messages (featuresOverride) aren't previews.
+          // Preview clearing doesn't check the live DOM, so a onebox ending the
+          // post is never cleared and can crash it. Chat (featuresOverride)
+          // isn't a preview.
           return discourse?.previewing &&
             discourse.featuresOverride === undefined
             ? html + '<div style="display:none;"></div>'
@@ -122,12 +120,12 @@ export function setup(helper) {
 
   helper.allowList({
     custom: (tag, name, value) => {
-      // custom attr allowlist for anchor tags
+      // [anchor]
       if (tag === "a" && name === "id" && value.startsWith("user-anchor-")) {
         return true;
       }
 
-      // custom attr allowlist for tabs
+      // [tabs]
       if (tag === "input" && name === "type" && value === "radio") {
         return true;
       }
@@ -151,7 +149,7 @@ export function setup(helper) {
         return true;
       }
 
-      // custom attr allowlist for accordions
+      // [accordion]
       if (
         tag === "div" &&
         name === "class" &&
@@ -175,7 +173,7 @@ export function setup(helper) {
         return true;
       }
 
-      // custom attr allowlist for div style scripts
+      // classes scoped by [class]/[div class]
       if (tag === "div" && name === "class" && value.includes("__preview")) {
         return value.split(" ").every((c) => c.endsWith("__preview"));
       }
@@ -183,7 +181,7 @@ export function setup(helper) {
         return value.split(" ").every((c) => c.includes("__post-"));
       }
 
-      // custom attr allowlist for fontawesome [fa]
+      // [fa]
       if (tag === "i" && name === "class") {
         return true;
       }
