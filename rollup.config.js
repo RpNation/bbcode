@@ -19,7 +19,10 @@ export default [
       terser({ format: { preamble: "/* Source code in bbscript-src */" } }),
     ],
     watch: {
-      include: "bbscript-src/**",
+      include: [
+        "bbscript-src/**",
+        "assets/javascripts/lib/discourse-markdown/bbcode-native/scoping.js",
+      ],
     },
   },
 ];

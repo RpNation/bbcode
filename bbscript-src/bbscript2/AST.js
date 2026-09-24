@@ -1,6 +1,7 @@
 /** @typedef {import('./processor').BBScriptOptions} BBScriptOptions */
 /** @typedef {import('./utils').BBScriptReturnTypes} BBScriptReturnTypes */
 import { ConsoleLogger } from "../logger";
+import { isStopError, readVariable } from "../scope";
 
 export class ASTNode {
   /** @type {number} */
@@ -84,15 +85,8 @@ export class ASTIdentifier extends ASTNode {
    * @returns {any}
    */
   resolveValue(options) {
-    if (
-      options.callerId &&
-      options.data[options.callerId] &&
-      options.data[options.callerId][this.name] !== undefined
-    ) {
-      return options.data[options.callerId][this.name];
-    } else {
-      return this.name;
-    }
+    // an unset name is its own text, so `(addClass open)` needs no quotes
+    return readVariable(options, this.name) ?? this.name;
   }
 }
 
@@ -135,17 +129,30 @@ export class ASTFunction extends ASTNode {
    * @returns {BBScriptReturnTypes} returns value if applicable
    */
   resolveValue(options) {
-    const functions = options.processor.functions;
-    const callable = functions[this.identifier.name];
-    if (callable) {
-      const args = this.params;
-      try {
-        return callable(options, ...args);
-      } catch (error) {
-        ConsoleLogger.warn("BBScript Error", error, this, options);
-      }
+    const name = this.identifier.name;
+    const callable = options.processor.functions[name];
+    if (!callable) {
+      ConsoleLogger.info("invalid command", name, this);
+      return;
     }
-    ConsoleLogger.info("invalid command", this, options);
+    // the parameters without a default, after `options`
+    const required = callable.length - 1;
+    if (this.params.length < required) {
+      ConsoleLogger.warn(
+        "BBScript Error",
+        `(${name}) needs at least ${required} argument(s)`,
+        this
+      );
+      return;
+    }
+    try {
+      return callable(options, ...this.params);
+    } catch (error) {
+      if (isStopError(error)) {
+        throw error;
+      }
+      ConsoleLogger.warn("BBScript Error", error, this);
+    }
   }
 }
 
@@ -175,17 +182,10 @@ export class ASTQuotedString extends ASTNode {
    * @returns {string}
    */
   resolveValue(options) {
-    if (this.string.match(/\$\{\w+\}/)) {
-      // string interpolation. carryover from bbscript1
-      let str = this.string;
-      const matches = str.matchAll(/\$\{(\w+)\}/g);
-      for (const match of matches) {
-        const presumedValue = options.data?.[options.callerId]?.["_" + match[1] + "_"] || match[0];
-        str = str.replace(match[0], presumedValue);
-      }
-      return str;
-    }
-    return this.string;
+    return this.string.replace(
+      /\$\{(\w+)\}/g,
+      (match, name) => readVariable(options, name) ?? match
+    );
   }
 }
 
@@ -246,5 +246,28 @@ export class ASTNumberLiteral extends ASTNode {
    */
   resolveValue() {
     return +this.value;
+  }
+}
+
+/** @extends ASTNode */
+export class ASTBooleanLiteral extends ASTNode {
+  /** @type {boolean} */
+  _value;
+
+  /**
+   * @param {number} startIdx
+   * @param {number} endIdx
+   * @param {boolean} value
+   */
+  constructor(startIdx, endIdx, value) {
+    super(startIdx, endIdx);
+    this._value = value;
+  }
+  /**
+   * @public
+   * @returns {boolean}
+   */
+  resolveValue() {
+    return this._value;
   }
 }

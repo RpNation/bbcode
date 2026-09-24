@@ -112,6 +112,50 @@ RSpec.describe PrettyText do
     )
   end
 
+  it "strips the bbcode-plus marker from templates written as raw HTML" do
+    block = cook(%(<template data-bbcode-plus="script" data-bbscript-id="__proto__">x</template>))
+    inline = cook(%(a <TEMPLATE Data-BbCode-Plus="class">.d-header{display:none}</TEMPLATE> b))
+
+    expect(block).to eq(%(<template data-bbscript-id="__proto__">x</template>))
+    expect(inline).to eq("a <template>.d-header{display:none}</template> b")
+  end
+
+  it "drops class, animation and keyframe rules whose name could escape the rule" do
+    html =
+      cook(
+        "[class name=\"x{} .d-header{display:none} .y\"]color:red[/class]" \
+          "[animation=x{} .d-header{display:none} y][keyframe=0]a: b;[/keyframe][/animation]",
+      )
+    frames =
+      cook(
+        "[animation=spin][keyframe=\"0{}}.d-header{display:none}@keyframes z{0\"]a:b;[/keyframe]" \
+          "[keyframe=25%, 75%]c:d;[/keyframe][/animation]",
+      )
+
+    expect(html).not_to include("template")
+    expect(frames).to eq(
+      %(<template data-bbcode-plus="class">@keyframes post-GUIDspin { 25%, 75%{ c:d; } }</template>),
+    )
+  end
+
+  it "blanks a script class that isn't a single class name" do
+    html = cook(%([script class="a, .d-header, .b"](hide)[/script]))
+
+    expect(html).to include(%(data-bbscript-class=""))
+  end
+
+  it "escapes script and class bodies so they can't close their template" do
+    script = cook(%([script class=box](print "<b>hi</b>" "</template><b>x</b>")[/script]))
+    style = cook("[class name=x]color:red</template><b>leak</b>[/class]")
+
+    expect(script).to eq(
+      %(<template data-bbcode-plus="script" data-bbscript-id="post-GUID" data-bbscript-class="box" data-bbscript-on="init" data-bbscript-ver="">(print "&lt;b&gt;hi&lt;/b&gt;" "&lt;/template&gt;&lt;b&gt;x&lt;/b&gt;")</template>),
+    )
+    expect(style).to eq(
+      %(<template data-bbcode-plus="class">.x__post-GUID {color:red&lt;/template&gt;&lt;b&gt;leak&lt;/b&gt;}</template>),
+    )
+  end
+
   it "renders heading tags" do
     expect(cook("[h1]Title[/h1]")).to match(%r{<h1>\s*Title</h1>})
     expect(cook("x [sh]mid[/sh] y")).to eq("x <h2>mid</h2> y")

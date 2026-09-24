@@ -1,13 +1,16 @@
 /** @typedef {import('./AST').ASTNode} ASTNode */
 /** @typedef {import('./utils').BBScriptFuncMap} BBScriptFuncMap */
+import { isStopError, runOptions } from "../scope";
 
 /**
  * @typedef {Object} BBScriptOptions
  * @property {string} callerId
  * @property {string} callerClass
- * @property {any} data
+ * @property {Object<string, any>} data the post's variables, shared only by that post's scripts
  * @property {BBScriptProcessor} processor
- * @property {Element} target
+ * @property {Element | NodeListOf<Element>} target
+ * @property {Element} root the post element; selectors never reach outside it
+ * @property {Set<number>} timers the post's timer handles, cleared when it goes away
  */
 
 export class BBScriptProcessor {
@@ -37,14 +40,18 @@ export class BBScriptProcessor {
    * @returns {void}
    */
   execAll(nodeTree, callerId, callerClass, options = this.options) {
-    options = {
-      ...this.options,
-      ...options,
-      callerId,
-      callerClass,
-    };
-    for (const node of nodeTree) {
-      node.resolveValue(options);
+    options = runOptions(this.options, options, callerId, callerClass);
+    if (!options) {
+      return;
+    }
+    try {
+      for (const node of nodeTree) {
+        node.resolveValue(options);
+      }
+    } catch (error) {
+      if (!isStopError(error)) {
+        throw error;
+      }
     }
   }
 }

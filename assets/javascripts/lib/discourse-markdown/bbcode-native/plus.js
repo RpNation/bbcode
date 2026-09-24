@@ -3,6 +3,7 @@
 
 import { defineTags } from "./define";
 import { findClose, parseLooseTag } from "./scanner";
+import { CLASS_NAME_RE, scopedClassName } from "./scoping";
 import { guidFor } from "./tokens";
 
 const CLASS_STATES = [
@@ -13,6 +14,11 @@ const CLASS_STATES = [
   "focus-visible",
 ];
 const CSS_LENGTH_RE = /^[0-9]+[a-z]+$/;
+const KEYFRAME_STOP = String.raw`(?:from|to|\d+(?:\.\d+)?%?)`;
+const KEYFRAME_SELECTOR_RE = new RegExp(
+  String.raw`^${KEYFRAME_STOP}(?:\s*,\s*${KEYFRAME_STOP})*$`,
+  "i"
+);
 const SCRIPT_EVENTS = [
   "init",
   "click",
@@ -50,10 +56,14 @@ function keyframes(content) {
     if (!close) {
       continue;
     }
-    const ident = info.attrs._default || "";
+    re.lastIndex = close.end;
+    const ident = (info.attrs._default || "").trim();
+    // the selector sits outside the braces cssBody guards
+    if (!KEYFRAME_SELECTOR_RE.test(ident)) {
+      continue;
+    }
     const body = cssBody(content.slice(match.index + info.length, close.start));
     frames.push(`${ident}${/^\d+$/.test(ident) ? "%" : ""}{ ${body} }`);
-    re.lastIndex = close.end;
   }
   return frames;
 }
@@ -63,7 +73,7 @@ const PLUS_TAGS = defineTags({
     content: "literal",
     render(state, content, { attrs }) {
       const name = attrs.name || attrs._default;
-      if (!name) {
+      if (!CLASS_NAME_RE.test(name || "")) {
         return;
       }
       const suffix = guidFor(state);
@@ -76,7 +86,7 @@ const PLUS_TAGS = defineTags({
       const media = ["min", "max"]
         .filter((bound) => CSS_LENGTH_RE.test(attrs[`${bound}Width`] || ""))
         .map((bound) => `(${bound}-width: ${attrs[`${bound}Width`]})`);
-      let css = `.${name}__${suffix}${selector} {${cssBody(content.replaceAll("{post_id}", suffix))}}`;
+      let css = `.${scopedClassName(name, suffix)}${selector} {${cssBody(content.replaceAll("{post_id}", suffix))}}`;
       if (media.length) {
         css = `@media ${media.join(" and ")} {${css}}`;
       }
@@ -88,6 +98,9 @@ const PLUS_TAGS = defineTags({
     content: "literal",
     render(state, content, { attrs }) {
       const name = attrs._default || "";
+      if (name && !CLASS_NAME_RE.test(name)) {
+        return;
+      }
       styles(state).push(
         `@keyframes ${guidFor(state)}${name} { ${keyframes(content).join("\n")} }`
       );
@@ -100,7 +113,7 @@ const PLUS_TAGS = defineTags({
       const on = attrs.on?.toLowerCase();
       (state.env.bbcodeScripts ||= []).push({
         id: guidFor(state),
-        class: attrs.class || "",
+        class: CLASS_NAME_RE.test(attrs.class || "") ? attrs.class : "",
         on: SCRIPT_EVENTS.includes(on) ? on : "init",
         version: attrs.version || "",
         content,
@@ -136,10 +149,10 @@ function bbcodePlusTemplates(state) {
   const escape = (value) => state.md.utils.escapeHtml(String(value));
   const scripts = (env.bbcodeScripts || []).map(
     (script) =>
-      `<template data-bbcode-plus="script" data-bbscript-id="${escape(script.id)}" data-bbscript-class="${escape(script.class)}" data-bbscript-on="${escape(script.on)}" data-bbscript-ver="${escape(script.version)}">${script.content}</template>`
+      `<template data-bbcode-plus="script" data-bbscript-id="${escape(script.id)}" data-bbscript-class="${escape(script.class)}" data-bbscript-on="${escape(script.on)}" data-bbscript-ver="${escape(script.version)}">${escape(script.content)}</template>`
   );
   const css = env.bbcodeStyles?.length
-    ? `<template data-bbcode-plus="class">${env.bbcodeStyles.join("\n")}</template>`
+    ? `<template data-bbcode-plus="class">${escape(env.bbcodeStyles.join("\n"))}</template>`
     : "";
   return scripts.join("") + css;
 }

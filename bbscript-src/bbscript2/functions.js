@@ -6,7 +6,17 @@
 import $ from "jquery";
 import { ASTError } from "./ASTError";
 import { ASTIdentifier } from "./AST";
+import {
+  CLASS_NAME_RE,
+  STOP_MESSAGE,
+  isStopError,
+  readVariable,
+  scopedClassName,
+  scopedElements,
+} from "../scope";
 import { ConsoleLogger } from "../logger";
+
+const MAX_RANGE_LENGTH = 10000;
 
 /**
  * @param {BBScriptOptions} options
@@ -30,16 +40,10 @@ const count = (options, arr) => {
 const contain = (options, arr, needle) => {
   const arrVal = arr.resolveValue(options);
   const needleVal = needle.resolveValue(options);
-  if (Array.isArray(arrVal) && needleVal !== undefined) {
-    return arrVal.includes(needleVal);
-  }
-  if (typeof arrVal === "string" && needleVal !== undefined) {
-    return arrVal.includes(needleVal);
-  }
-  if (!Array.isArray(arrVal) || typeof arrVal !== "string") {
+  if (!Array.isArray(arrVal) && typeof arrVal !== "string") {
     throw new ASTError(arr, "Does not resolve to an array or string");
   }
-  return false;
+  return needleVal !== undefined && arrVal.includes(needleVal);
 };
 /**
  * @param {BBScriptOptions} options
@@ -50,13 +54,10 @@ const contain = (options, arr, needle) => {
 const find = (options, arr, needle) => {
   const arrVal = arr.resolveValue(options);
   const needleVal = needle.resolveValue(options);
-  if (Array.isArray(arrVal) && needleVal !== undefined) {
-    return arrVal.indexOf(needleVal);
+  if (!Array.isArray(arrVal) && typeof arrVal !== "string") {
+    throw new ASTError(arr, "Does not resolve to an array or string");
   }
-  if (!Array.isArray(arrVal)) {
-    throw new ASTError(arr, "Does not resolve to an array");
-  }
-  return -1;
+  return needleVal === undefined ? -1 : arrVal.indexOf(needleVal);
 };
 /**
  * @param {BBScriptOptions} options
@@ -65,7 +66,7 @@ const find = (options, arr, needle) => {
  * @param {ASTNode | undefined} [val]
  * @returns {BBScriptReturnTypes}
  */
-const index = (options, arr, i, val) => {
+const index = (options, arr, i, val = undefined) => {
   const arrVal = arr.resolveValue(options);
   const idx = +i.resolveValue(options);
   if (!Array.isArray(arrVal)) {
@@ -156,7 +157,7 @@ const reverse = (options, arr) => {
  * @param {ASTNode | undefined} [sep]
  * @returns {string}
  */
-const join = (options, arr, sep) => {
+const join = (options, arr, sep = undefined) => {
   const arrVal = arr.resolveValue(options);
   let sepVal = "";
   if (!Array.isArray(arrVal)) {
@@ -187,16 +188,16 @@ const shuffle = (options, arr) => {
  * @param {BBScriptOptions} options
  * @param {ASTNode} arr
  * @param {ASTNode} start
- * @param {ASTNode} end
+ * @param {ASTNode | undefined} [end] slices to the end when omitted
  * @returns {string | BBScriptReturnTypes[]}
  */
-const slice = (options, arr, start, end) => {
+const slice = (options, arr, start, end = undefined) => {
   const val = arr.resolveValue(options);
   if (!Array.isArray(val) && typeof val !== "string") {
     throw new ASTError(arr, "Does not resolve to an array or string");
   }
   const startVal = +start.resolveValue(options);
-  const endVal = +end.resolveValue(options);
+  const endVal = end === undefined ? undefined : +end.resolveValue(options);
   return val.slice(startVal, endVal);
 };
 /**
@@ -206,33 +207,59 @@ const slice = (options, arr, start, end) => {
  * @param {ASTNode | undefined} [token]
  * @returns {void}
  */
-const each = (options, arr, func, token) => {
+const each = (options, arr, func, token = undefined) => {
   const arrVal = arr.resolveValue(options);
   if (!Array.isArray(arrVal)) {
     throw new ASTError(arr, "Does not resolve to an array");
   }
-  const tokenVar = token !== undefined ? String(token.resolveValue(options)) : "_";
-  // eslint-disable-next-line eqeqeq
-  if (options.data[options.callerId] == undefined) {
-    options.data[options.callerId] = {};
+  const tokenVar =
+    token !== undefined ? String(token.resolveValue(options)) : "_";
+  const scope = options.data;
+  const shadowed = Object.hasOwn(scope, tokenVar);
+  const previous = scope[tokenVar];
+  try {
+    for (const e of arrVal) {
+      scope[tokenVar] = e;
+      func.resolveValue(options);
+    }
+  } finally {
+    if (shadowed) {
+      scope[tokenVar] = previous;
+    } else {
+      delete scope[tokenVar];
+    }
   }
-  for (const e of arrVal) {
-    options.data[options.callerId][tokenVar] = e;
-    func.resolveValue(options);
-  }
-  delete options.data[options.callerId][tokenVar];
 };
 /**
  * @param {BBScriptOptions} options
- * @param {ASTNode | undefined} [target]
+ * @param {ASTNode | undefined} [target] class name to look up in the post; the script's own target when omitted
  */
 const getJQueryEl = (options, target) => {
-  if (target !== undefined) {
-    const search = "." + String(target.resolveValue(options)).trim() + "__" + options.callerId;
-    return $(search);
-  } else {
+  if (target === undefined) {
     return $(options.target);
   }
+  const className = String(target.resolveValue(options)).trim();
+  if (!CLASS_NAME_RE.test(className)) {
+    throw new ASTError(target, "Invalid class name");
+  }
+  return $(scopedElements(options, className));
+};
+/**
+ * Resolves a class name, a space separated list or an array of them into the
+ * caller's scoped class names
+ * @param {BBScriptOptions} options
+ * @param {ASTNode} node
+ * @returns {string[]}
+ */
+const scopedClassNames = (options, node) => {
+  const value = node.resolveValue(options);
+  const names = (
+    Array.isArray(value) ? value.map(String) : String(value).split(/\s+/)
+  ).filter(Boolean);
+  if (!names.every((name) => CLASS_NAME_RE.test(name))) {
+    throw new ASTError(node, "Invalid class name");
+  }
+  return names.map((name) => scopedClassName(name, options.callerId));
 };
 /**
  * @param {BBScriptOptions} options
@@ -240,11 +267,8 @@ const getJQueryEl = (options, target) => {
  * @param {ASTNode | undefined} [target]
  * @returns {void}
  */
-const addClass = (options, newClass, target) => {
-  let className = String(newClass.resolveValue(options));
-  className &&= className + "__" + options.callerId;
-  const targetEl = getJQueryEl(options, target);
-  targetEl.addClass(className);
+const addClass = (options, newClass, target = undefined) => {
+  getJQueryEl(options, target).addClass(scopedClassNames(options, newClass));
 };
 /**
  * @param {BBScriptOptions} options
@@ -252,20 +276,39 @@ const addClass = (options, newClass, target) => {
  * @param {ASTNode | undefined} [target]
  * @returns {void}
  */
-const removeClass = (options, oldClass, target) => {
-  let className = String(oldClass.resolveValue(options));
-  className &&= className + "__" + options.callerId;
-  const targetEl = getJQueryEl(options, target);
-  targetEl.removeClass(className);
+const removeClass = (options, oldClass, target = undefined) => {
+  getJQueryEl(options, target).removeClass(scopedClassNames(options, oldClass));
+};
+/**
+ * @param {BBScriptOptions} options
+ * @param {ASTNode} className
+ * @param {ASTNode | undefined} [target]
+ * @returns {void}
+ */
+const toggleClass = (options, className, target = undefined) => {
+  getJQueryEl(options, target).toggleClass(
+    scopedClassNames(options, className)
+  );
+};
+/**
+ * @param {BBScriptOptions} options
+ * @param {ASTNode} className
+ * @param {ASTNode | undefined} [target]
+ * @returns {boolean} whether any target has every given class
+ */
+const hasClass = (options, className, target = undefined) => {
+  const names = scopedClassNames(options, className);
+  return getJQueryEl(options, target)
+    .toArray()
+    .some((el) => names.every((name) => el.classList.contains(name)));
 };
 /**
  * Scroll the target element into view
  * @param {BBScriptOptions} options
  * @param {ASTNode | undefined} target
  */
-const scrollIntoView = (options, target) => {
-  const targetEl = getJQueryEl(options, target);
-  targetEl[0].scrollIntoView();
+const scrollIntoView = (options, target = undefined) => {
+  getJQueryEl(options, target)[0]?.scrollIntoView();
 };
 /**
  * @param {BBScriptOptions} options
@@ -273,7 +316,7 @@ const scrollIntoView = (options, target) => {
  * @param {ASTNode | undefined} [target]
  * @returns {void}
  */
-const fadeIn = (options, duration, target) => {
+const fadeIn = (options, duration = undefined, target = undefined) => {
   const targetEl = getJQueryEl(options, target);
   if (duration !== undefined) {
     const time = +duration.resolveValue(options);
@@ -288,7 +331,7 @@ const fadeIn = (options, duration, target) => {
  * @param {ASTNode | undefined} [target]
  * @returns {void}
  */
-const fadeOut = (options, duration, target) => {
+const fadeOut = (options, duration = undefined, target = undefined) => {
   const targetEl = getJQueryEl(options, target);
   if (duration !== undefined) {
     const time = +duration.resolveValue(options);
@@ -303,7 +346,7 @@ const fadeOut = (options, duration, target) => {
  * @param {ASTNode | undefined} [target]
  * @returns {void}
  */
-const fadeToggle = (options, duration, target) => {
+const fadeToggle = (options, duration = undefined, target = undefined) => {
   const targetEl = getJQueryEl(options, target);
   if (duration !== undefined) {
     const time = +duration.resolveValue(options);
@@ -317,7 +360,7 @@ const fadeToggle = (options, duration, target) => {
  * @param {ASTNode | undefined} [target]
  * @returns {void}
  */
-const hide = (options, target) => {
+const hide = (options, target = undefined) => {
   const targetEl = getJQueryEl(options, target);
   targetEl.hide();
 };
@@ -326,7 +369,7 @@ const hide = (options, target) => {
  * @param {ASTNode | undefined} [target]
  * @returns {void}
  */
-const show = (options, target) => {
+const show = (options, target = undefined) => {
   const targetEl = getJQueryEl(options, target);
   targetEl.show();
 };
@@ -335,7 +378,7 @@ const show = (options, target) => {
  * @param {ASTNode | undefined} [target]
  * @returns {any}
  */
-const getText = (options, target) => {
+const getText = (options, target = undefined) => {
   const targetEl = getJQueryEl(options, target);
   return targetEl.text();
 };
@@ -345,7 +388,7 @@ const getText = (options, target) => {
  * @param {ASTNode | undefined} [target]
  * @returns {void}
  */
-const setText = (options, text, target) => {
+const setText = (options, text, target = undefined) => {
   const targetEl = getJQueryEl(options, target);
   const textVal = text.resolveValue(options);
   targetEl.text(textVal);
@@ -356,7 +399,7 @@ const setText = (options, text, target) => {
  * @param {ASTNode | undefined} [target]
  * @returns {void}
  */
-const slideDown = (options, duration, target) => {
+const slideDown = (options, duration = undefined, target = undefined) => {
   const targetEl = getJQueryEl(options, target);
   if (duration !== undefined) {
     const time = +duration.resolveValue(options);
@@ -371,7 +414,7 @@ const slideDown = (options, duration, target) => {
  * @param {ASTNode | undefined} [target]
  * @returns {void}
  */
-const slideUp = (options, duration, target) => {
+const slideUp = (options, duration = undefined, target = undefined) => {
   const targetEl = getJQueryEl(options, target);
   if (duration !== undefined) {
     const time = +duration.resolveValue(options);
@@ -386,7 +429,7 @@ const slideUp = (options, duration, target) => {
  * @param {ASTNode | undefined} [target]
  * @returns {void}
  */
-const slideToggle = (options, duration, target) => {
+const slideToggle = (options, duration = undefined, target = undefined) => {
   const targetEl = getJQueryEl(options, target);
   if (duration !== undefined) {
     const time = +duration.resolveValue(options);
@@ -401,16 +444,9 @@ const slideToggle = (options, duration, target) => {
  * @param {ASTNode | undefined} [target]
  * @returns {void}
  */
-const addDiv = (options, classes, target) => {
-  const targetEl = getJQueryEl(options, target);
-  let classList = "";
-  const classVal = classes.resolveValue(options);
-  if (Array.isArray(classVal)) {
-    classList = classVal.map((c) => c + "__" + options.callerId).join(" ");
-  } else {
-    classList = classVal + "__" + options.callerId;
-  }
-  targetEl.append(`<div class="${classList}"></div>`);
+const addDiv = (options, classes, target = undefined) => {
+  const div = $("<div>").addClass(scopedClassNames(options, classes));
+  getJQueryEl(options, target).append(div);
 };
 /**
  * @param {BBScriptOptions} options
@@ -418,16 +454,18 @@ const addDiv = (options, classes, target) => {
  * @param {ASTNode | undefined} [target]
  * @returns {void}
  */
-const removeDiv = (options, classes, target) => {
-  const targetEl = getJQueryEl(options, target);
-  let classList = "";
-  const classVal = classes.resolveValue(options);
-  if (Array.isArray(classVal)) {
-    classList = "." + classVal.map((c) => c + "__" + options.callerId).join(".");
-  } else {
-    classList = "." + classVal + "__" + options.callerId;
-  }
-  targetEl.remove(classList);
+const removeDiv = (options, classes, target = undefined) => {
+  const selector = "div." + scopedClassNames(options, classes).join(".");
+  // a matching target removes itself, as it always has
+  getJQueryEl(options, target).find(selector).addBack(selector).remove();
+};
+/**
+ * @param {BBScriptOptions} options
+ * @param {ASTNode} value
+ * @returns {boolean}
+ */
+const not = (options, value) => {
+  return !value.resolveValue(options);
 };
 /**
  * @param {BBScriptOptions} options
@@ -508,7 +546,7 @@ const lessOrEqual = (options, lhs, rhs) => {
  * @param {ASTNode | undefined} [caseFalse]
  * @returns {BBScriptReturnTypes}
  */
-const conditional = (options, test, caseTrue, caseFalse) => {
+const conditional = (options, test, caseTrue, caseFalse = undefined) => {
   const result = test.resolveValue(options);
   if (result) {
     return caseTrue.resolveValue(options);
@@ -529,7 +567,7 @@ const group = (options, ...exec) => {
  * @returns {never}
  */
 const stop = () => {
-  throw new Error("BBScript Stop Command"); // throw an error for easy exit and less try-catching
+  throw new Error(STOP_MESSAGE);
 };
 /**
  * @returns {number}
@@ -565,21 +603,47 @@ const timeoutFunc = (options, secs, func) => {
   if (typeof secsVal !== "number") {
     throw new ASTError(secs, "Does not resolve to a number");
   }
-  return setTimeout(
+  const handle = setTimeout(
     () => {
-      func.resolveValue(options);
+      options.timers.delete(handle);
+      runDeferred(options, func);
     },
-    Math.round(secsVal * 1000),
+    Math.round(secsVal * 1000)
   );
+  options.timers.add(handle);
+  return handle;
 };
 /**
+ * Runs a timer's function, where a stop ends that run only. Some views drop a
+ * post without tearing it down, so a timer whose post has left the page does nothing.
+ * @param {BBScriptOptions} options
+ * @param {ASTNode} func
+ * @returns {boolean} false once the post has left the page
+ */
+const runDeferred = (options, func) => {
+  if (options.root && !options.root.isConnected) {
+    return false;
+  }
+  try {
+    func.resolveValue(options);
+  } catch (error) {
+    if (!isStopError(error)) {
+      throw error;
+    }
+  }
+  return true;
+};
+/**
+ * Only the post's own timers can be cleared.
  * @param {BBScriptOptions} options
  * @param {ASTNode} id
  * @returns {void}
  */
-const clearTimeoutFunc = (options, id) => {
+const clearTimerFunc = (options, id) => {
   const handle = +id.resolveValue(options);
-  clearTimeout(handle);
+  if (options.timers.delete(handle)) {
+    clearTimeout(handle);
+  }
 };
 /**
  * @param {BBScriptOptions} options
@@ -592,16 +656,17 @@ const intervalFunc = (options, secs, func) => {
   if (typeof secsVal !== "number") {
     throw new ASTError(secs, "Does not resolve to a number");
   }
-  return setInterval(() => func.resolveValue(options), Math.round(secsVal * 1000));
-};
-/**
- * @param {BBScriptOptions} options
- * @param {ASTNode} id
- * @returns {void}
- */
-const clearIntervalFunc = (options, id) => {
-  const handle = +id.resolveValue(options);
-  clearInterval(handle);
+  const handle = setInterval(
+    () => {
+      if (!runDeferred(options, func)) {
+        clearInterval(handle);
+        options.timers.delete(handle);
+      }
+    },
+    Math.round(secsVal * 1000)
+  );
+  options.timers.add(handle);
+  return handle;
 };
 /**
  * @param {BBScriptOptions} options
@@ -618,7 +683,7 @@ const print = (options, ...nodes) => {
  * @param {ASTNode | undefined} [sep]
  * @returns {string[]}
  */
-const split = (options, str, sep) => {
+const split = (options, str, sep = undefined) => {
   const strVal = String(str.resolveValue(options));
   let sepVal = "";
   if (sep !== undefined) {
@@ -665,7 +730,10 @@ const trim = (options, str) => {
  */
 const replace = (options, str, needle, replacement) => {
   const strVal = String(str.resolveValue(options));
-  return strVal.replaceAll(needle.resolveValue(options), replacement.resolveValue(options));
+  return strVal.replaceAll(
+    needle.resolveValue(options),
+    replacement.resolveValue(options)
+  );
 };
 /**
  * create/assign to data variable
@@ -676,26 +744,20 @@ const replace = (options, str, needle, replacement) => {
  */
 const assign = (options, variable, input) => {
   const value = input.resolveValue(options);
-  let varName;
-  if (variable instanceof ASTIdentifier) {
-    varName = variable.name;
-    // eslint-disable-next-line eqeqeq
-    if (options.data[options.callerId] == undefined) {
-      options.data[options.callerId] = {};
-    }
-    options.data[options.callerId][varName] = value;
-    return;
+  if (!(variable instanceof ASTIdentifier)) {
+    throw new ASTError(variable, "Cannot assign to non identifier");
   }
-  throw new ASTError(variable, "Cannot assign to non identifier");
+  options.data[variable.name] = value;
 };
 /**
  * JS loosy add for strings or nums
  * @param {BBScriptOptions} options
- * @param {...ASTNode} [params]
+ * @param {ASTNode} first
+ * @param {...ASTNode} [rest]
  * @returns {string | number}
  */
-const add = (options, ...params) => {
-  const addElems = params.map((p) => p.resolveValue(options));
+const add = (options, first, ...rest) => {
+  const addElems = [first, ...rest].map((p) => p.resolveValue(options));
   return addElems.reduce((a, b) => a + b);
 };
 /**
@@ -714,29 +776,32 @@ const resolveToNums = (options, param) => {
 };
 /**
  * @param {BBScriptOptions} options
- * @param {...ASTNode} [params]
+ * @param {ASTNode} first
+ * @param {...ASTNode} [rest]
  * @returns {number}
  */
-const subtract = (options, ...params) => {
-  const subElems = resolveToNums(options, params);
+const subtract = (options, first, ...rest) => {
+  const subElems = resolveToNums(options, [first, ...rest]);
   return subElems.reduce((a, b) => a - b);
 };
 /**
  * @param {BBScriptOptions} options
- * @param {...ASTNode} [params]
+ * @param {ASTNode} first
+ * @param {...ASTNode} [rest]
  * @returns {number}
  */
-const multiply = (options, ...params) => {
-  const elems = resolveToNums(options, params);
+const multiply = (options, first, ...rest) => {
+  const elems = resolveToNums(options, [first, ...rest]);
   return elems.reduce((a, b) => a * b);
 };
 /**
  * @param {BBScriptOptions} options
- * @param {...ASTNode} [params]
+ * @param {ASTNode} first
+ * @param {...ASTNode} [rest]
  * @returns {number}
  */
-const divide = (options, ...params) => {
-  const elems = resolveToNums(options, params);
+const divide = (options, first, ...rest) => {
+  const elems = resolveToNums(options, [first, ...rest]);
   return elems.reduce((a, b) => a / b);
 };
 /**
@@ -760,54 +825,77 @@ const exp = (options, base, expo) => {
   return baseNum ** expoNum;
 };
 /**
+ * Converts text such as `getText` output into a number
+ * @param {BBScriptOptions} options
+ * @param {ASTNode} value
+ * @returns {number} `NaN` when the text isn't a number
+ */
+const number = (options, value) => {
+  const resolved = value.resolveValue(options);
+  if (typeof resolved === "string" && resolved.trim() === "") {
+    return NaN;
+  }
+  return Number(resolved);
+};
+/**
+ * `(range end)`, `(range start end)` or `(range start end step)`; `end` is excluded
+ * @param {BBScriptOptions} options
+ * @param {ASTNode} first
+ * @param {ASTNode | undefined} [second]
+ * @param {ASTNode | undefined} [stepNode]
+ * @returns {number[]}
+ */
+const range = (options, first, second = undefined, stepNode = undefined) => {
+  const nodes = [first, second, stepNode].filter((node) => node !== undefined);
+  const nums = resolveToNums(options, nodes);
+  const [start, end, step] =
+    nums.length === 1 ? [0, nums[0], 1] : [nums[0], nums[1], nums[2] ?? 1];
+  if (!step) {
+    throw new ASTError(stepNode, "Step cannot be zero");
+  }
+  const length = Math.max(0, Math.ceil((end - start) / step));
+  if (length > MAX_RANGE_LENGTH) {
+    throw new ASTError(first, `Range is longer than ${MAX_RANGE_LENGTH}`);
+  }
+  return Array.from({ length }, (_, i) => start + i * step);
+};
+/**
  * @param {BBScriptOptions} options
  * @param {ASTNode} variable
+ * @param {number} delta
  * @returns {void}
  */
-const decrement = (options, variable) => {
-  if (variable instanceof ASTIdentifier) {
-    const varName = variable.name;
-    if (
-      // eslint-disable-next-line eqeqeq
-      options.data[options.callerId] == undefined ||
-      // eslint-disable-next-line eqeqeq
-      options.data[options.callerId][varName] == undefined
-    ) {
-      throw new ASTError(variable, "Identifier not set yet");
-    }
-    if (typeof options.data[options.callerId][varName] !== "number") {
-      throw new ASTError(variable, "Not a number");
-    }
-    options.data[options.callerId][varName] -= 1;
-    return;
+const stepVariable = (options, variable, delta) => {
+  if (!(variable instanceof ASTIdentifier)) {
+    throw new ASTError(variable, "Not an identifier variable");
   }
-  throw new ASTError(variable, "Not an identifier variable");
+  const current = readVariable(options, variable.name);
+  if (current === undefined || current === null) {
+    throw new ASTError(variable, "Identifier not set yet");
+  }
+  if (typeof current !== "number") {
+    throw new ASTError(variable, "Not a number");
+  }
+  options.data[variable.name] = current + delta;
 };
 /**
  * @param {BBScriptOptions} options
  * @param {ASTNode} variable
  * @returns {void}
  */
-const increment = (options, variable) => {
-  if (variable instanceof ASTIdentifier) {
-    const varName = variable.name;
-    if (
-      // eslint-disable-next-line eqeqeq
-      options.data[options.callerId] == undefined ||
-      // eslint-disable-next-line eqeqeq
-      options.data[options.callerId][varName] == undefined
-    ) {
-      throw new ASTError(variable, "Identifier not set yet");
-    }
-    if (typeof options.data[options.callerId][varName] !== "number") {
-      throw new ASTError(variable, "Not a number");
-    }
-    options.data[options.callerId][varName] += 1;
-    return;
-  }
-  throw new ASTError(variable, "Not an identifier variable");
-};
-export const bbscriptFunctions = {
+const decrement = (options, variable) => stepVariable(options, variable, -1);
+/**
+ * @param {BBScriptOptions} options
+ * @param {ASTNode} variable
+ * @returns {void}
+ */
+const increment = (options, variable) => stepVariable(options, variable, 1);
+/**
+ * No prototype, so a script can't call names such as `constructor`. A
+ * function's required arguments are its parameters without a default, after
+ * `options`; optional ones default to `undefined`.
+ */
+export const bbscriptFunctions = Object.assign(Object.create(null), {
   count,
   contain,
   find,
@@ -823,6 +911,8 @@ export const bbscriptFunctions = {
   each,
   addClass,
   removeClass,
+  toggleClass,
+  hasClass,
   scrollIntoView,
   fadeIn,
   fadeOut,
@@ -836,6 +926,8 @@ export const bbscriptFunctions = {
   slideToggle,
   addDiv,
   removeDiv,
+  not,
+  "!": not,
   and,
   or,
   "==": equal,
@@ -851,15 +943,17 @@ export const bbscriptFunctions = {
   randomInt,
   time,
   setTimeout: timeoutFunc,
-  clearTimeout: clearTimeoutFunc,
+  clearTimeout: clearTimerFunc,
   setInterval: intervalFunc,
-  clearInterval: clearIntervalFunc,
+  clearInterval: clearTimerFunc,
   print,
   split,
   lower,
   upper,
   trim,
   replace,
+  number,
+  range,
   "=": assign,
   "+": add,
   "-": subtract,
@@ -869,4 +963,4 @@ export const bbscriptFunctions = {
   "**": exp,
   "--": decrement,
   "++": increment,
-};
+});

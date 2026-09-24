@@ -3,8 +3,14 @@
 /** @typedef {import('./utils').bbscriptFuncMap} bbscriptFuncMap */
 /** @typedef {import('./processor').bbscriptOptions} bbscriptOptions */
 import $ from "jquery";
-import { bbscriptParamTypes, getStringVal, isAstNode } from "./utils";
+import {
+  bbscriptParamTypes,
+  getStringVal,
+  isAstNode,
+  variableName,
+} from "./utils";
 import { ConsoleLogger } from "../logger";
+import { CLASS_NAME_RE, scopedClassName, scopedElements } from "../scope";
 
 /**
  * Conditional if then else
@@ -42,12 +48,21 @@ export const stop = {
  * @returns {any}
  */
 const getJQueryEl = (el, options) => {
-  if (el) {
-    el = "." + getStringVal(el, options).trim() + "__" + options.callerId;
-  } else {
-    el = $(options.target);
+  if (!el) {
+    return $(options.target);
   }
-  return $(el);
+  return $(scopedElements(options, String(getStringVal(el, options)).trim()));
+};
+/**
+ * @param {string} names space separated class names
+ * @param {bbscriptOptions} options
+ * @returns {string[]} the caller's scoped names; invalid names are skipped
+ */
+const scopedClassNames = (names, options) => {
+  return String(getStringVal(names, options) || "")
+    .split(/\s+/)
+    .filter((name) => CLASS_NAME_RE.test(name))
+    .map((name) => scopedClassName(name, options.callerId));
 };
 export const addClass = {
   params: [
@@ -55,9 +70,7 @@ export const addClass = {
     { types: [bbscriptParamTypes.Identifier], default: null },
   ],
   func: (options, newClass, target = "") => {
-    newClass = getStringVal(newClass, options) || "";
-    newClass &&= newClass + "__" + options.callerId;
-    getJQueryEl(target, options).addClass(newClass);
+    getJQueryEl(target, options).addClass(scopedClassNames(newClass, options));
   },
 };
 export const removeClass = {
@@ -66,9 +79,9 @@ export const removeClass = {
     { types: [bbscriptParamTypes.Identifier], default: null },
   ],
   func: (options, oldClass, target = "") => {
-    oldClass = getStringVal(oldClass, options) || "";
-    oldClass &&= oldClass + "__" + options.callerId;
-    getJQueryEl(target, options).removeClass(oldClass);
+    getJQueryEl(target, options).removeClass(
+      scopedClassNames(oldClass, options)
+    );
   },
 };
 export const fadeIn = {
@@ -256,17 +269,22 @@ export const leq = {
   params,
   func: (options, lhs, rhs) => {
     const [leftResult, rightResult] = evaluate(options, lhs, rhs);
-    return leftResult >= rightResult;
+    return leftResult <= rightResult;
   },
 };
 export const random = {
-  params: [{ types: [bbscriptParamTypes.Int] }, { types: [bbscriptParamTypes.Int] }],
+  params: [
+    { types: [bbscriptParamTypes.Int] },
+    { types: [bbscriptParamTypes.Int] },
+  ],
   func: (options, min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min);
   },
 };
 export const print = {
-  params: [{ types: [bbscriptParamTypes.String, bbscriptParamTypes.Identifier] }],
+  params: [
+    { types: [bbscriptParamTypes.String, bbscriptParamTypes.Identifier] },
+  ],
   func: (options, args) => {
     ConsoleLogger.log(getStringVal(args, options));
   },
@@ -278,7 +296,13 @@ export const print = {
 export const set = {
   params: [
     { types: [bbscriptParamTypes.Identifier] },
-    { types: [bbscriptParamTypes.Int, bbscriptParamTypes.String, bbscriptParamTypes.Function] },
+    {
+      types: [
+        bbscriptParamTypes.Int,
+        bbscriptParamTypes.String,
+        bbscriptParamTypes.Function,
+      ],
+    },
   ],
   func: (options, id, value) => {
     if (isAstNode(value)) {
@@ -286,11 +310,7 @@ export const set = {
     } else {
       value = getStringVal(value, options);
     }
-    const callerId = options.callerId || "";
-    if (!(callerId in options.data)) {
-      options.data[callerId] = {};
-    }
-    options.data[callerId][id] = value;
+    options.data[variableName(id)] = value;
   },
 };
 export const add = {
@@ -333,11 +353,7 @@ export const dec = {
   ],
   func: (options, id, amount = 1) => {
     try {
-      const callerId = options.callerId || "";
-      if (!(callerId in options.data)) {
-        options.data[callerId] = {};
-      }
-      options.data[callerId][id] -= amount;
+      options.data[variableName(id)] -= amount;
     } catch (e) {
       ConsoleLogger.warn(`${id} is not a number`, e);
     }
@@ -351,11 +367,7 @@ export const inc = {
   ],
   func: (options, id, amount = 1) => {
     try {
-      const callerId = options.callerId || "";
-      if (!(callerId in options.data)) {
-        options.data[callerId] = {};
-      }
-      options.data[callerId][id] += amount;
+      options.data[variableName(id)] += amount;
     } catch (e) {
       ConsoleLogger.warn(`${id} is not a number`, e);
     }
@@ -365,10 +377,10 @@ export const inc = {
 /**
  * Map between bbscript function name and logic.
  * keys must be all lowercase. Parser will apply lowercase to user input,
- * so is case-insensitive.
+ * so is case-insensitive. No prototype, so names such as `constructor` aren't functions.
  * @type {bbscriptFuncMap}
  */
-export const bbscriptFunctions = {
+export const bbscriptFunctions = Object.assign(Object.create(null), {
   print,
   eq,
   ge,
@@ -394,4 +406,4 @@ export const bbscriptFunctions = {
   slidetoggle: slideToggle,
   random,
   add,
-};
+});

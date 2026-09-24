@@ -34,6 +34,7 @@ import {
 } from "./bbcode-native/tokens";
 
 const SPECS = { ...TAGS, ...SECTION_TAGS, ...PLUS_TAGS };
+const FORGED_PLUS_RE = /\bdata-bbcode-plus\b/gi;
 const tagsWhere = (test) =>
   Object.keys(SPECS).filter((tag) => test(SPECS[tag]));
 const openerRe = (tags) =>
@@ -740,8 +741,23 @@ export function setup(helper) {
       state.tokens.forEach(restore);
     });
 
-    // [class]/[animation] CSS and [script]s, once per post
+    // [class]/[animation] CSS and [script]s, once per post. The client runs every
+    // data-bbcode-plus template, so one written as raw HTML must not keep the marker.
     md.core.ruler.push("bbcode-native-templates", (state) => {
+      const disarm = (token) => {
+        if (token.type === "html_block" || token.type === "html_inline") {
+          token.content = token.content.replace(
+            FORGED_PLUS_RE,
+            "data-raw-bbcode-plus"
+          );
+        }
+        token.children?.forEach(disarm);
+      };
+      // the marker only ever comes from the source, so most posts skip the walk
+      if (/data-bbcode-plus/i.test(state.src)) {
+        state.tokens.forEach(disarm);
+      }
+
       const templates = bbcodePlusTemplates(state);
       if (!templates) {
         return;

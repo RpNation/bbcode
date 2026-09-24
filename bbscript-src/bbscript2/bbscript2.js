@@ -3,12 +3,11 @@ import { BBScriptParser } from "./parser";
 import { BBScriptProcessor as BBScript2Processor } from "./processor";
 import { bbscriptFunctions } from "./functions";
 /**
- * @param {any} bbscriptData
  * @returns {{ processor: BBScript2Processor; parser: BBScriptParser; }}
  */
-export function initBBScript2(bbscriptData) {
+export function initBBScript2() {
   return {
-    processor: new BBScript2Processor(bbscriptFunctions, { data: bbscriptData }),
+    processor: new BBScript2Processor(bbscriptFunctions),
     parser: new BBScriptParser(),
   };
 }

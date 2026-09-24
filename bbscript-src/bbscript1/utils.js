@@ -1,4 +1,5 @@
 /** @typedef {import('./processor').bbscriptOptions} bbscriptOptions */
+import { readVariable } from "../scope";
 
 /**
  * @typedef {Object.<string, bbscriptFunc>} bbscriptFuncMap
@@ -51,7 +52,9 @@ export const isStop = (input) => {
 export const isAstNode = (input) => {
   return (
     typeof input === "object" &&
-    Object.getOwnPropertyNames(input).every((v) => ["name", "params"].includes(v))
+    Object.getOwnPropertyNames(input).every((v) =>
+      ["name", "params"].includes(v)
+    )
   );
 };
 /**
@@ -62,23 +65,22 @@ export const isAstNode = (input) => {
  */
 export const getStringVal = (str, options) => {
   if (typeof str === "string" && str.match(/^_(.*)_$/)) {
-    if (
-      options.callerId &&
-      options.data[options.callerId] &&
-      options.data[options.callerId][str] !== undefined
-    ) {
-      // is identifier
-      return options.data[options.callerId][str];
-    } else {
-      return str.match(/^_(.*)_$/)?.[1] || str;
-    }
+    // is identifier
+    const name = variableName(str);
+    return readVariable(options, name) ?? (name || str);
   }
-  if (typeof str === "string" && str.match(/\$\{\w+\}/)) {
-    const matches = str.matchAll(/\$\{(\w+)\}/g);
-    for (const match of matches) {
-      const presumedValue = options.data?.[options.callerId]?.["_" + match[1] + "_"] || match[0];
-      str = str.replace(match[0], presumedValue);
-    }
+  if (typeof str === "string") {
+    str = str.replace(
+      /\$\{(\w+)\}/g,
+      (match, name) => readVariable(options, name) ?? match
+    );
   }
   return str;
 };
+/**
+ * The parser marks identifiers as `_name_`; variables are stored by `name`,
+ * which is how bbscript2 sees them too.
+ * @param {string} identifier
+ * @returns {string}
+ */
+export const variableName = (identifier) => identifier.slice(1, -1);

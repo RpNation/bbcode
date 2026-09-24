@@ -2,12 +2,13 @@
 /** @typedef {import('./utils').bbscriptFuncMap} bbscriptFuncMap */
 import { bbscriptParamTypes, isStop } from "./utils";
 import { ConsoleLogger } from "../logger";
+import { runOptions } from "../scope";
 
 /**
  * @typedef {Object} bbscriptOptions
  * @property {string} callerId
  * @property {string} callerClass
- * @property {any} data
+ * @property {Object<string, any>} data the post's variables, shared only by that post's scripts
  * @property {BBScriptProcessor} processor
  * @property {Element} target
  */
@@ -38,12 +39,10 @@ export class BBScriptProcessor {
    * @returns {Promise<void>}
    */
   async execAll(nodeTree, callerId, callerClass, options = this.options) {
-    options = {
-      ...this.options,
-      ...options,
-      callerId,
-      callerClass,
-    };
+    options = runOptions(this.options, options, callerId, callerClass);
+    if (!options) {
+      return;
+    }
     for (const node of nodeTree) {
       const res = await this.exec(node, options);
       if (isStop(res)) {
@@ -59,7 +58,7 @@ export class BBScriptProcessor {
    */
   exec(node, options) {
     const functions = options.processor.functions;
-    const callable = functions[node.name].func;
+    const callable = functions[node?.name]?.func;
     if (callable) {
       const args = node.params;
       try {
@@ -68,7 +67,7 @@ export class BBScriptProcessor {
         ConsoleLogger.warn("BBScript Error", error, node.name, options);
       }
     } else {
-      ConsoleLogger.info("invalid command", node.name, options);
+      ConsoleLogger.info("invalid command", node?.name);
     }
   }
   /**
@@ -107,12 +106,15 @@ export class BBScriptProcessor {
       name,
       params: [],
     };
-    if (!(name in functions)) {
+    if (!functions[name]) {
       throw new Error(`Invalid bbscript function name '${name}'`);
     }
     const foundFunc = functions[name];
     // required params
-    for (const { types: validParamType, default: defaultValue } of foundFunc.params) {
+    for (const {
+      types: validParamType,
+      default: defaultValue,
+    } of foundFunc.params) {
       let value;
       if (idx >= params.length) {
         if (defaultValue) {
@@ -134,16 +136,26 @@ export class BBScriptProcessor {
         // process quoted string
         [value, idx] = this.getEnclosedParameter(params, idx, "'");
         isString = true;
-      } else if (validParamType.includes(bbscriptParamTypes.Function) && params[idx] === "(") {
+      } else if (
+        validParamType.includes(bbscriptParamTypes.Function) &&
+        params[idx] === "("
+      ) {
         // process nested function
         try {
-          const [childFunc, overallIdx] = this.getEnclosedParameter(params, idx, ")");
+          const [childFunc, overallIdx] = this.getEnclosedParameter(
+            params,
+            idx,
+            ")"
+          );
           [value] = this.process(functions, childFunc);
           idx = overallIdx;
         } catch (e) {
           ConsoleLogger.warn(e);
         }
-      } else if (validParamType.includes(bbscriptParamTypes.Identifier) && params[idx] === "$") {
+      } else if (
+        validParamType.includes(bbscriptParamTypes.Identifier) &&
+        params[idx] === "$"
+      ) {
         let braceVar = false;
         try {
           braceVar = params[idx + 1] === "{";
@@ -165,7 +177,10 @@ export class BBScriptProcessor {
       ) {
         // if numeric, convert it
         value = parseFloat(value);
-      } else if (validParamType.includes(bbscriptParamTypes.String) && isString) {
+      } else if (
+        validParamType.includes(bbscriptParamTypes.String) &&
+        isString
+      ) {
         value;
       } else if (validParamType.includes(bbscriptParamTypes.Identifier)) {
         value = `_${value}_`;
@@ -196,7 +211,7 @@ export class BBScriptProcessor {
     idx++;
     while (idx < length) {
       const closeIndex = input.indexOf(close, idx);
-      if (!closeIndex) {
+      if (closeIndex === -1) {
         idx = length;
         break;
       }
@@ -211,7 +226,10 @@ export class BBScriptProcessor {
     if (idx >= length && input[idx] !== close) {
       throw new Error('missing closing "');
     }
-    const value = remainder.substring(trimWrap ? 1 : 0, idx - startIdx + (trimWrap ? 0 : 1));
+    const value = remainder.substring(
+      trimWrap ? 1 : 0,
+      idx - startIdx + (trimWrap ? 0 : 1)
+    );
     idx++;
     return [value, idx];
   }

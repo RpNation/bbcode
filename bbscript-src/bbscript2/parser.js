@@ -1,6 +1,19 @@
 /** @typedef {import('./AST').ASTNode} ASTNode */
-import { ASTFunction, ASTIdentifier, ASTList, ASTNumberLiteral, ASTQuotedString } from "./AST";
+import {
+  ASTBooleanLiteral,
+  ASTFunction,
+  ASTIdentifier,
+  ASTList,
+  ASTNumberLiteral,
+  ASTQuotedString,
+} from "./AST";
 import { ASTError } from "./ASTError";
+
+const ESCAPES = { n: "\n", t: "\t", '"': '"', "\\": "\\" };
+const BOOLEANS = { true: true, false: false };
+const FUNCTION_NAME_RE = /^[+\-_*/%<>=!a-zA-Z]+$/;
+// bare words double as strings, so class names like `is-open` are valid
+const IDENTIFIER_RE = /^[A-Za-z_][\w-]*$/;
 
 export class BBScriptParser {
   /** @type {ASTNode[]} */
@@ -57,7 +70,9 @@ export class BBScriptParser {
       if (this.head() === "(") {
         node = this.processFunctionCall();
       } else {
-        this.errors.push(new ASTError(null, "Expecting function call, found " + this.head()));
+        this.errors.push(
+          new ASTError(null, "Expecting function call, found " + this.head())
+        );
         break;
       }
       if (node !== null) {
@@ -82,13 +97,23 @@ export class BBScriptParser {
     return null;
   }
   /**
-   * Advance the cursor position if the current cursor points to a whitespace
+   * Advance the cursor past whitespace and `;` or `//` line comments
    * @private
    * @returns {void}
    */
   consumeWhitespace() {
-    while (this.pos < this.length && this.isWhitespaceChar()) {
-      this.pos++;
+    while (this.pos < this.length) {
+      if (this.isWhitespaceChar()) {
+        this.pos++;
+      } else if (
+        this.text[this.pos] === ";" ||
+        this.text.startsWith("//", this.pos)
+      ) {
+        const lineEnd = this.text.indexOf("\n", this.pos);
+        this.pos = lineEnd === -1 ? this.length : lineEnd + 1;
+      } else {
+        break;
+      }
     }
   }
   /**
@@ -108,7 +133,7 @@ export class BBScriptParser {
     const startIdx = this.pos;
     // consume starting parentheses
     this.pos++;
-    const name = this.processIdentifier(")", /[^+\-_*/%<>=!a-zA-Z]/gm);
+    const name = this.processIdentifier(")", true);
     this.consumeWhitespace();
     const params = [];
     while (this.head() !== ")") {
@@ -150,29 +175,21 @@ export class BBScriptParser {
     let string = "";
     const startIdx = this.pos;
     this.pos++;
-    let escaped = false;
-    while (this.head() !== null) {
-      const char = this.head();
-      if (char === '"') {
-        if (!escaped) {
-          break;
-        }
-        string += char;
-        escaped = false;
-      } else if (char === "\\") {
-        if (escaped) {
-          string += char;
-        }
-        escaped = !escaped;
-      } else {
-        string += char;
-        escaped = false;
+    while (this.head() !== '"') {
+      let char = this.head();
+      if (char === "\\") {
+        this.pos++;
+        const escaped = this.head();
+        char = Object.hasOwn(ESCAPES, escaped)
+          ? ESCAPES[escaped]
+          : "\\" + escaped;
       }
+      string += char;
       this.pos++;
     }
     const endIdx = this.pos;
     this.pos++;
-    return new ASTQuotedString(startIdx, endIdx, string.replace("\n", "\\n"));
+    return new ASTQuotedString(startIdx, endIdx, string);
   }
   /**
    * Processes a bracketed list starting at the cursor position into an ASTNode
@@ -241,10 +258,10 @@ export class BBScriptParser {
    * Processes an identifier at the cursor position
    * @private
    * @param {string} [end=')'] end character to stop at
-   * @param {RegExp} [invalidChars=/[^_a-zA-Z]/gm] regex to check against
-   * @returns {ASTIdentifier}
+   * @param {boolean} [isFunctionName=false] validate as a function name rather than a variable
+   * @returns {ASTIdentifier | ASTBooleanLiteral} `true` and `false` are values, never names
    */
-  processIdentifier(end = ")", invalidChars = /[^_a-zA-Z]/gm) {
+  processIdentifier(end = ")", isFunctionName = false) {
     const nameStartIdx = this.pos;
     while (!this.isWhitespaceChar() && this.head() !== end) {
       this.pos++;
@@ -253,14 +270,20 @@ export class BBScriptParser {
     const identifier = new ASTIdentifier(
       nameStartIdx,
       nameEndIdx,
-      this.text.substring(nameStartIdx, nameEndIdx),
+      this.text.substring(nameStartIdx, nameEndIdx)
     );
-    // validate identifier
-    if (invalidChars.test(identifier.name)) {
-      this.errors.push(new ASTError(identifier, "Invalid function identifier"));
+    const kind = isFunctionName ? "function name" : "identifier";
+    const pattern = isFunctionName ? FUNCTION_NAME_RE : IDENTIFIER_RE;
+    if (!pattern.test(identifier.name)) {
+      const problem = identifier.name ? "Invalid" : "Missing";
+      this.errors.push(new ASTError(identifier, `${problem} ${kind}`));
     }
-    if (identifier.name.length === 0) {
-      this.errors.push(new ASTError(identifier, "Missing function identifier"));
+    if (!isFunctionName && Object.hasOwn(BOOLEANS, identifier.name)) {
+      return new ASTBooleanLiteral(
+        nameStartIdx,
+        nameEndIdx,
+        BOOLEANS[identifier.name]
+      );
     }
     return identifier;
   }

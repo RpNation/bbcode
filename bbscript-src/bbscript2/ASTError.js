@@ -19,10 +19,10 @@ export class ASTError extends Error {
    * @returns {string}
    */
   format(text) {
-    if (this.node !== null) {
-      const details = this.node.findInText(text);
-      this.message += `: ${details.text} (line ${details.line}, column ${details.column})`;
+    if (this.node === null) {
+      return this.message;
     }
-    return this.message;
+    const details = this.node.findInText(text);
+    return `${this.message}: ${details.text} (line ${details.line}, column ${details.column})`;
   }
 }

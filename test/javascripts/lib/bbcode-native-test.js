@@ -71,6 +71,21 @@ module("Unit | Lib | bbcode-native", function (hooks) {
     );
   });
 
+  test("bbcode-plus templates", async function (assert) {
+    await assertCooks(
+      assert,
+      `a <TEMPLATE Data-BbCode-Plus="class">.d-header{display:none}</TEMPLATE> b`,
+      "a <template>.d-header{display:none}</template> b",
+      "a template written as raw HTML loses its marker"
+    );
+    await assertCooks(
+      assert,
+      `[class name="x{} .d-header{display:none} .y"]color:red[/class]`,
+      "",
+      "a class name that could escape its rule is dropped"
+    );
+  });
+
   test("literal content", async function (assert) {
     await assertCooks(
       assert,
