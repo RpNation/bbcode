@@ -172,6 +172,7 @@ Markdown headings, lists, tables, rules and blockquotes have their own margins, 
 
 - A block tag inside a markdown blockquote (`> `) or list item ends up outside it, and so does an inline tag spanning lines inside a blockquote. Use a blank `[quote]` instead of `> `.
 - A `[/b]` inside a `$…$` math span still closes the `[b]` around it.
+- Tags nested more than 100 deep stay text (core still renders its own `[b]`, `[i]`, `[u]` and `[s]`): each level is a nested parse, and the stack runs out after about a thousand.
 - `[comment]` cooks to a `<template data-bbcode-comment>`, because the sanitizer drops HTML comments; `lib/bb_code/comments.rb` turns it into a real HTML comment when a post is cooked. The composer preview and content not cooked as a post (bios, category descriptions) keep the template, which is equally invisible.
 
 ### BBScript

@@ -25,12 +25,18 @@ import { SECTION_TAGS } from "./bbcode-native/sections";
 import { TAGS } from "./bbcode-native/tags";
 import {
   brs,
+  depthOf,
   edgeNewlines,
   flowText,
+  MAX_DEPTH,
+  parseAt,
   parseInline,
   pushBreaks,
   pushHtml,
   pushText,
+  pushTokens,
+  setDepth,
+  tooDeep,
 } from "./bbcode-native/tokens";
 
 const SPECS = { ...TAGS, ...SECTION_TAGS, ...PLUS_TAGS };
@@ -263,10 +269,20 @@ export function setup(helper) {
           lineStart--;
         }
         const startsLine = lineStart === 0 || src[lineStart - 1] === "\n";
+        const spansLines = (close) => {
+          const newline = src.indexOf("\n", openAt);
+          return newline !== -1 && newline < close.start;
+        };
+        const covered = covers(flattened, openAt);
+        // nothing to do: its newlines are already sentinels, and there's no
+        // indentation to strip
+        if (covered && openAt === lineStart) {
+          continue;
+        }
         // inside a flattened span, only how far the tag reaches matters
-        if (!startsLine && covers(flattened, openAt)) {
+        if (!startsLine && covered) {
           const close = findClose(src, openAt + info.length, info.tag, isKnown);
-          if (close && src.slice(openAt, close.start).includes("\n")) {
+          if (close && spansLines(close)) {
             addRange(flattened, [
               openAt,
               close.start,
@@ -313,10 +329,10 @@ export function setup(helper) {
           continue;
         }
         // counts newlines in the opener's attribute value too
-        if (!src.slice(openAt, close.start).includes("\n")) {
+        if (!spansLines(close)) {
           continue;
         }
-        if (!flat && !startsLine && !covers(flattened, openAt)) {
+        if (!flat && !startsLine && !covered) {
           edits.push({ at: openAt, remove: 0, insert: PHANTOM + "\n" });
           continue;
         }
@@ -385,6 +401,21 @@ export function setup(helper) {
       );
     });
 
+    // each inline token at the depth it sat at, which content other rules
+    // parse from inside it also sees
+    const coreInline = md.core.ruler.__rules__.find(
+      (rule) => rule.name === "inline"
+    ).fn;
+    md.core.ruler.at("inline", (state) => {
+      for (const token of state.tokens) {
+        if (token.type === "inline") {
+          state.env.bbcodeDepth = token.meta?.bbcodeDepth ?? 0;
+          coreInline({ ...state, tokens: [token] });
+        }
+      }
+      state.env.bbcodeDepth = 0;
+    });
+
     // core's block bbcode sets no token.map, which the line-break count needs
     const coreRule = md.block.ruler.__rules__.find(
       (rule) => rule.name === "bbcode"
@@ -415,27 +446,52 @@ export function setup(helper) {
       );
     }
 
-    const parseBlocks = (state, text) => {
-      const tokens = [];
-      state.md.block.parse(text, state.md, state.env, tokens);
+    const parseBlocks = (state, text, depth) => {
+      const tokens = parseAt(state, depth, (list) =>
+        state.md.block.parse(text, state.md, state.env, list)
+      );
+      // parsed at this depth later; nested blocks have set their own
       for (const token of tokens) {
-        token.level += state.level;
+        if (token.type === "inline") {
+          setDepth(token, depth);
+        }
       }
       return tokens;
+    };
+
+    const inlineToken = (state, text, depth) => {
+      const inline = new state.Token("inline", "", 0);
+      inline.content = text;
+      inline.children = [];
+      setDepth(inline, depth);
+      return inline;
     };
 
     // content on the same line as both tags is never markdown blocks:
     // [div]+[/div] is a "+", not a list
     const contentTokens = (state, text) => {
       if (text.includes("\n")) {
-        return parseBlocks(state, text.trim());
+        return parseBlocks(state, text.trim(), depthOf(state) + 1);
       }
-      const inline = new state.Token("inline", "", 0);
-      inline.content = text.trim();
-      inline.children = [];
+      const inline = inlineToken(state, text.trim(), depthOf(state) + 1);
       inline.level = state.level;
       inline.block = true;
       return [inline];
+    };
+
+    // what parseBlocks makes of a line without blocks
+    const paragraph = (state, text) => {
+      const tokens = [
+        new state.Token("paragraph_open", "p", 1),
+        inlineToken(state, text.trim(), depthOf(state)),
+        new state.Token("paragraph_close", "p", -1),
+      ];
+      tokens.forEach((token, index) => {
+        token.map = index < 2 ? [0, 1] : null;
+        token.level = state.level + (index === 1 ? 1 : 0);
+        token.block = true;
+      });
+      return tokens;
     };
 
     // the line breaks around a [nobr] block are counted from these
@@ -466,7 +522,7 @@ export function setup(helper) {
       (state, startLine, endLine, silent) => {
         // any indentation: code blocks are disabled
         const first = state.bMarks[startLine] + state.tShift[startLine];
-        if (state.src.charCodeAt(first) !== 0x5b) {
+        if (state.src.charCodeAt(first) !== 0x5b || tooDeep(state)) {
           return false;
         }
 
@@ -556,7 +612,7 @@ export function setup(helper) {
             spec.sectionOpen(state, section, index, info);
             const [leading, trailing] = edgeNewlines(section.body);
             pushBreaks(state, leading);
-            state.tokens.push(...contentTokens(state, section.body));
+            pushTokens(state, contentTokens(state, section.body));
             pushBreaks(state, trailing);
             spec.sectionClose(state);
           });
@@ -589,13 +645,14 @@ export function setup(helper) {
             const inline = state.push("inline", "", 0);
             inline.content = flowText(content.replace(/^\n|\n$/g, "")).trim();
             inline.children = [];
+            setDepth(inline, depthOf(state) + 1);
             inline.map = map;
           } else {
             const tokens = contentTokens(state, content);
             if (noBreaks) {
               markNoBreaks(tokens);
             }
-            state.tokens.push(...tokens);
+            pushTokens(state, tokens);
           }
           pushBreaks(state, trailing);
           if (noBreaks) {
@@ -611,12 +668,18 @@ export function setup(helper) {
         }
 
         if (rest.trim()) {
-          // the tail sits on the close's own line
-          const tail = parseBlocks(state, rest);
+          // The tail sits on the close's own line. Each is parsed inside the
+          // one before, so a long run of them is left to the inline rule.
+          state.env.bbcodeTails = (state.env.bbcodeTails || 0) + 1;
+          const tail =
+            state.env.bbcodeTails > MAX_DEPTH
+              ? paragraph(state, rest)
+              : parseBlocks(state, rest, depthOf(state));
+          state.env.bbcodeTails--;
           tail.forEach((token) => {
             token.map &&= [closeLine, closeLine + 1];
           });
-          state.tokens.push(...tail);
+          pushTokens(state, tail);
         }
 
         state.line = closeLine + 1;
@@ -635,7 +698,7 @@ export function setup(helper) {
         .filter((rule) => rule !== nativeBlock);
 
     md.inline.ruler.before("link", "bbcode-native-inline", (state, silent) => {
-      if (state.src.charCodeAt(state.pos) !== 0x5b) {
+      if (state.src.charCodeAt(state.pos) !== 0x5b || tooDeep(state)) {
         return false;
       }
       const info = parseLooseTag(state.src, state.pos, isKnown);
@@ -673,7 +736,7 @@ export function setup(helper) {
         spec.open(state, info);
         sections.forEach((section, index) => {
           spec.sectionOpen(state, section, index, info);
-          state.tokens.push(...parseInline(state, flowText(section.body)));
+          pushTokens(state, parseInline(state, flowText(section.body)));
           spec.sectionClose(state);
         });
         spec.close(state, info);
@@ -684,7 +747,7 @@ export function setup(helper) {
         if (spec.lineBreaks === false) {
           markNoBreaks(tokens);
         }
-        state.tokens.push(...tokens);
+        pushTokens(state, tokens);
         spec.close(state, info);
         if (spec.trimAfter) {
           markTrimAfter(state);

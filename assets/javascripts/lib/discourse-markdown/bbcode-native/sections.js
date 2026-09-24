@@ -9,7 +9,7 @@ import {
   parseLooseTag,
   PHANTOM,
 } from "./scanner";
-import { guidFor, isBlockState, parseInline } from "./tokens";
+import { guidFor, isBlockState, parseInline, pushTokens } from "./tokens";
 
 // the close of the known tag opening at `index`
 function closeOf(text, index, isKnown) {
@@ -183,7 +183,7 @@ function pushInlineContent(state, text) {
     token.children = [];
     return;
   }
-  state.tokens.push(...parseInline(state, text));
+  pushTokens(state, parseInline(state, text));
 }
 
 const ACCORDION_ALIGNMENTS = ["bright", "bcenter", "bleft", "fleft", "fright"];

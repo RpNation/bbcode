@@ -464,4 +464,21 @@ RSpec.describe PrettyText do
   it "matches tags regardless of case" do
     expect(cook("[CENTER]a[/center]")).to include(%(<div class="bb-center">a</div>))
   end
+
+  it "leaves tags nested more than 100 deep as text, counting block and inline tags together" do
+    inline = cook("[color=red]" * 101 + "x" + "[/color]" * 101)
+    expect(inline.scan("<span").size).to eq(100)
+    expect(inline).to include("[color=red]x[/color]")
+
+    block = cook("[div=a]\n" * 99 + "[color=red][color=blue]x[/color][/color]\n" + "[/div]\n" * 99)
+    expect(block.scan("<div").size).to eq(99)
+    expect(block).to include(%(<span style="color: red">[color=blue]x[/color]</span>))
+  end
+
+  it "renders any number of tags on one line, and tags around many tokens" do
+    expect(cook("[div=a]a[/div]" * 150).scan("<div").size).to eq(150)
+    expect(cook("[color=red]" + "[b]x[/b] " * 40_000 + "[/color]").scan("bbcode-b").size).to eq(
+      40_000,
+    )
+  end
 end

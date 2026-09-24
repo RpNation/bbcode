@@ -54,13 +54,48 @@ function edgeNewlines(text) {
   ];
 }
 
-function parseInline(state, text) {
+// Each level of tags is a nested parse, and the stack runs out after about a
+// thousand, so deeper tags stay text.
+const MAX_DEPTH = 100;
+
+function depthOf(state) {
+  return state.env.bbcodeDepth ?? 0;
+}
+
+function tooDeep(state) {
+  return depthOf(state) >= MAX_DEPTH;
+}
+
+// inline content is parsed after all the blocks it sits in, at this depth
+function setDepth(inline, depth) {
+  if (inline.meta?.bbcodeDepth === undefined) {
+    inline.meta = { ...inline.meta, bbcodeDepth: depth };
+  }
+}
+
+function parseAt(state, depth, parse) {
   const tokens = [];
-  state.md.inline.parse(text, state.md, state.env, tokens);
+  const outer = state.env.bbcodeDepth;
+  state.env.bbcodeDepth = depth;
+  parse(tokens);
+  state.env.bbcodeDepth = outer;
   for (const token of tokens) {
     token.level += state.level;
   }
   return tokens;
+}
+
+// not push(...tokens): a long list is more arguments than a call can take
+function pushTokens(state, tokens) {
+  for (const token of tokens) {
+    state.tokens.push(token);
+  }
+}
+
+function parseInline(state, text) {
+  return parseAt(state, depthOf(state) + 1, (tokens) =>
+    state.md.inline.parse(text, state.md, state.env, tokens)
+  );
 }
 
 // A literal tag's render() pushes inline tokens; at block level this stands in
@@ -88,12 +123,18 @@ function pushText(state, spec, content, info) {
 
 export {
   brs,
+  depthOf,
   edgeNewlines,
   flowText,
   guidFor,
   isBlockState,
+  MAX_DEPTH,
+  parseAt,
   parseInline,
   pushBreaks,
   pushHtml,
   pushText,
+  pushTokens,
+  setDepth,
+  tooDeep,
 };

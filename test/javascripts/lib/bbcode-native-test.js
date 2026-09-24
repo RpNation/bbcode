@@ -81,6 +81,19 @@ module("Unit | Lib | bbcode-native", function (hooks) {
       `<span class="bbcode-b">x a\nb</span>`,
       "a nested nobr keeps its newlines from becoming line breaks"
     );
+
+    const deep = (
+      await cook(
+        "[div=a]\n".repeat(99) +
+          "[color=red][color=blue]x[/color][/color]\n" +
+          "[/div]\n".repeat(99)
+      )
+    ).toString();
+    assert.strictEqual(deep.split("<div").length - 1, 99);
+    assert.true(
+      deep.includes(`<span style="color: red">[color=blue]x[/color]</span>`),
+      "a tag nested more than 100 deep stays text"
+    );
   });
 
   test("bbcode-plus templates", async function (assert) {
