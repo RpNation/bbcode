@@ -57,7 +57,7 @@ The goal of this repo and plugin is to provide users with the BBCode suite that 
 - [x] Background
 - [x] Border
 - [x] Scroll Box
-- [ ] Div Box
+- [x] Div Box
 - [x] Anchors
 - [x] Rows & Columns
 
@@ -78,12 +78,12 @@ The goal of this repo and plugin is to provide users with the BBCode suite that 
 - [x] Mail
 - [x] Newspaper
 - [x] Checks
-- [ ] Font Awesome Icons
+- [x] Font Awesome Icons
 - [x] OOC
 
 ## Credit
 
-❤️ to Nikolay Kost (JiLiZART) for BBob [GitHub - JiLiZART/BBob: ⚡️Blazing-fast js-bbcode-parser, bbcode js, that transforms and parses to AST with plugin support in pure javascript, no dependencies](https://github.com/JiLiZART/BBob)
+❤️ to Nikolay Kost (JiLiZART) for BBob [GitHub - JiLiZART/BBob: ⚡️Blazing-fast js-bbcode-parser, bbcode js, that transforms and parses to AST with plugin support in pure javascript, no dependencies](https://github.com/JiLiZART/BBob), which earlier versions of this plugin were built on.
 
 ## Steps to start local Discourse docker
 
@@ -116,6 +116,9 @@ BBCode is parsed by markdown-it itself: the plugin adds rules to the same markdo
 | `…/bbcode-native/sections.js`                                | `[tabs]` and `[accordion]`, whose content is a list of child sections          |
 | `…/bbcode-native/plus.js`                                    | BBCode+ data tags: `[class]`, `[animation]`, `[script]`, `[fa]`                |
 | `…/bbcode-plugin.js`                                         | the sanitizer allowlist and a composer preview fix                             |
+| `lib/bb_code/hidden_content.rb`                              | keeps templates and spoilers out of excerpts, emails and the search index      |
+| `lib/bb_code/css_hotlinked_media.rb`                         | rehosts images referenced from bbcode CSS, as core does for `<img>`            |
+| `spec/lib/`, `test/javascripts/`                             | server specs, and composer tests that expect the same output                   |
 
 ### How a post is parsed
 
@@ -163,6 +166,12 @@ Markdown headings, lists, tables, rules and blockquotes have their own margins, 
 2. Allow its HTML in the sanitizer allowlist in `bbcode-plugin.js`.
 3. Add its CSS to `assets/stylesheets/common/` and import it from `index.scss`.
 4. Add a spec to `spec/lib/native_tags_spec.rb`.
+
+### Known limitations
+
+- A block tag inside a markdown blockquote (`> `) or list item ends up outside it, and so does an inline tag spanning lines inside a blockquote. Use a blank `[quote]` instead of `> `.
+- A `[/b]` inside a `$…$` math span still closes the `[b]` around it.
+- `[comment]` renders a real HTML comment, which Discourse restores after sanitizing with one search over the post per comment; posts with hundreds of comments cook noticeably slower.
 
 ### BBScript
 
