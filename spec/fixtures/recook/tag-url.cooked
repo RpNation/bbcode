@@ -1,0 +1,97 @@
+==== alone
+<a href="https://example.com" data-bbcode="true" rel="noopener nofollow ugc">text</a>
+==== empty
+<a href="https://example.com" data-bbcode="true" rel="noopener nofollow ugc"></a>
+==== mid-line
+before <a href="https://example.com" data-bbcode="true" rel="noopener nofollow ugc">text</a> after
+==== own-lines
+<a href="https://example.com" data-bbcode="true" rel="noopener nofollow ugc"><br>
+text<br>
+</a>
+==== own-lines-between-text
+before<br>
+<a href="https://example.com" data-bbcode="true" rel="noopener nofollow ugc"><br>
+text<br>
+</a><br>
+after
+==== starts-mid-line-spans-lines
+before <a href="https://example.com" data-bbcode="true" rel="noopener nofollow ugc">text<br>
+more</a> after
+==== blank-line-inside
+[url=<a href="https://example.com" rel="noopener nofollow ugc">https://example.com</a>]<br>
+text<br><br>second paragraph<br>
+[/url]
+==== markdown-blocks-inside
+[url=<a href="https://example.com" rel="noopener nofollow ugc">https://example.com</a>]<h2><a name="heading-1" class="anchor" href="#heading-1" aria-label="Heading link"></a>Heading</h2>
+<ul>
+<li>one</li>
+<li>two</li>
+</ul>
+<blockquote>
+quoted<br>
+[/url]</blockquote>
+==== inline-markdown-inside
+<a href="https://example.com" data-bbcode="true" rel="noopener nofollow ugc"><strong>bold</strong> <em>italic</em> <code>code</code> link <img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji" alt=":smile:" loading="lazy" width="20" height="20"></a>
+==== in-blockquote
+<blockquote>
+<a href="https://example.com" data-bbcode="true" rel="noopener nofollow ugc"><br>
+text<br>
+</a></blockquote>
+==== in-list-item
+<ul>
+<li><a href="https://example.com" data-bbcode="true" rel="noopener nofollow ugc"><br>
+text<br>
+</a></li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://example.com" data-bbcode="true" rel="noopener nofollow ugc">text</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="urlhttpsexamplecomtexturl-1" class="anchor" href="#urlhttpsexamplecomtexturl-1" aria-label="Heading link"></a><a href="https://example.com" data-bbcode="true" rel="noopener nofollow ugc">text</a></h2>
+==== around-b
+<a href="https://example.com" data-bbcode="true" rel="noopener nofollow ugc"><span class="bbcode-b">text</span></a>
+==== in-b
+<span class="bbcode-b">before <a href="https://example.com" data-bbcode="true" rel="noopener nofollow ugc">text</a> after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote>
+<a href="https://example.com" data-bbcode="true" rel="noopener nofollow ugc">text</a></blockquote>
+</aside>
+==== misnested-with-i
+<a href="https://example.com" data-bbcode="true" rel="noopener nofollow ugc"><span class="bbcode-i">text</span></a> tail
+==== nested-in-itself
+<a href="https://example.com" data-bbcode="true" rel="noopener nofollow ugc">outer [url=https://example.com]inner</a> outer[/url]
+==== repeated
+<a href="https://example.com" data-bbcode="true" rel="noopener nofollow ugc">one</a><a href="https://example.com" data-bbcode="true" rel="noopener nofollow ugc">two</a> <a href="https://example.com" data-bbcode="true" rel="noopener nofollow ugc">three</a>
+==== tail-and-next-line
+<a href="https://example.com" data-bbcode="true" rel="noopener nofollow ugc">text</a> tail<br>
+next line
+==== blank-lines-around
+before<br><br><br><a href="https://example.com" data-bbcode="true" rel="noopener nofollow ugc">text</a><br><br><br>after
+==== unclosed
+[url=<a href="https://example.com" rel="noopener nofollow ugc">https://example.com</a>]text
+==== unmatched-close
+text[/url]
+==== escaped
+[url=<a href="https://example.com" rel="noopener nofollow ugc">https://example.com</a>]text[/url]
+==== uppercase
+<a href="https://example.com" data-bbcode="true" rel="noopener nofollow ugc">text</a>
+==== [url] alone
+<a href="https://text" data-bbcode="true" rel="noopener nofollow ugc">text</a>
+==== [url] own-lines
+<a href="https://text" data-bbcode="true" rel="noopener nofollow ugc"><br>
+text<br>
+</a>

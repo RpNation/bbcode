@@ -2,6 +2,7 @@
  * @file Initializes any spoiler tag with proper js/event handling
  */
 import { apiInitializer } from "discourse/lib/api";
+import { prefersReducedMotion } from "discourse/lib/utilities";
 
 /**
  * Adds the inline js for spoilers inside a given post
@@ -9,19 +10,24 @@ import { apiInitializer } from "discourse/lib/api";
  */
 function addSpoilerCode(post) {
   post.querySelectorAll("details.bb-spoiler").forEach((el) => {
-    // eslint-disable-next-line no-new
-    new Spoiler(el);
+    const summary = el.querySelector(":scope > summary");
+    const content = el.querySelector(":scope > .bb-spoiler-content");
+    // raw HTML can produce a spoiler without these parts
+    if (summary && content) {
+      // eslint-disable-next-line no-new
+      new Spoiler(el, summary, content);
+    }
   });
 }
 
 class Spoiler {
-  constructor(el) {
+  constructor(el, summary, content) {
     // Store the <details> element
     this.el = el;
     // Store the <summary> element
-    this.summary = el.querySelector("summary");
+    this.summary = summary;
     // Store the <div class="content"> element
-    this.content = el.querySelector(".bb-spoiler-content");
+    this.content = content;
 
     // Store the animation object (so we can cancel it if needed)
     this.animation = null;
@@ -36,6 +42,11 @@ class Spoiler {
   onClick(e) {
     // Stop default behaviour from the browser
     e.preventDefault();
+    if (prefersReducedMotion()) {
+      this.animation?.cancel();
+      this.onAnimationFinish(!this.el.open);
+      return;
+    }
     // Add an overflow on the <details> to avoid content overflowing
     this.el.style.overflow = "hidden";
     // Check if the element is being closed or is already closed

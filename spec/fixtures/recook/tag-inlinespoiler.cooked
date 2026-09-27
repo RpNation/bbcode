@@ -1,0 +1,81 @@
+==== alone
+<span class="bb-inline-spoiler">text</span>
+==== empty
+<span class="bb-inline-spoiler"></span>
+==== mid-line
+before <span class="bb-inline-spoiler">text</span> after
+==== own-lines
+<span class="bb-inline-spoiler">text</span>
+==== own-lines-between-text
+before<br>
+<span class="bb-inline-spoiler">text</span><br>
+after
+==== starts-mid-line-spans-lines
+before <span class="bb-inline-spoiler">text<br>
+more</span> after
+==== blank-line-inside
+<span class="bb-inline-spoiler">text<br>
+<br>
+second paragraph</span>
+==== markdown-blocks-inside
+<span class="bb-inline-spoiler">## Heading<br>
+<br>
+- one<br>
+- two<br>
+<br>
+&gt; quoted</span>
+==== inline-markdown-inside
+<span class="bb-inline-spoiler"><strong>bold</strong> <em>italic</em> <code>code</code> <a href="https://example.com" rel="noopener nofollow ugc">link</a> <img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji" alt=":smile:" loading="lazy" width="20" height="20"></span>
+==== in-blockquote
+<blockquote>
+<span class="bb-inline-spoiler">text</span></blockquote>
+==== in-list-item
+<ul>
+<li><span class="bb-inline-spoiler">text</span></li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="bb-inline-spoiler">text</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="inlinespoilertextinlinespoiler-1" class="anchor" href="#inlinespoilertextinlinespoiler-1" aria-label="Heading link"></a><span class="bb-inline-spoiler">text</span></h2>
+==== around-b
+<span class="bb-inline-spoiler"><span class="bbcode-b">text</span></span>
+==== in-b
+<span class="bbcode-b">before <span class="bb-inline-spoiler">text</span> after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote>
+<span class="bb-inline-spoiler">text</span></blockquote>
+</aside>
+==== misnested-with-i
+<span class="bb-inline-spoiler"><span class="bbcode-i">text</span></span> tail
+==== nested-in-itself
+<span class="bb-inline-spoiler">outer <span class="bb-inline-spoiler">inner</span> outer</span>
+==== repeated
+<span class="bb-inline-spoiler">one</span><span class="bb-inline-spoiler">two</span> <span class="bb-inline-spoiler">three</span>
+==== tail-and-next-line
+<span class="bb-inline-spoiler">text</span> tail<br>
+next line
+==== blank-lines-around
+before<br><br><br><span class="bb-inline-spoiler">text</span><br><br><br>after
+==== unclosed
+[inlinespoiler]text
+==== unmatched-close
+text[/inlinespoiler]
+==== escaped
+[inlinespoiler]text[/inlinespoiler]
+==== uppercase
+<span class="bb-inline-spoiler">text</span>

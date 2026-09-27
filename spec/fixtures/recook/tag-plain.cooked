@@ -1,0 +1,85 @@
+==== alone
+[b]not bold[/b] :smile:
+==== empty
+
+==== mid-line
+before [b]not bold[/b] :smile: after
+==== own-lines
+<br>
+[b]not bold[/b] :smile:<br>
+==== own-lines-between-text
+before<br><br>
+[b]not bold[/b] :smile:<br>
+<br>after
+==== starts-mid-line-spans-lines
+before [b]not bold[/b] :smile:<br>
+more after
+==== blank-line-inside
+<br>
+[b]not bold[/b] :smile:<br>
+<br>
+second paragraph<br>
+==== markdown-blocks-inside
+<br>
+## Heading<br>
+<br>
+- one<br>
+- two<br>
+<br>
+&gt; quoted<br>
+==== inline-markdown-inside
+**bold** _italic_ `code` [link](https://example.com) :smile:
+==== in-blockquote
+<blockquote><br>
+[b]not bold[/b] :smile:<br>
+</blockquote>
+==== in-list-item
+<ul>
+<li><br>
+[b]not bold[/b] :smile:<br>
+</li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[b]not bold[/b] :smile:</td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="plainbnot-boldb-smileplain-1" class="anchor" href="#plainbnot-boldb-smileplain-1" aria-label="Heading link"></a>[b]not bold[/b] :smile:</h2>
+==== around-b
+[b][b]not bold[/b] :smile:[/b]
+==== in-b
+<span class="bbcode-b">before [b]not bold[/b] :smile: after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote>[b]not bold[/b] :smile:</blockquote>
+</aside>
+==== misnested-with-i
+[i][b]not bold[/b] :smile: tail[/i]
+==== nested-in-itself
+outer [plain]inner[/plain] outer
+==== repeated
+onetwo three
+==== tail-and-next-line
+[b]not bold[/b] :smile: tail<br>next line
+==== blank-lines-around
+before<br><br><br>[b]not bold[/b] :smile:<br><br><br>after
+==== unclosed
+[plain]<span class="bbcode-b">not bold</span> <img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji" alt=":smile:" loading="lazy" width="20" height="20">
+==== unmatched-close
+<span class="bbcode-b">not bold</span> <img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji" alt=":smile:" loading="lazy" width="20" height="20">[/plain]
+==== escaped
+[plain]<span class="bbcode-b">not bold</span> <img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji" alt=":smile:" loading="lazy" width="20" height="20">[/plain]
+==== uppercase
+[b]not bold[/b] :smile:

@@ -1,0 +1,137 @@
+==== alone
+<span data-size="5">text</span>
+==== empty
+<span data-size="5"></span>
+==== mid-line
+before <span data-size="5">text</span> after
+==== own-lines
+<span data-size="5"><br>
+text<br>
+</span>
+==== own-lines-between-text
+before<br>
+<span data-size="5"><br>
+text<br>
+</span><br>
+after
+==== starts-mid-line-spans-lines
+before <span data-size="5">text<br>
+more</span> after
+==== blank-line-inside
+<span data-size="5"><br>
+text<br>
+<br>
+second paragraph<br>
+</span>
+==== markdown-blocks-inside
+<div data-size="5">
+<br>
+<h2><a name="heading-1" class="anchor" href="#heading-1" aria-label="Heading link"></a>Heading</h2>
+<ul>
+<li>one</li>
+<li>two</li>
+</ul>
+<blockquote>
+quoted</blockquote>
+<br>
+</div>
+==== inline-markdown-inside
+<span data-size="5"><strong>bold</strong> <em>italic</em> <code>code</code> <a href="https://example.com" rel="noopener nofollow ugc">link</a> <img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji" alt=":smile:" loading="lazy" width="20" height="20"></span>
+==== in-blockquote
+<blockquote>
+<span data-size="5"><br>
+text<br>
+</span></blockquote>
+==== in-list-item
+<ul>
+<li><span data-size="5"><br>
+text<br>
+</span></li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span data-size="5">text</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="size5textsize-1" class="anchor" href="#size5textsize-1" aria-label="Heading link"></a><span data-size="5">text</span></h2>
+==== around-b
+<span data-size="5"><span class="bbcode-b">text</span></span>
+==== in-b
+<span class="bbcode-b">before <span data-size="5">text</span> after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote>
+<span data-size="5">text</span></blockquote>
+</aside>
+==== misnested-with-i
+<span data-size="5"><span class="bbcode-i">text</span></span> tail
+==== nested-in-itself
+<span data-size="5">outer <span data-size="5">inner</span> outer</span>
+==== repeated
+<span data-size="5">one</span><span data-size="5">two</span> <span data-size="5">three</span>
+==== tail-and-next-line
+<span data-size="5">text</span> tail<br>
+next line
+==== blank-lines-around
+before<br><br><br><span data-size="5">text</span><br><br><br>after
+==== unclosed
+[size=5]text
+==== unmatched-close
+text[/size]
+==== escaped
+[size=5]text[/size]
+==== uppercase
+<span data-size="5">text</span>
+==== [size=1] alone
+<span data-size="1">text</span>
+==== [size=1] own-lines
+<span data-size="1"><br>
+text<br>
+</span>
+==== [size=7] alone
+<span data-size="7">text</span>
+==== [size=7] own-lines
+<span data-size="7"><br>
+text<br>
+</span>
+==== [size=0] alone
+<span data-size="1">text</span>
+==== [size=0] own-lines
+<span data-size="1"><br>
+text<br>
+</span>
+==== [size=12px] alone
+<span style="font-size: 12px">text</span>
+==== [size=12px] own-lines
+<span style="font-size: 12px"><br>
+text<br>
+</span>
+==== [size=40px] alone
+<span style="font-size: 36px">text</span>
+==== [size=40px] own-lines
+<span style="font-size: 36px"><br>
+text<br>
+</span>
+==== [size=1.5rem] alone
+<span style="font-size: 1.5rem">text</span>
+==== [size=1.5rem] own-lines
+<span style="font-size: 1.5rem"><br>
+text<br>
+</span>
+==== [size=12pt] alone
+text
+==== [size=12pt] own-lines
+<br>
+text<br>

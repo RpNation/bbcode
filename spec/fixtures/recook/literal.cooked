@@ -1,0 +1,88 @@
+==== code-block
+x<br><pre><code class="lang-auto">    [div=x]
+[/div]</code></pre>
+after
+==== code-inside-plain
+[code]<br>
+x<br>[/code]
+==== code-mid-line
+a<pre><code class="lang-auto">x
+y</code></pre>
+b
+==== code-not-nested
+<pre><code class="lang-auto">a [code] b</code></pre>
+c<br>
+[/code]
+==== comment
+<span data-font="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400"></span><!--
+hidden [font=Lato]x[/font]
+--><br>
+after<br>
+a <!--x --&gt; y--> b
+==== fence-container-ends
+<blockquote>
+<pre><code class="lang-auto">[b]unclosed quoted fence
+</code></pre>
+</blockquote>
+<span class="bbcode-i">after the quote</span><br><ul>
+<li>
+<pre><code class="lang-auto">[i]x
+</code></pre>
+</li>
+<li><span class="bbcode-b">y</span></li>
+</ul>
+==== fence-in-blockquote
+<div class="bbcode-b">
+x<blockquote>
+<pre><code class="lang-auto">[/b]
+</code></pre>
+</blockquote>
+y</div>
+==== fence-in-list
+<div class="bbcode-b">
+x<ul>
+<li>
+<pre><code class="lang-auto">[/b]
+</code></pre>
+</li>
+</ul>
+y</div>
+==== fence-top-level
+<pre><code class="lang-auto">[b]x
+</code></pre>
+<br>[/b]<br><div class="bbcode-b">
+x<br><pre><code class="lang-auto">[/b]
+</code></pre>
+y</div>
+==== html-blocks
+<div class="bbcode-b">
+x
+y</div>
+<br><br><div class="bbcode-i">
+a
+[/i]
+
+b</div>
+<pre>[b]same line</pre> [b]after[/b]
+==== icode
+<code>a</code> <code>b</code><br>x <code>c
+
+d</code> y
+==== inline-html-and-autolinks
+<span class="bbcode-b">a  b</span><br>
+<span class="bbcode-i">x <a href="https://e.com/%5B/i%5D" rel="noopener nofollow ugc">https://e.com/[/i]</a> y</span><br>
+<span class="bbcode-b">1 &lt; 2 </span> and <b>html</b>
+==== plain-in-code-span
+<code>[plain]</code><br>
+<span style="color: red">red</span><br>
+<code>[/plain]</code>
+==== plain
+[b]x[/b] :smile:<br>a [plain] b[/plain] c<br>a\ b
+==== tail-after-line-start
+x b<br><code>x</code> b<br><i data-bbcode-fa=""><i class="fas fa-x" style="" data-fa-transform=""></i></i> b<br><!--x--> b
+==== tail-edges
+<template data-bbcode-plus="class">.q__post-GUID {color:red}</template>
+a<br>
+b c<br><code>x</code>	 tab<br>x<br>after<br><i data-bbcode-fa=""><i class="fas fa-x" style="" data-fa-transform=""></i></i> <i data-bbcode-fa=""><i class="fas fa-y" style="" data-fa-transform=""></i></i>
+==== tail-mid-line
+a x b

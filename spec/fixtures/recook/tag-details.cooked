@@ -1,0 +1,134 @@
+==== alone
+<details>
+<summary>
+Summary</summary>
+text</details>
+==== empty
+[details=Summary][/details]
+==== mid-line
+before [details=Summary]text[/details] after
+==== own-lines
+<details>
+<summary>
+Summary</summary>
+text</details>
+==== own-lines-between-text
+before<br><details>
+<summary>
+Summary</summary>
+text</details>
+<br>after
+==== starts-mid-line-spans-lines
+before [details=Summary]text<br>
+more[/details] after
+==== blank-line-inside
+<details>
+<summary>
+Summary</summary>
+text<br><br>second paragraph</details>
+==== markdown-blocks-inside
+<details>
+<summary>
+Summary</summary>
+<h2><a name="heading-1" class="anchor" href="#heading-1" aria-label="Heading link"></a>Heading</h2>
+<ul>
+<li>one</li>
+<li>two</li>
+</ul>
+<blockquote>
+quoted</blockquote>
+</details>
+==== inline-markdown-inside
+<details>
+<summary>
+Summary</summary>
+<strong>bold</strong> <em>italic</em> <code>code</code> <a href="https://example.com" rel="noopener nofollow ugc">link</a> <img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji" alt=":smile:" loading="lazy" width="20" height="20"></details>
+==== in-blockquote
+<blockquote>
+<details>
+<summary>
+Summary</summary>
+text</details>
+</blockquote>
+==== in-list-item
+<ul>
+<li>
+<details>
+<summary>
+Summary</summary>
+text</details>
+</li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[details=Summary]text[/details]</td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="detailssummarytextdetails-1" class="anchor" href="#detailssummarytextdetails-1" aria-label="Heading link"></a>[details=Summary]text[/details]</h2>
+==== around-b
+<details>
+<summary>
+Summary</summary>
+<span class="bbcode-b">text</span></details>
+==== in-b
+<span class="bbcode-b">before [details=Summary]text[/details] after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote>
+<details>
+<summary>
+Summary</summary>
+text</details>
+</blockquote>
+</aside>
+==== misnested-with-i
+[details=Summary]<span class="bbcode-i">text</span>[/details] tail
+==== nested-in-itself
+<details>
+<summary>
+Summary</summary>
+outer [details=Summary]inner[/details] outer</details>
+==== repeated
+<details>
+<summary>
+Summary</summary>
+one[/details][details=Summary]two[/details] [details=Summary]three</details>
+==== tail-and-next-line
+[details=Summary]text[/details] tail<br>
+next line
+==== blank-lines-around
+before<br><br><br><details>
+<summary>
+Summary</summary>
+text</details>
+<br><br><br>after
+==== unclosed
+[details=Summary]text
+==== unmatched-close
+text[/details]
+==== escaped
+[details=Summary]text[/details]
+==== uppercase
+[DETAILS=Summary]text[/DETAILS]
+==== [details] alone
+<details>
+<summary>
+</summary>
+text</details>
+==== [details] own-lines
+<details>
+<summary>
+</summary>
+text</details>

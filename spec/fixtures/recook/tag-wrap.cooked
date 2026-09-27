@@ -1,0 +1,99 @@
+==== alone
+<div class="d-wrap" data-wrap="box">
+text</div>
+==== empty
+<span class="d-wrap" data-wrap="box"></span>
+==== mid-line
+before <span class="d-wrap" data-wrap="box">text</span> after
+==== own-lines
+<div class="d-wrap" data-wrap="box">
+text</div>
+==== own-lines-between-text
+before<div class="d-wrap" data-wrap="box">
+text</div>
+after
+==== starts-mid-line-spans-lines
+before <span class="d-wrap" data-wrap="box">text
+more</span> after
+==== blank-line-inside
+<div class="d-wrap" data-wrap="box">
+text<br><br>second paragraph</div>
+==== markdown-blocks-inside
+<div class="d-wrap" data-wrap="box">
+<h2><a name="heading-1" class="anchor" href="#heading-1" aria-label="Heading link"></a>Heading</h2>
+<ul>
+<li>one</li>
+<li>two</li>
+</ul>
+<blockquote>
+quoted</blockquote>
+</div>
+==== inline-markdown-inside
+<div class="d-wrap" data-wrap="box">
+<strong>bold</strong> <em>italic</em> <code>code</code> <a href="https://example.com" rel="noopener nofollow ugc">link</a> <img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji" alt=":smile:" loading="lazy" width="20" height="20"></div>
+==== in-blockquote
+<blockquote>
+<div class="d-wrap" data-wrap="box">
+text</div>
+</blockquote>
+==== in-list-item
+<ul>
+<li>
+<div class="d-wrap" data-wrap="box">
+text</div>
+</li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="d-wrap" data-wrap="box">text</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="wrapboxtextwrap-1" class="anchor" href="#wrapboxtextwrap-1" aria-label="Heading link"></a><span class="d-wrap" data-wrap="box">text</span></h2>
+==== around-b
+<div class="d-wrap" data-wrap="box">
+<span class="bbcode-b">text</span></div>
+==== in-b
+<span class="bbcode-b">before <span class="d-wrap" data-wrap="box">text</span> after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote>
+<div class="d-wrap" data-wrap="box">
+text</div>
+</blockquote>
+</aside>
+==== misnested-with-i
+<span class="d-wrap" data-wrap="box">[i]text[/i]</span> tail
+==== nested-in-itself
+<div class="d-wrap" data-wrap="box">
+outer <span class="d-wrap" data-wrap="box">inner</span> outer</div>
+==== repeated
+<div class="d-wrap" data-wrap="box">
+one[/wrap]<span class="d-wrap" data-wrap="box">two</span> [wrap=box]three</div>
+==== tail-and-next-line
+<span class="d-wrap" data-wrap="box">text</span> tail<br>
+next line
+==== blank-lines-around
+before<div class="d-wrap" data-wrap="box">
+text</div>
+after
+==== unclosed
+[wrap=box]text
+==== unmatched-close
+text[/wrap]
+==== escaped
+[wrap=box]text[/wrap]
+==== uppercase
+<div class="d-wrap" data-wrap="box">
+text</div>

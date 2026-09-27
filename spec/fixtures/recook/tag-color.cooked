@@ -1,0 +1,113 @@
+==== alone
+<span style="color: red">text</span>
+==== empty
+<span style="color: red"></span>
+==== mid-line
+before <span style="color: red">text</span> after
+==== own-lines
+<span style="color: red"><br>
+text<br>
+</span>
+==== own-lines-between-text
+before<br>
+<span style="color: red"><br>
+text<br>
+</span><br>
+after
+==== starts-mid-line-spans-lines
+before <span style="color: red">text<br>
+more</span> after
+==== blank-line-inside
+<span style="color: red"><br>
+text<br>
+<br>
+second paragraph<br>
+</span>
+==== markdown-blocks-inside
+<div style="color: red">
+<br>
+<h2><a name="heading-1" class="anchor" href="#heading-1" aria-label="Heading link"></a>Heading</h2>
+<ul>
+<li>one</li>
+<li>two</li>
+</ul>
+<blockquote>
+quoted</blockquote>
+<br>
+</div>
+==== inline-markdown-inside
+<span style="color: red"><strong>bold</strong> <em>italic</em> <code>code</code> <a href="https://example.com" rel="noopener nofollow ugc">link</a> <img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji" alt=":smile:" loading="lazy" width="20" height="20"></span>
+==== in-blockquote
+<blockquote>
+<span style="color: red"><br>
+text<br>
+</span></blockquote>
+==== in-list-item
+<ul>
+<li><span style="color: red"><br>
+text<br>
+</span></li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span style="color: red">text</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="colorredtextcolor-1" class="anchor" href="#colorredtextcolor-1" aria-label="Heading link"></a><span style="color: red">text</span></h2>
+==== around-b
+<span style="color: red"><span class="bbcode-b">text</span></span>
+==== in-b
+<span class="bbcode-b">before <span style="color: red">text</span> after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote>
+<span style="color: red">text</span></blockquote>
+</aside>
+==== misnested-with-i
+<span style="color: red"><span class="bbcode-i">text</span></span> tail
+==== nested-in-itself
+<span style="color: red">outer <span style="color: red">inner</span> outer</span>
+==== repeated
+<span style="color: red">one</span><span style="color: red">two</span> <span style="color: red">three</span>
+==== tail-and-next-line
+<span style="color: red">text</span> tail<br>
+next line
+==== blank-lines-around
+before<br><br><br><span style="color: red">text</span><br><br><br>after
+==== unclosed
+[color=red]text
+==== unmatched-close
+text[/color]
+==== escaped
+[color=red]text[/color]
+==== uppercase
+<span style="color: red">text</span>
+==== [color=#ff0000] alone
+<span style="color: #ff0000">text</span>
+==== [color=#ff0000] own-lines
+<span style="color: #ff0000"><br>
+text<br>
+</span>
+==== [color] alone
+text
+==== [color] own-lines
+<br>
+text<br>
+==== [color="blue"] alone
+<span style="color: blue">text</span>
+==== [color="blue"] own-lines
+<span style="color: blue"><br>
+text<br>
+</span>

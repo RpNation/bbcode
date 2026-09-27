@@ -1,0 +1,67 @@
+==== bracket-in-quoted-value
+[div style="background:url(a[1].png)"]x[/div]
+==== class-media-key-case
+[class name=x minWidth=10px]color:red[/class][class name=y minwidth=10px]color:blue[/class][div class=x]y[/div]
+==== close-bracket-in-quoted-value
+[div style="a]b"]x[/div]
+==== default-multi-token
+[div=height:auto; width:100%;
+
+padding:7px]text[/div]
+==== default-until-known-key
+[font=Open Sans style=bold]a[/font]
+[font="Open Sans style=x"]b[/font]
+[div=color:red CLASS=box]c[/div]
+[tabs]
+[tab=First tab STYLE=color:red]1[/tab]
+[/tabs]
+[mail person=Bob subject=Hello there]d[/mail]
+==== empty-and-quoted-default
+[color=]x[/color] [color="red"]y[/color]
+==== equals-in-unquoted-value
+[div style=background:url(a.png?x=1)]x[/div]
+==== escaped-quote
+[mail subject="a \"b\" c"]x[/mail]
+==== flag-with-key-value
+[accordion]
+[slide title=T open]body[/slide]
+[/accordion]
+==== flags-edges
+some [center is cool] text [/center]
+[accordion]
+[slide OPEN center]body[/slide]
+[slide nope]literal[/slide]
+[/accordion]
+==== flags-only
+[accordion]
+[slide open]body[/slide]
+[/accordion]
+==== font-default-then-key
+[font=Arial size=3]x[/font]
+==== height-values
+[heightrestrict=-5]x[/heightrestrict]
+[scroll=abc]y[/scroll]
+==== key-case
+[mail Person=Bob Subject=Hi]body[/mail]
+[div Style="color:red"]x[/div]
+==== nested-quotes
+[div style="font-family:'A b'"]x[/div]
+==== newline-in-quoted-value
+[mail person="Bo
+b"]x[/mail]
+==== quoted-key-values
+[div class="a b" style="color:blue"]hi[/div]
+==== quoted-value-edges
+[div style="a]b" class=box]x[/div]
+[spoiler="abc]text "quoted" more[/spoiler]
+[spoiler=Don't]x[/spoiler]
+[div style="a
+
+b]c[/div]
+[comment="a]b"]hidden[/comment] after
+==== single-quotes
+[div style='color:red']x[/div]
+==== size-units
+[size=4]x[/size] [size=40px]y[/size] [size=12pt]z[/size]
+==== unquoted-value-with-spaces
+[mail type=send person=Bob subject=Hello there]body[/mail]

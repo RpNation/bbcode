@@ -1,0 +1,108 @@
+==== alone
+<h1>text</h1>
+==== empty
+<h1></h1>
+==== mid-line
+before <h1>text</h1> after
+==== own-lines
+<h1>
+<br>
+text<br>
+</h1>
+==== own-lines-between-text
+before<br><h1>
+<br>
+text<br>
+</h1>
+<br>after
+==== starts-mid-line-spans-lines
+before<h1>
+text<br>
+more</h1>
+after
+==== blank-line-inside
+<h1>
+<br>
+text<br><br>second paragraph<br>
+</h1>
+==== markdown-blocks-inside
+<h1>
+<br>
+</h1><h2><a name="heading-1" class="anchor" href="#heading-1" aria-label="Heading link"></a>Heading</h2>
+<ul>
+<li>one</li>
+<li>two</li>
+</ul>
+<blockquote>
+quoted</blockquote>
+<br>
+
+==== inline-markdown-inside
+<h1><strong>bold</strong> <em>italic</em> <code>code</code> <a href="https://example.com" rel="noopener nofollow ugc">link</a> <img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji" alt=":smile:" loading="lazy" width="20" height="20"></h1>
+==== in-blockquote
+<blockquote>
+<h1>
+<br>
+text<br>
+</h1>
+</blockquote>
+==== in-list-item
+<ul>
+<li>
+<h1>
+<br>
+text<br>
+</h1>
+</li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><h1>text</h1></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="htexth-1" class="anchor" href="#htexth-1" aria-label="Heading link"></a></h2><h1>text</h1>
+==== around-b
+<h1><span class="bbcode-b">text</span></h1>
+==== in-b
+<span class="bbcode-b">before <h1>text</h1> after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote>
+<h1>text</h1>
+</blockquote>
+</aside>
+==== misnested-with-i
+<h1><span class="bbcode-i">text</span></h1>
+tail
+==== nested-in-itself
+<h1>outer </h1><h1>inner</h1> outer
+==== repeated
+<h1>one</h1>
+<h1>two</h1>
+<h1>three</h1>
+==== tail-and-next-line
+<h1>text</h1>
+tail<br>next line
+==== blank-lines-around
+before<br><br><br><h1>text</h1>
+<br><br><br>after
+==== unclosed
+[h]text
+==== unmatched-close
+text[/h]
+==== escaped
+[h]text[/h]
+==== uppercase
+<h1>text</h1>

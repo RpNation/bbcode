@@ -1,0 +1,80 @@
+==== alone
+<i data-bbcode-fa=""><i class="fas fa-dice" style="" data-fa-transform=""></i></i>
+==== empty
+<i data-bbcode-fa=""><i class="" style="" data-fa-transform=""></i></i>
+==== mid-line
+before <i data-bbcode-fa=""><i class="fas fa-dice" style="" data-fa-transform=""></i></i> after
+==== own-lines
+<i data-bbcode-fa=""><i class="fas fa-dice" style="" data-fa-transform=""></i></i>
+==== own-lines-between-text
+before<br><i data-bbcode-fa=""><i class="fas fa-dice" style="" data-fa-transform=""></i></i><br>after
+==== starts-mid-line-spans-lines
+before <i data-bbcode-fa=""><i class="fas fa-dice
+more" style="" data-fa-transform=""></i></i> after
+==== blank-line-inside
+<i data-bbcode-fa=""><i class="fas fa-dice
+
+second paragraph" style="" data-fa-transform=""></i></i>
+==== markdown-blocks-inside
+<i data-bbcode-fa=""><i class="## Heading
+
+- one
+- two
+
+> quoted" style="" data-fa-transform=""></i></i>
+==== inline-markdown-inside
+<i data-bbcode-fa=""><i class="**bold** _italic_ `code` [link](https://example.com) :smile:" style="" data-fa-transform=""></i></i>
+==== in-blockquote
+<blockquote><i data-bbcode-fa=""><i class="fas fa-dice" style="" data-fa-transform=""></i></i></blockquote>
+==== in-list-item
+<ul>
+<li><i data-bbcode-fa=""><i class="fas fa-dice" style="" data-fa-transform=""></i></i></li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><i data-bbcode-fa=""><i class="fas fa-dice" style="" data-fa-transform=""></i></i></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="fafas-fa-dicefa-1" class="anchor" href="#fafas-fa-dicefa-1" aria-label="Heading link"></a><i data-bbcode-fa=""><i class="fas fa-dice" style="" data-fa-transform=""></i></i></h2>
+==== around-b
+<i data-bbcode-fa=""><i class="[b]fas fa-dice[/b]" style="" data-fa-transform=""></i></i>
+==== in-b
+<span class="bbcode-b">before <i data-bbcode-fa=""><i class="fas fa-dice" style="" data-fa-transform=""></i></i> after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote><i data-bbcode-fa=""><i class="fas fa-dice" style="" data-fa-transform=""></i></i></blockquote>
+</aside>
+==== misnested-with-i
+<i data-bbcode-fa=""><i class="[i]fas fa-dice" style="" data-fa-transform=""></i></i> tail[/i]
+==== nested-in-itself
+<i data-bbcode-fa=""><i class="outer [fa]inner[/fa] outer" style="" data-fa-transform=""></i></i>
+==== repeated
+<i data-bbcode-fa=""><i class="one" style="" data-fa-transform=""></i></i><i data-bbcode-fa=""><i class="two" style="" data-fa-transform=""></i></i> <i data-bbcode-fa=""><i class="three" style="" data-fa-transform=""></i></i>
+==== tail-and-next-line
+<i data-bbcode-fa=""><i class="fas fa-dice" style="" data-fa-transform=""></i></i> tail<br>next line
+==== blank-lines-around
+before<br><br><br><i data-bbcode-fa=""><i class="fas fa-dice" style="" data-fa-transform=""></i></i><br><br><br>after
+==== unclosed
+[fa]fas fa-dice
+==== unmatched-close
+fas fa-dice[/fa]
+==== escaped
+[fa]fas fa-dice[/fa]
+==== uppercase
+<i data-bbcode-fa=""><i class="fas fa-dice" style="" data-fa-transform=""></i></i>
+==== [fa style="color:red" fa-transform=grow-2] alone
+<i data-bbcode-fa=""><i class="fas fa-dice" style="color:red" data-fa-transform="grow-2"></i></i>
+==== [fa style="color:red" fa-transform=grow-2] own-lines
+<i data-bbcode-fa=""><i class="fas fa-dice" style="color:red" data-fa-transform="grow-2"></i></i>

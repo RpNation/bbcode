@@ -1,0 +1,202 @@
+==== alone
+<details class="bb-spoiler">
+<summary>
+Spoiler: Title</summary>
+<div class="bb-spoiler-content">text</div>
+</details>
+==== empty
+<details class="bb-spoiler">
+<summary>
+Spoiler: Title</summary>
+<div class="bb-spoiler-content"></div>
+</details>
+==== mid-line
+before <details class="bb-spoiler"><summary>Spoiler: Title</summary><div class="bb-spoiler-content">text</div></details> after
+==== own-lines
+<details class="bb-spoiler">
+<summary>
+Spoiler: Title</summary>
+<div class="bb-spoiler-content">
+text</div>
+</details>
+==== own-lines-between-text
+before<br><details class="bb-spoiler">
+<summary>
+Spoiler: Title</summary>
+<div class="bb-spoiler-content">
+text</div>
+</details>
+after
+==== starts-mid-line-spans-lines
+before<details class="bb-spoiler">
+<summary>
+Spoiler: Title</summary>
+<div class="bb-spoiler-content">
+text<br>
+more</div>
+</details>
+after
+==== blank-line-inside
+<details class="bb-spoiler">
+<summary>
+Spoiler: Title</summary>
+<div class="bb-spoiler-content">
+text<br><br>second paragraph</div>
+</details>
+==== markdown-blocks-inside
+<details class="bb-spoiler">
+<summary>
+Spoiler: Title</summary>
+<div class="bb-spoiler-content">
+<h2><a name="heading-1" class="anchor" href="#heading-1" aria-label="Heading link"></a>Heading</h2>
+<ul>
+<li>one</li>
+<li>two</li>
+</ul>
+<blockquote>
+quoted</blockquote>
+</div>
+</details>
+==== inline-markdown-inside
+<details class="bb-spoiler">
+<summary>
+Spoiler: Title</summary>
+<div class="bb-spoiler-content"><strong>bold</strong> <em>italic</em> <code>code</code> <a href="https://example.com" rel="noopener nofollow ugc">link</a> <img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji" alt=":smile:" loading="lazy" width="20" height="20"></div>
+</details>
+==== in-blockquote
+<blockquote>
+<details class="bb-spoiler">
+<summary>
+Spoiler: Title</summary>
+<div class="bb-spoiler-content">
+text</div>
+</details>
+</blockquote>
+==== in-list-item
+<ul>
+<li>
+<details class="bb-spoiler">
+<summary>
+Spoiler: Title</summary>
+<div class="bb-spoiler-content">
+text</div>
+</details>
+</li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><details class="bb-spoiler"><summary>Spoiler: Title</summary><div class="bb-spoiler-content">text</div></details></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="spoilertitletextspoiler-1" class="anchor" href="#spoilertitletextspoiler-1" aria-label="Heading link"></a><details class="bb-spoiler"><summary>Spoiler: Title</summary><div class="bb-spoiler-content">text</div></details></h2>
+==== around-b
+<details class="bb-spoiler">
+<summary>
+Spoiler: Title</summary>
+<div class="bb-spoiler-content"><span class="bbcode-b">text</span></div>
+</details>
+==== in-b
+<span class="bbcode-b">before <details class="bb-spoiler"><summary>Spoiler: Title</summary><div class="bb-spoiler-content">text</div></details> after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote>
+<details class="bb-spoiler">
+<summary>
+Spoiler: Title</summary>
+<div class="bb-spoiler-content">text</div>
+</details>
+</blockquote>
+</aside>
+==== misnested-with-i
+<details class="bb-spoiler">
+<summary>
+Spoiler: Title</summary>
+<div class="bb-spoiler-content"><span class="bbcode-i">text</span></div>
+</details>
+tail
+==== nested-in-itself
+<details class="bb-spoiler">
+<summary>
+Spoiler: Title</summary>
+<div class="bb-spoiler-content">outer <details class="bb-spoiler"><summary>Spoiler: Title</summary><div class="bb-spoiler-content">inner</div></details> outer</div>
+</details>
+==== repeated
+<details class="bb-spoiler">
+<summary>
+Spoiler: Title</summary>
+<div class="bb-spoiler-content">one</div>
+</details>
+<details class="bb-spoiler">
+<summary>
+Spoiler: Title</summary>
+<div class="bb-spoiler-content">two</div>
+</details>
+<details class="bb-spoiler">
+<summary>
+Spoiler: Title</summary>
+<div class="bb-spoiler-content">three</div>
+</details>
+==== tail-and-next-line
+<details class="bb-spoiler">
+<summary>
+Spoiler: Title</summary>
+<div class="bb-spoiler-content">text</div>
+</details>
+tail<br>next line
+==== blank-lines-around
+before<br><br><br><details class="bb-spoiler">
+<summary>
+Spoiler: Title</summary>
+<div class="bb-spoiler-content">text</div>
+</details>
+<br><br>after
+==== unclosed
+[spoiler=Title]text
+==== unmatched-close
+text[/spoiler]
+==== escaped
+[spoiler=Title]text[/spoiler]
+==== uppercase
+<details class="bb-spoiler">
+<summary>
+Spoiler: Title</summary>
+<div class="bb-spoiler-content">text</div>
+</details>
+==== [spoiler] alone
+<details class="bb-spoiler">
+<summary>
+Spoiler</summary>
+<div class="bb-spoiler-content">text</div>
+</details>
+==== [spoiler] own-lines
+<details class="bb-spoiler">
+<summary>
+Spoiler</summary>
+<div class="bb-spoiler-content">
+text</div>
+</details>
+==== [spoiler="Quoted title"] alone
+<details class="bb-spoiler">
+<summary>
+Spoiler: Quoted title</summary>
+<div class="bb-spoiler-content">text</div>
+</details>
+==== [spoiler="Quoted title"] own-lines
+<details class="bb-spoiler">
+<summary>
+Spoiler: Quoted title</summary>
+<div class="bb-spoiler-content">
+text</div>
+</details>

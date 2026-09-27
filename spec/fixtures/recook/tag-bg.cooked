@@ -1,0 +1,114 @@
+==== alone
+<div class="bb-background" style="background-color: red;">text</div>
+==== empty
+<div class="bb-background" style="background-color: red;"></div>
+==== mid-line
+before <div class="bb-background" style="background-color: red;">text</div> after
+==== own-lines
+<div class="bb-background" style="background-color: red;">
+<br>
+text<br>
+</div>
+==== own-lines-between-text
+before<br><div class="bb-background" style="background-color: red;">
+<br>
+text<br>
+</div>
+<br>after
+==== starts-mid-line-spans-lines
+before<div class="bb-background" style="background-color: red;">text<br>
+more</div>
+after
+==== blank-line-inside
+<div class="bb-background" style="background-color: red;">
+<br>
+text<br>
+<br>
+second paragraph<br>
+</div>
+==== markdown-blocks-inside
+<div class="bb-background" style="background-color: red;">
+<br>
+## Heading<br>
+<br>
+- one<br>
+- two<br>
+<br>
+&gt; quoted<br>
+</div>
+==== inline-markdown-inside
+<div class="bb-background" style="background-color: red;"><strong>bold</strong> <em>italic</em> <code>code</code> <a href="https://example.com" rel="noopener nofollow ugc">link</a> <img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji" alt=":smile:" loading="lazy" width="20" height="20"></div>
+==== in-blockquote
+<blockquote>
+<div class="bb-background" style="background-color: red;">
+<br>
+text<br>
+</div>
+</blockquote>
+==== in-list-item
+<ul>
+<li>
+<div class="bb-background" style="background-color: red;">
+<br>
+text<br>
+</div>
+</li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><div class="bb-background" style="background-color: red;">text</div></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="bgredtextbg-1" class="anchor" href="#bgredtextbg-1" aria-label="Heading link"></a><div class="bb-background" style="background-color: red;">text</div></h2>
+==== around-b
+<div class="bb-background" style="background-color: red;"><span class="bbcode-b">text</span></div>
+==== in-b
+<span class="bbcode-b">before <div class="bb-background" style="background-color: red;">text</div> after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote>
+<div class="bb-background" style="background-color: red;">text</div>
+</blockquote>
+</aside>
+==== misnested-with-i
+<div class="bb-background" style="background-color: red;"><span class="bbcode-i">text</span></div>
+tail
+==== nested-in-itself
+<div class="bb-background" style="background-color: red;">outer <div class="bb-background" style="background-color: red;">inner</div> outer</div>
+==== repeated
+<div class="bb-background" style="background-color: red;">one</div>
+<div class="bb-background" style="background-color: red;">two</div>
+<div class="bb-background" style="background-color: red;">three</div>
+==== tail-and-next-line
+<div class="bb-background" style="background-color: red;">text</div>
+tail<br>next line
+==== blank-lines-around
+before<br><br><br><div class="bb-background" style="background-color: red;">text</div>
+<br><br><br>after
+==== unclosed
+[bg=red]text
+==== unmatched-close
+text[/bg]
+==== escaped
+[bg=red]text[/bg]
+==== uppercase
+<div class="bb-background" style="background-color: red;">text</div>
+==== [bg] alone
+<div class="bb-background" style="background-color: undefined;">text</div>
+==== [bg] own-lines
+<div class="bb-background" style="background-color: undefined;">
+<br>
+text<br>
+</div>

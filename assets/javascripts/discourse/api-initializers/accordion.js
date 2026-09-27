@@ -2,6 +2,7 @@
  * @file Initializes any accordion tag with proper js/event handling
  */
 import { apiInitializer } from "discourse/lib/api";
+import { prefersReducedMotion } from "discourse/lib/utilities";
 
 /**
  * Adds the inline js for accordion inside a given post
@@ -37,18 +38,26 @@ class Accordion {
    */
   constructor(el) {
     this.accordion = el;
-    const details = this.accordion.querySelectorAll("details.bb-slide");
+    // direct children only, so a nested accordion keeps its own slides
+    const details = this.accordion.querySelectorAll(
+      ":scope > details.bb-slide"
+    );
     details.forEach((detail) => {
+      const summary = detail.querySelector(":scope > summary.bb-slide-title");
+      const content = detail.querySelector(":scope > .bb-slide-content");
+      if (!summary || !content) {
+        return;
+      }
       /** @type {Slide} */
       const slide = {
         details: detail,
-        summary: detail.querySelector("summary.bb-slide-title"),
-        content: detail.querySelector(".bb-slide-content"),
+        summary,
+        content,
         animation: null, // Store the animation object (so we can cancel it if needed)
         isClosing: false,
         isExpanding: false,
       };
-      slide.summary?.addEventListener("click", (ev) => this.onClick(ev, slide));
+      slide.summary.addEventListener("click", (ev) => this.onClick(ev, slide));
       this.slides.push(slide);
     });
   }
@@ -60,6 +69,14 @@ class Accordion {
   onClick(ev, slide) {
     // Stop default behaviour from the browser
     ev.preventDefault();
+    if (prefersReducedMotion()) {
+      const opening = !slide.details.open;
+      this.slides.forEach((other) => {
+        other.animation?.cancel();
+        this.onAnimationFinish(other === slide && opening, other);
+      });
+      return;
+    }
     // Add an overflow on the <details> to avoid content overflowing
     slide.details.style.overflow = "hidden";
     // Check if the element is being closed or is already closed

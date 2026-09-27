@@ -1,0 +1,83 @@
+==== alone
+<img src="https://example.com/a.png" alt="" role="presentation">
+==== empty
+<img src="" alt="" role="presentation">
+==== mid-line
+before <img src="https://example.com/a.png" alt="" role="presentation"> after
+==== own-lines
+<img src="https://example.com/a.png" alt="" role="presentation">
+==== own-lines-between-text
+before<br>
+<img src="https://example.com/a.png" alt="" role="presentation"><br>
+after
+==== starts-mid-line-spans-lines
+before <img src="https://example.com/a.png
+more" alt="" role="presentation"> after
+==== blank-line-inside
+[img]<br>
+<a href="https://example.com/a.png" class="onebox" target="_blank" rel="noopener nofollow ugc">https://example.com/a.png</a><br><br>second paragraph<br>
+[/img]
+==== markdown-blocks-inside
+[img]<h2><a name="heading-1" class="anchor" href="#heading-1" aria-label="Heading link"></a>Heading</h2>
+<ul>
+<li>one</li>
+<li>two</li>
+</ul>
+<blockquote>
+quoted<br>
+[/img]</blockquote>
+==== inline-markdown-inside
+<img src="" alt="" role="presentation">
+==== in-blockquote
+<blockquote>
+<img src="https://example.com/a.png" alt="" role="presentation"></blockquote>
+==== in-list-item
+<ul>
+<li><img src="https://example.com/a.png" alt="" role="presentation"></li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="https://example.com/a.png" alt="" role="presentation"></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="imghttpsexamplecomapngimg-1" class="anchor" href="#imghttpsexamplecomapngimg-1" aria-label="Heading link"></a><img src="https://example.com/a.png" alt="" role="presentation"></h2>
+==== around-b
+<img src="" alt="" role="presentation">
+==== in-b
+<span class="bbcode-b">before <img src="https://example.com/a.png" alt="" role="presentation"> after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote>
+<img src="https://example.com/a.png" alt="" role="presentation"></blockquote>
+</aside>
+==== misnested-with-i
+<img src="" alt="" role="presentation"> tail[/i]
+==== nested-in-itself
+<img src="" alt="" role="presentation"> outer[/img]
+==== repeated
+<img src="" alt="" role="presentation"><img src="" alt="" role="presentation"> <img src="" alt="" role="presentation">
+==== tail-and-next-line
+<img src="https://example.com/a.png" alt="" role="presentation"> tail<br>
+next line
+==== blank-lines-around
+before<br><br><br><img src="https://example.com/a.png" alt="" role="presentation"><br><br><br>after
+==== unclosed
+[img]<a href="https://example.com/a.png" class="inline-onebox-loading" rel="noopener nofollow ugc">https://example.com/a.png</a>
+==== unmatched-close
+<a href="https://example.com/a.png%5B/img%5D" class="onebox" target="_blank" rel="noopener nofollow ugc">https://example.com/a.png[/img]</a>
+==== escaped
+[img]<a href="https://example.com/a.png%5B/img%5D" class="inline-onebox-loading" rel="noopener nofollow ugc">https://example.com/a.png[/img]</a>
+==== uppercase
+<img src="https://example.com/a.png" alt="" role="presentation">

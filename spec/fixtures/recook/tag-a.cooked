@@ -1,0 +1,93 @@
+==== alone
+<a id="user-anchor-top" name="user-anchor-top">text</a>
+==== empty
+<a id="user-anchor-top" name="user-anchor-top"></a>
+==== mid-line
+before <a id="user-anchor-top" name="user-anchor-top">text</a> after
+==== own-lines
+<a id="user-anchor-top" name="user-anchor-top"><br>
+text<br>
+</a>
+==== own-lines-between-text
+before<br>
+<a id="user-anchor-top" name="user-anchor-top"><br>
+text<br>
+</a><br>
+after
+==== starts-mid-line-spans-lines
+before <a id="user-anchor-top" name="user-anchor-top">text<br>
+more</a> after
+==== blank-line-inside
+<a id="user-anchor-top" name="user-anchor-top"><br>
+text<br>
+<br>
+second paragraph<br>
+</a>
+==== markdown-blocks-inside
+<a id="user-anchor-top" name="user-anchor-top"><br>
+## Heading<br>
+<br>
+- one<br>
+- two<br>
+<br>
+&gt; quoted<br>
+</a>
+==== inline-markdown-inside
+<a id="user-anchor-top" name="user-anchor-top"><strong>bold</strong> <em>italic</em> <code>code</code> </a><a href="https://example.com" rel="noopener nofollow ugc">link</a> <img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji" alt=":smile:" loading="lazy" width="20" height="20">
+==== in-blockquote
+<blockquote>
+<a id="user-anchor-top" name="user-anchor-top"><br>
+text<br>
+</a></blockquote>
+==== in-list-item
+<ul>
+<li><a id="user-anchor-top" name="user-anchor-top"><br>
+text<br>
+</a></li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a id="user-anchor-top" name="user-anchor-top">text</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="atoptexta-1" class="anchor" href="#atoptexta-1" aria-label="Heading link"></a><a id="user-anchor-top" name="user-anchor-top">text</a></h2>
+==== around-b
+<a id="user-anchor-top" name="user-anchor-top"><span class="bbcode-b">text</span></a>
+==== in-b
+<span class="bbcode-b">before <a id="user-anchor-top" name="user-anchor-top">text</a> after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote>
+<a id="user-anchor-top" name="user-anchor-top">text</a></blockquote>
+</aside>
+==== misnested-with-i
+<a id="user-anchor-top" name="user-anchor-top"><span class="bbcode-i">text</span></a> tail
+==== nested-in-itself
+<a id="user-anchor-top" name="user-anchor-top">outer </a><a id="user-anchor-top" name="user-anchor-top">inner</a> outer
+==== repeated
+<a id="user-anchor-top" name="user-anchor-top">one</a><a id="user-anchor-top" name="user-anchor-top">two</a> <a id="user-anchor-top" name="user-anchor-top">three</a>
+==== tail-and-next-line
+<a id="user-anchor-top" name="user-anchor-top">text</a> tail<br>
+next line
+==== blank-lines-around
+before<br><br><br><a id="user-anchor-top" name="user-anchor-top">text</a><br><br><br>after
+==== unclosed
+[a=top]text
+==== unmatched-close
+text[/a]
+==== escaped
+[a=top]text[/a]
+==== uppercase
+<a id="user-anchor-top" name="user-anchor-top">text</a>

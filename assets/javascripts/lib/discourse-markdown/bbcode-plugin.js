@@ -1,53 +1,4 @@
-/**
- * Processes inputted BBCode string using custom configured 3rd party library (see /bbcode-src)
- * @param {string} raw content to preprocess into HTML
- * @returns processed HTML string to pass into markdown-it
- */
-function preprocessor(raw, opts, previewing = false) {
-  // eslint-disable-next-line no-undef
-  if (!bbcodeParser) {
-    // parser doesn't exist. Something horrible has happened and somehow the parser wasn't imported/initialized
-    // give up and send it straight back.
-    // eslint-disable-next-line no-console
-    console.warn(
-      "Attempted to get the bbcode parser: does not exist. Defaulting to standard markdown-it.",
-      "\ncalled on: \n",
-      raw
-    );
-    return [raw, {}];
-  }
-  const parser = globalThis.bbcodeParser.RpNBBCode;
-  opts.previewing = previewing;
-
-  const processed = parser(raw, opts);
-  return [processed.html, processed.tree.options.data];
-}
-
-/**
- * Processes the output of both the markdown-it and the bbcode parser, concatenating additional content if necessary
- * @param {string} raw processed string
- * @param {boolean} previewing flag
- * @param {any} data from preprocessor
- * @returns processed string
- */
-function postprocessor(raw, previewing = false, data = {}) {
-  // eslint-disable-next-line no-undef
-  if (!bbcodeParser) {
-    // parser doesn't exist. Something horrible has happened and somehow the parser wasn't imported/initialized
-    // give up and send it straight back.
-    // eslint-disable-next-line no-console
-    console.warn(
-      "Attempted to get the bbcode parser: does not exist. Defaulting to standard markdown-it.",
-      "\ncalled on: \n",
-      raw
-    );
-    return raw;
-  }
-  // preview auto clear doesn't check against the live dom, so if a onebox is at the end of the post,
-  // it won't be cleared and could cause a fatal error
-  const append = previewing ? '<div style="display:none;"></div>' : "";
-  return globalThis.bbcodeParser.postprocess(raw, data) + append;
-}
+// The sanitizer allowlist for bbcode-native.js's HTML, and a composer preview fix.
 
 export function setup(helper) {
   if (!helper.markdownIt) {
@@ -55,42 +6,26 @@ export function setup(helper) {
   }
 
   helper.registerOptions((opts, siteSettings) => {
-    // Key must match this module's basename — that is the id the markdown
-    // pipeline gates registerPlugin and allowList on.
+    // must match this module's basename, which gates its allowList
     opts.features["bbcode-plugin"] = siteSettings.bbcode_enabled;
     if (opts.engine || !siteSettings.bbcode_enabled) {
       return;
     }
-    //Add check site settings for options to send to RpNBBCode
-    let preprocessor_options = {
-      preserveWhitespace:
-        siteSettings.preserve_whitespace &&
-        !siteSettings.discourse_normalize_whitespace,
-    };
 
     Object.defineProperty(opts, "engine", {
       configurable: true,
       set(engine) {
-        const md = engine.render;
-        engine.set({ breaks: false }); // disable breaks. Let BBob handle line breaks.
-
+        const render = engine.render;
         engine.render = function (raw) {
-          if (engine.options?.discourse?.featuresOverride !== undefined) {
-            // if featuresOverride is set, we're in a chat message and should not preprocess
-            return md.apply(this, [raw]);
-          }
-          const [preprocessed, data] = preprocessor(
-            raw,
-            preprocessor_options,
-            engine.options?.discourse?.previewing
-          );
-          const processed = md.apply(this, [preprocessed]);
-          const postprocessed = postprocessor(
-            processed,
-            engine.options?.discourse?.previewing,
-            data
-          );
-          return postprocessed;
+          const html = render.apply(this, [raw]);
+          const discourse = engine.options?.discourse;
+          // Preview clearing doesn't check the live DOM, so a onebox ending the
+          // post is never cleared and can crash it. Chat (featuresOverride)
+          // isn't a preview.
+          return discourse?.previewing &&
+            discourse.featuresOverride === undefined
+            ? html + '<div style="display:none;"></div>'
+            : html;
         };
         Object.defineProperty(opts, "engine", {
           configurable: true,
@@ -102,27 +37,11 @@ export function setup(helper) {
     });
   });
 
-  helper.registerPlugin((md) => {
-    // disable paragraph rendering
-    md.renderer.rules.paragraph_open = function () {
-      return "";
-    };
-    md.renderer.rules.paragraph_close = function () {
-      return "";
-    };
-
-    // this rule is where an indent (space/indent) is converted to a code block
-    // rarely used in the wild, but it's a common source of confusion
-    md.disable("code");
-  });
-
   helper.allowList([
     "div.bb-accordion",
     "div.bb-background",
-    "table.bb-block",
-    "td.bb-block-content",
-    "td.bb-block-icon",
-    "table[data-bb-block=*]",
+    "div.bb-block",
+    "div[data-bb-block=*]",
     "div.bb-blockquote",
     "div.bb-blockquote-content",
     "div.bb-blockquote-left",
@@ -156,7 +75,7 @@ export function setup(helper) {
     "div.bb-print-parchment",
     "div.bb-progress",
     "div.bb-progress-bar",
-    "div.bb-progress-other",
+    "div.bb-progress-bar-other",
     "div.bb-progress-text",
     "div.bb-progress-thin",
     "div.bb-ooc",
@@ -184,14 +103,14 @@ export function setup(helper) {
     "details.bb-spoiler",
     "i[data-bbcode-fa]",
     "i[data-fa-transform]",
-    "span.bb-divide",
+    "div.bb-divide",
     "span.bb-highlight",
     "span.bb-inline-spoiler",
     "span.bb-pindent",
-    "span.hidden",
     "span[style=*]",
     "summary",
     "summary.bb-slide-title",
+    "template[data-bbcode-comment]",
     "template[data-bbcode-plus=class]",
     "template[data-bbcode-plus=script]",
     "template[data-bbscript-id=*]",
@@ -202,12 +121,12 @@ export function setup(helper) {
 
   helper.allowList({
     custom: (tag, name, value) => {
-      // custom attr allowlist for anchor tags
+      // [anchor]
       if (tag === "a" && name === "id" && value.startsWith("user-anchor-")) {
         return true;
       }
 
-      // custom attr allowlist for tabs
+      // [tabs]
       if (tag === "input" && name === "type" && value === "radio") {
         return true;
       }
@@ -231,7 +150,7 @@ export function setup(helper) {
         return true;
       }
 
-      // custom attr allowlist for accordions
+      // [accordion]
       if (
         tag === "div" &&
         name === "class" &&
@@ -255,7 +174,7 @@ export function setup(helper) {
         return true;
       }
 
-      // custom attr allowlist for div style scripts
+      // classes scoped by [class]/[div class]
       if (tag === "div" && name === "class" && value.includes("__preview")) {
         return value.split(" ").every((c) => c.endsWith("__preview"));
       }
@@ -263,7 +182,7 @@ export function setup(helper) {
         return value.split(" ").every((c) => c.includes("__post-"));
       }
 
-      // custom attr allowlist for fontawesome [fa]
+      // [fa]
       if (tag === "i" && name === "class") {
         return true;
       }

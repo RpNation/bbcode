@@ -1,0 +1,124 @@
+==== alone
+<template data-bbcode-plus="class">.box__post-GUID {color: red;}</template>
+==== empty
+<template data-bbcode-plus="class">.box__post-GUID {}</template>
+==== mid-line
+<template data-bbcode-plus="class">.box__post-GUID {color: red;}</template>
+before  after
+==== own-lines
+<template data-bbcode-plus="class">.box__post-GUID {
+color: red;
+}</template>
+==== own-lines-between-text
+<template data-bbcode-plus="class">.box__post-GUID {
+color: red;
+}</template>
+before<br><br>after
+==== starts-mid-line-spans-lines
+<template data-bbcode-plus="class">.box__post-GUID {color: red;
+more}</template>
+before  after
+==== blank-line-inside
+<template data-bbcode-plus="class">.box__post-GUID {
+color: red;
+
+second paragraph
+}</template>
+==== markdown-blocks-inside
+<template data-bbcode-plus="class">.box__post-GUID {
+## Heading
+
+- one
+- two
+
+&gt; quoted
+}</template>
+==== inline-markdown-inside
+<template data-bbcode-plus="class">.box__post-GUID {**bold** _italic_ `code` link(https://example.com) :smile:}</template>
+==== in-blockquote
+<template data-bbcode-plus="class">.box__post-GUID {
+color: red;
+}</template>
+<blockquote></blockquote>
+==== in-list-item
+<template data-bbcode-plus="class">.box__post-GUID {
+color: red;
+}</template>
+<ul>
+<li></li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<template data-bbcode-plus="class">.box__post-GUID {color: red;}</template>
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<template data-bbcode-plus="class">.box__post-GUID {color: red;}</template>
+<h2><a name="class-nameboxcolor-redclass-1" class="anchor" href="#class-nameboxcolor-redclass-1" aria-label="Heading link"></a></h2>
+==== around-b
+<template data-bbcode-plus="class">.box__post-GUID {bcolor: red;/b}</template>
+==== in-b
+<template data-bbcode-plus="class">.box__post-GUID {color: red;}</template>
+<span class="bbcode-b">before  after</span>
+==== in-core-quote
+<template data-bbcode-plus="class">.box__post-GUID {color: red;}</template>
+<aside class="quote no-group">
+<blockquote></blockquote>
+</aside>
+==== misnested-with-i
+<template data-bbcode-plus="class">.box__post-GUID {icolor: red;}</template>
+tail[/i]
+==== nested-in-itself
+<template data-bbcode-plus="class">.box__post-GUID {outer class name=boxinner/class outer}</template>
+==== repeated
+<template data-bbcode-plus="class">.box__post-GUID {one}
+.box__post-GUID {two}
+.box__post-GUID {three}</template>
+==== tail-and-next-line
+<template data-bbcode-plus="class">.box__post-GUID {color: red;}</template>
+tail<br>next line
+==== blank-lines-around
+<template data-bbcode-plus="class">.box__post-GUID {color: red;}</template>
+before<br><br><br><br><br><br>after
+==== unclosed
+[class name=box]color: red;
+==== unmatched-close
+color: red;[/class]
+==== escaped
+[class name=box]color: red;[/class]
+==== uppercase
+<template data-bbcode-plus="class">.box__post-GUID {color: red;}</template>
+==== [class name=box state=hover] alone
+<template data-bbcode-plus="class">.box__post-GUID:hover {color: red;}</template>
+==== [class name=box state=hover] own-lines
+<template data-bbcode-plus="class">.box__post-GUID:hover {
+color: red;
+}</template>
+==== [class name=box selector=" p"] alone
+<template data-bbcode-plus="class">.box__post-GUIDp {color: red;}</template>
+==== [class name=box selector=" p"] own-lines
+<template data-bbcode-plus="class">.box__post-GUIDp {
+color: red;
+}</template>
+==== [class name=box minWidth=100px] alone
+<template data-bbcode-plus="class">@media (min-width: 100px) {.box__post-GUID {color: red;}}</template>
+==== [class name=box minWidth=100px] own-lines
+<template data-bbcode-plus="class">@media (min-width: 100px) {.box__post-GUID {
+color: red;
+}}</template>
+==== [class name="bad name"] alone
+
+==== [class name="bad name"] own-lines
+

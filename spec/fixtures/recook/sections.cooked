@@ -1,0 +1,59 @@
+==== accordion
+<div class="bb-accordion bright" data-group-id="post-GUID-1" style="width: 50%;">
+<details class="bb-slide">
+<summary class="bb-slide-title" style="text-align: left;">One</summary>
+<div class="bb-slide-content">
+<br>
+<ul>
+<li>a</li>
+</ul>
+<br>
+</div>
+</details>
+<details class="bb-slide" open="">
+<summary class="bb-slide-title" style="text-align: center;">Two</summary>
+<div class="bb-slide-content">two</div>
+</details>
+</div>
+==== tab-code-span
+<div class="bb-tabs">
+<input type="radio" id="tab-A-post-GUID-1-0" name="tab-group-post-GUID-1" class="bb-tab" checked="">
+<label class="bb-tab-label" for="tab-A-post-GUID-1-0">
+A</label>
+<div class="bb-tab-content"><code>{/slide}</code></div>
+</div>
+==== tab-names
+<div class="bb-tabs">
+<input type="radio" id="tab-a_b-post-GUID-1-0" name="tab-group-post-GUID-1" class="bb-tab" checked="">
+<label class="bb-tab-label" for="tab-a_b-post-GUID-1-0">
+a b</label>
+<div class="bb-tab-content">1</div>
+<input type="radio" id="tab-a_b-post-GUID-1-1" name="tab-group-post-GUID-1" class="bb-tab">
+<label class="bb-tab-label" for="tab-a_b-post-GUID-1-1">
+a_b</label>
+<div class="bb-tab-content">2</div>
+<input type="radio" id="tab-_n_-post-GUID-1-2" name="tab-group-post-GUID-1" class="bb-tab">
+<label class="bb-tab-label" for="tab-_n_-post-GUID-1-2">
+Ünï</label>
+<div class="bb-tab-content">3</div>
+</div>
+==== tab-standalone
+[tab=A]x[/tab]
+==== tabs
+<div class="bb-tabs">
+<input type="radio" id="tab-A-post-GUID-1-0" name="tab-group-post-GUID-1" class="bb-tab" checked="">
+<label class="bb-tab-label" for="tab-A-post-GUID-1-0">
+A</label>
+<div class="bb-tab-content">a</div>
+<input type="radio" id="tab-B-post-GUID-1-1" name="tab-group-post-GUID-1" class="bb-tab">
+<label class="bb-tab-label" for="tab-B-post-GUID-1-1" style="color:red">
+B</label>
+<div class="bb-tab-content"><strong>b</strong></div>
+</div>
+==== review-escaped-backtick-hides-slide-close
+<div class="bb-accordion" data-group-id="post-GUID-1" style="">
+<details class="bb-slide">
+<summary class="bb-slide-title" style="text-align: left;">Title</summary>
+<div class="bb-slide-content">a `</div>
+</details>
+</div>

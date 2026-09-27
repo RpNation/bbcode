@@ -1,0 +1,108 @@
+==== alone
+<h3>text</h3>
+==== empty
+<h3></h3>
+==== mid-line
+before <h3>text</h3> after
+==== own-lines
+<h3>
+<br>
+text<br>
+</h3>
+==== own-lines-between-text
+before<br><h3>
+<br>
+text<br>
+</h3>
+<br>after
+==== starts-mid-line-spans-lines
+before<h3>
+text<br>
+more</h3>
+after
+==== blank-line-inside
+<h3>
+<br>
+text<br><br>second paragraph<br>
+</h3>
+==== markdown-blocks-inside
+<h3>
+<br>
+</h3><h2><a name="heading-1" class="anchor" href="#heading-1" aria-label="Heading link"></a>Heading</h2>
+<ul>
+<li>one</li>
+<li>two</li>
+</ul>
+<blockquote>
+quoted</blockquote>
+<br>
+
+==== inline-markdown-inside
+<h3><strong>bold</strong> <em>italic</em> <code>code</code> <a href="https://example.com" rel="noopener nofollow ugc">link</a> <img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji" alt=":smile:" loading="lazy" width="20" height="20"></h3>
+==== in-blockquote
+<blockquote>
+<h3>
+<br>
+text<br>
+</h3>
+</blockquote>
+==== in-list-item
+<ul>
+<li>
+<h3>
+<br>
+text<br>
+</h3>
+</li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><h3>text</h3></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="h3texth3-1" class="anchor" href="#h3texth3-1" aria-label="Heading link"></a></h2><h3>text</h3>
+==== around-b
+<h3><span class="bbcode-b">text</span></h3>
+==== in-b
+<span class="bbcode-b">before <h3>text</h3> after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote>
+<h3>text</h3>
+</blockquote>
+</aside>
+==== misnested-with-i
+<h3><span class="bbcode-i">text</span></h3>
+tail
+==== nested-in-itself
+<h3>outer </h3><h3>inner</h3> outer
+==== repeated
+<h3>one</h3>
+<h3>two</h3>
+<h3>three</h3>
+==== tail-and-next-line
+<h3>text</h3>
+tail<br>next line
+==== blank-lines-around
+before<br><br><br><h3>text</h3>
+<br><br><br>after
+==== unclosed
+[h3]text
+==== unmatched-close
+text[/h3]
+==== escaped
+[h3]text[/h3]
+==== uppercase
+<h3>text</h3>

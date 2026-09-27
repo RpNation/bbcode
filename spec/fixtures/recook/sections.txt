@@ -1,0 +1,27 @@
+==== accordion
+[accordion=bright|50%]
+[slide=One]
+- a
+[/slide]
+{slide=Two|open|center}two{/slide}
+[/accordion]
+==== tab-code-span
+[tabs]
+[tab=A]`{/slide}` [/tab]
+[/tabs]
+==== tab-names
+[tabs]
+[tab=a b]1[/tab]
+[tab=a_b]2[/tab]
+[tab=Ünï]3[/tab]
+[/tabs]
+==== tab-standalone
+[tab=A]x[/tab]
+==== tabs
+[tabs]
+[tab=A]a[/tab]
+[tab=B style=color:red]**b**[/tab]
+ignored
+[/tabs]
+==== review-escaped-backtick-hides-slide-close
+[accordion]{slide=Title}a \`{/slide} x`[/accordion]

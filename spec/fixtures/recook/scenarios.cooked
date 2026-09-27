@@ -1,0 +1,310 @@
+==== character-sheet
+<div class="bb-center">
+<span data-size="6"><span style="font-family: 'Cinzel'; font-weight: 400; font-style: normal;" data-font="https://fonts.googleapis.com/css2?family=Cinzel:ital,wght@0,400"><span style="color: #8b0000">Aldric Thorne</span></span></span><br>
+<img src="https://example.com/aldric.png" alt="" role="presentation"><br>
+<span class="bbcode-i">"The road remembers every step."</span></div>
+<br><br><div class="bb-divide" data-type=""></div>
+<br><span class="bbcode-b">Age:</span> 34<br>
+<span class="bbcode-b">Race:</span> Human<br>
+<span class="bbcode-b">Occupation:</span> Wandering knight<br><br><fieldset class="bb-fieldset">
+<legend class="bb-fieldset-legend">
+Appearance</legend>
+<div>
+<br>
+Tall, scarred, with <span style="color: gray">ash-grey</span> hair.<br>
+</div>
+</fieldset>
+<br><br><fieldset class="bb-fieldset">
+<legend class="bb-fieldset-legend">
+Personality</legend>
+<div>
+<br>
+<ul>
+<li>Loyal to a fault</li>
+<li>Quick to anger</li>
+<li><span class="bbcode-s">Trusting</span> Wary of strangers</li>
+</ul>
+<br>
+</div>
+</fieldset>
+<br><br><details class="bb-spoiler">
+<summary>
+Spoiler: Backstory</summary>
+<div class="bb-spoiler-content">
+Born in the northern marches...<br><br>He left home at sixteen.</div>
+</details>
+==== tabbed-profile
+<div class="bb-tabs">
+<input type="radio" id="tab-Overview-post-GUID-1-0" name="tab-group-post-GUID-1" class="bb-tab" checked="">
+<label class="bb-tab-label" for="tab-Overview-post-GUID-1-0">
+Overview</label>
+<div class="bb-tab-content">
+<br>
+<div class="bb-center"><span class="bbcode-b">Mira Vale</span></div>
+<br>A cartographer from the coast.<br>
+</div>
+<input type="radio" id="tab-Stats-post-GUID-1-1" name="tab-group-post-GUID-1" class="bb-tab">
+<label class="bb-tab-label" for="tab-Stats-post-GUID-1-1">
+Stats</label>
+<div class="bb-tab-content">
+<br>
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>Stat</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>STR</td>
+<td>8</td>
+</tr>
+<tr>
+<td>INT</td>
+<td>16</td>
+</tr>
+</tbody>
+</table>
+</div><br>
+</div>
+<input type="radio" id="tab-Relationships-post-GUID-1-2" name="tab-group-post-GUID-1" class="bb-tab">
+<label class="bb-tab-label" for="tab-Relationships-post-GUID-1-2">
+Relationships</label>
+<div class="bb-tab-content">
+<br>
+[list]<br>
+<a class="mention" href="/u/system">@system</a> - mentor<br>
+[/list]<br>
+</div>
+</div>
+==== lore-accordion
+<div class="bb-accordion" data-group-id="post-GUID-1" style="">
+<details class="bb-slide">
+<summary class="bb-slide-title" style="text-align: left;">The First Age</summary>
+<div class="bb-slide-content">
+<br>
+Before the sun, there was the <span class="bbcode-i">Long Dark</span>.<br>
+</div>
+</details>
+<details class="bb-slide">
+<summary class="bb-slide-title" style="text-align: left;">The Sundering open</summary>
+<div class="bb-slide-content">
+<br>
+<aside class="quote no-group">
+<blockquote>
+The mountains fell into the sea.</blockquote>
+</aside>
+
+</div>
+</details>
+<details class="bb-slide">
+<summary class="bb-slide-title" style="text-align: right;">Legacy format</summary>
+<div class="bb-slide-content">Older posts wrote slides like this.</div>
+</details>
+</div>
+==== styled-card-with-class
+<template data-bbcode-plus="class">.card__post-GUID {
+background: #222;
+color: #eee;
+padding: 12px;
+border-radius: 8px;
+}
+.card__post-GUID:hover {
+background: #333;
+}</template>
+<div class="card__post-GUID">
+<br>
+<h3>Guild Notice</h3>
+<br>All members report to the hall at dusk.<br>
+</div>
+==== text-message-conversation
+<div class="bb-textmessage">
+<div class="bb-textmessage-name">
+Jess</div>
+<div class="bb-textmessage-overflow">
+<div class="bb-textmessage-content">
+<br>
+<div class="bb-message-them">
+<div class="bb-message-content">where are you??</div>
+</div>
+<br><div class="bb-message-me">
+<div class="bb-message-content">almost there</div>
+</div>
+<br><div class="bb-message-them">
+<div class="bb-message-content">hurry up <img src="/images/emoji/twitter/sweat_smile.png?v=15" title=":sweat_smile:" class="emoji" alt=":sweat_smile:" loading="lazy" width="20" height="20"></div>
+</div>
+<br>
+</div>
+</div>
+</div>
+==== dice-roll-block
+<div class="bb-block" data-bb-block="dice">
+<br>
+<span class="bbcode-b">Roll:</span> 1d20 + 3 = <span style="color: green">17</span><br>
+</div>
+<div class="bb-ooc">Rolling for perception, hope that's okay!</div>
+==== ooc-and-in-character
+<div class="bb-ooc">Sorry for the late post, busy week!</div>
+<br>Rain hammered the shutters as she stepped inside.<br><br>"<span class="bbcode-i">You're late,</span>" he said.
+==== image-float-with-text
+<div class="bb-float-left"><img src="https://example.com/portrait.png" alt="" role="presentation"></div>
+<div class="bb-justify">Lorem ipsum dolor sit amet, the text wraps around the portrait on the left and keeps going for several lines.</div>
+==== columns-layout
+<div class="bb-row">
+<br>
+<div class="bb-column" data-span="column-width-span6">
+<br>
+<span class="bbcode-b">Left side</span><br>
+Some text.<br>
+</div>
+<br><div class="bb-column" data-span="column-width-span6">
+<br>
+<span class="bbcode-b">Right side</span><br>
+More text.<br>
+</div>
+<br>
+</div>
+==== nested-font-color-size
+<span style="font-family: 'Georgia'"><span data-size="4"><span style="color: #4a90d9">Chapter <span class="bbcode-b">One</span></span></span></span>
+==== newspaper-and-note
+<div class="bb-newspaper">
+<br>
+<h1>The Daily Crier</h1>
+<br><span class="bbcode-b">Dragon sighted over harbor</span><br>
+</div>
+<div class="bb-note">
+<div class="bb-note-tape"></div>
+<div class="bb-note-content">Remember to buy bread.<div class="bb-note-footer"></div>
+</div>
+</div>
+==== progress-stats
+<span class="bbcode-b">HP</span> <div class="bb-progress"><div class="bb-progress-text">80/100</div><div class="bb-progress-bar" style="width: calc(80% - 6px)"></div><div class="bb-progress-bar-other"></div></div><br>
+<span class="bbcode-b">MP</span> <div class="bb-progress-thin"><div class="bb-progress-text">35/100</div><div class="bb-progress-bar" style="width: calc(35% - 6px)"></div><div class="bb-progress-bar-other"></div></div>
+==== scroll-box-log
+<div class="bb-scroll" style="height: 200px">
+<br>
+Day 1: Arrived at the village.<br>
+Day 2: Met the elder.<br>
+Day 3: The well was poisoned.<br>
+Day 4: Found the culprit.<br>
+Day 5: Left at dawn.<br>
+</div>
+==== spoiler-with-heading-and-list
+<details class="bb-spoiler">
+<summary>
+Spoiler: Rules</summary>
+<div class="bb-spoiler-content">
+<h2><a name="posting-rules-1" class="anchor" href="#posting-rules-1" aria-label="Heading link"></a>Posting rules</h2>
+<ol>
+<li>Stay in character</li>
+<li>Use [ooc] for out of character</li>
+<li>No godmodding</li>
+</ol>
+</div>
+</details>
+==== linked-image
+<a href="https://example.com/gallery" data-bbcode="true" rel="noopener nofollow ugc"><img src="https://example.com/thumb.png" alt="" role="presentation"></a>
+==== centered-video-link
+<div class="bb-center"><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="inline-onebox-loading" rel="noopener nofollow ugc">https://www.youtube.com/watch?v=dQw4w9WgXcQ</a></div>
+==== anchors-table-of-contents
+<a href="#user-anchor-ch1">Chapter 1</a> | <a href="#user-anchor-ch2">Chapter 2</a><br><br><a id="user-anchor-ch1" name="user-anchor-ch1"><h2>Chapter 1</h2></a><br>
+Text.<br>
+<a id="user-anchor-ch2" name="user-anchor-ch2"><h2>Chapter 2</h2></a><br>
+More text.
+==== reply-quoting-with-bbcode
+<aside class="quote no-group" data-username="system" data-post="1" data-topic="1">
+<div class="title">
+<div class="quote-controls"></div>
+<img alt="" width="24" height="24" src="//test.localhost/images/discourse-logo-sketch-small.png" class="avatar"> system:</div>
+<blockquote>
+<span class="bbcode-b">Bold claim</span> in the quote.</blockquote>
+</aside>
+<span style="color: red">I disagree!</span>
+==== mixed-markdown-and-bbcode
+<strong>Markdown bold</strong> and <span class="bbcode-b">bbcode bold</span>.<ul>
+<li>a <span class="bbcode-i">list</span> item</li>
+<li>
+<div class="bb-center">centered in a list</div>
+</li>
+</ul>
+<blockquote>
+a quote with <span class="bbcode-u">underline</span></blockquote>
+==== forgotten-close
+[b]This bold never closes.<br><div class="bb-center">but this one does</div>
+==== mismatched-close-case
+<span class="bbcode-b">bold</span> <span style="color: Red">red</span>
+==== wrong-close-tag
+<span class="bbcode-b">bold[/i] text</span>
+==== extra-spaces-in-attributes
+<span style="color: red">a</span> <span data-size="5">b</span> <div style="style">c</div>
+==== xenforo-style-quote-and-attach
+<aside class="quote no-group" data-username="Someone" data-post="123">
+<div class="title">
+<div class="quote-controls"></div>
+ Someone:</div>
+<blockquote>
+old quote</blockquote>
+</aside>
+[ATTACH=full]6789[/ATTACH]
+==== xenforo-url-and-email
+<a href="https://example.com" data-bbcode="true" rel="noopener nofollow ugc">link</a> <a href="mailto:a@example.com" data-bbcode="true">a@example.com</a>
+==== comment-for-authors
+<!--TODO: update stats after the arc--><br>
+Visible text.
+==== plain-and-icode-teaching
+To make text bold, write <code>[b]text[/b]</code>.<br>Example: [color=red]red[/color]
+==== long-post-many-sections
+<div class="bb-center"><h1>Session Log</h1></div>
+<br><details class="bb-spoiler">
+<summary>
+Spoiler: Part 1</summary>
+<div class="bb-spoiler-content">
+<span class="bbcode-b">Scene:</span> The tavern.</div>
+</details>
+<details class="bb-spoiler">
+<summary>
+Spoiler: Part 2</summary>
+<div class="bb-spoiler-content">
+<span class="bbcode-b">Scene:</span> The road.</div>
+</details>
+<details class="bb-spoiler">
+<summary>
+Spoiler: Part 3</summary>
+<div class="bb-spoiler-content">
+<span class="bbcode-b">Scene:</span> The castle.</div>
+</details>
+<div class="bb-divide" data-type=""></div>
+<div class="bb-right"><span class="bbcode-i">- End of log -</span></div>
+==== nobr-poetry
+Roses are red,
+violets are blue.
+==== inline-spoilers-in-dialogue
+"The killer is <span class="bb-inline-spoiler">the butler</span>," she whispered.
+==== mail-in-character
+<div class="bb-email" data-bb-email="receive">
+<div class="bb-email-header"></div>
+<div class="bb-email-address">
+The Duke</div>
+<div class="bb-email-subject">
+Summons</div>
+<div class="bb-email-content">
+<br>
+You are to appear before the court at noon.<br>
+</div>
+<div class="bb-email-footer">
+<div class="bb-email-button"></div>
+</div>
+</div>
+==== fa-icons-in-headers
+<h3><i data-bbcode-fa=""><i class="fas fa-scroll" style="" data-fa-transform=""></i></i> Quest Log</h3>
+==== blockquote-with-speaker
+<div class="bb-blockquote">
+<div class="bb-blockquote-left"></div>
+<div class="bb-blockquote-content">
+What was lost shall be found.<div class="bb-blockquote-speaker">
+- The Oracle</div>
+</div>
+<div class="bb-blockquote-right"></div>
+</div>

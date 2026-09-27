@@ -1,0 +1,143 @@
+==== alone
+<div class="bb-height-restrict" style="height: 100px;">text</div>
+==== empty
+<div class="bb-height-restrict" style="height: 100px;"></div>
+==== mid-line
+before <div class="bb-height-restrict" style="height: 100px;">text</div> after
+==== own-lines
+<div class="bb-height-restrict" style="height: 100px;">
+<br>
+text<br>
+</div>
+==== own-lines-between-text
+before<br><div class="bb-height-restrict" style="height: 100px;">
+<br>
+text<br>
+</div>
+<br>after
+==== starts-mid-line-spans-lines
+before<div class="bb-height-restrict" style="height: 100px;">
+text<br>
+more</div>
+after
+==== blank-line-inside
+<div class="bb-height-restrict" style="height: 100px;">
+<br>
+text<br><br>second paragraph<br>
+</div>
+==== markdown-blocks-inside
+<div class="bb-height-restrict" style="height: 100px;">
+<br>
+<h2><a name="heading-1" class="anchor" href="#heading-1" aria-label="Heading link"></a>Heading</h2>
+<ul>
+<li>one</li>
+<li>two</li>
+</ul>
+<blockquote>
+quoted</blockquote>
+<br>
+</div>
+==== inline-markdown-inside
+<div class="bb-height-restrict" style="height: 100px;"><strong>bold</strong> <em>italic</em> <code>code</code> <a href="https://example.com" rel="noopener nofollow ugc">link</a> <img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji" alt=":smile:" loading="lazy" width="20" height="20"></div>
+==== in-blockquote
+<blockquote>
+<div class="bb-height-restrict" style="height: 100px;">
+<br>
+text<br>
+</div>
+</blockquote>
+==== in-list-item
+<ul>
+<li>
+<div class="bb-height-restrict" style="height: 100px;">
+<br>
+text<br>
+</div>
+</li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><div class="bb-height-restrict" style="height: 100px;">text</div></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="heightrestrict100textheightrestrict-1" class="anchor" href="#heightrestrict100textheightrestrict-1" aria-label="Heading link"></a><div class="bb-height-restrict" style="height: 100px;">text</div></h2>
+==== around-b
+<div class="bb-height-restrict" style="height: 100px;"><span class="bbcode-b">text</span></div>
+==== in-b
+<span class="bbcode-b">before <div class="bb-height-restrict" style="height: 100px;">text</div> after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote>
+<div class="bb-height-restrict" style="height: 100px;">text</div>
+</blockquote>
+</aside>
+==== misnested-with-i
+<div class="bb-height-restrict" style="height: 100px;"><span class="bbcode-i">text</span></div>
+tail
+==== nested-in-itself
+<div class="bb-height-restrict" style="height: 100px;">outer <div class="bb-height-restrict" style="height: 100px;">inner</div> outer</div>
+==== repeated
+<div class="bb-height-restrict" style="height: 100px;">one</div>
+<div class="bb-height-restrict" style="height: 100px;">two</div>
+<div class="bb-height-restrict" style="height: 100px;">three</div>
+==== tail-and-next-line
+<div class="bb-height-restrict" style="height: 100px;">text</div>
+tail<br>next line
+==== blank-lines-around
+before<br><br><br><div class="bb-height-restrict" style="height: 100px;">text</div>
+<br><br><br>after
+==== unclosed
+[heightrestrict=100]text
+==== unmatched-close
+text[/heightrestrict]
+==== escaped
+[heightrestrict=100]text[/heightrestrict]
+==== uppercase
+<div class="bb-height-restrict" style="height: 100px;">text</div>
+==== [heightrestrict] alone
+<div class="bb-height-restrict">text</div>
+==== [heightrestrict] own-lines
+<div class="bb-height-restrict">
+<br>
+text<br>
+</div>
+==== [heightrestrict=0] alone
+<div class="bb-height-restrict">text</div>
+==== [heightrestrict=0] own-lines
+<div class="bb-height-restrict">
+<br>
+text<br>
+</div>
+==== [heightrestrict=9999] alone
+<div class="bb-height-restrict" style="height: 700px;">text</div>
+==== [heightrestrict=9999] own-lines
+<div class="bb-height-restrict" style="height: 700px;">
+<br>
+text<br>
+</div>
+==== [heightrestrict=-5] alone
+<div class="bb-height-restrict" style="height: 5px;">text</div>
+==== [heightrestrict=-5] own-lines
+<div class="bb-height-restrict" style="height: 5px;">
+<br>
+text<br>
+</div>
+==== [heightrestrict=abc] alone
+<div class="bb-height-restrict" style="height: 700px;">text</div>
+==== [heightrestrict=abc] own-lines
+<div class="bb-height-restrict" style="height: 700px;">
+<br>
+text<br>
+</div>

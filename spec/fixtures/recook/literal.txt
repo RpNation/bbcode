@@ -1,0 +1,109 @@
+==== code-block
+x
+[code]
+    [div=x]
+[/div]
+[/code]
+after
+==== code-inside-plain
+[plain][code]
+x[/plain]
+[/code]
+==== code-mid-line
+a [code]x
+y[/code] b
+==== code-not-nested
+[code]
+a [code] b
+[/code]
+c
+[/code]
+==== comment
+[comment]
+hidden [font=Lato]x[/font]
+[/comment]
+after
+a [comment]x --> y[/comment] b
+==== fence-container-ends
+> ```
+> [b]unclosed quoted fence
+
+[i]after the quote[/i]
+
+- ```
+  [i]x
+  ```
+- [b]y[/b]
+==== fence-in-blockquote
+[b]x
+> ```
+> [/b]
+> ```
+y[/b]
+==== fence-in-list
+[b]x
+- ```
+  [/b]
+  ```
+
+y[/b]
+==== fence-top-level
+```
+[b]x
+```
+
+[/b]
+[b]x
+```
+[/b]
+```
+y[/b]
+==== html-blocks
+[b]x
+<!--
+[/b]
+
+-->
+y[/b]
+
+[i]a
+<textarea>
+[/i]
+</textarea>
+b[/i]
+
+<pre>[b]same line</pre> [b]after[/b]
+==== icode
+[icode]a[/icode] [icode]b[/icode]
+x [icode]c
+
+d[/icode] y
+==== inline-html-and-autolinks
+[b]a <!-- [/b] --> b[/b]
+[i]x <https://e.com/[/i]> y[/i]
+[b]1 < 2 [/b] and <b>html</b>
+<!-- [center] unclosed
+
+[u]after[/u]
+==== plain-in-code-span
+`[plain]`
+[color=red]red[/color]
+`[/plain]`
+==== plain
+[plain][b]x[/b] :smile:[/plain]
+[plain]a [plain] b[/plain] c[/plain]
+[plain]a\[/plain] b
+==== tail-after-line-start
+[plain]x[/plain] b
+[icode]x[/icode] b
+[fa]fas fa-x[/fa] b
+[comment]x[/comment] b
+==== tail-edges
+[plain]a
+b[/plain] c
+[icode]x[/icode]	 tab
+[plain]x[/plain]
+[class name=q]color:red[/class] after
+[fa]fas fa-x[/fa] [fa]fas fa-y[/fa]
+==== tail-mid-line
+a [plain]x[/plain] b

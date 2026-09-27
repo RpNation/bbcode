@@ -1,8 +1,8 @@
 en:
+  bbcode:
+    excerpt_spoiler: "spoiler"
   site_settings:
     bbcode_enabled: "Enable Custom BBCode parser"
     discourse_normalize_whitespace: "Activate to set all whitespace to the default space character (U+0020)"
-    preserve_whitespace: "Activate to set repeating spaces (U+0020) to non-breaking spaces (U+00A0).
-      Note that discourse_normalize_whitespace must be disabled to preserve non-breaking spaces."
     enable_bbscript: "Activate to enable BBScript support. See the github wiki for more information."
     fontawesome_kit_url: "Enter the URL of your Font Awesome kit to enable Font Awesome icons in BBCode."

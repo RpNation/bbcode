@@ -1,0 +1,181 @@
+==== alone
+<div class="bb-message-me">
+<div class="bb-message-content">text</div>
+</div>
+==== empty
+<div class="bb-message-me">
+<div class="bb-message-content"></div>
+</div>
+==== mid-line
+before <div class="bb-message-me"><div class="bb-message-content">text</div></div> after
+==== own-lines
+<div class="bb-message-me">
+<div class="bb-message-content">
+<br>
+text<br>
+</div>
+</div>
+==== own-lines-between-text
+before<br><div class="bb-message-me">
+<div class="bb-message-content">
+<br>
+text<br>
+</div>
+</div>
+<br>after
+==== starts-mid-line-spans-lines
+before<div class="bb-message-me">
+<div class="bb-message-content">
+text<br>
+more</div>
+</div>
+after
+==== blank-line-inside
+<div class="bb-message-me">
+<div class="bb-message-content">
+<br>
+text<br><br>second paragraph<br>
+</div>
+</div>
+==== markdown-blocks-inside
+<div class="bb-message-me">
+<div class="bb-message-content">
+<br>
+<h2><a name="heading-1" class="anchor" href="#heading-1" aria-label="Heading link"></a>Heading</h2>
+<ul>
+<li>one</li>
+<li>two</li>
+</ul>
+<blockquote>
+quoted</blockquote>
+<br>
+</div>
+</div>
+==== inline-markdown-inside
+<div class="bb-message-me">
+<div class="bb-message-content"><strong>bold</strong> <em>italic</em> <code>code</code> <a href="https://example.com" rel="noopener nofollow ugc">link</a> <img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji" alt=":smile:" loading="lazy" width="20" height="20"></div>
+</div>
+==== in-blockquote
+<blockquote>
+<div class="bb-message-me">
+<div class="bb-message-content">
+<br>
+text<br>
+</div>
+</div>
+</blockquote>
+==== in-list-item
+<ul>
+<li>
+<div class="bb-message-me">
+<div class="bb-message-content">
+<br>
+text<br>
+</div>
+</div>
+</li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><div class="bb-message-me"><div class="bb-message-content">text</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="messagemetextmessage-1" class="anchor" href="#messagemetextmessage-1" aria-label="Heading link"></a><div class="bb-message-me"><div class="bb-message-content">text</div></div></h2>
+==== around-b
+<div class="bb-message-me">
+<div class="bb-message-content"><span class="bbcode-b">text</span></div>
+</div>
+==== in-b
+<span class="bbcode-b">before <div class="bb-message-me"><div class="bb-message-content">text</div></div> after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote>
+<div class="bb-message-me">
+<div class="bb-message-content">text</div>
+</div>
+</blockquote>
+</aside>
+==== misnested-with-i
+<div class="bb-message-me">
+<div class="bb-message-content"><span class="bbcode-i">text</span></div>
+</div>
+tail
+==== nested-in-itself
+<div class="bb-message-me">
+<div class="bb-message-content">outer <div class="bb-message-me"><div class="bb-message-content">inner</div></div> outer</div>
+</div>
+==== repeated
+<div class="bb-message-me">
+<div class="bb-message-content">one</div>
+</div>
+<div class="bb-message-me">
+<div class="bb-message-content">two</div>
+</div>
+<div class="bb-message-me">
+<div class="bb-message-content">three</div>
+</div>
+==== tail-and-next-line
+<div class="bb-message-me">
+<div class="bb-message-content">text</div>
+</div>
+tail<br>next line
+==== blank-lines-around
+before<br><br><br><div class="bb-message-me">
+<div class="bb-message-content">text</div>
+</div>
+<br><br><br>after
+==== unclosed
+[message=me]text
+==== unmatched-close
+text[/message]
+==== escaped
+[message=me]text[/message]
+==== uppercase
+<div class="bb-message-me">
+<div class="bb-message-content">text</div>
+</div>
+==== [message] alone
+<div class="bb-message-me">
+<div class="bb-message-content">text</div>
+</div>
+==== [message] own-lines
+<div class="bb-message-me">
+<div class="bb-message-content">
+<br>
+text<br>
+</div>
+</div>
+==== [message=them] alone
+<div class="bb-message-them">
+<div class="bb-message-content">text</div>
+</div>
+==== [message=them] own-lines
+<div class="bb-message-them">
+<div class="bb-message-content">
+<br>
+text<br>
+</div>
+</div>
+==== [message=left] alone
+<div class="bb-message-them">
+<div class="bb-message-content">text</div>
+</div>
+==== [message=left] own-lines
+<div class="bb-message-them">
+<div class="bb-message-content">
+<br>
+text<br>
+</div>
+</div>

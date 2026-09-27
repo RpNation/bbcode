@@ -1,0 +1,108 @@
+==== alone
+<h5>text</h5>
+==== empty
+<h5></h5>
+==== mid-line
+before <h5>text</h5> after
+==== own-lines
+<h5>
+<br>
+text<br>
+</h5>
+==== own-lines-between-text
+before<br><h5>
+<br>
+text<br>
+</h5>
+<br>after
+==== starts-mid-line-spans-lines
+before<h5>
+text<br>
+more</h5>
+after
+==== blank-line-inside
+<h5>
+<br>
+text<br><br>second paragraph<br>
+</h5>
+==== markdown-blocks-inside
+<h5>
+<br>
+</h5><h2><a name="heading-1" class="anchor" href="#heading-1" aria-label="Heading link"></a>Heading</h2>
+<ul>
+<li>one</li>
+<li>two</li>
+</ul>
+<blockquote>
+quoted</blockquote>
+<br>
+
+==== inline-markdown-inside
+<h5><strong>bold</strong> <em>italic</em> <code>code</code> <a href="https://example.com" rel="noopener nofollow ugc">link</a> <img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji" alt=":smile:" loading="lazy" width="20" height="20"></h5>
+==== in-blockquote
+<blockquote>
+<h5>
+<br>
+text<br>
+</h5>
+</blockquote>
+==== in-list-item
+<ul>
+<li>
+<h5>
+<br>
+text<br>
+</h5>
+</li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><h5>text</h5></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="h5texth5-1" class="anchor" href="#h5texth5-1" aria-label="Heading link"></a></h2><h5>text</h5>
+==== around-b
+<h5><span class="bbcode-b">text</span></h5>
+==== in-b
+<span class="bbcode-b">before <h5>text</h5> after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote>
+<h5>text</h5>
+</blockquote>
+</aside>
+==== misnested-with-i
+<h5><span class="bbcode-i">text</span></h5>
+tail
+==== nested-in-itself
+<h5>outer </h5><h5>inner</h5> outer
+==== repeated
+<h5>one</h5>
+<h5>two</h5>
+<h5>three</h5>
+==== tail-and-next-line
+<h5>text</h5>
+tail<br>next line
+==== blank-lines-around
+before<br><br><br><h5>text</h5>
+<br><br><br>after
+==== unclosed
+[h5]text
+==== unmatched-close
+text[/h5]
+==== escaped
+[h5]text[/h5]
+==== uppercase
+<h5>text</h5>

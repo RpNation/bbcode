@@ -1,0 +1,78 @@
+==== style-attribute-breakout
+<span style="color: red&quot; onmouseover=&quot;alert(1)">x</span>
+==== style-attribute-single-quote-breakout
+<div style="color:red' onclick='alert(1)">x</div>
+==== css-javascript-url
+<div style="background:url(javascript:alert(1))">x</div>
+==== css-expression
+<div style="width:expression(alert(1))">x</div>
+==== javascript-links
+<a href="https://javascript" data-bbcode="true" rel="noopener nofollow ugc">x</a> <a href="https://javascript" data-bbcode="true" rel="noopener nofollow ugc">javascript:alert(1)</a> <a href="#user-anchor-&quot; onclick=&quot;alert(1)">y</a>
+==== data-uri-links
+<a href="https://data" data-bbcode="true" rel="noopener nofollow ugc">x</a>
+==== anchor-id-injection
+<a id="user-anchor-x&quot; onclick=&quot;alert(1)" name="user-anchor-x&quot; onclick=&quot;alert(1)">a</a>
+==== fa-class-and-style
+<i data-bbcode-fa=""><i class="fas fa-x&quot; onclick=&quot;alert(1)" style="color:red;background:url(javascript:alert(1))" data-fa-transform=""></i></i>
+==== img-onerror
+<img src="" alt="" role="presentation">
+==== raw-script-tags
+[b][/b]
+==== raw-event-handlers
+<img src=""> <span class="bbcode-b"><a>x</a></span>
+==== iframes-and-objects
+
+==== svg
+<svg></svg>
+==== forged-template-marker
+<template data-bbscript-id="post-GUID">(alert 1)</template>
+==== forged-template-in-tag
+<span class="bbcode-b"><template>.d-header{display:none}</template></span>
+==== class-name-breakout
+
+==== class-selector-breakout
+<template data-bbcode-plus="class">.x__post-GUID .d-headerdisplay:none {color:red}</template>
+==== class-body-breakout
+<template data-bbcode-plus="class">.x__post-GUID {color:red.d-headerdisplay:none}</template>
+==== class-body-closes-template
+<template data-bbcode-plus="class">.x__post-GUID {&lt;/template&gt;&lt;script&gt;alert(1)&lt;/script&gt;}</template>
+==== script-body-closes-template
+<template data-bbcode-plus="script" data-bbscript-id="post-GUID" data-bbscript-class="" data-bbscript-on="init" data-bbscript-ver="">&lt;/template&gt;&lt;img src=x onerror=alert(1)&gt;</template>
+==== script-bad-class-and-event
+<template data-bbcode-plus="script" data-bbscript-id="post-GUID" data-bbscript-class="" data-bbscript-on="init" data-bbscript-ver="">x</template>
+==== animation-name-breakout
+
+==== keyframe-selector-breakout
+<template data-bbcode-plus="class">@keyframes post-GUIDx {  }</template>
+==== comment-closing-early
+<!----&gt; &lt;script&gt;alert(1)&lt;/script&gt; &lt;!---->
+==== fixed-position-overlay
+<div style="position:fixed;inset:0;z-index:99999;background:red">x</div>
+==== tab-name-injection
+<div class="bb-tabs">
+<input type="radio" id="tab-x__onclick__alert_1_-post-GUID-1-0" name="tab-group-post-GUID-1" class="bb-tab" checked="">
+<label class="bb-tab-label" for="tab-x__onclick__alert_1_-post-GUID-1-0">
+x" onclick="alert(1)</label>
+<div class="bb-tab-content">a</div>
+</div>
+==== accordion-width-injection
+<div class="bb-accordion" data-group-id="post-GUID-1" style="">
+<details class="bb-slide">
+<summary class="bb-slide-title" style="text-align: left;">x</summary>
+<div class="bb-slide-content">a</div>
+</details>
+</div>
+==== mail-fields-injection
+<div class="bb-email" data-bb-email="send">
+<div class="bb-email-header"></div>
+<div class="bb-email-address">
+&lt;b&gt;x&lt;/b&gt;</div>
+<div class="bb-email-subject">
+&lt;script&gt;alert(1)&lt;/script&gt;</div>
+<div class="bb-email-content">x</div>
+<div class="bb-email-footer">
+<div class="bb-email-button"></div>
+</div>
+</div>
+==== font-url-injection
+<span style="font-family: 'Arial&quot;><script>alert(1)</script>'; font-weight: 400; font-style: normal;" data-font="https://fonts.googleapis.com/css2?family=Arial&quot;><script>alert(1)</script>:ital,wght@0,400">x</span> <span style="font-family: 'x&amp;family=evil'; font-weight: 400; font-style: normal;" data-font="https://fonts.googleapis.com/css2?family=x&amp;family=evil:ital,wght@0,400">y</span>

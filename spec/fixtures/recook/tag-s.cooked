@@ -1,0 +1,96 @@
+==== alone
+<span class="bbcode-s">text</span>
+==== empty
+<span class="bbcode-s"></span>
+==== mid-line
+before <span class="bbcode-s">text</span> after
+==== own-lines
+<span class="bbcode-s"><br>
+text<br>
+</span>
+==== own-lines-between-text
+before<br>
+<span class="bbcode-s"><br>
+text<br>
+</span><br>
+after
+==== starts-mid-line-spans-lines
+before <span class="bbcode-s">text<br>
+more</span> after
+==== blank-line-inside
+<span class="bbcode-s"><br>
+text<br>
+<br>
+second paragraph<br>
+</span>
+==== markdown-blocks-inside
+<div class="bbcode-s">
+<br>
+<h2><a name="heading-1" class="anchor" href="#heading-1" aria-label="Heading link"></a>Heading</h2>
+<ul>
+<li>one</li>
+<li>two</li>
+</ul>
+<blockquote>
+quoted</blockquote>
+<br>
+</div>
+==== inline-markdown-inside
+<span class="bbcode-s"><strong>bold</strong> <em>italic</em> <code>code</code> <a href="https://example.com" rel="noopener nofollow ugc">link</a> <img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji" alt=":smile:" loading="lazy" width="20" height="20"></span>
+==== in-blockquote
+<blockquote>
+<span class="bbcode-s"><br>
+text<br>
+</span></blockquote>
+==== in-list-item
+<ul>
+<li><span class="bbcode-s"><br>
+text<br>
+</span></li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="bbcode-s">text</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="stexts-1" class="anchor" href="#stexts-1" aria-label="Heading link"></a><span class="bbcode-s">text</span></h2>
+==== around-b
+<span class="bbcode-s"><span class="bbcode-b">text</span></span>
+==== in-b
+<span class="bbcode-b">before <span class="bbcode-s">text</span> after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote>
+<span class="bbcode-s">text</span></blockquote>
+</aside>
+==== misnested-with-i
+<span class="bbcode-s"><span class="bbcode-i">text</span></span> tail
+==== nested-in-itself
+<span class="bbcode-s">outer <span class="bbcode-s">inner</span> outer</span>
+==== repeated
+<span class="bbcode-s">one</span><span class="bbcode-s">two</span> <span class="bbcode-s">three</span>
+==== tail-and-next-line
+<span class="bbcode-s">text</span> tail<br>
+next line
+==== blank-lines-around
+before<br><br><br><span class="bbcode-s">text</span><br><br><br>after
+==== unclosed
+[s]text
+==== unmatched-close
+text[/s]
+==== escaped
+[s]text[/s]
+==== uppercase
+<span class="bbcode-s">text</span>

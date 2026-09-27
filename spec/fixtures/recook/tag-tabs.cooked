@@ -1,0 +1,184 @@
+==== alone
+<div class="bb-tabs">
+<input type="radio" id="tab-One-post-GUID-1-0" name="tab-group-post-GUID-1" class="bb-tab" checked="">
+<label class="bb-tab-label" for="tab-One-post-GUID-1-0">
+One</label>
+<div class="bb-tab-content">one</div>
+<input type="radio" id="tab-Two-post-GUID-1-1" name="tab-group-post-GUID-1" class="bb-tab">
+<label class="bb-tab-label" for="tab-Two-post-GUID-1-1">
+Two</label>
+<div class="bb-tab-content">two</div>
+</div>
+==== empty
+[tabs][/tabs]
+==== mid-line
+before <div class="bb-tabs"><input type="radio" id="tab-One-post-GUID-1-0" name="tab-group-post-GUID-1" class="bb-tab" checked=""><label class="bb-tab-label" for="tab-One-post-GUID-1-0">One</label><div class="bb-tab-content">one</div><input type="radio" id="tab-Two-post-GUID-1-1" name="tab-group-post-GUID-1" class="bb-tab"><label class="bb-tab-label" for="tab-Two-post-GUID-1-1">Two</label><div class="bb-tab-content">two</div></div> after
+==== own-lines
+<div class="bb-tabs">
+<input type="radio" id="tab-One-post-GUID-1-0" name="tab-group-post-GUID-1" class="bb-tab" checked="">
+<label class="bb-tab-label" for="tab-One-post-GUID-1-0">
+One</label>
+<div class="bb-tab-content">one</div>
+<input type="radio" id="tab-Two-post-GUID-1-1" name="tab-group-post-GUID-1" class="bb-tab">
+<label class="bb-tab-label" for="tab-Two-post-GUID-1-1">
+Two</label>
+<div class="bb-tab-content">two</div>
+</div>
+==== own-lines-between-text
+before<br><div class="bb-tabs">
+<input type="radio" id="tab-One-post-GUID-1-0" name="tab-group-post-GUID-1" class="bb-tab" checked="">
+<label class="bb-tab-label" for="tab-One-post-GUID-1-0">
+One</label>
+<div class="bb-tab-content">one</div>
+<input type="radio" id="tab-Two-post-GUID-1-1" name="tab-group-post-GUID-1" class="bb-tab">
+<label class="bb-tab-label" for="tab-Two-post-GUID-1-1">
+Two</label>
+<div class="bb-tab-content">two</div>
+</div>
+<br>after
+==== starts-mid-line-spans-lines
+before<div class="bb-tabs">
+<input type="radio" id="tab-One-post-GUID-1-0" name="tab-group-post-GUID-1" class="bb-tab" checked="">
+<label class="bb-tab-label" for="tab-One-post-GUID-1-0">
+One</label>
+<div class="bb-tab-content">one</div>
+<input type="radio" id="tab-Two-post-GUID-1-1" name="tab-group-post-GUID-1" class="bb-tab">
+<label class="bb-tab-label" for="tab-Two-post-GUID-1-1">
+Two</label>
+<div class="bb-tab-content">two</div>
+</div>
+after
+==== blank-line-inside
+<div class="bb-tabs">
+<input type="radio" id="tab-One-post-GUID-1-0" name="tab-group-post-GUID-1" class="bb-tab" checked="">
+<label class="bb-tab-label" for="tab-One-post-GUID-1-0">
+One</label>
+<div class="bb-tab-content">one</div>
+<input type="radio" id="tab-Two-post-GUID-1-1" name="tab-group-post-GUID-1" class="bb-tab">
+<label class="bb-tab-label" for="tab-Two-post-GUID-1-1">
+Two</label>
+<div class="bb-tab-content">two</div>
+</div>
+==== markdown-blocks-inside
+[tabs]<h2><a name="heading-1" class="anchor" href="#heading-1" aria-label="Heading link"></a>Heading</h2>
+<ul>
+<li>one</li>
+<li>two</li>
+</ul>
+<blockquote>
+quoted<br>
+[/tabs]</blockquote>
+==== inline-markdown-inside
+[tabs]<strong>bold</strong> <em>italic</em> <code>code</code> <a href="https://example.com" rel="noopener nofollow ugc">link</a> <img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji" alt=":smile:" loading="lazy" width="20" height="20">[/tabs]
+==== in-blockquote
+<blockquote>
+<div class="bb-tabs">
+<input type="radio" id="tab-One-post-GUID-1-0" name="tab-group-post-GUID-1" class="bb-tab" checked="">
+<label class="bb-tab-label" for="tab-One-post-GUID-1-0">
+One</label>
+<div class="bb-tab-content">one</div>
+<input type="radio" id="tab-Two-post-GUID-1-1" name="tab-group-post-GUID-1" class="bb-tab">
+<label class="bb-tab-label" for="tab-Two-post-GUID-1-1">
+Two</label>
+<div class="bb-tab-content">two</div>
+</div>
+</blockquote>
+==== in-list-item
+<ul>
+<li>
+<div class="bb-tabs">
+<input type="radio" id="tab-One-post-GUID-1-0" name="tab-group-post-GUID-1" class="bb-tab" checked="">
+<label class="bb-tab-label" for="tab-One-post-GUID-1-0">
+One</label>
+<div class="bb-tab-content">one</div>
+<input type="radio" id="tab-Two-post-GUID-1-1" name="tab-group-post-GUID-1" class="bb-tab">
+<label class="bb-tab-label" for="tab-Two-post-GUID-1-1">
+Two</label>
+<div class="bb-tab-content">two</div>
+</div>
+</li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><div class="bb-tabs"><input type="radio" id="tab-One-post-GUID-1-0" name="tab-group-post-GUID-1" class="bb-tab" checked=""><label class="bb-tab-label" for="tab-One-post-GUID-1-0">One</label><div class="bb-tab-content">one</div><input type="radio" id="tab-Two-post-GUID-1-1" name="tab-group-post-GUID-1" class="bb-tab"><label class="bb-tab-label" for="tab-Two-post-GUID-1-1">Two</label><div class="bb-tab-content">two</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="tabstaboneonetabtabtwotwotabtabs-1" class="anchor" href="#tabstaboneonetabtabtwotwotabtabs-1" aria-label="Heading link"></a><div class="bb-tabs"><input type="radio" id="tab-One-post-GUID-1-0" name="tab-group-post-GUID-1" class="bb-tab" checked=""><label class="bb-tab-label" for="tab-One-post-GUID-1-0">One</label><div class="bb-tab-content">one</div><input type="radio" id="tab-Two-post-GUID-1-1" name="tab-group-post-GUID-1" class="bb-tab"><label class="bb-tab-label" for="tab-Two-post-GUID-1-1">Two</label><div class="bb-tab-content">two</div></div></h2>
+==== around-b
+[tabs]<span class="bbcode-b">[tab=One]one[/tab][tab=Two]two[/tab]</span>[/tabs]
+==== in-b
+<span class="bbcode-b">before <div class="bb-tabs"><input type="radio" id="tab-One-post-GUID-1-0" name="tab-group-post-GUID-1" class="bb-tab" checked=""><label class="bb-tab-label" for="tab-One-post-GUID-1-0">One</label><div class="bb-tab-content">one</div><input type="radio" id="tab-Two-post-GUID-1-1" name="tab-group-post-GUID-1" class="bb-tab"><label class="bb-tab-label" for="tab-Two-post-GUID-1-1">Two</label><div class="bb-tab-content">two</div></div> after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote>
+<div class="bb-tabs">
+<input type="radio" id="tab-One-post-GUID-1-0" name="tab-group-post-GUID-1" class="bb-tab" checked="">
+<label class="bb-tab-label" for="tab-One-post-GUID-1-0">
+One</label>
+<div class="bb-tab-content">one</div>
+<input type="radio" id="tab-Two-post-GUID-1-1" name="tab-group-post-GUID-1" class="bb-tab">
+<label class="bb-tab-label" for="tab-Two-post-GUID-1-1">
+Two</label>
+<div class="bb-tab-content">two</div>
+</div>
+</blockquote>
+</aside>
+==== misnested-with-i
+[tabs]<span class="bbcode-i">[tab=One]one[/tab][tab=Two]two[/tab]</span>[/tabs] tail
+==== nested-in-itself
+[tabs]outer [tabs]inner[/tabs] outer[/tabs]
+==== repeated
+[tabs]one[/tabs][tabs]two[/tabs] [tabs]three[/tabs]
+==== tail-and-next-line
+<div class="bb-tabs">
+<input type="radio" id="tab-One-post-GUID-1-0" name="tab-group-post-GUID-1" class="bb-tab" checked="">
+<label class="bb-tab-label" for="tab-One-post-GUID-1-0">
+One</label>
+<div class="bb-tab-content">one</div>
+<input type="radio" id="tab-Two-post-GUID-1-1" name="tab-group-post-GUID-1" class="bb-tab">
+<label class="bb-tab-label" for="tab-Two-post-GUID-1-1">
+Two</label>
+<div class="bb-tab-content">two</div>
+</div>
+tail<br>next line
+==== blank-lines-around
+before<br><br><br><div class="bb-tabs">
+<input type="radio" id="tab-One-post-GUID-1-0" name="tab-group-post-GUID-1" class="bb-tab" checked="">
+<label class="bb-tab-label" for="tab-One-post-GUID-1-0">
+One</label>
+<div class="bb-tab-content">one</div>
+<input type="radio" id="tab-Two-post-GUID-1-1" name="tab-group-post-GUID-1" class="bb-tab">
+<label class="bb-tab-label" for="tab-Two-post-GUID-1-1">
+Two</label>
+<div class="bb-tab-content">two</div>
+</div>
+<br><br><br>after
+==== unclosed
+[tabs][tab=One]one[/tab][tab=Two]two[/tab]
+==== unmatched-close
+[tab=One]one[/tab][tab=Two]two[/tab][/tabs]
+==== escaped
+[tabs][tab=One]one[/tab][tab=Two]two[/tab][/tabs]
+==== uppercase
+<div class="bb-tabs">
+<input type="radio" id="tab-One-post-GUID-1-0" name="tab-group-post-GUID-1" class="bb-tab" checked="">
+<label class="bb-tab-label" for="tab-One-post-GUID-1-0">
+One</label>
+<div class="bb-tab-content">one</div>
+<input type="radio" id="tab-Two-post-GUID-1-1" name="tab-group-post-GUID-1" class="bb-tab">
+<label class="bb-tab-label" for="tab-Two-post-GUID-1-1">
+Two</label>
+<div class="bb-tab-content">two</div>
+</div>

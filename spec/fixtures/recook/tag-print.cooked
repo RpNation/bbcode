@@ -1,0 +1,136 @@
+==== alone
+<div class="bb-print-line">text</div>
+==== empty
+<div class="bb-print-line"></div>
+==== mid-line
+before <div class="bb-print-line">text</div> after
+==== own-lines
+<div class="bb-print-line">
+<br>
+text<br>
+</div>
+==== own-lines-between-text
+before<br><div class="bb-print-line">
+<br>
+text<br>
+</div>
+after
+==== starts-mid-line-spans-lines
+before<div class="bb-print-line">
+text<br>
+more</div>
+after
+==== blank-line-inside
+<div class="bb-print-line">
+<br>
+text<br><br>second paragraph<br>
+</div>
+==== markdown-blocks-inside
+<div class="bb-print-line">
+<br>
+<h2><a name="heading-1" class="anchor" href="#heading-1" aria-label="Heading link"></a>Heading</h2>
+<ul>
+<li>one</li>
+<li>two</li>
+</ul>
+<blockquote>
+quoted</blockquote>
+<br>
+</div>
+==== inline-markdown-inside
+<div class="bb-print-line"><strong>bold</strong> <em>italic</em> <code>code</code> <a href="https://example.com" rel="noopener nofollow ugc">link</a> <img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji" alt=":smile:" loading="lazy" width="20" height="20"></div>
+==== in-blockquote
+<blockquote>
+<div class="bb-print-line">
+<br>
+text<br>
+</div>
+</blockquote>
+==== in-list-item
+<ul>
+<li>
+<div class="bb-print-line">
+<br>
+text<br>
+</div>
+</li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><div class="bb-print-line">text</div></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="printlinetextprint-1" class="anchor" href="#printlinetextprint-1" aria-label="Heading link"></a><div class="bb-print-line">text</div></h2>
+==== around-b
+<div class="bb-print-line"><span class="bbcode-b">text</span></div>
+==== in-b
+<span class="bbcode-b">before <div class="bb-print-line">text</div> after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote>
+<div class="bb-print-line">text</div>
+</blockquote>
+</aside>
+==== misnested-with-i
+<div class="bb-print-line"><span class="bbcode-i">text</span></div>
+tail
+==== nested-in-itself
+<div class="bb-print-line">outer <div class="bb-print-line">inner</div> outer</div>
+==== repeated
+<div class="bb-print-line">one</div>
+<div class="bb-print-line">two</div>
+<div class="bb-print-line">three</div>
+==== tail-and-next-line
+<div class="bb-print-line">text</div>
+tail<br>next line
+==== blank-lines-around
+before<br><br><br><div class="bb-print-line">text</div>
+<br><br>after
+==== unclosed
+[print=line]text
+==== unmatched-close
+text[/print]
+==== escaped
+[print=line]text[/print]
+==== uppercase
+<div class="bb-print-line">text</div>
+==== [print] alone
+<div class="bb-print">text</div>
+==== [print] own-lines
+<div class="bb-print">
+<br>
+text<br>
+</div>
+==== [print=graph] alone
+<div class="bb-print-graph">text</div>
+==== [print=graph] own-lines
+<div class="bb-print-graph">
+<br>
+text<br>
+</div>
+==== [print=parchment] alone
+<div class="bb-print-parchment">text</div>
+==== [print=parchment] own-lines
+<div class="bb-print-parchment">
+<br>
+text<br>
+</div>
+==== [print=unknown] alone
+<div class="bb-print">text</div>
+==== [print=unknown] own-lines
+<div class="bb-print">
+<br>
+text<br>
+</div>

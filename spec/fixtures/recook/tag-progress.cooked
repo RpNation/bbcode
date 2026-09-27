@@ -1,0 +1,202 @@
+==== alone
+<div class="bb-progress">
+<div class="bb-progress-text">text</div>
+<div class="bb-progress-bar" style="width: calc(40% - 6px)"></div>
+<div class="bb-progress-bar-other"></div>
+</div>
+==== empty
+<div class="bb-progress">
+<div class="bb-progress-text"></div>
+<div class="bb-progress-bar" style="width: calc(40% - 6px)"></div>
+<div class="bb-progress-bar-other"></div>
+</div>
+==== mid-line
+before <div class="bb-progress"><div class="bb-progress-text">text</div><div class="bb-progress-bar" style="width: calc(40% - 6px)"></div><div class="bb-progress-bar-other"></div></div> after
+==== own-lines
+<div class="bb-progress">
+<div class="bb-progress-text">
+text</div>
+<div class="bb-progress-bar" style="width: calc(40% - 6px)"></div>
+<div class="bb-progress-bar-other"></div>
+</div>
+==== own-lines-between-text
+before<br><div class="bb-progress">
+<div class="bb-progress-text">
+text</div>
+<div class="bb-progress-bar" style="width: calc(40% - 6px)"></div>
+<div class="bb-progress-bar-other"></div>
+</div>
+<br>after
+==== starts-mid-line-spans-lines
+before<div class="bb-progress">
+<div class="bb-progress-text">
+text<br>
+more</div>
+<div class="bb-progress-bar" style="width: calc(40% - 6px)"></div>
+<div class="bb-progress-bar-other"></div>
+</div>
+after
+==== blank-line-inside
+<div class="bb-progress">
+<div class="bb-progress-text">
+text<br><br>second paragraph</div>
+<div class="bb-progress-bar" style="width: calc(40% - 6px)"></div>
+<div class="bb-progress-bar-other"></div>
+</div>
+==== markdown-blocks-inside
+<div class="bb-progress">
+<div class="bb-progress-text">
+<h2><a name="heading-1" class="anchor" href="#heading-1" aria-label="Heading link"></a>Heading</h2>
+<ul>
+<li>one</li>
+<li>two</li>
+</ul>
+<blockquote>
+quoted</blockquote>
+</div>
+<div class="bb-progress-bar" style="width: calc(40% - 6px)"></div>
+<div class="bb-progress-bar-other"></div>
+</div>
+==== inline-markdown-inside
+<div class="bb-progress">
+<div class="bb-progress-text"><strong>bold</strong> <em>italic</em> <code>code</code> <a href="https://example.com" rel="noopener nofollow ugc">link</a> <img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji" alt=":smile:" loading="lazy" width="20" height="20"></div>
+<div class="bb-progress-bar" style="width: calc(40% - 6px)"></div>
+<div class="bb-progress-bar-other"></div>
+</div>
+==== in-blockquote
+<blockquote>
+<div class="bb-progress">
+<div class="bb-progress-text">
+text</div>
+<div class="bb-progress-bar" style="width: calc(40% - 6px)"></div>
+<div class="bb-progress-bar-other"></div>
+</div>
+</blockquote>
+==== in-list-item
+<ul>
+<li>
+<div class="bb-progress">
+<div class="bb-progress-text">
+text</div>
+<div class="bb-progress-bar" style="width: calc(40% - 6px)"></div>
+<div class="bb-progress-bar-other"></div>
+</div>
+</li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><div class="bb-progress"><div class="bb-progress-text">text</div><div class="bb-progress-bar" style="width: calc(40% - 6px)"></div><div class="bb-progress-bar-other"></div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="progress40textprogress-1" class="anchor" href="#progress40textprogress-1" aria-label="Heading link"></a><div class="bb-progress"><div class="bb-progress-text">text</div><div class="bb-progress-bar" style="width: calc(40% - 6px)"></div><div class="bb-progress-bar-other"></div></div></h2>
+==== around-b
+<div class="bb-progress">
+<div class="bb-progress-text"><span class="bbcode-b">text</span></div>
+<div class="bb-progress-bar" style="width: calc(40% - 6px)"></div>
+<div class="bb-progress-bar-other"></div>
+</div>
+==== in-b
+<span class="bbcode-b">before <div class="bb-progress"><div class="bb-progress-text">text</div><div class="bb-progress-bar" style="width: calc(40% - 6px)"></div><div class="bb-progress-bar-other"></div></div> after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote>
+<div class="bb-progress">
+<div class="bb-progress-text">text</div>
+<div class="bb-progress-bar" style="width: calc(40% - 6px)"></div>
+<div class="bb-progress-bar-other"></div>
+</div>
+</blockquote>
+</aside>
+==== misnested-with-i
+<div class="bb-progress">
+<div class="bb-progress-text"><span class="bbcode-i">text</span></div>
+<div class="bb-progress-bar" style="width: calc(40% - 6px)"></div>
+<div class="bb-progress-bar-other"></div>
+</div>
+tail
+==== nested-in-itself
+<div class="bb-progress">
+<div class="bb-progress-text">outer <div class="bb-progress"><div class="bb-progress-text">inner</div><div class="bb-progress-bar" style="width: calc(40% - 6px)"></div><div class="bb-progress-bar-other"></div></div> outer</div>
+<div class="bb-progress-bar" style="width: calc(40% - 6px)"></div>
+<div class="bb-progress-bar-other"></div>
+</div>
+==== repeated
+<div class="bb-progress">
+<div class="bb-progress-text">one</div>
+<div class="bb-progress-bar" style="width: calc(40% - 6px)"></div>
+<div class="bb-progress-bar-other"></div>
+</div>
+<div class="bb-progress">
+<div class="bb-progress-text">two</div>
+<div class="bb-progress-bar" style="width: calc(40% - 6px)"></div>
+<div class="bb-progress-bar-other"></div>
+</div>
+<div class="bb-progress">
+<div class="bb-progress-text">three</div>
+<div class="bb-progress-bar" style="width: calc(40% - 6px)"></div>
+<div class="bb-progress-bar-other"></div>
+</div>
+==== tail-and-next-line
+<div class="bb-progress">
+<div class="bb-progress-text">text</div>
+<div class="bb-progress-bar" style="width: calc(40% - 6px)"></div>
+<div class="bb-progress-bar-other"></div>
+</div>
+tail<br>next line
+==== blank-lines-around
+before<br><br><br><div class="bb-progress">
+<div class="bb-progress-text">text</div>
+<div class="bb-progress-bar" style="width: calc(40% - 6px)"></div>
+<div class="bb-progress-bar-other"></div>
+</div>
+<br><br><br>after
+==== unclosed
+[progress=40]text
+==== unmatched-close
+text[/progress]
+==== escaped
+[progress=40]text[/progress]
+==== uppercase
+<div class="bb-progress">
+<div class="bb-progress-text">text</div>
+<div class="bb-progress-bar" style="width: calc(40% - 6px)"></div>
+<div class="bb-progress-bar-other"></div>
+</div>
+==== [progress] alone
+<div class="bb-progress">
+<div class="bb-progress-text">text</div>
+<div class="bb-progress-bar" style="width: calc(undefined% - 6px)"></div>
+<div class="bb-progress-bar-other"></div>
+</div>
+==== [progress] own-lines
+<div class="bb-progress">
+<div class="bb-progress-text">
+text</div>
+<div class="bb-progress-bar" style="width: calc(undefined% - 6px)"></div>
+<div class="bb-progress-bar-other"></div>
+</div>
+==== [progress=150] alone
+<div class="bb-progress">
+<div class="bb-progress-text">text</div>
+<div class="bb-progress-bar" style="width: calc(150% - 6px)"></div>
+<div class="bb-progress-bar-other"></div>
+</div>
+==== [progress=150] own-lines
+<div class="bb-progress">
+<div class="bb-progress-text">
+text</div>
+<div class="bb-progress-bar" style="width: calc(150% - 6px)"></div>
+<div class="bb-progress-bar-other"></div>
+</div>

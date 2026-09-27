@@ -1,0 +1,228 @@
+==== alone
+<div class="bb-accordion" data-group-id="post-GUID-1" style="">
+<details class="bb-slide">
+<summary class="bb-slide-title" style="text-align: left;">One</summary>
+<div class="bb-slide-content">one</div>
+</details>
+<details class="bb-slide">
+<summary class="bb-slide-title" style="text-align: left;">Two open</summary>
+<div class="bb-slide-content">two</div>
+</details>
+</div>
+==== empty
+[accordion][/accordion]
+==== mid-line
+before <div class="bb-accordion" data-group-id="post-GUID-1" style=""><details class="bb-slide"><summary class="bb-slide-title" style="text-align: left;">One</summary><div class="bb-slide-content">one</div></details><details class="bb-slide"><summary class="bb-slide-title" style="text-align: left;">Two open</summary><div class="bb-slide-content">two</div></details></div> after
+==== own-lines
+<div class="bb-accordion" data-group-id="post-GUID-1" style="">
+<details class="bb-slide">
+<summary class="bb-slide-title" style="text-align: left;">One</summary>
+<div class="bb-slide-content">one</div>
+</details>
+<details class="bb-slide">
+<summary class="bb-slide-title" style="text-align: left;">Two open</summary>
+<div class="bb-slide-content">two</div>
+</details>
+</div>
+==== own-lines-between-text
+before<br><div class="bb-accordion" data-group-id="post-GUID-1" style="">
+<details class="bb-slide">
+<summary class="bb-slide-title" style="text-align: left;">One</summary>
+<div class="bb-slide-content">one</div>
+</details>
+<details class="bb-slide">
+<summary class="bb-slide-title" style="text-align: left;">Two open</summary>
+<div class="bb-slide-content">two</div>
+</details>
+</div>
+<br>after
+==== starts-mid-line-spans-lines
+before<div class="bb-accordion" data-group-id="post-GUID-1" style="">
+<details class="bb-slide">
+<summary class="bb-slide-title" style="text-align: left;">One</summary>
+<div class="bb-slide-content">one</div>
+</details>
+<details class="bb-slide">
+<summary class="bb-slide-title" style="text-align: left;">Two open</summary>
+<div class="bb-slide-content">two</div>
+</details>
+</div>
+after
+==== blank-line-inside
+<div class="bb-accordion" data-group-id="post-GUID-1" style="">
+<details class="bb-slide">
+<summary class="bb-slide-title" style="text-align: left;">One</summary>
+<div class="bb-slide-content">one</div>
+</details>
+<details class="bb-slide">
+<summary class="bb-slide-title" style="text-align: left;">Two open</summary>
+<div class="bb-slide-content">two</div>
+</details>
+</div>
+==== markdown-blocks-inside
+[accordion]<h2><a name="heading-1" class="anchor" href="#heading-1" aria-label="Heading link"></a>Heading</h2>
+<ul>
+<li>one</li>
+<li>two</li>
+</ul>
+<blockquote>
+quoted<br>
+[/accordion]</blockquote>
+==== inline-markdown-inside
+[accordion]<strong>bold</strong> <em>italic</em> <code>code</code> <a href="https://example.com" rel="noopener nofollow ugc">link</a> <img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji" alt=":smile:" loading="lazy" width="20" height="20">[/accordion]
+==== in-blockquote
+<blockquote>
+<div class="bb-accordion" data-group-id="post-GUID-1" style="">
+<details class="bb-slide">
+<summary class="bb-slide-title" style="text-align: left;">One</summary>
+<div class="bb-slide-content">one</div>
+</details>
+<details class="bb-slide">
+<summary class="bb-slide-title" style="text-align: left;">Two open</summary>
+<div class="bb-slide-content">two</div>
+</details>
+</div>
+</blockquote>
+==== in-list-item
+<ul>
+<li>
+<div class="bb-accordion" data-group-id="post-GUID-1" style="">
+<details class="bb-slide">
+<summary class="bb-slide-title" style="text-align: left;">One</summary>
+<div class="bb-slide-content">one</div>
+</details>
+<details class="bb-slide">
+<summary class="bb-slide-title" style="text-align: left;">Two open</summary>
+<div class="bb-slide-content">two</div>
+</details>
+</div>
+</li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><div class="bb-accordion" data-group-id="post-GUID-1" style=""><details class="bb-slide"><summary class="bb-slide-title" style="text-align: left;">One</summary><div class="bb-slide-content">one</div></details><details class="bb-slide"><summary class="bb-slide-title" style="text-align: left;">Two open</summary><div class="bb-slide-content">two</div></details></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="accordionslideoneoneslideslidetwo-opentwoslideaccordion-1" class="anchor" href="#accordionslideoneoneslideslidetwo-opentwoslideaccordion-1" aria-label="Heading link"></a><div class="bb-accordion" data-group-id="post-GUID-1" style=""><details class="bb-slide"><summary class="bb-slide-title" style="text-align: left;">One</summary><div class="bb-slide-content">one</div></details><details class="bb-slide"><summary class="bb-slide-title" style="text-align: left;">Two open</summary><div class="bb-slide-content">two</div></details></div></h2>
+==== around-b
+[accordion]<span class="bbcode-b">[slide=One]one[/slide][slide=Two open]two[/slide]</span>[/accordion]
+==== in-b
+<span class="bbcode-b">before <div class="bb-accordion" data-group-id="post-GUID-1" style=""><details class="bb-slide"><summary class="bb-slide-title" style="text-align: left;">One</summary><div class="bb-slide-content">one</div></details><details class="bb-slide"><summary class="bb-slide-title" style="text-align: left;">Two open</summary><div class="bb-slide-content">two</div></details></div> after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote>
+<div class="bb-accordion" data-group-id="post-GUID-1" style="">
+<details class="bb-slide">
+<summary class="bb-slide-title" style="text-align: left;">One</summary>
+<div class="bb-slide-content">one</div>
+</details>
+<details class="bb-slide">
+<summary class="bb-slide-title" style="text-align: left;">Two open</summary>
+<div class="bb-slide-content">two</div>
+</details>
+</div>
+</blockquote>
+</aside>
+==== misnested-with-i
+[accordion]<span class="bbcode-i">[slide=One]one[/slide][slide=Two open]two[/slide]</span>[/accordion] tail
+==== nested-in-itself
+[accordion]outer [accordion]inner[/accordion] outer[/accordion]
+==== repeated
+[accordion]one[/accordion][accordion]two[/accordion] [accordion]three[/accordion]
+==== tail-and-next-line
+<div class="bb-accordion" data-group-id="post-GUID-1" style="">
+<details class="bb-slide">
+<summary class="bb-slide-title" style="text-align: left;">One</summary>
+<div class="bb-slide-content">one</div>
+</details>
+<details class="bb-slide">
+<summary class="bb-slide-title" style="text-align: left;">Two open</summary>
+<div class="bb-slide-content">two</div>
+</details>
+</div>
+tail<br>next line
+==== blank-lines-around
+before<br><br><br><div class="bb-accordion" data-group-id="post-GUID-1" style="">
+<details class="bb-slide">
+<summary class="bb-slide-title" style="text-align: left;">One</summary>
+<div class="bb-slide-content">one</div>
+</details>
+<details class="bb-slide">
+<summary class="bb-slide-title" style="text-align: left;">Two open</summary>
+<div class="bb-slide-content">two</div>
+</details>
+</div>
+<br><br><br>after
+==== unclosed
+[accordion][slide=One]one[/slide][slide=Two open]two[/slide]
+==== unmatched-close
+[slide=One]one[/slide][slide=Two open]two[/slide][/accordion]
+==== escaped
+[accordion][slide=One]one[/slide][slide=Two open]two[/slide][/accordion]
+==== uppercase
+<div class="bb-accordion" data-group-id="post-GUID-1" style="">
+<details class="bb-slide">
+<summary class="bb-slide-title" style="text-align: left;">One</summary>
+<div class="bb-slide-content">one</div>
+</details>
+<details class="bb-slide">
+<summary class="bb-slide-title" style="text-align: left;">Two open</summary>
+<div class="bb-slide-content">two</div>
+</details>
+</div>
+==== [accordion=bright|50%] alone
+<div class="bb-accordion" data-group-id="post-GUID-1" style="width: bright�50%;">
+<details class="bb-slide">
+<summary class="bb-slide-title" style="text-align: left;">One</summary>
+<div class="bb-slide-content">one</div>
+</details>
+<details class="bb-slide">
+<summary class="bb-slide-title" style="text-align: left;">Two open</summary>
+<div class="bb-slide-content">two</div>
+</details>
+</div>
+==== [accordion=bright|50%] own-lines
+<div class="bb-accordion bright" data-group-id="post-GUID-1" style="width: 50%;">
+<details class="bb-slide">
+<summary class="bb-slide-title" style="text-align: left;">One</summary>
+<div class="bb-slide-content">one</div>
+</details>
+<details class="bb-slide">
+<summary class="bb-slide-title" style="text-align: left;">Two open</summary>
+<div class="bb-slide-content">two</div>
+</details>
+</div>
+==== [accordion width=300px align=bcenter] alone
+<div class="bb-accordion bcenter" data-group-id="post-GUID-1" style="width: 300px;">
+<details class="bb-slide">
+<summary class="bb-slide-title" style="text-align: left;">One</summary>
+<div class="bb-slide-content">one</div>
+</details>
+<details class="bb-slide">
+<summary class="bb-slide-title" style="text-align: left;">Two open</summary>
+<div class="bb-slide-content">two</div>
+</details>
+</div>
+==== [accordion width=300px align=bcenter] own-lines
+<div class="bb-accordion bcenter" data-group-id="post-GUID-1" style="width: 300px;">
+<details class="bb-slide">
+<summary class="bb-slide-title" style="text-align: left;">One</summary>
+<div class="bb-slide-content">one</div>
+</details>
+<details class="bb-slide">
+<summary class="bb-slide-title" style="text-align: left;">Two open</summary>
+<div class="bb-slide-content">two</div>
+</details>
+</div>

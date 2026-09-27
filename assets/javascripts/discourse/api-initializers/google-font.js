@@ -20,16 +20,29 @@ function addGoogleFont(post) {
   const gFonts = [];
   Array.from(elements).map((e) => {
     const data = e.getAttribute("data-font");
-    if (
-      !gFonts.includes(data) &&
-      data.startsWith("https://fonts.googleapis.com")
-    ) {
+    if (!gFonts.includes(data) && isGoogleFontsUrl(data)) {
       frag.appendChild(linkBuilder(data));
       gFonts.push(data);
     }
   });
 
   post.appendChild(frag);
+}
+
+/**
+ * data-font can be written as raw HTML, so only Google's host is trusted
+ * @param {string} url
+ * @returns {boolean}
+ */
+function isGoogleFontsUrl(url) {
+  try {
+    const parsed = new URL(url);
+    return (
+      parsed.protocol === "https:" && parsed.hostname === "fonts.googleapis.com"
+    );
+  } catch {
+    return false;
+  }
 }
 
 /**

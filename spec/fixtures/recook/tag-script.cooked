@@ -1,0 +1,118 @@
+==== alone
+<template data-bbcode-plus="script" data-bbscript-id="post-GUID" data-bbscript-class="box" data-bbscript-on="click" data-bbscript-ver="">(print "hi")</template>
+==== empty
+<template data-bbcode-plus="script" data-bbscript-id="post-GUID" data-bbscript-class="box" data-bbscript-on="click" data-bbscript-ver=""></template>
+==== mid-line
+<template data-bbcode-plus="script" data-bbscript-id="post-GUID" data-bbscript-class="box" data-bbscript-on="click" data-bbscript-ver="">(print "hi")</template>
+before  after
+==== own-lines
+<template data-bbcode-plus="script" data-bbscript-id="post-GUID" data-bbscript-class="box" data-bbscript-on="click" data-bbscript-ver="">
+(print "hi")
+</template>
+==== own-lines-between-text
+<template data-bbcode-plus="script" data-bbscript-id="post-GUID" data-bbscript-class="box" data-bbscript-on="click" data-bbscript-ver="">
+(print "hi")
+</template>
+before<br><br>after
+==== starts-mid-line-spans-lines
+<template data-bbcode-plus="script" data-bbscript-id="post-GUID" data-bbscript-class="box" data-bbscript-on="click" data-bbscript-ver="">(print "hi")
+more</template>
+before  after
+==== blank-line-inside
+<template data-bbcode-plus="script" data-bbscript-id="post-GUID" data-bbscript-class="box" data-bbscript-on="click" data-bbscript-ver="">
+(print "hi")
+
+second paragraph
+</template>
+==== markdown-blocks-inside
+<template data-bbcode-plus="script" data-bbscript-id="post-GUID" data-bbscript-class="box" data-bbscript-on="click" data-bbscript-ver="">
+## Heading
+
+- one
+- two
+
+&gt; quoted
+</template>
+==== inline-markdown-inside
+<template data-bbcode-plus="script" data-bbscript-id="post-GUID" data-bbscript-class="box" data-bbscript-on="click" data-bbscript-ver="">**bold** _italic_ `code` [link](https://example.com) :smile:</template>
+==== in-blockquote
+<template data-bbcode-plus="script" data-bbscript-id="post-GUID" data-bbscript-class="box" data-bbscript-on="click" data-bbscript-ver="">
+(print "hi")
+</template>
+<blockquote></blockquote>
+==== in-list-item
+<template data-bbcode-plus="script" data-bbscript-id="post-GUID" data-bbscript-class="box" data-bbscript-on="click" data-bbscript-ver="">
+(print "hi")
+</template>
+<ul>
+<li></li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<template data-bbcode-plus="script" data-bbscript-id="post-GUID" data-bbscript-class="box" data-bbscript-on="click" data-bbscript-ver="">(print "hi")</template>
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<template data-bbcode-plus="script" data-bbscript-id="post-GUID" data-bbscript-class="box" data-bbscript-on="click" data-bbscript-ver="">(print "hi")</template>
+<h2><a name="script-classbox-onclickprint-hiscript-1" class="anchor" href="#script-classbox-onclickprint-hiscript-1" aria-label="Heading link"></a></h2>
+==== around-b
+<template data-bbcode-plus="script" data-bbscript-id="post-GUID" data-bbscript-class="box" data-bbscript-on="click" data-bbscript-ver="">[b](print "hi")[/b]</template>
+==== in-b
+<template data-bbcode-plus="script" data-bbscript-id="post-GUID" data-bbscript-class="box" data-bbscript-on="click" data-bbscript-ver="">(print "hi")</template>
+<span class="bbcode-b">before  after</span>
+==== in-core-quote
+<template data-bbcode-plus="script" data-bbscript-id="post-GUID" data-bbscript-class="box" data-bbscript-on="click" data-bbscript-ver="">(print "hi")</template>
+<aside class="quote no-group">
+<blockquote></blockquote>
+</aside>
+==== misnested-with-i
+<template data-bbcode-plus="script" data-bbscript-id="post-GUID" data-bbscript-class="box" data-bbscript-on="click" data-bbscript-ver="">[i](print "hi")</template>
+tail[/i]
+==== nested-in-itself
+<template data-bbcode-plus="script" data-bbscript-id="post-GUID" data-bbscript-class="box" data-bbscript-on="click" data-bbscript-ver="">outer [script class=box on=click]inner[/script] outer</template>
+==== repeated
+<template data-bbcode-plus="script" data-bbscript-id="post-GUID" data-bbscript-class="box" data-bbscript-on="click" data-bbscript-ver="">one</template><template data-bbcode-plus="script" data-bbscript-id="post-GUID" data-bbscript-class="box" data-bbscript-on="click" data-bbscript-ver="">two</template><template data-bbcode-plus="script" data-bbscript-id="post-GUID" data-bbscript-class="box" data-bbscript-on="click" data-bbscript-ver="">three</template>
+==== tail-and-next-line
+<template data-bbcode-plus="script" data-bbscript-id="post-GUID" data-bbscript-class="box" data-bbscript-on="click" data-bbscript-ver="">(print "hi")</template>
+tail<br>next line
+==== blank-lines-around
+<template data-bbcode-plus="script" data-bbscript-id="post-GUID" data-bbscript-class="box" data-bbscript-on="click" data-bbscript-ver="">(print "hi")</template>
+before<br><br><br><br><br><br>after
+==== unclosed
+<a title="hi">script class=box on=click</a>
+==== unmatched-close
+(print "hi")[/script]
+==== escaped
+[script class=box on=click](print "hi")[/script]
+==== uppercase
+<template data-bbcode-plus="script" data-bbscript-id="post-GUID" data-bbscript-class="box" data-bbscript-on="click" data-bbscript-ver="">(print "hi")</template>
+==== [script] alone
+<template data-bbcode-plus="script" data-bbscript-id="post-GUID" data-bbscript-class="" data-bbscript-on="init" data-bbscript-ver="">(print "hi")</template>
+==== [script] own-lines
+<template data-bbcode-plus="script" data-bbscript-id="post-GUID" data-bbscript-class="" data-bbscript-on="init" data-bbscript-ver="">
+(print "hi")
+</template>
+==== [script alone
+[script(print "hi")[/script]
+==== [script own-lines
+[script<br>
+(print "hi")<br>
+[/script]
+==== on=bogus] alone
+on=bogus](print "hi")[/script]
+==== on=bogus] own-lines
+on=bogus]<br>
+(print "hi")<br>
+[/script]

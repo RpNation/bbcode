@@ -1,0 +1,99 @@
+==== alone
+<template data-bbcode-plus="class">@keyframes post-GUIDspin { 0%{ opacity: 0; }
+100%{ opacity: 1; } }</template>
+==== empty
+<template data-bbcode-plus="class">@keyframes post-GUIDspin {  }</template>
+==== mid-line
+<template data-bbcode-plus="class">@keyframes post-GUIDspin { 0%{ opacity: 0; }
+100%{ opacity: 1; } }</template>
+before  after
+==== own-lines
+<template data-bbcode-plus="class">@keyframes post-GUIDspin { 0%{ opacity: 0; }
+100%{ opacity: 1; } }</template>
+==== own-lines-between-text
+<template data-bbcode-plus="class">@keyframes post-GUIDspin { 0%{ opacity: 0; }
+100%{ opacity: 1; } }</template>
+before<br><br>after
+==== starts-mid-line-spans-lines
+<template data-bbcode-plus="class">@keyframes post-GUIDspin { 0%{ opacity: 0; }
+100%{ opacity: 1; } }</template>
+before  after
+==== blank-line-inside
+<template data-bbcode-plus="class">@keyframes post-GUIDspin { 0%{ opacity: 0; }
+100%{ opacity: 1; } }</template>
+==== markdown-blocks-inside
+<template data-bbcode-plus="class">@keyframes post-GUIDspin {  }</template>
+==== inline-markdown-inside
+<template data-bbcode-plus="class">@keyframes post-GUIDspin {  }</template>
+==== in-blockquote
+<template data-bbcode-plus="class">@keyframes post-GUIDspin { 0%{ opacity: 0; }
+100%{ opacity: 1; } }</template>
+<blockquote></blockquote>
+==== in-list-item
+<template data-bbcode-plus="class">@keyframes post-GUIDspin { 0%{ opacity: 0; }
+100%{ opacity: 1; } }</template>
+<ul>
+<li></li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<template data-bbcode-plus="class">@keyframes post-GUIDspin { 0%{ opacity: 0; }
+100%{ opacity: 1; } }</template>
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<template data-bbcode-plus="class">@keyframes post-GUIDspin { 0%{ opacity: 0; }
+100%{ opacity: 1; } }</template>
+<h2><a name="animationspinkeyframe0opacity-0keyframekeyframe100opacity-1keyframeanimation-1" class="anchor" href="#animationspinkeyframe0opacity-0keyframekeyframe100opacity-1keyframeanimation-1" aria-label="Heading link"></a></h2>
+==== around-b
+<template data-bbcode-plus="class">@keyframes post-GUIDspin { 0%{ opacity: 0; }
+100%{ opacity: 1; } }</template>
+==== in-b
+<template data-bbcode-plus="class">@keyframes post-GUIDspin { 0%{ opacity: 0; }
+100%{ opacity: 1; } }</template>
+<span class="bbcode-b">before  after</span>
+==== in-core-quote
+<template data-bbcode-plus="class">@keyframes post-GUIDspin { 0%{ opacity: 0; }
+100%{ opacity: 1; } }</template>
+<aside class="quote no-group">
+<blockquote></blockquote>
+</aside>
+==== misnested-with-i
+<template data-bbcode-plus="class">@keyframes post-GUIDspin { 0%{ opacity: 0; }
+100%{ opacity: 1; } }</template>
+tail[/i]
+==== nested-in-itself
+<template data-bbcode-plus="class">@keyframes post-GUIDspin {  }</template>
+==== repeated
+<template data-bbcode-plus="class">@keyframes post-GUIDspin {  }
+@keyframes post-GUIDspin {  }
+@keyframes post-GUIDspin {  }</template>
+==== tail-and-next-line
+<template data-bbcode-plus="class">@keyframes post-GUIDspin { 0%{ opacity: 0; }
+100%{ opacity: 1; } }</template>
+tail<br>next line
+==== blank-lines-around
+<template data-bbcode-plus="class">@keyframes post-GUIDspin { 0%{ opacity: 0; }
+100%{ opacity: 1; } }</template>
+before<br><br><br><br><br><br>after
+==== unclosed
+[animation=spin][keyframe=0]opacity: 0;[/keyframe][keyframe=100]opacity: 1;[/keyframe]
+==== unmatched-close
+[keyframe=0]opacity: 0;[/keyframe][keyframe=100]opacity: 1;[/keyframe][/animation]
+==== escaped
+[animation=spin][keyframe=0]opacity: 0;[/keyframe][keyframe=100]opacity: 1;[/keyframe][/animation]
+==== uppercase
+<template data-bbcode-plus="class">@keyframes post-GUIDspin { 0%{ opacity: 0; }
+100%{ opacity: 1; } }</template>

@@ -1,0 +1,122 @@
+==== alone
+<div class="bb-divide" data-type="dotted">text</div>
+==== empty
+<div class="bb-divide" data-type="dotted"></div>
+==== mid-line
+before <div class="bb-divide" data-type="dotted">text</div> after
+==== own-lines
+<div class="bb-divide" data-type="dotted">
+<br>
+text<br>
+</div>
+==== own-lines-between-text
+before<br><div class="bb-divide" data-type="dotted">
+<br>
+text<br>
+</div>
+after
+==== starts-mid-line-spans-lines
+before<div class="bb-divide" data-type="dotted">
+text<br>
+more</div>
+after
+==== blank-line-inside
+<div class="bb-divide" data-type="dotted">
+<br>
+text<br><br>second paragraph<br>
+</div>
+==== markdown-blocks-inside
+<div class="bb-divide" data-type="dotted">
+<br>
+<h2><a name="heading-1" class="anchor" href="#heading-1" aria-label="Heading link"></a>Heading</h2>
+<ul>
+<li>one</li>
+<li>two</li>
+</ul>
+<blockquote>
+quoted</blockquote>
+<br>
+</div>
+==== inline-markdown-inside
+<div class="bb-divide" data-type="dotted"><strong>bold</strong> <em>italic</em> <code>code</code> <a href="https://example.com" rel="noopener nofollow ugc">link</a> <img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji" alt=":smile:" loading="lazy" width="20" height="20"></div>
+==== in-blockquote
+<blockquote>
+<div class="bb-divide" data-type="dotted">
+<br>
+text<br>
+</div>
+</blockquote>
+==== in-list-item
+<ul>
+<li>
+<div class="bb-divide" data-type="dotted">
+<br>
+text<br>
+</div>
+</li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><div class="bb-divide" data-type="dotted">text</div></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="dividedottedtextdivide-1" class="anchor" href="#dividedottedtextdivide-1" aria-label="Heading link"></a><div class="bb-divide" data-type="dotted">text</div></h2>
+==== around-b
+<div class="bb-divide" data-type="dotted"><span class="bbcode-b">text</span></div>
+==== in-b
+<span class="bbcode-b">before <div class="bb-divide" data-type="dotted">text</div> after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote>
+<div class="bb-divide" data-type="dotted">text</div>
+</blockquote>
+</aside>
+==== misnested-with-i
+<div class="bb-divide" data-type="dotted"><span class="bbcode-i">text</span></div>
+tail
+==== nested-in-itself
+<div class="bb-divide" data-type="dotted">outer <div class="bb-divide" data-type="dotted">inner</div> outer</div>
+==== repeated
+<div class="bb-divide" data-type="dotted">one</div>
+<div class="bb-divide" data-type="dotted">two</div>
+<div class="bb-divide" data-type="dotted">three</div>
+==== tail-and-next-line
+<div class="bb-divide" data-type="dotted">text</div>
+tail<br>next line
+==== blank-lines-around
+before<br><br><br><div class="bb-divide" data-type="dotted">text</div>
+<br><br>after
+==== unclosed
+[divide=dotted]text
+==== unmatched-close
+text[/divide]
+==== escaped
+[divide=dotted]text[/divide]
+==== uppercase
+<div class="bb-divide" data-type="dotted">text</div>
+==== [divide] alone
+<div class="bb-divide" data-type="">text</div>
+==== [divide] own-lines
+<div class="bb-divide" data-type="">
+<br>
+text<br>
+</div>
+==== [divide=DASHED] alone
+<div class="bb-divide" data-type="dashed">text</div>
+==== [divide=DASHED] own-lines
+<div class="bb-divide" data-type="dashed">
+<br>
+text<br>
+</div>
