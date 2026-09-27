@@ -10,14 +10,16 @@ module ::BbCode
     def self.restore(cooked)
       return cooked if !cooked&.include?("data-bbcode-comment")
 
-      doc = Nokogiri::HTML5.fragment(cooked)
-      doc
-        .css(SELECTOR)
-        .each do |template|
-          # escaped, so a "-->" inside can't end it
-          template.replace(doc.document.create_comment(template.text.gsub(/[&<>"]/, ESCAPES)))
-        end
-      doc.to_html
+      ::BbCode::Cleanup.wrapped(cooked) do |html|
+        doc = Nokogiri::HTML5.fragment(html)
+        doc
+          .css(SELECTOR)
+          .each do |template|
+            # escaped, so a "-->" inside can't end it
+            template.replace(doc.document.create_comment(template.text.gsub(/[&<>"]/, ESCAPES)))
+          end
+        doc.to_html
+      end
     end
   end
 end

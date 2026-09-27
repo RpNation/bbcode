@@ -1,0 +1,43 @@
+==== blocks-in-container
+[div=color:red]
+# Heading
+
+- one
+- two
+[/div]
+==== core-only
+# Title
+
+---
+
+- a
+- b
+
+> quote
+
+1. one
+2. two
+
+**bold** _it_ `code` [link](https://e.com)
+==== inline-tag-with-block
+[b]a
+[wrap=x]
+y
+[/wrap]
+b[/b]
+==== list-in-inline-tag
+[b]
+- a
+- b
+[/b]
+==== same-line-content
+[div]+[/div]
+[center]# Title[/center]
+==== table-in-container
+[center]
+| a | b |
+|---|---|
+| 1 | 2 |
+[/center]
+==== tag-in-heading
+# [color=red]x[/color]

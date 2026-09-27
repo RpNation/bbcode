@@ -1,0 +1,58 @@
+==== boxes
+<div class="bb-block" data-bb-block="warning">w</div>
+<div class="bb-print-line">p</div>
+<div class="bb-note">
+<div class="bb-note-tape"></div>
+<div class="bb-note-content">n<div class="bb-note-footer"></div>
+</div>
+</div>
+<br><fieldset class="bb-fieldset">
+<legend class="bb-fieldset-legend">
+Legend</legend>
+<div>f</div>
+</fieldset>
+<br><div class="bb-progress">
+<div class="bb-progress-text">p</div>
+<div class="bb-progress-bar" style="width: calc(40% - 6px)"></div>
+<div class="bb-progress-bar-other"></div>
+</div>
+<br><div class="bb-check" data-type="x">c</div>
+<div class="bb-side" data-side="right">s</div>
+<div class="bb-newspaper">n</div>
+==== fonts
+<span style="font-family: 'Georgia'">a</span> <span style="font-family: 'Lato'; font-weight: 700; font-style: normal;" data-font="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,700">b</span> <span style="font-family: 'Roboto'; font-weight: 300; font-style: normal; font-variation-settings: 'wdth' 80;" data-font="https://fonts.googleapis.com/css2?family=Roboto:ital,wdth,wght@0,80,300">c</span>
+==== headings
+<h1>a</h1>
+<br><h2>b</h2>
+<br><h3>c</h3>
+<br>[h7]d[/h7]
+==== inline
+x<sub>s</sub><sup>t</sup> <span class="bb-inline-spoiler">hidden</span> <a id="user-anchor-top" name="user-anchor-top">anchor</a> <a href="#user-anchor-top">go</a> <span class="bb-highlight">h</span> <span class="bb-pindent">p</span>
+==== textmessage
+<div class="bb-textmessage">
+<div class="bb-textmessage-name">
+Bob</div>
+<div class="bb-textmessage-overflow">
+<div class="bb-textmessage-content">
+<br>
+<div class="bb-message-them">
+<div class="bb-message-content">hi</div>
+</div>
+<br><div class="bb-message-me">
+<div class="bb-message-content">yo</div>
+</div>
+<br>
+</div>
+</div>
+</div>
+<br><div class="bb-message-me">
+<div class="bb-message-content">bare</div>
+</div>
+==== wrappers
+<div class="bb-left">l</div>
+<br><div class="bb-right">r</div>
+<br><div class="bb-justify">j</div>
+<div style="border: 1px solid red;" class="bb-border">b</div>
+<br><div class="bb-background" style="background-color: red;">g</div>
+<br><div style="margin: 0 auto; width: 40%">c</div>
+<br><div class="bb-float-left">i</div>

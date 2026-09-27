@@ -1,0 +1,231 @@
+==== alone
+<div class="bb-blockquote">
+<div class="bb-blockquote-left"></div>
+<div class="bb-blockquote-content">text<div class="bb-blockquote-speaker">
+- Speaker</div>
+</div>
+<div class="bb-blockquote-right"></div>
+</div>
+==== empty
+<div class="bb-blockquote">
+<div class="bb-blockquote-left"></div>
+<div class="bb-blockquote-content"><div class="bb-blockquote-speaker">
+- Speaker</div>
+</div>
+<div class="bb-blockquote-right"></div>
+</div>
+==== mid-line
+before <div class="bb-blockquote"><div class="bb-blockquote-left"></div><div class="bb-blockquote-content">text<div class="bb-blockquote-speaker">- Speaker</div></div><div class="bb-blockquote-right"></div></div> after
+==== own-lines
+<div class="bb-blockquote">
+<div class="bb-blockquote-left"></div>
+<div class="bb-blockquote-content">
+text<div class="bb-blockquote-speaker">
+- Speaker</div>
+</div>
+<div class="bb-blockquote-right"></div>
+</div>
+==== own-lines-between-text
+before<br><div class="bb-blockquote">
+<div class="bb-blockquote-left"></div>
+<div class="bb-blockquote-content">
+text<div class="bb-blockquote-speaker">
+- Speaker</div>
+</div>
+<div class="bb-blockquote-right"></div>
+</div>
+<br>after
+==== starts-mid-line-spans-lines
+before<div class="bb-blockquote">
+<div class="bb-blockquote-left"></div>
+<div class="bb-blockquote-content">
+text<br>
+more<div class="bb-blockquote-speaker">
+- Speaker</div>
+</div>
+<div class="bb-blockquote-right"></div>
+</div>
+after
+==== blank-line-inside
+<div class="bb-blockquote">
+<div class="bb-blockquote-left"></div>
+<div class="bb-blockquote-content">
+text<br><br>second paragraph<div class="bb-blockquote-speaker">
+- Speaker</div>
+</div>
+<div class="bb-blockquote-right"></div>
+</div>
+==== markdown-blocks-inside
+<div class="bb-blockquote">
+<div class="bb-blockquote-left"></div>
+<div class="bb-blockquote-content">
+<h2><a name="heading-1" class="anchor" href="#heading-1" aria-label="Heading link"></a>Heading</h2>
+<ul>
+<li>one</li>
+<li>two</li>
+</ul>
+<blockquote>
+quoted</blockquote>
+<div class="bb-blockquote-speaker">
+- Speaker</div>
+</div>
+<div class="bb-blockquote-right"></div>
+</div>
+==== inline-markdown-inside
+<div class="bb-blockquote">
+<div class="bb-blockquote-left"></div>
+<div class="bb-blockquote-content"><strong>bold</strong> <em>italic</em> <code>code</code> <a href="https://example.com" rel="noopener nofollow ugc">link</a> <img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji" alt=":smile:" loading="lazy" width="20" height="20"><div class="bb-blockquote-speaker">
+- Speaker</div>
+</div>
+<div class="bb-blockquote-right"></div>
+</div>
+==== in-blockquote
+<blockquote>
+<div class="bb-blockquote">
+<div class="bb-blockquote-left"></div>
+<div class="bb-blockquote-content">
+text<div class="bb-blockquote-speaker">
+- Speaker</div>
+</div>
+<div class="bb-blockquote-right"></div>
+</div>
+</blockquote>
+==== in-list-item
+<ul>
+<li>
+<div class="bb-blockquote">
+<div class="bb-blockquote-left"></div>
+<div class="bb-blockquote-content">
+text<div class="bb-blockquote-speaker">
+- Speaker</div>
+</div>
+<div class="bb-blockquote-right"></div>
+</div>
+</li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><div class="bb-blockquote"><div class="bb-blockquote-left"></div><div class="bb-blockquote-content">text<div class="bb-blockquote-speaker">- Speaker</div></div><div class="bb-blockquote-right"></div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="blockquotespeakertextblockquote-1" class="anchor" href="#blockquotespeakertextblockquote-1" aria-label="Heading link"></a><div class="bb-blockquote"><div class="bb-blockquote-left"></div><div class="bb-blockquote-content">text<div class="bb-blockquote-speaker">- Speaker</div></div><div class="bb-blockquote-right"></div></div></h2>
+==== around-b
+<div class="bb-blockquote">
+<div class="bb-blockquote-left"></div>
+<div class="bb-blockquote-content"><span class="bbcode-b">text</span><div class="bb-blockquote-speaker">
+- Speaker</div>
+</div>
+<div class="bb-blockquote-right"></div>
+</div>
+==== in-b
+<span class="bbcode-b">before <div class="bb-blockquote"><div class="bb-blockquote-left"></div><div class="bb-blockquote-content">text<div class="bb-blockquote-speaker">- Speaker</div></div><div class="bb-blockquote-right"></div></div> after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote>
+<div class="bb-blockquote">
+<div class="bb-blockquote-left"></div>
+<div class="bb-blockquote-content">text<div class="bb-blockquote-speaker">
+- Speaker</div>
+</div>
+<div class="bb-blockquote-right"></div>
+</div>
+</blockquote>
+</aside>
+==== misnested-with-i
+<div class="bb-blockquote">
+<div class="bb-blockquote-left"></div>
+<div class="bb-blockquote-content"><span class="bbcode-i">text</span><div class="bb-blockquote-speaker">
+- Speaker</div>
+</div>
+<div class="bb-blockquote-right"></div>
+</div>
+tail
+==== nested-in-itself
+<div class="bb-blockquote">
+<div class="bb-blockquote-left"></div>
+<div class="bb-blockquote-content">outer <div class="bb-blockquote"><div class="bb-blockquote-left"></div><div class="bb-blockquote-content">inner<div class="bb-blockquote-speaker">- Speaker</div></div><div class="bb-blockquote-right"></div></div> outer<div class="bb-blockquote-speaker">
+- Speaker</div>
+</div>
+<div class="bb-blockquote-right"></div>
+</div>
+==== repeated
+<div class="bb-blockquote">
+<div class="bb-blockquote-left"></div>
+<div class="bb-blockquote-content">one<div class="bb-blockquote-speaker">
+- Speaker</div>
+</div>
+<div class="bb-blockquote-right"></div>
+</div>
+<div class="bb-blockquote">
+<div class="bb-blockquote-left"></div>
+<div class="bb-blockquote-content">two<div class="bb-blockquote-speaker">
+- Speaker</div>
+</div>
+<div class="bb-blockquote-right"></div>
+</div>
+<div class="bb-blockquote">
+<div class="bb-blockquote-left"></div>
+<div class="bb-blockquote-content">three<div class="bb-blockquote-speaker">
+- Speaker</div>
+</div>
+<div class="bb-blockquote-right"></div>
+</div>
+==== tail-and-next-line
+<div class="bb-blockquote">
+<div class="bb-blockquote-left"></div>
+<div class="bb-blockquote-content">text<div class="bb-blockquote-speaker">
+- Speaker</div>
+</div>
+<div class="bb-blockquote-right"></div>
+</div>
+tail<br>next line
+==== blank-lines-around
+before<br><br><br><div class="bb-blockquote">
+<div class="bb-blockquote-left"></div>
+<div class="bb-blockquote-content">text<div class="bb-blockquote-speaker">
+- Speaker</div>
+</div>
+<div class="bb-blockquote-right"></div>
+</div>
+<br><br><br>after
+==== unclosed
+[blockquote=Speaker]text
+==== unmatched-close
+text[/blockquote]
+==== escaped
+[blockquote=Speaker]text[/blockquote]
+==== uppercase
+<div class="bb-blockquote">
+<div class="bb-blockquote-left"></div>
+<div class="bb-blockquote-content">text<div class="bb-blockquote-speaker">
+- Speaker</div>
+</div>
+<div class="bb-blockquote-right"></div>
+</div>
+==== [blockquote] alone
+<div class="bb-blockquote">
+<div class="bb-blockquote-left"></div>
+<div class="bb-blockquote-content">text<div class="bb-blockquote-speaker"></div>
+</div>
+<div class="bb-blockquote-right"></div>
+</div>
+==== [blockquote] own-lines
+<div class="bb-blockquote">
+<div class="bb-blockquote-left"></div>
+<div class="bb-blockquote-content">
+text<div class="bb-blockquote-speaker"></div>
+</div>
+<div class="bb-blockquote-right"></div>
+</div>

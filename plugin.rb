@@ -27,6 +27,7 @@ require_relative "lib/bb_code/engine"
 require_relative "lib/bb_code/css_hotlinked_media"
 require_relative "lib/bb_code/hidden_content"
 require_relative "lib/bb_code/comments"
+require_relative "lib/bb_code/cleanup"
 
 after_initialize do
   # rebuild the markdown engine with this plugin's rules
@@ -38,6 +39,7 @@ after_initialize do
 
   ::HotlinkedMedia.singleton_class.prepend(::BbCode::CssHotlinkedMedia::ExtendExtractCandidates)
   ::InlineUploads.singleton_class.prepend(::BbCode::CssHotlinkedMedia::RewriteRawCssUrls)
+  ::PrettyText.singleton_class.prepend(::BbCode::Cleanup)
 
   on(:post_process_cooked) { |doc, post| ::BbCode::CssHotlinkedMedia.rewrite_doc!(doc, post) }
 

@@ -20,6 +20,28 @@ RSpec.describe PrettyText do
     expect(html).to end_with(">text</div>")
   end
 
+  it "keeps brackets inside a quoted attribute value in the value" do
+    expect(cook(%([div style="a]b"]x[/div]))).to eq(%(<div style="a]b">x</div>))
+    expect(cook(%([div style="url(a[1].png)"]x[/div]))).to eq(%(<div style="url(a[1].png)">x</div>))
+  end
+
+  it "reads attribute keys regardless of case" do
+    expect(cook(%([div Style="color:red"]x[/div]))).to eq(%(<div style="color:red">x</div>))
+  end
+
+  it "ends a default value before a key the tag reads" do
+    expect(cook("[font=Open Sans style=bold]a[/font]")).to include(
+      "font-family: 'Open Sans'; font-weight: 700",
+    )
+  end
+
+  it "reads a tag's declared flags without any key=value" do
+    expect(cook("[accordion]\n[slide open]body[/slide]\n[/accordion]")).to include(
+      %(<details class="bb-slide" open="">),
+    )
+    expect(cook("[center is cool]x[/center]")).to eq("[center is cool]x[/center]")
+  end
+
   it "reads quoted key=value attributes and suffixes class names per post" do
     html = cook(%([div class="a b" style="color:blue"]hi[/div]))
 
@@ -59,6 +81,13 @@ RSpec.describe PrettyText do
     )
     expect(cook("[b]a[plain][i]x[/b][/plain] c[/b]")).to include("a[i]x[/b] c</span>")
     expect(cook("[b][i]x[/b]")).to eq(%(<span class="bbcode-b">[i]x</span>))
+  end
+
+  it "repairs a tag left open in another rule's block tag as if it were closed there" do
+    expect(cook("[quote]\n[b]x\n[/quote]\ny[/b]")).to eq(cook("[quote]\n[b]x[/b]\n[/quote]\ny"))
+    expect(cook("[details=a]\n[b]x\n[/details]\ny[/b]")).to eq(
+      cook("[details=a]\n[b]x[/b]\n[/details]\ny"),
+    )
   end
 
   it "leaves unclosed and unmatched tags as literal text" do
@@ -108,6 +137,20 @@ RSpec.describe PrettyText do
     expect(cook("[nobr]\n[b]a\n\nb[/b]\n[/nobr]")).to eq(%(<span class="bbcode-b">a\n\nb</span>))
   end
 
+  it "scopes a post's ids by its id, so cooking it again gives the same HTML" do
+    raw = "[class name=x]color:red[/class][div class=x]y[/div]\n[tabs]\n[tab=A]a[/tab]\n[/tabs]"
+    cooked = PrettyText.cook(raw, post_id: 42)
+
+    expect(cooked).to include(%(<div class="x__post-42">y</div>), %(name="tab-group-post-42-1"))
+    expect(PrettyText.cook(raw, post_id: 42)).to eq(cooked)
+  end
+
+  it "drops the private-use characters the parser uses as placeholders" do
+    expect(cook("a\uE000b [b]c\uE001d[/b] e\uE002f")).to eq(
+      %(ab <span class="bbcode-b">cd</span> ef),
+    )
+  end
+
   it "renders class templates with the same suffix as native tags" do
     html = cook("[class name=x]\ncolor:red;\n[/class]\n[div class=x]hi[/div]")
 
@@ -137,6 +180,15 @@ RSpec.describe PrettyText do
 
     expect(block).to eq(%(<template data-bbscript-id="__proto__">x</template>))
     expect(inline).to eq("a <template>.d-header{display:none}</template> b")
+  end
+
+  it "keeps keyframes written as decimals, adding the percent sign a bare number needs" do
+    html =
+      cook(
+        "[animation=fade][keyframe=.5%]a:b;[/keyframe][keyframe=0.25]c:d;[/keyframe][/animation]",
+      )
+
+    expect(html).to include(".5%{ a:b; }", "0.25%{ c:d; }")
   end
 
   it "drops class, animation and keyframe rules whose name could escape the rule" do
@@ -277,6 +329,18 @@ RSpec.describe PrettyText do
 
     expect(html).to start_with(%(<div class="bbcode-b">))
     expect(html).to include(%(<div style="x">), "<h1>", "<li>item</li>")
+  end
+
+  it "keeps tags spanning lines inside the blockquote or list item they start in" do
+    expect(cook("> [center]\n> x\n> [/center]")).to eq(
+      %(<blockquote>\n<div class="bb-center">\n<br>\nx<br>\n</div>\n</blockquote>),
+    )
+    expect(cook("- [center]\n  x\n  [/center]")).to eq(
+      %(<ul>\n<li>\n<div class="bb-center">\n<br>\nx<br>\n</div>\n</li>\n</ul>),
+    )
+    expect(cook("> [b]a\n>\n> b[/b]")).to eq(
+      %(<blockquote>\n<span class="bbcode-b">a<br>\n<br>\nb</span></blockquote>),
+    )
   end
 
   it "keeps a single-line font at the start of a line inline" do
@@ -434,6 +498,29 @@ RSpec.describe PrettyText do
     )
   end
 
+  it "ignores closes inside HTML comments, autolinks, raw HTML blocks and fences in lists" do
+    expect(cook("[b]x <!-- [/b] --> y[/b]")).to eq(%(<span class="bbcode-b">x  y</span>))
+    expect(cook("[b]<https://e.com/[/b]> y[/b]")).to include("[/b]</a> y</span>")
+    expect(cook("[b]x\n<pre>\n[/b]\n</pre>\ny[/b]")).to include("<pre>[/b]\n</pre>\ny</div>")
+    expect(cook("[b]x\n- ```\n  [/b]\n  ```\n\ny[/b]")).to end_with("y</div>")
+  end
+
+  it "ends a fence in a blockquote with the blockquote" do
+    expect(cook("> ```\n> [b]x\n\n[i]after[/i]")).to end_with(
+      %(<span class="bbcode-i">after</span>),
+    )
+  end
+
+  it "finds a close in a Markdown quote that a code span hides only before the quote's markers are taken out" do
+    expect(cook("> [div]\n> `x\n>\n> [/div]\n> `")).to start_with("<blockquote>\n<div>")
+  end
+
+  it "doesn't start a code span at an escaped backtick when finding a section's close" do
+    expect(cook("[accordion]{slide=Title}a \\`{/slide} x`[/accordion]")).to include(
+      %(<summary class="bb-slide-title" style="text-align: left;">Title</summary>),
+    )
+  end
+
   it "ignores tags inside literal tags when matching others" do
     expect(cook("[div=x]a [comment]old [div] start[/comment] b[/div]")).to eq(
       %(<div style="x">a <!--old [div] start--> b</div>),
@@ -448,12 +535,17 @@ RSpec.describe PrettyText do
     expect(cook("`[plain]`\n[color=red]red[/color]\n`[/plain]`")).to eq(
       %(<code>[plain]</code><br>\n<span style="color: red">red</span><br>\n<code>[/plain]</code>),
     )
-    expect(cook("[plain]a `b[/plain] [b]c[/b]`")).to eq(%(a `b<span class="bbcode-b">c</span>`))
+    expect(cook("[plain]a `b[/plain] [b]c[/b]`")).to eq(%(a `b <span class="bbcode-b">c</span>`))
   end
 
   it "keeps the line break after plain and icode that start a line" do
     expect(cook("[icode]a[/icode]\nnext")).to include("<code>a</code><br>")
     expect(cook("[plain]a[/plain]\nnext")).to include("a<br>")
+  end
+
+  it "keeps the space between a literal tag that starts a line and the text after it" do
+    expect(cook("[plain]x[/plain] b")).to eq("x b")
+    expect(cook("[icode]a[/icode] [icode]b[/icode]")).to eq("<code>a</code> <code>b</code>")
   end
 
   it "writes the newlines in plain text as line breaks and drops the one after a fence" do

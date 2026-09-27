@@ -1,0 +1,108 @@
+==== alone
+<h4>text</h4>
+==== empty
+<h4></h4>
+==== mid-line
+before <h4>text</h4> after
+==== own-lines
+<h4>
+<br>
+text<br>
+</h4>
+==== own-lines-between-text
+before<br><h4>
+<br>
+text<br>
+</h4>
+<br>after
+==== starts-mid-line-spans-lines
+before<h4>
+text<br>
+more</h4>
+after
+==== blank-line-inside
+<h4>
+<br>
+text<br><br>second paragraph<br>
+</h4>
+==== markdown-blocks-inside
+<h4>
+<br>
+</h4><h2><a name="heading-1" class="anchor" href="#heading-1" aria-label="Heading link"></a>Heading</h2>
+<ul>
+<li>one</li>
+<li>two</li>
+</ul>
+<blockquote>
+quoted</blockquote>
+<br>
+
+==== inline-markdown-inside
+<h4><strong>bold</strong> <em>italic</em> <code>code</code> <a href="https://example.com" rel="noopener nofollow ugc">link</a> <img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji" alt=":smile:" loading="lazy" width="20" height="20"></h4>
+==== in-blockquote
+<blockquote>
+<h4>
+<br>
+text<br>
+</h4>
+</blockquote>
+==== in-list-item
+<ul>
+<li>
+<h4>
+<br>
+text<br>
+</h4>
+</li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><h4>text</h4></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="h4texth4-1" class="anchor" href="#h4texth4-1" aria-label="Heading link"></a></h2><h4>text</h4>
+==== around-b
+<h4><span class="bbcode-b">text</span></h4>
+==== in-b
+<span class="bbcode-b">before <h4>text</h4> after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote>
+<h4>text</h4>
+</blockquote>
+</aside>
+==== misnested-with-i
+<h4><span class="bbcode-i">text</span></h4>
+tail
+==== nested-in-itself
+<h4>outer </h4><h4>inner</h4> outer
+==== repeated
+<h4>one</h4>
+<h4>two</h4>
+<h4>three</h4>
+==== tail-and-next-line
+<h4>text</h4>
+tail<br>next line
+==== blank-lines-around
+before<br><br><br><h4>text</h4>
+<br><br><br>after
+==== unclosed
+[h4]text
+==== unmatched-close
+text[/h4]
+==== escaped
+[h4]text[/h4]
+==== uppercase
+<h4>text</h4>

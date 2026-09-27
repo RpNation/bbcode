@@ -1,0 +1,201 @@
+==== alone
+<fieldset class="bb-fieldset">
+<legend class="bb-fieldset-legend">
+Legend</legend>
+<div>text</div>
+</fieldset>
+==== empty
+<fieldset class="bb-fieldset">
+<legend class="bb-fieldset-legend">
+Legend</legend>
+<div></div>
+</fieldset>
+==== mid-line
+before <fieldset class="bb-fieldset"><legend class="bb-fieldset-legend">Legend</legend><div>text</div></fieldset> after
+==== own-lines
+<fieldset class="bb-fieldset">
+<legend class="bb-fieldset-legend">
+Legend</legend>
+<div>
+<br>
+text<br>
+</div>
+</fieldset>
+==== own-lines-between-text
+before<br><fieldset class="bb-fieldset">
+<legend class="bb-fieldset-legend">
+Legend</legend>
+<div>
+<br>
+text<br>
+</div>
+</fieldset>
+<br>after
+==== starts-mid-line-spans-lines
+before<fieldset class="bb-fieldset">
+<legend class="bb-fieldset-legend">
+Legend</legend>
+<div>
+text<br>
+more</div>
+</fieldset>
+after
+==== blank-line-inside
+<fieldset class="bb-fieldset">
+<legend class="bb-fieldset-legend">
+Legend</legend>
+<div>
+<br>
+text<br><br>second paragraph<br>
+</div>
+</fieldset>
+==== markdown-blocks-inside
+<fieldset class="bb-fieldset">
+<legend class="bb-fieldset-legend">
+Legend</legend>
+<div>
+<br>
+<h2><a name="heading-1" class="anchor" href="#heading-1" aria-label="Heading link"></a>Heading</h2>
+<ul>
+<li>one</li>
+<li>two</li>
+</ul>
+<blockquote>
+quoted</blockquote>
+<br>
+</div>
+</fieldset>
+==== inline-markdown-inside
+<fieldset class="bb-fieldset">
+<legend class="bb-fieldset-legend">
+Legend</legend>
+<div><strong>bold</strong> <em>italic</em> <code>code</code> <a href="https://example.com" rel="noopener nofollow ugc">link</a> <img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji" alt=":smile:" loading="lazy" width="20" height="20"></div>
+</fieldset>
+==== in-blockquote
+<blockquote>
+<fieldset class="bb-fieldset">
+<legend class="bb-fieldset-legend">
+Legend</legend>
+<div>
+<br>
+text<br>
+</div>
+</fieldset>
+</blockquote>
+==== in-list-item
+<ul>
+<li>
+<fieldset class="bb-fieldset">
+<legend class="bb-fieldset-legend">
+Legend</legend>
+<div>
+<br>
+text<br>
+</div>
+</fieldset>
+</li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><fieldset class="bb-fieldset"><legend class="bb-fieldset-legend">Legend</legend><div>text</div></fieldset></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="fieldsetlegendtextfieldset-1" class="anchor" href="#fieldsetlegendtextfieldset-1" aria-label="Heading link"></a><fieldset class="bb-fieldset"><legend class="bb-fieldset-legend">Legend</legend><div>text</div></fieldset></h2>
+==== around-b
+<fieldset class="bb-fieldset">
+<legend class="bb-fieldset-legend">
+Legend</legend>
+<div><span class="bbcode-b">text</span></div>
+</fieldset>
+==== in-b
+<span class="bbcode-b">before <fieldset class="bb-fieldset"><legend class="bb-fieldset-legend">Legend</legend><div>text</div></fieldset> after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote>
+<fieldset class="bb-fieldset">
+<legend class="bb-fieldset-legend">
+Legend</legend>
+<div>text</div>
+</fieldset>
+</blockquote>
+</aside>
+==== misnested-with-i
+<fieldset class="bb-fieldset">
+<legend class="bb-fieldset-legend">
+Legend</legend>
+<div><span class="bbcode-i">text</span></div>
+</fieldset>
+tail
+==== nested-in-itself
+<fieldset class="bb-fieldset">
+<legend class="bb-fieldset-legend">
+Legend</legend>
+<div>outer <fieldset class="bb-fieldset"><legend class="bb-fieldset-legend">Legend</legend><div>inner</div></fieldset> outer</div>
+</fieldset>
+==== repeated
+<fieldset class="bb-fieldset">
+<legend class="bb-fieldset-legend">
+Legend</legend>
+<div>one</div>
+</fieldset>
+<fieldset class="bb-fieldset">
+<legend class="bb-fieldset-legend">
+Legend</legend>
+<div>two</div>
+</fieldset>
+<fieldset class="bb-fieldset">
+<legend class="bb-fieldset-legend">
+Legend</legend>
+<div>three</div>
+</fieldset>
+==== tail-and-next-line
+<fieldset class="bb-fieldset">
+<legend class="bb-fieldset-legend">
+Legend</legend>
+<div>text</div>
+</fieldset>
+tail<br>next line
+==== blank-lines-around
+before<br><br><br><fieldset class="bb-fieldset">
+<legend class="bb-fieldset-legend">
+Legend</legend>
+<div>text</div>
+</fieldset>
+<br><br><br>after
+==== unclosed
+[fieldset=Legend]text
+==== unmatched-close
+text[/fieldset]
+==== escaped
+[fieldset=Legend]text[/fieldset]
+==== uppercase
+<fieldset class="bb-fieldset">
+<legend class="bb-fieldset-legend">
+Legend</legend>
+<div>text</div>
+</fieldset>
+==== [fieldset] alone
+<fieldset class="bb-fieldset">
+<legend class="bb-fieldset-legend"></legend>
+<div>text</div>
+</fieldset>
+==== [fieldset] own-lines
+<fieldset class="bb-fieldset">
+<legend class="bb-fieldset-legend"></legend>
+<div>
+<br>
+text<br>
+</div>
+</fieldset>

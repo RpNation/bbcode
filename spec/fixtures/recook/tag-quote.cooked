@@ -1,0 +1,143 @@
+==== alone
+<aside class="quote no-group">
+<blockquote>
+text</blockquote>
+</aside>
+==== empty
+[quote][/quote]
+==== mid-line
+before [quote]text[/quote] after
+==== own-lines
+<aside class="quote no-group">
+<blockquote>
+text</blockquote>
+</aside>
+==== own-lines-between-text
+before<br><aside class="quote no-group">
+<blockquote>
+text</blockquote>
+</aside>
+after
+==== starts-mid-line-spans-lines
+before [quote]text<br>
+more[/quote] after
+==== blank-line-inside
+<aside class="quote no-group">
+<blockquote>
+text<br><br>second paragraph</blockquote>
+</aside>
+==== markdown-blocks-inside
+<aside class="quote no-group">
+<blockquote>
+<h2>Heading</h2>
+<ul>
+<li>one</li>
+<li>two</li>
+</ul>
+<blockquote>
+quoted</blockquote>
+</blockquote>
+</aside>
+==== inline-markdown-inside
+<aside class="quote no-group">
+<blockquote>
+<strong>bold</strong> <em>italic</em> <code>code</code> <a href="https://example.com" rel="noopener nofollow ugc">link</a> <img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji" alt=":smile:" loading="lazy" width="20" height="20"></blockquote>
+</aside>
+==== in-blockquote
+<blockquote>
+<aside class="quote no-group">
+<blockquote>
+text</blockquote>
+</aside>
+</blockquote>
+==== in-list-item
+<ul>
+<li>
+<aside class="quote no-group">
+<blockquote>
+text</blockquote>
+</aside>
+</li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[quote]text[/quote]</td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="quotetextquote-1" class="anchor" href="#quotetextquote-1" aria-label="Heading link"></a>[quote]text[/quote]</h2>
+==== around-b
+<aside class="quote no-group">
+<blockquote>
+<span class="bbcode-b">text</span></blockquote>
+</aside>
+==== in-b
+<span class="bbcode-b">before [quote]text[/quote] after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote>
+<aside class="quote no-group">
+<blockquote>
+text</blockquote>
+</aside>
+</blockquote>
+</aside>
+==== misnested-with-i
+[quote]<span class="bbcode-i">text</span>[/quote] tail
+==== nested-in-itself
+<aside class="quote no-group">
+<blockquote>
+outer [quote]inner[/quote] outer</blockquote>
+</aside>
+==== repeated
+<aside class="quote no-group">
+<blockquote>
+one[/quote][quote]two[/quote] [quote]three</blockquote>
+</aside>
+==== tail-and-next-line
+[quote]text[/quote] tail<br>
+next line
+==== blank-lines-around
+before<br><br><br><aside class="quote no-group">
+<blockquote>
+text</blockquote>
+</aside>
+<br><br>after
+==== unclosed
+[quote]text
+==== unmatched-close
+text[/quote]
+==== escaped
+[quote]text[/quote]
+==== uppercase
+<aside class="quote no-group">
+<blockquote>
+text</blockquote>
+</aside>
+==== [quote="system, post:1, topic:1"] alone
+<aside class="quote no-group" data-username="system" data-post="1" data-topic="1">
+<div class="title">
+<div class="quote-controls"></div>
+<img alt="" width="24" height="24" src="//test.localhost/images/discourse-logo-sketch-small.png" class="avatar"> system:</div>
+<blockquote>
+text</blockquote>
+</aside>
+==== [quote="system, post:1, topic:1"] own-lines
+<aside class="quote no-group" data-username="system" data-post="1" data-topic="1">
+<div class="title">
+<div class="quote-controls"></div>
+<img alt="" width="24" height="24" src="//test.localhost/images/discourse-logo-sketch-small.png" class="avatar"> system:</div>
+<blockquote>
+text</blockquote>
+</aside>

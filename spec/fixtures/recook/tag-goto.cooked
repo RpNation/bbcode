@@ -1,0 +1,93 @@
+==== alone
+<a href="#user-anchor-top">text</a>
+==== empty
+<a href="#user-anchor-top"></a>
+==== mid-line
+before <a href="#user-anchor-top">text</a> after
+==== own-lines
+<a href="#user-anchor-top"><br>
+text<br>
+</a>
+==== own-lines-between-text
+before<br>
+<a href="#user-anchor-top"><br>
+text<br>
+</a><br>
+after
+==== starts-mid-line-spans-lines
+before <a href="#user-anchor-top">text<br>
+more</a> after
+==== blank-line-inside
+<a href="#user-anchor-top"><br>
+text<br>
+<br>
+second paragraph<br>
+</a>
+==== markdown-blocks-inside
+<a href="#user-anchor-top"><br>
+## Heading<br>
+<br>
+- one<br>
+- two<br>
+<br>
+&gt; quoted<br>
+</a>
+==== inline-markdown-inside
+<a href="#user-anchor-top"><strong>bold</strong> <em>italic</em> <code>code</code> </a><a href="https://example.com" rel="noopener nofollow ugc">link</a> <img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji" alt=":smile:" loading="lazy" width="20" height="20">
+==== in-blockquote
+<blockquote>
+<a href="#user-anchor-top"><br>
+text<br>
+</a></blockquote>
+==== in-list-item
+<ul>
+<li><a href="#user-anchor-top"><br>
+text<br>
+</a></li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#user-anchor-top">text</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="gototoptextgoto-1" class="anchor" href="#gototoptextgoto-1" aria-label="Heading link"></a><a href="#user-anchor-top">text</a></h2>
+==== around-b
+<a href="#user-anchor-top"><span class="bbcode-b">text</span></a>
+==== in-b
+<span class="bbcode-b">before <a href="#user-anchor-top">text</a> after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote>
+<a href="#user-anchor-top">text</a></blockquote>
+</aside>
+==== misnested-with-i
+<a href="#user-anchor-top"><span class="bbcode-i">text</span></a> tail
+==== nested-in-itself
+<a href="#user-anchor-top">outer </a><a href="#user-anchor-top">inner</a> outer
+==== repeated
+<a href="#user-anchor-top">one</a><a href="#user-anchor-top">two</a> <a href="#user-anchor-top">three</a>
+==== tail-and-next-line
+<a href="#user-anchor-top">text</a> tail<br>
+next line
+==== blank-lines-around
+before<br><br><br><a href="#user-anchor-top">text</a><br><br><br>after
+==== unclosed
+[goto=top]text
+==== unmatched-close
+text[/goto]
+==== escaped
+[goto=top]text[/goto]
+==== uppercase
+<a href="#user-anchor-top">text</a>

@@ -1,0 +1,93 @@
+==== alone
+<sub>text</sub>
+==== empty
+<sub></sub>
+==== mid-line
+before <sub>text</sub> after
+==== own-lines
+<sub><br>
+text<br>
+</sub>
+==== own-lines-between-text
+before<br>
+<sub><br>
+text<br>
+</sub><br>
+after
+==== starts-mid-line-spans-lines
+before <sub>text<br>
+more</sub> after
+==== blank-line-inside
+<sub><br>
+text<br>
+<br>
+second paragraph<br>
+</sub>
+==== markdown-blocks-inside
+<sub><br>
+## Heading<br>
+<br>
+- one<br>
+- two<br>
+<br>
+&gt; quoted<br>
+</sub>
+==== inline-markdown-inside
+<sub><strong>bold</strong> <em>italic</em> <code>code</code> <a href="https://example.com" rel="noopener nofollow ugc">link</a> <img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji" alt=":smile:" loading="lazy" width="20" height="20"></sub>
+==== in-blockquote
+<blockquote>
+<sub><br>
+text<br>
+</sub></blockquote>
+==== in-list-item
+<ul>
+<li><sub><br>
+text<br>
+</sub></li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><sub>text</sub></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="subtextsub-1" class="anchor" href="#subtextsub-1" aria-label="Heading link"></a><sub>text</sub></h2>
+==== around-b
+<sub><span class="bbcode-b">text</span></sub>
+==== in-b
+<span class="bbcode-b">before <sub>text</sub> after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote>
+<sub>text</sub></blockquote>
+</aside>
+==== misnested-with-i
+<sub><span class="bbcode-i">text</span></sub> tail
+==== nested-in-itself
+<sub>outer <sub>inner</sub> outer</sub>
+==== repeated
+<sub>one</sub><sub>two</sub> <sub>three</sub>
+==== tail-and-next-line
+<sub>text</sub> tail<br>
+next line
+==== blank-lines-around
+before<br><br><br><sub>text</sub><br><br><br>after
+==== unclosed
+[sub]text
+==== unmatched-close
+text[/sub]
+==== escaped
+[sub]text[/sub]
+==== uppercase
+<sub>text</sub>

@@ -1,0 +1,136 @@
+==== alone
+<div class="bb-scroll" style="height: 200px">text</div>
+==== empty
+<div class="bb-scroll" style="height: 200px"></div>
+==== mid-line
+before <div class="bb-scroll" style="height: 200px">text</div> after
+==== own-lines
+<div class="bb-scroll" style="height: 200px">
+<br>
+text<br>
+</div>
+==== own-lines-between-text
+before<br><div class="bb-scroll" style="height: 200px">
+<br>
+text<br>
+</div>
+<br>after
+==== starts-mid-line-spans-lines
+before<div class="bb-scroll" style="height: 200px">
+text<br>
+more</div>
+after
+==== blank-line-inside
+<div class="bb-scroll" style="height: 200px">
+<br>
+text<br><br>second paragraph<br>
+</div>
+==== markdown-blocks-inside
+<div class="bb-scroll" style="height: 200px">
+<br>
+<h2><a name="heading-1" class="anchor" href="#heading-1" aria-label="Heading link"></a>Heading</h2>
+<ul>
+<li>one</li>
+<li>two</li>
+</ul>
+<blockquote>
+quoted</blockquote>
+<br>
+</div>
+==== inline-markdown-inside
+<div class="bb-scroll" style="height: 200px"><strong>bold</strong> <em>italic</em> <code>code</code> <a href="https://example.com" rel="noopener nofollow ugc">link</a> <img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji" alt=":smile:" loading="lazy" width="20" height="20"></div>
+==== in-blockquote
+<blockquote>
+<div class="bb-scroll" style="height: 200px">
+<br>
+text<br>
+</div>
+</blockquote>
+==== in-list-item
+<ul>
+<li>
+<div class="bb-scroll" style="height: 200px">
+<br>
+text<br>
+</div>
+</li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><div class="bb-scroll" style="height: 200px">text</div></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="scroll200textscroll-1" class="anchor" href="#scroll200textscroll-1" aria-label="Heading link"></a><div class="bb-scroll" style="height: 200px">text</div></h2>
+==== around-b
+<div class="bb-scroll" style="height: 200px"><span class="bbcode-b">text</span></div>
+==== in-b
+<span class="bbcode-b">before <div class="bb-scroll" style="height: 200px">text</div> after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote>
+<div class="bb-scroll" style="height: 200px">text</div>
+</blockquote>
+</aside>
+==== misnested-with-i
+<div class="bb-scroll" style="height: 200px"><span class="bbcode-i">text</span></div>
+tail
+==== nested-in-itself
+<div class="bb-scroll" style="height: 200px">outer <div class="bb-scroll" style="height: 200px">inner</div> outer</div>
+==== repeated
+<div class="bb-scroll" style="height: 200px">one</div>
+<div class="bb-scroll" style="height: 200px">two</div>
+<div class="bb-scroll" style="height: 200px">three</div>
+==== tail-and-next-line
+<div class="bb-scroll" style="height: 200px">text</div>
+tail<br>next line
+==== blank-lines-around
+before<br><br><br><div class="bb-scroll" style="height: 200px">text</div>
+<br><br><br>after
+==== unclosed
+[scroll=200]text
+==== unmatched-close
+text[/scroll]
+==== escaped
+[scroll=200]text[/scroll]
+==== uppercase
+<div class="bb-scroll" style="height: 200px">text</div>
+==== [scroll] alone
+<div class="bb-scroll" style="height: 0px">text</div>
+==== [scroll] own-lines
+<div class="bb-scroll" style="height: 0px">
+<br>
+text<br>
+</div>
+==== [scroll=0] alone
+<div class="bb-scroll" style="height: 0px">text</div>
+==== [scroll=0] own-lines
+<div class="bb-scroll" style="height: 0px">
+<br>
+text<br>
+</div>
+==== [scroll=9999] alone
+<div class="bb-scroll" style="height: 700px">text</div>
+==== [scroll=9999] own-lines
+<div class="bb-scroll" style="height: 700px">
+<br>
+text<br>
+</div>
+==== [scroll=abc] alone
+<div class="bb-scroll" style="height: 700px">text</div>
+==== [scroll=abc] own-lines
+<div class="bb-scroll" style="height: 700px">
+<br>
+text<br>
+</div>

@@ -1,0 +1,16 @@
+==== class-and-script
+[class name=box state=hover]color:red[/class]
+[div class=box]x[/div]
+[script class=box on=click]x[/script]
+[animation=spin][keyframe=0]a:b[/keyframe][keyframe=100]c:d[/keyframe][/animation]
+==== fa
+[fa style="color:red" primary-color=blue fa-transform=grow-2]fas fa-dice[/fa]
+==== forged-marker
+a <TEMPLATE Data-BbCode-Plus="class">.d-header{display:none}</TEMPLATE> b
+==== review-fractional-keyframe
+[animation=fade]
+[keyframe=.5%]opacity:0;[/keyframe]
+[keyframe=100%]opacity:1;[/keyframe]
+[/animation]
+==== review-link-in-inline-spoiler
+[inlinespoiler][url=https://example.com]open link[/url][/inlinespoiler]

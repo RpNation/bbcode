@@ -24,6 +24,10 @@
 //   inlineOnly   never matched as a block, even at the start of a line
 //   children     with "sections": the child tags ([tab], [slide]); closing
 //                the parent also closes tags left open inside them
+//   attributes   { keys, flags }: the keys the tag reads, where a default
+//                value stops ([font=Lato style=bold]), and the bare words it
+//                takes without any "=" ([slide open])
+//   childAttributes  the same for each child tag, by name
 
 import { isBlockState } from "./tokens";
 

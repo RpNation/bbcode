@@ -1,0 +1,92 @@
+==== alone
+<a href="mailto:someone@example.com" data-bbcode="true">someone@example.com</a>
+==== empty
+<a data-bbcode="true"></a>
+==== mid-line
+before <a href="mailto:someone@example.com" data-bbcode="true">someone@example.com</a> after
+==== own-lines
+<a data-bbcode="true">
+someone@example.com
+</a>
+==== own-lines-between-text
+before<br>
+<a data-bbcode="true">
+someone@example.com
+</a><br>
+after
+==== starts-mid-line-spans-lines
+before <a href="mailto:someone@example.com
+more" data-bbcode="true">someone@example.com
+more</a> after
+==== blank-line-inside
+[email]<br>
+<a href="mailto:someone@example.com">someone@example.com</a><br><br>second paragraph<br>
+[/email]
+==== markdown-blocks-inside
+[email]<h2><a name="heading-1" class="anchor" href="#heading-1" aria-label="Heading link"></a>Heading</h2>
+<ul>
+<li>one</li>
+<li>two</li>
+</ul>
+<blockquote>
+quoted<br>
+[/email]</blockquote>
+==== inline-markdown-inside
+<a data-bbcode="true">**bold** _italic_ `code` [link](https://example.com) <img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji" alt=":smile:" loading="lazy" width="20" height="20"></a>
+==== in-blockquote
+<blockquote>
+<a data-bbcode="true">
+someone@example.com
+</a></blockquote>
+==== in-list-item
+<ul>
+<li><a data-bbcode="true">
+someone@example.com
+</a></li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="mailto:someone@example.com" data-bbcode="true">someone@example.com</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="emailsomeoneexamplecomemail-1" class="anchor" href="#emailsomeoneexamplecomemail-1" aria-label="Heading link"></a><a href="mailto:someone@example.com" data-bbcode="true">someone@example.com</a></h2>
+==== around-b
+<a data-bbcode="true">[b]someone@example.com[/b]</a>
+==== in-b
+<span class="bbcode-b">before <a href="mailto:someone@example.com" data-bbcode="true">someone@example.com</a> after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote>
+<a href="mailto:someone@example.com" data-bbcode="true">someone@example.com</a></blockquote>
+</aside>
+==== misnested-with-i
+<a data-bbcode="true">[i]someone@example.com</a> tail[/i]
+==== nested-in-itself
+<a href="mailto:outer [email]inner" data-bbcode="true" rel="noopener nofollow ugc">outer [email]inner</a> outer[/email]
+==== repeated
+<a href="mailto:one" data-bbcode="true" rel="noopener nofollow ugc">one</a><a href="mailto:two" data-bbcode="true" rel="noopener nofollow ugc">two</a> <a href="mailto:three" data-bbcode="true" rel="noopener nofollow ugc">three</a>
+==== tail-and-next-line
+<a href="mailto:someone@example.com" data-bbcode="true">someone@example.com</a> tail<br>
+next line
+==== blank-lines-around
+before<br><br><br><a href="mailto:someone@example.com" data-bbcode="true">someone@example.com</a><br><br><br>after
+==== unclosed
+[email]someone@example.com
+==== unmatched-close
+<a href="mailto:someone@example.com">someone@example.com</a>[/email]
+==== escaped
+[email]someone@example.com[/email]
+==== uppercase
+<a href="mailto:someone@example.com" data-bbcode="true">someone@example.com</a>

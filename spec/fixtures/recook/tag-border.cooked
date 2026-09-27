@@ -1,0 +1,115 @@
+==== alone
+<div style="border: 1px solid red;" class="bb-border">text</div>
+==== empty
+<div style="border: 1px solid red;" class="bb-border"></div>
+==== mid-line
+before <div style="border: 1px solid red;" class="bb-border">text</div> after
+==== own-lines
+<div style="border: 1px solid red;" class="bb-border">
+<br>
+text<br>
+</div>
+==== own-lines-between-text
+before<br><div style="border: 1px solid red;" class="bb-border">
+<br>
+text<br>
+</div>
+<br>after
+==== starts-mid-line-spans-lines
+before<div style="border: 1px solid red;" class="bb-border">
+text<br>
+more</div>
+after
+==== blank-line-inside
+<div style="border: 1px solid red;" class="bb-border">
+<br>
+text<br><br>second paragraph<br>
+</div>
+==== markdown-blocks-inside
+<div style="border: 1px solid red;" class="bb-border">
+<br>
+<h2><a name="heading-1" class="anchor" href="#heading-1" aria-label="Heading link"></a>Heading</h2>
+<ul>
+<li>one</li>
+<li>two</li>
+</ul>
+<blockquote>
+quoted</blockquote>
+<br>
+</div>
+==== inline-markdown-inside
+<div style="border: 1px solid red;" class="bb-border"><strong>bold</strong> <em>italic</em> <code>code</code> <a href="https://example.com" rel="noopener nofollow ugc">link</a> <img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji" alt=":smile:" loading="lazy" width="20" height="20"></div>
+==== in-blockquote
+<blockquote>
+<div style="border: 1px solid red;" class="bb-border">
+<br>
+text<br>
+</div>
+</blockquote>
+==== in-list-item
+<ul>
+<li>
+<div style="border: 1px solid red;" class="bb-border">
+<br>
+text<br>
+</div>
+</li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><div style="border: 1px solid red;" class="bb-border">text</div></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="border1px-solid-redtextborder-1" class="anchor" href="#border1px-solid-redtextborder-1" aria-label="Heading link"></a><div style="border: 1px solid red;" class="bb-border">text</div></h2>
+==== around-b
+<div style="border: 1px solid red;" class="bb-border"><span class="bbcode-b">text</span></div>
+==== in-b
+<span class="bbcode-b">before <div style="border: 1px solid red;" class="bb-border">text</div> after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote>
+<div style="border: 1px solid red;" class="bb-border">text</div>
+</blockquote>
+</aside>
+==== misnested-with-i
+<div style="border: 1px solid red;" class="bb-border"><span class="bbcode-i">text</span></div>
+tail
+==== nested-in-itself
+<div style="border: 1px solid red;" class="bb-border">outer <div style="border: 1px solid red;" class="bb-border">inner</div> outer</div>
+==== repeated
+<div style="border: 1px solid red;" class="bb-border">one</div>
+<div style="border: 1px solid red;" class="bb-border">two</div>
+<div style="border: 1px solid red;" class="bb-border">three</div>
+==== tail-and-next-line
+<div style="border: 1px solid red;" class="bb-border">text</div>
+tail<br>next line
+==== blank-lines-around
+before<br><br><br><div style="border: 1px solid red;" class="bb-border">text</div>
+<br><br><br>after
+==== unclosed
+[border=1px solid red]text
+==== unmatched-close
+text[/border]
+==== escaped
+[border=1px solid red]text[/border]
+==== uppercase
+<div style="border: 1px solid red;" class="bb-border">text</div>
+==== [border] alone
+<div style="border: undefined;" class="bb-border">text</div>
+==== [border] own-lines
+<div style="border: undefined;" class="bb-border">
+<br>
+text<br>
+</div>

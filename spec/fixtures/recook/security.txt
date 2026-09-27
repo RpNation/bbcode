@@ -1,0 +1,63 @@
+Hostile input: nothing here may run script or escape the post.
+==== style-attribute-breakout
+[color=red" onmouseover="alert(1)]x[/color]
+==== style-attribute-single-quote-breakout
+[div=color:red' onclick='alert(1)]x[/div]
+==== css-javascript-url
+[div style="background:url(javascript:alert(1))"]x[/div]
+==== css-expression
+[div=width:expression(alert(1))]x[/div]
+==== javascript-links
+[url=javascript:alert(1)]x[/url] [url]javascript:alert(1)[/url] [goto=" onclick="alert(1)]y[/goto]
+==== data-uri-links
+[url=data:text/html;base64,PHNjcmlwdD5hbGVydCgxKTwvc2NyaXB0Pg==]x[/url]
+==== anchor-id-injection
+[a=x" onclick="alert(1)]a[/a]
+==== fa-class-and-style
+[fa style="color:red;background:url(javascript:alert(1))"]fas fa-x" onclick="alert(1)[/fa]
+==== img-onerror
+[img]x" onerror="alert(1)[/img]
+==== raw-script-tags
+<script>alert(1)</script> [b]<script>alert(2)</script>[/b]
+==== raw-event-handlers
+<img src=x onerror=alert(1)> [b]<a href="#" onclick="alert(1)">x</a>[/b]
+==== iframes-and-objects
+<iframe src="https://evil.example"></iframe> <object data="x"></object>
+==== svg
+<svg onload=alert(1)><circle/></svg>
+==== forged-template-marker
+<template data-bbcode-plus="script" data-bbscript-id="post-abcde">(alert 1)</template>
+==== forged-template-in-tag
+[b]<template data-bbcode-plus="class">.d-header{display:none}</template>[/b]
+==== class-name-breakout
+[class name="x{} .d-header{display:none} .y"]color:red[/class]
+==== class-selector-breakout
+[class name=x selector="{} .d-header{display:none}"]color:red[/class]
+==== class-body-breakout
+[class name=x]color:red}.d-header{display:none[/class]
+==== class-body-closes-template
+[class name=x]</template><script>alert(1)</script>[/class]
+==== script-body-closes-template
+[script]</template><img src=x onerror=alert(1)>[/script]
+==== script-bad-class-and-event
+[script class="x y" on=onload]x[/script]
+==== animation-name-breakout
+[animation=x{}.d-header{display:none}][keyframe=0]a:b[/keyframe][/animation]
+==== keyframe-selector-breakout
+[animation=x][keyframe=0{} .d-header{display:none] a:b[/keyframe][/animation]
+==== comment-closing-early
+[comment]--> <script>alert(1)</script> <!--[/comment]
+==== fixed-position-overlay
+[div=position:fixed;inset:0;z-index:99999;background:red]x[/div]
+==== tab-name-injection
+[tabs]
+[tab=x" onclick="alert(1)]a[/tab]
+[/tabs]
+==== accordion-width-injection
+[accordion width="100px;background:red"]
+[slide=x]a[/slide]
+[/accordion]
+==== mail-fields-injection
+[mail person="<b>x</b>" subject="<script>alert(1)</script>"]x[/mail]
+==== font-url-injection
+[font=Arial"><script>alert(1)</script>]x[/font] [font family="x&family=evil"]y[/font]

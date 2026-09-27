@@ -1,0 +1,108 @@
+==== alone
+<h6>text</h6>
+==== empty
+<h6></h6>
+==== mid-line
+before <h6>text</h6> after
+==== own-lines
+<h6>
+<br>
+text<br>
+</h6>
+==== own-lines-between-text
+before<br><h6>
+<br>
+text<br>
+</h6>
+<br>after
+==== starts-mid-line-spans-lines
+before<h6>
+text<br>
+more</h6>
+after
+==== blank-line-inside
+<h6>
+<br>
+text<br><br>second paragraph<br>
+</h6>
+==== markdown-blocks-inside
+<h6>
+<br>
+</h6><h2><a name="heading-1" class="anchor" href="#heading-1" aria-label="Heading link"></a>Heading</h2>
+<ul>
+<li>one</li>
+<li>two</li>
+</ul>
+<blockquote>
+quoted</blockquote>
+<br>
+
+==== inline-markdown-inside
+<h6><strong>bold</strong> <em>italic</em> <code>code</code> <a href="https://example.com" rel="noopener nofollow ugc">link</a> <img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji" alt=":smile:" loading="lazy" width="20" height="20"></h6>
+==== in-blockquote
+<blockquote>
+<h6>
+<br>
+text<br>
+</h6>
+</blockquote>
+==== in-list-item
+<ul>
+<li>
+<h6>
+<br>
+text<br>
+</h6>
+</li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><h6>text</h6></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="h6texth6-1" class="anchor" href="#h6texth6-1" aria-label="Heading link"></a></h2><h6>text</h6>
+==== around-b
+<h6><span class="bbcode-b">text</span></h6>
+==== in-b
+<span class="bbcode-b">before <h6>text</h6> after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote>
+<h6>text</h6>
+</blockquote>
+</aside>
+==== misnested-with-i
+<h6><span class="bbcode-i">text</span></h6>
+tail
+==== nested-in-itself
+<h6>outer </h6><h6>inner</h6> outer
+==== repeated
+<h6>one</h6>
+<h6>two</h6>
+<h6>three</h6>
+==== tail-and-next-line
+<h6>text</h6>
+tail<br>next line
+==== blank-lines-around
+before<br><br><br><h6>text</h6>
+<br><br><br>after
+==== unclosed
+[h6]text
+==== unmatched-close
+text[/h6]
+==== escaped
+[h6]text[/h6]
+==== uppercase
+<h6>text</h6>

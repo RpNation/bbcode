@@ -1,0 +1,14 @@
+==== class-and-script
+<template data-bbcode-plus="script" data-bbscript-id="post-GUID" data-bbscript-class="box" data-bbscript-on="click" data-bbscript-ver="">x</template><template data-bbcode-plus="class">.box__post-GUID:hover {color:red}
+@keyframes post-GUIDspin { 0%{ a:b }
+100%{ c:d } }</template>
+<div class="box__post-GUID">x</div>
+==== fa
+<i data-bbcode-fa=""><i class="fas fa-dice" style="color:red; --fa-primary-color: blue" data-fa-transform="grow-2"></i></i>
+==== forged-marker
+a <template>.d-header{display:none}</template> b
+==== review-fractional-keyframe
+<template data-bbcode-plus="class">@keyframes post-GUIDfade { .5%{ opacity:0; }
+100%{ opacity:1; } }</template>
+==== review-link-in-inline-spoiler
+<span class="bb-inline-spoiler"><a href="https://example.com" data-bbcode="true" rel="noopener nofollow ugc">open link</a></span>

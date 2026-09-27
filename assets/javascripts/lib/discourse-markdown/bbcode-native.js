@@ -8,6 +8,7 @@ import {
   covers,
   findClose,
   isEscaped,
+  lineHead,
   literalRanges,
   memoFor,
   needsBlocks,
@@ -20,6 +21,8 @@ import {
   resetTextCache,
   restoreNewlines,
   setLiteralTags,
+  setTagAttributes,
+  sourceLines,
 } from "./bbcode-native/scanner";
 import { SECTION_TAGS } from "./bbcode-native/sections";
 import { TAGS } from "./bbcode-native/tags";
@@ -41,6 +44,15 @@ import {
 
 const SPECS = { ...TAGS, ...SECTION_TAGS, ...PLUS_TAGS };
 const FORGED_PLUS_RE = /\bdata-bbcode-plus\b/gi;
+const MARKER_RE = new RegExp(`[${NEWLINE_SENTINEL}${NOBR_SENTINEL}${PHANTOM}]`);
+const LINE_PLACEHOLDER_RE = new RegExp(
+  `[${NEWLINE_SENTINEL}${NOBR_SENTINEL}]`,
+  "g"
+);
+const PLACEHOLDER_RE = new RegExp(
+  `[${NEWLINE_SENTINEL}${NOBR_SENTINEL}${PHANTOM}]`,
+  "g"
+);
 const tagsWhere = (test) =>
   Object.keys(SPECS).filter((tag) => test(SPECS[tag]));
 const openerRe = (tags) =>
@@ -49,6 +61,15 @@ const OPEN_RE = openerRe(Object.keys(SPECS));
 const NO_BREAK_TAGS = tagsWhere((spec) => spec.lineBreaks === false);
 const NO_BREAK_RE = NO_BREAK_TAGS.length ? openerRe(NO_BREAK_TAGS) : null;
 setLiteralTags(tagsWhere((spec) => spec.content === "literal"));
+setTagAttributes(
+  Object.assign(
+    {},
+    ...Object.entries(SPECS).map(([tag, spec]) => ({
+      ...(spec.attributes && { [tag]: spec.attributes }),
+      ...spec.childAttributes,
+    }))
+  )
+);
 
 // not rendered here, but their closes still close the tags nested inside
 const NESTING_ONLY = [
@@ -169,7 +190,26 @@ function insertBreaks(tokens, Token, lines) {
   return out;
 }
 
+// the text as the block stage reads it: `pattern`, from lineHead, taken off
+// each line after the first
+function withoutMarkers(text, pattern) {
+  return pattern ? text.replace(new RegExp(`\n${pattern}`, "g"), "\n") : text;
+}
+
 const specFor = (tag) => SPECS[tag];
+
+// the newlines in `text` before `end`
+function countNewlines(text, end) {
+  let count = 0;
+  for (
+    let at = text.indexOf("\n");
+    at !== -1 && at < end;
+    at = text.indexOf("\n", at + 1)
+  ) {
+    count++;
+  }
+  return count;
+}
 // never split by blank lines
 const alwaysFlat = (spec) =>
   spec.content === "inline" || spec.content === "literal";
@@ -181,7 +221,32 @@ export function setup(helper) {
 
   helper.registerPlugin((md) => {
     const isKnown = (tag) => Object.hasOwn(SPECS, tag);
-    const isNestable = (tag) => isKnown(tag) || NESTING_ONLY.includes(tag);
+    // Block tags other rules register, such as [details], are looked up per
+    // cook: those rules may be added after this one.
+    // Core's bbcode rules search the rest of the text for the close of each
+    // opener of another rule's tag, which is quadratic when many never close.
+    // The searches are greedy, so an opener after its tag's last close can't
+    // close: the rule is returned so its search can be skipped, with the
+    // result it would reach. The text is left as it is.
+    const TAG_NAME_RE = /[a-z][\w-]*/iy;
+    const neverClosed = (src, pos, ruler) => {
+      TAG_NAME_RE.lastIndex = pos + 1;
+      const name = TAG_NAME_RE.exec(src)?.[0].toLowerCase();
+      const rule = name && !isKnown(name) && ruler?.getRuleForTag(name)?.rule;
+      if (!rule) {
+        return null;
+      }
+      const lower = memoFor(src, "lower", () => src.toLowerCase());
+      const lastClose = memoFor(src, `lastClose:${name}`, () =>
+        lower.lastIndexOf(`[/${name}]`)
+      );
+      return lastClose < pos ? rule : null;
+    };
+
+    const isNestable = (tag) =>
+      isKnown(tag) ||
+      NESTING_ONLY.includes(tag) ||
+      !!md.block.bbcode?.ruler.getRuleForTag(tag);
 
     // deeply indented bbcode must not become code blocks
     md.disable("code");
@@ -200,7 +265,13 @@ export function setup(helper) {
     // tag starting mid-line is moved onto its own line instead.
     md.core.ruler.after("normalize", "bbcode-native-flatten", (state) => {
       resetTextCache();
-      state.src = repairNesting(state.src, isNestable);
+      // restored once parsing is done, for rules that match it to the post
+      state.env.bbcodeSource = state.src;
+      // The placeholders below would read them as newlines; core drops them.
+      state.src = repairNesting(
+        state.src.replace(PLACEHOLDER_RE, ""),
+        isNestable
+      );
       const src = state.src;
       const literal = literalRanges(src);
       // strictly inside: the literal tag's own opener still gets flattened.
@@ -252,7 +323,20 @@ export function setup(helper) {
 
       const flattened = rangeList();
       const edits = [];
+      const lowerSrc = src.toLowerCase();
       let match;
+      // Openers come in order, so each line start is found from the last one:
+      // searching back from every tag is quadratic on a long line.
+      let knownLineStart = 0;
+      let seen = 0;
+      const lineStartOf = (pos) => {
+        const newline = src.slice(seen, pos).lastIndexOf("\n");
+        if (newline !== -1) {
+          knownLineStart = seen + newline + 1;
+        }
+        seen = pos;
+        return knownLineStart;
+      };
       OPEN_RE.lastIndex = 0;
       while ((match = OPEN_RE.exec(src))) {
         const openAt = match.index;
@@ -264,11 +348,18 @@ export function setup(helper) {
           continue;
         }
         const spec = specFor(info.tag);
+        // in a blockquote or list item, the line starts after their markers
+        const lineBegin = lineStartOf(openAt);
+        const head = lineHead(src, openAt, lineBegin);
+        const inContainer = head.end > lineBegin;
         let lineStart = openAt;
-        while (src[lineStart - 1] === " " || src[lineStart - 1] === "\t") {
+        while (
+          lineStart > head.end &&
+          (src[lineStart - 1] === " " || src[lineStart - 1] === "\t")
+        ) {
           lineStart--;
         }
-        const startsLine = lineStart === 0 || src[lineStart - 1] === "\n";
+        const startsLine = lineStart === head.end;
         const spansLines = (close) => {
           const newline = src.indexOf("\n", openAt);
           return newline !== -1 && newline < close.start;
@@ -276,7 +367,7 @@ export function setup(helper) {
         const covered = covers(flattened, openAt);
         // nothing to do: its newlines are already sentinels, and there's no
         // indentation to strip
-        if (covered && openAt === lineStart) {
+        if (covered && (openAt === lineStart || (startsLine && inContainer))) {
           continue;
         }
         // inside a flattened span, only how far the tag reaches matters
@@ -287,6 +378,7 @@ export function setup(helper) {
               openAt,
               close.start,
               covers(nobrRanges, openAt) ? NOBR_SENTINEL : NEWLINE_SENTINEL,
+              head.pattern,
             ]);
           }
           continue;
@@ -308,15 +400,19 @@ export function setup(helper) {
             !(
               close &&
               needsBlocks(
-                src.slice(openAt + info.length, close.start),
+                withoutMarkers(
+                  src.slice(openAt + info.length, close.start),
+                  head.pattern
+                ),
                 startsLine,
                 state,
                 blockStarts()
               )
             ));
         if (startsLine && !flat) {
-          // a line indented 4+ spaces can't interrupt a paragraph
-          if (openAt > lineStart) {
+          // A line indented 4+ spaces can't interrupt a paragraph. In a
+          // container the markers set the indentation, so it stays.
+          if (openAt > lineStart && !inContainer) {
             edits.push({
               at: lineStart,
               remove: openAt - lineStart,
@@ -333,64 +429,106 @@ export function setup(helper) {
           continue;
         }
         if (!flat && !startsLine && !covered) {
-          edits.push({ at: openAt, remove: 0, insert: PHANTOM + "\n" });
+          edits.push({
+            at: openAt,
+            remove: 0,
+            insert: PHANTOM + "\n" + head.insert,
+          });
           continue;
         }
         const sentinel = covers(nobrRanges, openAt)
           ? NOBR_SENTINEL
           : NEWLINE_SENTINEL;
-        addRange(flattened, [openAt, close.start, sentinel]);
+        addRange(flattened, [openAt, close.start, sentinel, head.pattern]);
       }
 
       // Core renders a multi-line [code] as a block only when its tags are on
       // their own lines; XenForo always does.
-      const codeRe = /\[code(?=[\]=\s])[^\]]*\]/gi;
-      const lowerSrc = src.toLowerCase();
+      const codeRe = /\[code(?=[\]=\s])/gi;
+      const isCode = (tag) => tag === "code";
+      // Openers come in order, so the next close and newline are found from
+      // the last ones: searching from every opener is quadratic.
+      let closeAt = -2;
+      let newlineAt = -2;
       while ((match = codeRe.exec(src))) {
         const openAt = match.index;
-        const openEnd = codeRe.lastIndex;
-        const closeAt = lowerSrc.indexOf("[/code]", openEnd);
+        const opener = parseLooseTag(src, openAt, isCode, true);
+        if (!opener) {
+          continue;
+        }
+        const openEnd = openAt + opener.length;
+        if (closeAt < openEnd) {
+          closeAt = lowerSrc.indexOf("[/code]", openEnd);
+        }
+        if (closeAt === -1) {
+          break;
+        }
+        if (newlineAt !== -1 && newlineAt < openEnd) {
+          newlineAt = src.indexOf("\n", openEnd);
+        }
         if (
           inLiteral(openAt) ||
           covers(flattened, openAt) ||
-          closeAt === -1 ||
-          !src.slice(openEnd, closeAt).includes("\n")
+          newlineAt === -1 ||
+          newlineAt > closeAt
         ) {
           continue;
         }
         const closeEnd = closeAt + "[/code]".length;
-        const lineStart = src.lastIndexOf("\n", openAt - 1) + 1;
-        const closeLineStart = src.lastIndexOf("\n", closeAt - 1) + 1;
-        if (src.slice(lineStart, openAt).trim()) {
-          edits.push({ at: openAt, remove: 0, insert: PHANTOM + "\n" });
+        const head = lineHead(src, openAt);
+        const newLine = "\n" + head.insert;
+        if (src.slice(head.end, openAt).trim()) {
+          edits.push({ at: openAt, remove: 0, insert: PHANTOM + newLine });
         }
         if (!/^[ \t]*(\n|$)/.test(src.slice(openEnd))) {
-          edits.push({ at: openEnd, remove: 0, insert: "\n" });
+          edits.push({ at: openEnd, remove: 0, insert: newLine });
         }
-        if (src.slice(closeLineStart, closeAt).trim()) {
-          edits.push({ at: closeAt, remove: 0, insert: "\n" });
+        if (src.slice(lineHead(src, closeAt).end, closeAt).trim()) {
+          edits.push({ at: closeAt, remove: 0, insert: newLine });
         }
         if (!/^[ \t]*(\n|$)/.test(src.slice(closeEnd))) {
-          edits.push({ at: closeEnd, remove: 0, insert: "\n" });
+          edits.push({ at: closeEnd, remove: 0, insert: newLine });
         }
         codeRe.lastIndex = closeEnd;
       }
 
-      // where flattened spans overlap, the first one opened picks the sentinel
+      // Where flattened spans overlap, the first one opened picks the sentinel.
+      // A container's markers on the lines joined are taken out, as the block
+      // stage would have: the sentinels keep positions, so the edits do it.
       const flatParts = [];
       let done = 0;
-      for (const [from, to, sentinel] of flattened) {
+      for (const [from, to, sentinel, markers] of flattened) {
         if (to > done) {
           const start = Math.max(from, done);
           flatParts.push(
             src.slice(done, start),
             src.slice(start, to).replaceAll("\n", sentinel)
           );
+          if (markers) {
+            const markerRe = new RegExp(markers, "y");
+            for (
+              let nl = src.indexOf("\n", start);
+              nl !== -1 && nl < to;
+              nl = src.indexOf("\n", nl + 1)
+            ) {
+              markerRe.lastIndex = nl + 1;
+              const length = markerRe.exec(src)?.[0].length ?? 0;
+              const remove = Math.min(length, to - nl - 1);
+              if (remove > 0) {
+                edits.push({ at: nl + 1, remove, insert: "" });
+              }
+            }
+          }
           done = to;
         }
       }
       flatParts.push(src.slice(done));
-      state.src = applyEdits(flatParts.join(""), edits);
+      const insertedNewlines = [];
+      state.src = applyEdits(flatParts.join(""), edits, insertedNewlines);
+      state.env.bbcodeLines =
+        state.src === state.env.bbcodeSource
+          ? null
+          : sourceLines(state.src, insertedNewlines);
     });
 
     md.core.ruler.after("block", "bbcode-native-breaks", (state) => {
@@ -416,6 +554,95 @@ export function setup(helper) {
       state.env.bbcodeDepth = 0;
     });
 
+    // Rules after parsing, such as checklists, match line maps and paragraph
+    // text to the post as written: the pre-pass's lines and placeholders are
+    // mapped back. Paragraph text keeps its length, as offsets into it are
+    // kept.
+    md.core.ruler.after("inline", "bbcode-native-source-lines", (state) => {
+      const lines = state.env.bbcodeLines;
+      if (lines) {
+        const sourceLine = (line) =>
+          line < lines.length
+            ? lines[line]
+            : lines.at(-1) + line - lines.length + 1;
+        for (const token of state.tokens) {
+          if (token.map) {
+            token.map = [sourceLine(token.map[0]), sourceLine(token.map[1])];
+          }
+          if (token.type === "inline" && MARKER_RE.test(token.content)) {
+            token.content = token.content
+              .replaceAll(PHANTOM + "\n", PHANTOM + PHANTOM)
+              .replace(LINE_PLACEHOLDER_RE, "\n");
+          }
+        }
+      }
+      if (state.env.bbcodeSource !== undefined) {
+        state.src = state.env.bbcodeSource;
+      }
+    });
+
+    const coreInlineRule = md.inline.ruler.__rules__.find(
+      (rule) => rule.name === "bbcode-inline"
+    );
+    if (coreInlineRule) {
+      const apply = coreInlineRule.fn;
+      md.inline.ruler.at("bbcode-inline", (state, silent) => {
+        const rule =
+          state.src.charCodeAt(state.pos) === 0x5b &&
+          neverClosed(state.src, state.pos, md.inline.bbcode?.ruler);
+        if (!rule) {
+          return apply(state, silent);
+        }
+        // a replaced tag isn't matched without its close
+        if (rule.replace) {
+          return false;
+        }
+        // a wrapping tag becomes text, and its delimiter can't pair
+        const delimiters = state.delimiters.length;
+        const matched = apply(state, silent);
+        state.delimiters.length = delimiters;
+        return matched;
+      });
+    }
+
+    // Core oneboxes a link alone on its line only in a top-level paragraph.
+    // In this plugin's block tags, such as [center], it counts as top level:
+    // while core's rule runs, such a paragraph reads as one. A tag written on
+    // one line holds no paragraph, so its link stays inline, and quotes,
+    // lists and other containers keep core's rule.
+    const coreOnebox = md.core.ruler.__rules__.find(
+      (rule) => rule.name === "onebox"
+    );
+    if (coreOnebox) {
+      const apply = coreOnebox.fn;
+      const isBlockTag = (token) => /^bbcode_.+_open$/.test(token.type);
+      md.core.ruler.at("onebox", (state, silent) => {
+        const lowered = [];
+        const open = [];
+        for (const token of state.tokens) {
+          if (token.nesting === -1) {
+            open.pop();
+            continue;
+          }
+          if (
+            token.type === "paragraph_open" &&
+            open.length &&
+            open.every(isBlockTag)
+          ) {
+            lowered.push([token, token.level]);
+            token.level = 0;
+          }
+          if (token.nesting === 1) {
+            open.push(token);
+          }
+        }
+        apply(state, silent);
+        for (const [token, level] of lowered) {
+          token.level = level;
+        }
+      });
+    }
+
     // core's block bbcode sets no token.map, which the line-break count needs
     const coreRule = md.block.ruler.__rules__.find(
       (rule) => rule.name === "bbcode"
@@ -425,6 +652,16 @@ export function setup(helper) {
       md.block.ruler.at(
         "bbcode",
         (state, startLine, endLine, silent) => {
+          // Checking whether a line ends a paragraph doesn't search; only
+          // matching does.
+          const start = state.bMarks[startLine] + state.tShift[startLine];
+          if (
+            !silent &&
+            state.src.charCodeAt(start) === 0x5b &&
+            neverClosed(state.src, start, md.block.bbcode?.ruler)
+          ) {
+            return false;
+          }
           const from = state.tokens.length;
           if (!apply(state, startLine, endLine, silent)) {
             return false;
@@ -446,14 +683,18 @@ export function setup(helper) {
       );
     }
 
-    const parseBlocks = (state, text, depth) => {
+    // `line`: where `text` starts, so its tokens' line maps count from there
+    const parseBlocks = (state, text, depth, line = 0) => {
       const tokens = parseAt(state, depth, (list) =>
         state.md.block.parse(text, state.md, state.env, list)
       );
-      // parsed at this depth later; nested blocks have set their own
       for (const token of tokens) {
+        // parsed at this depth later; nested blocks have set their own
         if (token.type === "inline") {
           setDepth(token, depth);
+        }
+        if (line && token.map) {
+          token.map = [token.map[0] + line, token.map[1] + line];
         }
       }
       return tokens;
@@ -469,13 +710,16 @@ export function setup(helper) {
 
     // content on the same line as both tags is never markdown blocks:
     // [div]+[/div] is a "+", not a list
-    const contentTokens = (state, text) => {
+    const contentTokens = (state, text, line) => {
+      const start =
+        line + countNewlines(text, text.length - text.trimStart().length);
       if (text.includes("\n")) {
-        return parseBlocks(state, text.trim(), depthOf(state) + 1);
+        return parseBlocks(state, text.trim(), depthOf(state) + 1, start);
       }
       const inline = inlineToken(state, text.trim(), depthOf(state) + 1);
       inline.level = state.level;
       inline.block = true;
+      inline.map = [start, start + 1];
       return [inline];
     };
 
@@ -499,6 +743,64 @@ export function setup(helper) {
       const marker = pushHtml(state, "");
       marker.map = map;
       marker.meta = { breakable: true };
+    };
+
+    // where each line starts in `text`
+    const lineStarts = (text) => {
+      const starts = [0];
+      for (
+        let at = text.indexOf("\n");
+        at !== -1;
+        at = text.indexOf("\n", at + 1)
+      ) {
+        starts.push(at + 1);
+      }
+      return starts;
+    };
+
+    // The line of the opener's close in the quote's text with its ">"s taken
+    // out, or null. Every line of a quote is read with the same markers taken
+    // out, so the text is built once per quote and each close is a lookup.
+    const strippedCloseLine = (state, startLine, endLine, opener) => {
+      const key = `quote:${endLine}:${state.bMarks[endLine - 1]}:${state.blkIndent}`;
+      let quote = memoFor(state.src, key, () => ({ from: startLine }));
+      if (startLine < quote.from) {
+        quote = { from: startLine };
+      }
+      quote.text ??= state.getLines(
+        quote.from,
+        endLine,
+        state.blkIndent,
+        false
+      );
+      quote.starts ??= lineStarts(quote.text);
+      const index = startLine - quote.from;
+      const lineStart = quote.starts[index];
+      const line = quote.text.slice(
+        lineStart,
+        quote.starts[index + 1] ?? quote.text.length
+      );
+      const from = lineStart + line.length - line.trimStart().length;
+      const close = findClose(
+        quote.text,
+        from + opener.length,
+        opener.tag,
+        isKnown
+      );
+      if (!close) {
+        return null;
+      }
+      let low = index;
+      let high = quote.starts.length - 1;
+      while (low < high) {
+        const mid = Math.ceil((low + high) / 2);
+        if (quote.starts[mid] <= close.start) {
+          low = mid;
+        } else {
+          high = mid - 1;
+        }
+      }
+      return quote.from + low;
     };
 
     // the first line after the one `pos` is on
@@ -543,11 +845,30 @@ export function setup(helper) {
           isKnown,
           state.eMarks[endLine - 1]
         );
-        // taking out a blockquote's ">" can't create a close
-        if (!sourceClose) {
-          return false;
+        // Taking out a blockquote's ">"s can make a blank line that ends a
+        // code span, which then no longer hides a close: only then is the
+        // stripped text searched.
+        const lineStart = state.bMarks[startLine];
+        const inQuote =
+          lineStart > 0 && state.src.charCodeAt(lineStart - 1) !== 0x0a;
+        let lines;
+        if (sourceClose) {
+          lines = lineAfter(state, startLine, endLine, sourceClose.end);
+        } else {
+          const lastClose = memoFor(state.src, `lastClose:${opener.tag}`, () =>
+            memoFor(state.src, "lower", () =>
+              state.src.toLowerCase()
+            ).lastIndexOf(`[/${opener.tag}]`)
+          );
+          const closeLine =
+            inQuote &&
+            lastClose > first &&
+            strippedCloseLine(state, startLine, endLine, opener);
+          if (!closeLine) {
+            return false;
+          }
+          lines = closeLine + 1;
         }
-        let lines = lineAfter(state, startLine, endLine, sourceClose.end);
 
         let text = state.getLines(startLine, lines, state.blkIndent, false);
         const lead = text.length - text.trimStart().length;
@@ -558,9 +879,13 @@ export function setup(helper) {
         const offset = state.bMarks[startLine];
         // nothing stripped, such as a blockquote's ">", so positions carry over
         const unchanged = text.length === state.eMarks[lines - 1] - offset;
-        let close = unchanged
-          ? { start: sourceClose.start - offset, end: sourceClose.end - offset }
-          : findClose(text, lead + info.length, info.tag, isKnown);
+        let close =
+          unchanged && sourceClose
+            ? {
+                start: sourceClose.start - offset,
+                end: sourceClose.end - offset,
+              }
+            : findClose(text, lead + info.length, info.tag, isKnown);
         if (!close && lines < endLine) {
           lines = endLine;
           text = state.getLines(startLine, lines, state.blkIndent, false);
@@ -570,6 +895,7 @@ export function setup(helper) {
           return false;
         }
         const content = text.slice(lead + info.length, close.start);
+        const contentLine = startLine + countNewlines(text, lead + info.length);
         // markdown-it asks about the same line more than once
         if (
           spec.content === "auto" &&
@@ -612,7 +938,14 @@ export function setup(helper) {
             spec.sectionOpen(state, section, index, info);
             const [leading, trailing] = edgeNewlines(section.body);
             pushBreaks(state, leading);
-            pushTokens(state, contentTokens(state, section.body));
+            pushTokens(
+              state,
+              contentTokens(
+                state,
+                section.body,
+                contentLine + countNewlines(content, section.start)
+              )
+            );
             pushBreaks(state, trailing);
             spec.sectionClose(state);
           });
@@ -622,6 +955,14 @@ export function setup(helper) {
           if (token.children.length) {
             token.map = map;
             token.meta = { ...token.meta, breakable: true };
+            // It renders inline, but the tail is parsed as a new block, which
+            // trims the space between them.
+            const space = /^[ \t]*/.exec(rest)[0];
+            if (space && rest.trim()) {
+              const spaceToken = new state.Token("text", "", 0);
+              spaceToken.content = space;
+              token.children.push(spaceToken);
+            }
           } else {
             // data tags ([class], [script], ...) render nothing here
             state.tokens.pop();
@@ -646,9 +987,15 @@ export function setup(helper) {
             inline.content = flowText(content.replace(/^\n|\n$/g, "")).trim();
             inline.children = [];
             setDepth(inline, depthOf(state) + 1);
-            inline.map = map;
+            const line =
+              contentLine +
+              countNewlines(
+                content,
+                content.length - content.trimStart().length
+              );
+            inline.map = [line, line + 1];
           } else {
-            const tokens = contentTokens(state, content);
+            const tokens = contentTokens(state, content, contentLine);
             if (noBreaks) {
               markNoBreaks(tokens);
             }

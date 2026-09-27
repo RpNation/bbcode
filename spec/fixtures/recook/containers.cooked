@@ -1,0 +1,546 @@
+==== block-in-blockquote-with-markdown
+<blockquote>
+<div class="bb-center">
+<br>
+x<br><ul>
+<li>item</li>
+</ul>
+<br>
+</div>
+<br>after</blockquote>
+==== block-in-blockquote
+<blockquote>
+<div class="bb-center">
+<br>
+x<br>
+</div>
+</blockquote>
+==== block-in-list
+<ul>
+<li>
+<div class="bb-center">
+<br>
+x<br>
+</div>
+</li>
+</ul>
+==== block-in-nested-list
+<ol>
+<li>one</li>
+<li>
+<div class="bb-center">
+<br>
+x<br>
+</div>
+</li>
+<li>three</li>
+</ol>
+<ul>
+<li>a
+<ul>
+<li>
+<div style="color:red">
+<br>
+nested<br>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+==== block-mid-line
+hello<div class="bb-center">
+a<br>
+b</div>
+after
+==== block-tail
+<div class="bb-center">x</div>
+b<br><div style="a">
+<br>
+x<br>
+</div>
+tail
+==== code
+<blockquote>
+a<pre><code class="lang-auto">x
+y</code></pre>
+b</blockquote>
+<ul>
+<li>
+<pre><code class="lang-auto">  z</code></pre>
+</li>
+</ul>
+==== core-quote-holds-tags
+<aside class="quote no-group">
+<blockquote>
+<span class="bbcode-b">x</span><br><div class="bb-center">
+<br>
+y<br>
+</div>
+</blockquote>
+</aside>
+==== inline-across-lines-in-blockquote
+<blockquote>
+<span class="bbcode-b">a<br>
+b</span></blockquote>
+==== inline-across-lines
+<blockquote>
+<span class="bbcode-b">a<br>
+<br>
+b</span></blockquote>
+<ul>
+<li><span class="bbcode-i">a<br>
+b</span></li>
+</ul>
+<blockquote>
+text <span style="color: red">a<br>
+b</span> c</blockquote>
+==== mid-line-and-lazy
+<blockquote>
+hello<div class="bb-center">
+a<br>
+b</div>
+after</blockquote>
+<blockquote>
+<span class="bbcode-b">lazy<br>
+continuation</span></blockquote>
+==== nested-quote
+<blockquote>
+<aside class="quote no-group">
+<blockquote>
+[b]x</blockquote>
+</aside>
+</blockquote>
+<blockquote>
+<blockquote>
+<div class="bb-center">
+<br>
+deep<br>
+</div>
+</blockquote>
+</blockquote>
+==== nesting-cap
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<div style="a">
+<br>
+<span style="color: red">[color=blue]x[/color]</span><br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+<br>
+</div>
+==== not-markers
+-<div class="bb-center">
+<br>
+x<br>
+</div>
+<ol start="2024">
+<li>
+<div class="bb-center">
+<br>
+y<br>
+</div>
+</li>
+</ol>
+<div class="bb-center">
+<br>
+z<br>
+</div>
+==== url-wrapping-block
+<a href="https://e.com" data-bbcode="true" rel="noopener nofollow ugc"><div style="a">x</div></a><br>
+<a href="https://e.com" data-bbcode="true" rel="noopener nofollow ugc"><div class="bb-center">a<br>
+<br>
+b</div></a>
+==== review-code-span-across-stripped-quote
+<blockquote>
+<div>
+<br>
+`x<br><br>
+</div>
+<br>`</blockquote>

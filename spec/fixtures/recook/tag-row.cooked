@@ -1,0 +1,121 @@
+==== alone
+<div class="bb-row"><div class="bb-column" data-span="column-width-span6">a</div><div class="bb-column" data-span="column-width-span6">b</div></div>
+==== empty
+<div class="bb-row"></div>
+==== mid-line
+before <div class="bb-row"><div class="bb-column" data-span="column-width-span6">a</div><div class="bb-column" data-span="column-width-span6">b</div></div> after
+==== own-lines
+<div class="bb-row">
+<br>
+<div class="bb-column" data-span="column-width-span6">a</div>
+<div class="bb-column" data-span="column-width-span6">b</div>
+<br>
+</div>
+==== own-lines-between-text
+before<br><div class="bb-row">
+<br>
+<div class="bb-column" data-span="column-width-span6">a</div>
+<div class="bb-column" data-span="column-width-span6">b</div>
+<br>
+</div>
+<br>after
+==== starts-mid-line-spans-lines
+before<div class="bb-row">
+<div class="bb-column" data-span="column-width-span6">a</div>
+<div class="bb-column" data-span="column-width-span6">b</div>
+<br>more</div>
+after
+==== blank-line-inside
+<div class="bb-row">
+<br>
+<div class="bb-column" data-span="column-width-span6">a</div>
+<div class="bb-column" data-span="column-width-span6">b</div>
+<br><br>second paragraph<br>
+</div>
+==== markdown-blocks-inside
+<div class="bb-row">
+<br>
+<h2><a name="heading-1" class="anchor" href="#heading-1" aria-label="Heading link"></a>Heading</h2>
+<ul>
+<li>one</li>
+<li>two</li>
+</ul>
+<blockquote>
+quoted</blockquote>
+<br>
+</div>
+==== inline-markdown-inside
+<div class="bb-row"><strong>bold</strong> <em>italic</em> <code>code</code> <a href="https://example.com" rel="noopener nofollow ugc">link</a> <img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji" alt=":smile:" loading="lazy" width="20" height="20"></div>
+==== in-blockquote
+<blockquote>
+<div class="bb-row">
+<br>
+<div class="bb-column" data-span="column-width-span6">a</div>
+<div class="bb-column" data-span="column-width-span6">b</div>
+<br>
+</div>
+</blockquote>
+==== in-list-item
+<ul>
+<li>
+<div class="bb-row">
+<br>
+<div class="bb-column" data-span="column-width-span6">a</div>
+<div class="bb-column" data-span="column-width-span6">b</div>
+<br>
+</div>
+</li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><div class="bb-row"><div class="bb-column" data-span="column-width-span6">a</div><div class="bb-column" data-span="column-width-span6">b</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="rowcolumn6acolumncolumn6bcolumnrow-1" class="anchor" href="#rowcolumn6acolumncolumn6bcolumnrow-1" aria-label="Heading link"></a><div class="bb-row"><div class="bb-column" data-span="column-width-span6">a</div><div class="bb-column" data-span="column-width-span6">b</div></div></h2>
+==== around-b
+<div class="bb-row"><span class="bbcode-b"><div class="bb-column" data-span="column-width-span6">a</div><div class="bb-column" data-span="column-width-span6">b</div></span></div>
+==== in-b
+<span class="bbcode-b">before <div class="bb-row"><div class="bb-column" data-span="column-width-span6">a</div><div class="bb-column" data-span="column-width-span6">b</div></div> after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote>
+<div class="bb-row"><div class="bb-column" data-span="column-width-span6">a</div><div class="bb-column" data-span="column-width-span6">b</div></div>
+</blockquote>
+</aside>
+==== misnested-with-i
+<div class="bb-row"><span class="bbcode-i"><div class="bb-column" data-span="column-width-span6">a</div><div class="bb-column" data-span="column-width-span6">b</div></span></div>
+tail
+==== nested-in-itself
+<div class="bb-row">outer <div class="bb-row">inner</div> outer</div>
+==== repeated
+<div class="bb-row">one</div>
+<div class="bb-row">two</div>
+<div class="bb-row">three</div>
+==== tail-and-next-line
+<div class="bb-row"><div class="bb-column" data-span="column-width-span6">a</div><div class="bb-column" data-span="column-width-span6">b</div></div>
+tail<br>next line
+==== blank-lines-around
+before<br><br><br><div class="bb-row"><div class="bb-column" data-span="column-width-span6">a</div><div class="bb-column" data-span="column-width-span6">b</div></div>
+<br><br><br>after
+==== unclosed
+[row]<div class="bb-column" data-span="column-width-span6">a</div><div class="bb-column" data-span="column-width-span6">b</div>
+==== unmatched-close
+<div class="bb-column" data-span="column-width-span6">a</div>
+<div class="bb-column" data-span="column-width-span6">b</div>
+[/row]
+==== escaped
+[row]<div class="bb-column" data-span="column-width-span6">a</div><div class="bb-column" data-span="column-width-span6">b</div>[/row]
+==== uppercase
+<div class="bb-row"><div class="bb-column" data-span="column-width-span6">a</div><div class="bb-column" data-span="column-width-span6">b</div></div>

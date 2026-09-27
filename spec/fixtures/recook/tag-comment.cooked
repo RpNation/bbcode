@@ -1,0 +1,93 @@
+==== alone
+<!--hidden [b]x[/b]-->
+==== empty
+<!---->
+==== mid-line
+before <!--hidden [b]x[/b]--> after
+==== own-lines
+<!--
+hidden [b]x[/b]
+-->
+==== own-lines-between-text
+before<br>
+<!--
+hidden [b]x[/b]
+--><br>
+after
+==== starts-mid-line-spans-lines
+before <!--hidden [b]x[/b]
+more--> after
+==== blank-line-inside
+<!--
+hidden [b]x[/b]
+
+second paragraph
+-->
+==== markdown-blocks-inside
+<!--
+## Heading
+
+- one
+- two
+
+&gt; quoted
+-->
+==== inline-markdown-inside
+<!--**bold** _italic_ `code` [link](https://example.com) :smile:-->
+==== in-blockquote
+<blockquote>
+<!--
+hidden [b]x[/b]
+--></blockquote>
+==== in-list-item
+<ul>
+<li><!--
+hidden [b]x[/b]
+--></li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><!--hidden [b]x[/b]--></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="commenthidden-bxbcomment-1" class="anchor" href="#commenthidden-bxbcomment-1" aria-label="Heading link"></a><!--hidden [b]x[/b]--></h2>
+==== around-b
+<!--[b]hidden [b]x[/b][/b]-->
+==== in-b
+<span class="bbcode-b">before <!--hidden [b]x[/b]--> after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote>
+<!--hidden [b]x[/b]--></blockquote>
+</aside>
+==== misnested-with-i
+<!--[i]hidden [b]x[/b]--> tail[/i]
+==== nested-in-itself
+<!--outer [comment]inner[/comment] outer-->
+==== repeated
+<!--one--><!--two--> <!--three-->
+==== tail-and-next-line
+<!--hidden [b]x[/b]--> tail<br>
+next line
+==== blank-lines-around
+before<br><br><br><!--hidden [b]x[/b]--><br><br><br>after
+==== unclosed
+[comment]hidden <span class="bbcode-b">x</span>
+==== unmatched-close
+hidden <span class="bbcode-b">x</span>[/comment]
+==== escaped
+[comment]hidden <span class="bbcode-b">x</span>[/comment]
+==== uppercase
+<!--hidden [b]x[/b]-->

@@ -14,7 +14,8 @@ const CLASS_STATES = [
   "focus-visible",
 ];
 const CSS_LENGTH_RE = /^[0-9]+[a-z]+$/;
-const KEYFRAME_STOP = String.raw`(?:from|to|\d+(?:\.\d+)?%?)`;
+const KEYFRAME_STOP = String.raw`(?:from|to|(?:\d+(?:\.\d+)?|\.\d+)%?)`;
+const BARE_NUMBER_RE = /^(?:\d+(?:\.\d+)?|\.\d+)$/;
 const KEYFRAME_SELECTOR_RE = new RegExp(
   String.raw`^${KEYFRAME_STOP}(?:\s*,\s*${KEYFRAME_STOP})*$`,
   "i"
@@ -63,7 +64,7 @@ function keyframes(content) {
       continue;
     }
     const body = cssBody(content.slice(match.index + info.length, close.start));
-    frames.push(`${ident}${/^\d+$/.test(ident) ? "%" : ""}{ ${body} }`);
+    frames.push(`${ident}${BARE_NUMBER_RE.test(ident) ? "%" : ""}{ ${body} }`);
   }
   return frames;
 }
@@ -71,6 +72,9 @@ function keyframes(content) {
 const PLUS_TAGS = defineTags({
   class: {
     content: "literal",
+    attributes: {
+      keys: ["name", "state", "selector", "minwidth", "maxwidth"],
+    },
     render(state, content, { attrs }) {
       const name = attrs.name || attrs._default;
       if (!CLASS_NAME_RE.test(name || "")) {
@@ -84,8 +88,8 @@ const PLUS_TAGS = defineTags({
           ? `:${pseudo}`
           : "";
       const media = ["min", "max"]
-        .filter((bound) => CSS_LENGTH_RE.test(attrs[`${bound}Width`] || ""))
-        .map((bound) => `(${bound}-width: ${attrs[`${bound}Width`]})`);
+        .filter((bound) => CSS_LENGTH_RE.test(attrs[`${bound}width`] || ""))
+        .map((bound) => `(${bound}-width: ${attrs[`${bound}width`]})`);
       let css = `.${scopedClassName(name, suffix)}${selector} {${cssBody(content.replaceAll("{post_id}", suffix))}}`;
       if (media.length) {
         css = `@media ${media.join(" and ")} {${css}}`;
@@ -109,6 +113,7 @@ const PLUS_TAGS = defineTags({
 
   script: {
     content: "literal",
+    attributes: { keys: ["class", "on", "version"] },
     render(state, content, { attrs }) {
       const on = attrs.on?.toLowerCase();
       (state.env.bbcodeScripts ||= []).push({
@@ -123,6 +128,7 @@ const PLUS_TAGS = defineTags({
 
   fa: {
     content: "literal",
+    attributes: { keys: ["style", "fa-transform", ...FA_VARIABLES] },
     render(state, content, { attrs }) {
       const style = [
         attrs.style,

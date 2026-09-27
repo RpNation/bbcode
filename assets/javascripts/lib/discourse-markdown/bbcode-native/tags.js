@@ -172,6 +172,7 @@ const TAGS = defineTags({
   // layout
   div: {
     content: "blocks",
+    attributes: { keys: ["class", "style"] },
     element(value, info, block, state) {
       const attrs = {};
       if (info.attrs.class?.trim()) {
@@ -343,6 +344,7 @@ const TAGS = defineTags({
   },
   mail: {
     content: "blocks",
+    attributes: { keys: ["type", "person", "subject"] },
     element: (value, info) => ({
       open: [
         el("div", {
@@ -463,6 +465,7 @@ const TAGS = defineTags({
   },
   font: {
     content: "auto",
+    attributes: { keys: ["family", "name", "style", ...FONT_AXES] },
     element: (value, info, block) => fontElement(info.attrs, block),
   },
   sub: { content: "inline", element: () => ({ open: [el("sub")] }) },

@@ -1,0 +1,79 @@
+==== case
+<span class="bbcode-b">x</span> <div class="bb-center">y</div>
+==== close-in-autolink
+<span class="bbcode-b"><a href="https://e.com/%5B/b%5D" rel="noopener nofollow ugc">https://e.com/[/b]</a> y</span>
+==== close-in-code-span
+<span class="bbcode-b">a <code>x[/b]</code> y</span><br><br><span class="bbcode-i">a <code>x  y[/i]</code> z</span>
+==== close-in-html-block
+<div class="bbcode-b">
+x<pre>[/b]
+</pre>
+y</div>
+<br><br><div class="bbcode-i">
+x<div><br>
+</div>
+</div>
+y[/i]
+==== close-in-html-comment
+<span class="bbcode-b">x  y</span>
+==== close-in-link-text
+<span class="bbcode-b">[a </span> b](<a href="https://e.com" rel="noopener nofollow ugc">https://e.com</a>) y[/b]
+==== close-with-space
+[b]x[/b ]
+==== escapes
+[b]<span class="bbcode-i">x[/b] y</span><br>
+<span class="bbcode-b">a [b] c</span> d[/b]<br>
+\<span class="bbcode-b">x</span><br><div style="x">a \</div>
+b
+==== misnested
+<span class="bbcode-b">bold <span class="bbcode-i">both</span></span> italic<br><div class="bb-center"><span class="bbcode-b">x</span></div>
+y<br><a href="https://e.com" data-bbcode="true" rel="noopener nofollow ugc"><span class="bbcode-b">x</span></a> y
+==== nested-across-blank-line
+<span class="bbcode-b">outer <span class="bbcode-b">nested<br>
+<br>
+across</span> more</span>
+==== repair-core-details
+<details>
+<summary>
+a</summary>
+<span class="bbcode-b">x</span></details>
+<br>y
+==== repair-core-quote-edges
+<aside class="quote no-group">
+<blockquote>
+<span class="bbcode-b">x</span></blockquote>
+</aside>
+y<br><br><aside class="quote no-group">
+<blockquote>
+<span class="bbcode-i"><span class="bbcode-b"></span></span></blockquote>
+</aside>
+==== repair-core-quote-inline
+<aside class="quote no-group">
+<blockquote>
+hi <span class="bbcode-b">x</span></blockquote>
+</aside>
+after
+==== repair-core-quote
+<aside class="quote no-group">
+<blockquote>
+<span class="bbcode-b">x</span></blockquote>
+</aside>
+y
+==== repair-core-wrap
+<div class="d-wrap" data-wrap="x">
+<span class="bbcode-b">x</span></div>
+y
+==== repair-line-start-close
+<div class="bb-center">
+<br>
+<span class="bbcode-b">x</span><br>
+</div>
+<br>y<br><div style="a">
+<br>
+<span class="bbcode-i">x</span><br>
+</div>
+z
+==== unclosed-and-unmatched
+[div=a:b]unclosed<br>
+text [/b] more<br>
+[b]a <span class="bbcode-b">b</span> c

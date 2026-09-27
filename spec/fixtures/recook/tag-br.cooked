@@ -1,0 +1,112 @@
+==== alone
+<br>
+==== empty
+<br>
+==== mid-line
+before <br>
+ after
+==== own-lines
+<br>
+<br>
+<br>
+==== own-lines-between-text
+before<br>
+<br>
+<br>
+<br>
+<br>
+after
+==== starts-mid-line-spans-lines
+before <br>
+<br>
+more after
+==== blank-line-inside
+<br>
+<br>
+<br>
+<br>
+second paragraph<br>
+==== markdown-blocks-inside
+<br>
+<br>
+## Heading<br>
+<br>
+- one<br>
+- two<br>
+<br>
+&gt; quoted<br>
+==== inline-markdown-inside
+<br>
+<strong>bold</strong> <em>italic</em> <code>code</code> <a href="https://example.com" rel="noopener nofollow ugc">link</a> <img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji" alt=":smile:" loading="lazy" width="20" height="20">
+==== in-blockquote
+<blockquote>
+<br>
+<br>
+<br>
+</blockquote>
+==== in-list-item
+<ul>
+<li><br>
+<br>
+<br>
+</li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><br>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="brbr-1" class="anchor" href="#brbr-1" aria-label="Heading link"></a><br>
+</h2>
+==== around-b
+<br>
+<span class="bbcode-b"></span>
+==== in-b
+<span class="bbcode-b">before <br>
+ after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote>
+<br>
+</blockquote>
+</aside>
+==== misnested-with-i
+<br>
+<span class="bbcode-i"></span> tail
+==== nested-in-itself
+<br>
+outer <br>
+inner outer
+==== repeated
+<br>
+one<br>
+two <br>
+three
+==== tail-and-next-line
+<br>
+ tail<br>
+next line
+==== blank-lines-around
+before<br><br><br><br>
+<br><br><br>after
+==== unclosed
+[br]
+==== unmatched-close
+[/br]
+==== escaped
+[br][/br]
+==== uppercase
+<br>

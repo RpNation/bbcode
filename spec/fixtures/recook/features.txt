@@ -1,0 +1,146 @@
+Other markdown features, core tags and plugins meeting bbcode.
+==== emoji
+[center]:smile: :heart:[/center] [b]:+1:[/b]
+==== emoji-unicode-and-shortcode-in-plain
+[plain]:smile: 😀[/plain] :smile: 😀
+==== mentions
+[b]@system[/b] [center]
+@system
+[/center]
+==== mention-in-literal
+[plain]@system[/plain] [icode]@system[/icode]
+==== hashtags
+[b]#general[/b] #bug
+==== onebox-top-level
+https://www.youtube.com/watch?v=dQw4w9WgXcQ
+==== onebox-in-center
+[center]
+https://www.youtube.com/watch?v=dQw4w9WgXcQ
+[/center]
+==== onebox-in-inline-tag
+[b]https://example.com/page[/b]
+==== linkify
+[b]see example.com and https://example.com/x?y=1[/b]
+==== markdown-links
+[center][text](https://example.com) ![alt](https://example.com/a.png)[/center]
+==== image-sizes
+[center]![alt|200x100](https://example.com/a.png)[/center]
+==== poll-in-center
+[center]
+[poll]
+* [b]one[/b]
+* two
+[/poll]
+[/center]
+==== poll-around-tags
+[poll]
+* [color=red]red[/color]
+* [plain][b][/plain]
+[/poll]
+==== details-in-center
+[center]
+[details="Summary"]
+body [b]bold[/b]
+[/details]
+[/center]
+==== center-in-details
+[details="Summary"]
+[center]centered[/center]
+[/details]
+==== wrap-with-tags
+[wrap=box]
+[center]x[/center]
+[/wrap]
+==== quote-with-attribution
+[quote="system, post:1, topic:1"]
+[center]x[/center] [b]y[/b]
+[/quote]
+==== nested-quotes
+[quote]
+outer [b]bold
+[quote]
+inner[/b]
+[/quote]
+[/quote]
+==== fenced-code-with-language
+```ruby
+[b]x[/b] # not bold
+```
+==== fence-in-center
+[center]
+```
+[b]x[/b]
+```
+[/center]
+==== code-tag-with-language
+[code=ruby]
+puts "[b]x[/b]"
+[/code]
+==== math-inline
+[b]$x^2$[/b] and $[b]y[/b]$
+==== math-block
+[center]
+$$
+x^2
+$$
+[/center]
+==== table-with-tags
+| [b]head[/b] | [color=red]red[/color] |
+|---|---|
+| [center]c[/center] | [plain]|[/plain] |
+==== headings-markdown-and-tags
+# [color=red]Title[/color]
+## plain
+[h1]Tag heading[/h1]
+==== html-inline-with-tags
+<b>[i]x[/i]</b> <span>[b]y[/b]</span> <kbd>[u]k[/u]</kbd>
+==== html-block-with-tags
+<div>
+[b]x[/b]
+</div>
+==== typographer
+[b]"quotes" -- dashes... (c)[/b]
+==== hard-and-soft-breaks
+[b]line one  
+line two\
+line three[/b]
+==== horizontal-rules
+[center]
+---
+***
+[/center]
+==== reference-links
+[b][ref][/b]
+
+[ref]: https://example.com
+==== footnote-like
+[b]x[^1][/b]
+
+[^1]: note
+==== censored-and-watched-words
+[b]some text[/b]
+==== markdown-lists-with-tags
+1. [b]one[/b]
+2. [center]two[/center]
+   - [i]nested[/i]
+==== task-like-list
+- [ ] not a tag
+- [x] also not a tag
+- [b]bold[/b]
+==== onebox-in-spoiler
+[spoiler=Video]
+https://www.youtube.com/watch?v=dQw4w9WgXcQ
+[/spoiler]
+==== onebox-after-text-line
+[center]
+watch this:
+https://www.youtube.com/watch?v=dQw4w9WgXcQ
+[/center]
+==== onebox-sharing-a-line-stays-inline
+[center]
+watch https://www.youtube.com/watch?v=dQw4w9WgXcQ now
+[/center]
+==== onebox-in-markdown-quote-stays-inline
+> [center]
+> https://www.youtube.com/watch?v=dQw4w9WgXcQ
+> [/center]

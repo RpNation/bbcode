@@ -1,0 +1,86 @@
+==== alone
+<pre><code class="lang-auto">[b]x[/b]</code></pre>
+==== empty
+<code></code>
+==== mid-line
+before <code>[b]x[/b]</code> after
+==== own-lines
+<pre><code class="lang-auto">[b]x[/b]</code></pre>
+==== own-lines-between-text
+before<br><pre><code class="lang-auto">[b]x[/b]</code></pre>
+after
+==== starts-mid-line-spans-lines
+before<pre><code class="lang-auto">[b]x[/b]
+more</code></pre>
+after
+==== blank-line-inside
+<pre><code class="lang-auto">[b]x[/b]
+
+second paragraph</code></pre>
+==== markdown-blocks-inside
+<pre><code class="lang-auto">## Heading
+
+- one
+- two
+
+&gt; quoted</code></pre>
+==== inline-markdown-inside
+<pre><code class="lang-auto">**bold** _italic_ `code` [link](https://example.com) :smile:</code></pre>
+==== in-blockquote
+<blockquote>
+<pre><code class="lang-auto">[b]x[/b]</code></pre>
+</blockquote>
+==== in-list-item
+<ul>
+<li>
+<pre><code class="lang-auto">  [b]x[/b]</code></pre>
+</li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[b]x[/b]</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="codebxbcode-1" class="anchor" href="#codebxbcode-1" aria-label="Heading link"></a><code>[b]x[/b]</code></h2>
+==== around-b
+<pre><code class="lang-auto">[b][b]x[/b][/b]</code></pre>
+==== in-b
+<span class="bbcode-b">before <code>[b]x[/b]</code> after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote>
+<pre><code class="lang-auto">[b]x[/b]</code></pre>
+</blockquote>
+</aside>
+==== misnested-with-i
+<code>[i][b]x[/b]</code> tail[/i]
+==== nested-in-itself
+<pre><code class="lang-auto">outer [code]inner[/code] outer</code></pre>
+==== repeated
+<pre><code class="lang-auto">one[/code][code]two[/code] [code]three</code></pre>
+==== tail-and-next-line
+<code>[b]x[/b]</code> tail<br>
+next line
+==== blank-lines-around
+before<br><br><br><pre><code class="lang-auto">[b]x[/b]</code></pre>
+<br><br>after
+==== unclosed
+[code]<span class="bbcode-b">x</span>
+==== unmatched-close
+<span class="bbcode-b">x</span>[/code]
+==== escaped
+[code]<span class="bbcode-b">x</span>[/code]
+==== uppercase
+<pre><code class="lang-auto">[b]x[/b]</code></pre>

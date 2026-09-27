@@ -7,7 +7,7 @@ import { apiInitializer } from "discourse/lib/api";
  * Adds the inline js for inline spoilers inside a given post
  * @param {HTMLElement} post the post itself
  */
-function addInlineSpoilerCode(post) {
+export function addInlineSpoilerCode(post) {
   post.querySelectorAll(".bb-inline-spoiler").forEach((el) => {
     el.setAttribute("role", "button");
     el.setAttribute("tabindex", "0");
@@ -30,6 +30,10 @@ function toggleInlineSpoiler(event) {
 }
 
 function onInlineSpoilerKeydown(event) {
+  // a link or other control inside handles its own keys
+  if (event.target !== event.currentTarget) {
+    return;
+  }
   if (event.key === "Enter" || event.key === " ") {
     event.preventDefault();
     toggleInlineSpoiler(event);

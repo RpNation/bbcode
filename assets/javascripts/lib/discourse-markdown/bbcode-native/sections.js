@@ -58,9 +58,12 @@ function topLevelText(text, isKnown) {
   return out;
 }
 
-// the flatten pass's newline before a mid-line block isn't a line break
-const withoutLeadingPhantom = (text) =>
-  text.startsWith(PHANTOM + "\n") ? text.slice(2) : text;
+// The flatten pass's newline before a mid-line block isn't a line break.
+// `start` is where the body begins in `content`.
+function sectionBody(content, from, to) {
+  const skip = content.startsWith(PHANTOM + "\n", from) ? 2 : 0;
+  return { body: content.slice(from + skip, to), start: from + skip };
+}
 
 function bracketSection(content, hit, isKnown) {
   const info = parseLooseTag(content, hit.index, isKnown);
@@ -71,9 +74,7 @@ function bracketSection(content, hit, isKnown) {
   }
   return {
     info,
-    body: withoutLeadingPhantom(
-      content.slice(hit.index + info.length, close.start)
-    ),
+    ...sectionBody(content, hit.index + info.length, close.start),
     end: close.end,
   };
 }
@@ -94,6 +95,7 @@ function tabSections(content, isKnown) {
       name: attrs._default || attrs.name || "Tab",
       style: attrs.style,
       body: found.body,
+      start: found.start,
     });
     index = found.end;
   }
@@ -130,6 +132,7 @@ function slideSections(content, isKnown) {
               : "left",
         style: attrs.style || "",
         body: found.body,
+        start: found.start,
       });
       index = found.end;
       continue;
@@ -143,9 +146,7 @@ function slideSections(content, isKnown) {
       index = hit.index + 1;
       continue;
     }
-    const title = withoutLeadingPhantom(
-      content.slice(titleFrom, titleEnd.index)
-    );
+    const { body: title } = sectionBody(content, titleFrom, titleEnd.index);
     const options = topLevelText(title, known)
       .toLowerCase()
       .split("|")
@@ -161,16 +162,14 @@ function slideSections(content, isKnown) {
       open: options.includes("open"),
       align,
       style: "",
-      body: withoutLeadingPhantom(
-        content.slice(titleEnd.index + 1, bodyEnd.index)
-      ),
+      ...sectionBody(content, titleEnd.index + 1, bodyEnd.index),
     });
     index = bodyEnd.index + bodyEnd.text.length;
   }
   return sections;
 }
 
-// the post suffix keeps ids unique across a topic and stable across rebakes
+// the post suffix keeps ids unique across a topic
 function nextGroupId(state) {
   state.env.bbcodeGroups = (state.env.bbcodeGroups || 0) + 1;
   return `${guidFor(state)}-${state.env.bbcodeGroups}`;
@@ -192,6 +191,7 @@ const SECTION_TAGS = defineTags({
   tabs: {
     content: "sections",
     children: ["tab"],
+    childAttributes: { tab: { keys: ["name", "style"] } },
     sections: tabSections,
     open(state, info) {
       info.group = nextGroupId(state);
@@ -233,6 +233,13 @@ const SECTION_TAGS = defineTags({
   accordion: {
     content: "sections",
     children: ["slide"],
+    attributes: { keys: ["align", "width"] },
+    childAttributes: {
+      slide: {
+        keys: ["title", "style"],
+        flags: ["open", "left", "right", "center"],
+      },
+    },
     sections: slideSections,
     open(state, info) {
       const attrs = info.attrs;

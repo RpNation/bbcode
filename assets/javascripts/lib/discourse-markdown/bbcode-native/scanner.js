@@ -10,9 +10,112 @@ const NOBR_SENTINEL = String.fromCharCode(0xe001);
 const PHANTOM = String.fromCharCode(0xe002);
 const NAME_RE = /[a-z][a-z0-9]*/iy;
 
-// Everything up to the first "]" is the tag. With no whitespace before the
-// first "=", the rest is one raw value ([div=height:auto; width:100%]);
-// otherwise it is key=value pairs.
+// The keys and bare flags each tag reads, by tag name (see define.js).
+let tagAttributes = {};
+const defaultEndRes = new Map();
+
+export function setTagAttributes(attributes) {
+  tagAttributes = attributes;
+  defaultEndRes.clear();
+  textCache.clear();
+}
+
+const QUOTED_VALUE_RE = /=["']/;
+const BLANK_REST_RE = /[ \t]*\n/y;
+const ATTR_RE = /([-\w]+)=(?:"([^"]*)"|'([^']*)'|(\S+))/g;
+
+const TO_BRACKET_RE = /[^[\]]*/y;
+
+// The tag's "]": the first one, unless it is inside a value quoted right after
+// "=". A quote that never closes, or that a blank line or an unquoted "["
+// interrupts, isn't a quoted value, and the first "]" ends the tag as before.
+// A "[" before it means no tag. Scanning only to the nearest bracket keeps
+// runs of unterminated openers linear.
+function tagEnd(src, from) {
+  TO_BRACKET_RE.lastIndex = from;
+  const nearest = from + TO_BRACKET_RE.exec(src)[0].length;
+  const plain = src[nearest] === "]" ? nearest : -1;
+  if (!QUOTED_VALUE_RE.test(src.slice(from, nearest))) {
+    return plain;
+  }
+  let quote = null;
+  for (let index = from; index < src.length; index++) {
+    const char = src[index];
+    if (quote) {
+      if (char === quote) {
+        quote = null;
+      } else if (char === "\n") {
+        BLANK_REST_RE.lastIndex = index + 1;
+        if (BLANK_REST_RE.test(src)) {
+          break;
+        }
+      }
+    } else if (char === "]") {
+      return index;
+    } else if (char === "[") {
+      break;
+    } else if ((char === '"' || char === "'") && src[index - 1] === "=") {
+      quote = char;
+    }
+  }
+  return plain;
+}
+
+// Bare words are a tag's attributes only when they are all its flags, as in
+// [slide open]: most "[b words]" in text are not tags.
+function onlyFlags(tag, text) {
+  const flags = tagAttributes[tag]?.flags;
+  const words = text.trim().split(/\s+/);
+  return !!flags && words.every((word) => flags.includes(word.toLowerCase()));
+}
+
+function unquote(value) {
+  const quote = value[0];
+  return (quote === '"' || quote === "'") &&
+    value.length > 1 &&
+    value.endsWith(quote)
+    ? value.slice(1, -1)
+    : value;
+}
+
+// where the default value stops: before the first key the tag reads, outside
+// a quoted value
+function defaultEnd(tag, value) {
+  const keys = tagAttributes[tag]?.keys;
+  if (!keys?.length) {
+    return value.length;
+  }
+  let re = defaultEndRes.get(tag);
+  if (!re) {
+    re = new RegExp(String.raw`\s(?:${keys.join("|")})=`, "ig");
+    defaultEndRes.set(tag, re);
+  }
+  const quote = value[0];
+  const quoteEnd =
+    quote === '"' || quote === "'" ? value.indexOf(quote, 1) : -1;
+  re.lastIndex = quoteEnd === -1 ? 0 : quoteEnd + 1;
+  const match = re.exec(value);
+  return match ? match.index : value.length;
+}
+
+// key=value pairs and bare flags such as `open`; keys are case-insensitive
+function readPairs(text, attrs) {
+  let attr;
+  ATTR_RE.lastIndex = 0;
+  while ((attr = ATTR_RE.exec(text))) {
+    attrs[attr[1].toLowerCase()] = (attr[2] ?? attr[3] ?? attr[4] ?? "").trim();
+  }
+  for (const flag of text.replace(ATTR_RE, " ").split(/\s+/)) {
+    if (/^[-\w]+$/.test(flag)) {
+      attrs[flag.toLowerCase()] = flag;
+    }
+  }
+}
+
+// The tag runs to its "]" (see tagEnd). With no whitespace before the first
+// "=", what follows is one raw value ([div=height:auto; width:100%]), up to
+// the first key the tag reads ([font=Open Sans style=bold]); otherwise it is
+// key=value pairs.
 export function parseLooseTag(src, pos, isKnown, lengthOnly = false) {
   if (src.charCodeAt(pos) !== 0x5b) {
     return null;
@@ -43,47 +146,28 @@ export function parseLooseTag(src, pos, isKnown, lengthOnly = false) {
     return null;
   }
 
-  const end = src.indexOf("]", afterName);
+  const end = tagEnd(src, afterName);
   if (end === -1) {
     return null;
   }
-  const inner = src.slice(pos + 1, end);
-  if (inner.includes("[") || !inner.includes("=")) {
+  const body = src.slice(afterName, end);
+  if (!body.includes("=") && !onlyFlags(tag, body)) {
     return null;
   }
   if (lengthOnly) {
     return { tag, closing: false, length: end - pos + 1 };
   }
   // the flatten pass may have swapped newlines in the attribute value
-  const raw = restoreNewlines(src.slice(pos, end + 1));
-  const tagStr = raw.slice(1, -1);
-  const eq = tagStr.indexOf("=");
-
+  const rest = restoreNewlines(body);
   const attrs = {};
-  if (!/\s/.test(tagStr.slice(0, eq).trim())) {
-    let value = tagStr.slice(eq + 1).trim();
-    const quote = value[0];
-    if (
-      (quote === '"' || quote === "'") &&
-      value.length > 1 &&
-      value.endsWith(quote)
-    ) {
-      value = value.slice(1, -1);
-    }
-    attrs._default = value;
+  const defaultValue = /^\s*=/.exec(rest);
+  if (defaultValue) {
+    const value = rest.slice(defaultValue[0].length).trim();
+    const valueEnd = defaultEnd(tag, value);
+    attrs._default = unquote(value.slice(0, valueEnd).trim());
+    readPairs(value.slice(valueEnd), attrs);
   } else {
-    const attrRe = /([-\w]+)=(?:"([^"]*)"|'([^']*)'|(\S+))/g;
-    const rest = tagStr.slice(nameMatch[0].length);
-    let attr;
-    while ((attr = attrRe.exec(rest))) {
-      attrs[attr[1]] = (attr[2] ?? attr[3] ?? attr[4] ?? "").trim();
-    }
-    // bare flags such as `open`
-    for (const flag of rest.replace(attrRe, " ").split(/\s+/)) {
-      if (/^[-\w]+$/.test(flag)) {
-        attrs[flag] = flag;
-      }
-    }
+    readPairs(rest, attrs);
   }
   return { tag, closing: false, attrs, length: end - pos + 1 };
 }
@@ -109,18 +193,27 @@ const textCache = new Map();
 const TEXT_CACHE_SIZE = 20;
 const closeRes = new Map();
 const literalCloseRes = new Map();
-const CODE_SPAN = String.raw`(?<!\x60)(\x60+)(?!\x60)(?:(?!\n[ \t]*\n)[\s\S])*?(?<!\x60)\1(?!\x60)`;
+// An escaped backtick can't open a code span, though one can close it:
+// backslashes don't escape inside code.
+const CODE_SPAN = String.raw`(?<!\x60)(?<!(?:^|[^\\])(?:\\\\)*\\)(\x60+)(?!\x60)(?:(?!\n[ \t]*\n)[\s\S])*?(?<!\x60)\1(?!\x60)`;
+// Markdown passes both through whole, so no tag inside them is read. Inline,
+// a comment can't cross a blank line; one starting a line is a block (see
+// blockRanges).
+const HTML_COMMENT = String.raw`<!--(?:(?!\n[ \t]*\n)[\s\S])*?-->`;
+const AUTOLINK = String.raw`<[a-zA-Z][a-zA-Z0-9+.\-]{1,31}:[^<>\x00-\x20]*>`;
 
 export function setLiteralTags(tags) {
   literalTags = ["code", ...tags];
-  // code spans and literal tags: whichever starts first wins
+  // code spans, comments, autolinks and literal tags: whichever starts first
   literalRe = new RegExp(
-    `${CODE_SPAN}|\\[(${literalTags.join("|")})(?=[\\]=\\s])[^\\]]*\\]`,
+    `${CODE_SPAN}|${HTML_COMMENT}|${AUTOLINK}|\\[(${literalTags.join("|")})(?=[\\]=\\s])`,
     "gi"
   );
   textCache.clear();
 }
 setLiteralTags([]);
+
+const isLiteralTag = (tag) => literalTags.includes(tag);
 
 export function resetTextCache() {
   textCache.clear();
@@ -251,7 +344,12 @@ export function repairNesting(src, isKnown) {
       !isEscaped(src, match.index) &&
       parseLooseTag(src, match.index, isKnown, true);
     if (open) {
-      tags.push({ tag, closing: false, at: match.index });
+      tags.push({
+        tag,
+        closing: false,
+        at: match.index,
+        end: match.index + open.length,
+      });
       re.lastIndex = match.index + open.length;
     }
   }
@@ -289,7 +387,7 @@ export function repairNesting(src, isKnown) {
     const inner = stack.splice(index).slice(1).reverse();
     if (inner.length) {
       edits.push({
-        at: item.at,
+        at: repairAt(src, item.at, inner),
         remove: 0,
         insert: inner.map((open) => `[/${open.tag}]`).join(""),
       });
@@ -302,37 +400,166 @@ export function repairNesting(src, isKnown) {
   return applyEdits(src, edits);
 }
 
+// A close alone on its line keeps it, since block rules such as core's [quote]
+// only match it there: the inner closes go at the end of the content before it.
+function repairAt(src, closeAt, inner) {
+  let at = closeAt;
+  while (src[at - 1] === " " || src[at - 1] === "\t") {
+    at--;
+  }
+  if (at > 0 && src[at - 1] !== "\n") {
+    return closeAt;
+  }
+  const floor = Math.max(...inner.map((open) => open.end));
+  while (at > floor && /\s/.test(src[at - 1])) {
+    at--;
+  }
+  return at;
+}
+
 // Edits at the same position go in the reverse of the order they were added.
-export function applyEdits(src, edits) {
+// `insertedNewlines`, if given, collects where the inserts put newlines in the
+// result, in order.
+export function applyEdits(src, edits, insertedNewlines) {
   const parts = [];
   let pos = 0;
+  let length = 0;
   for (const edit of edits.reverse().sort((a, b) => a.at - b.at)) {
-    parts.push(src.slice(pos, edit.at), edit.insert);
+    const kept = src.slice(pos, edit.at);
+    length += kept.length;
+    for (
+      let newline = edit.insert.indexOf("\n");
+      insertedNewlines && newline !== -1;
+      newline = edit.insert.indexOf("\n", newline + 1)
+    ) {
+      insertedNewlines.push(length + newline);
+    }
+    length += edit.insert.length;
+    parts.push(kept, edit.insert);
     pos = Math.max(pos, edit.at + edit.remove);
   }
   parts.push(src.slice(pos));
   return parts.join("");
 }
 
-function fenceRanges(src) {
-  const ranges = [];
-  const lineRe = /^ {0,3}(`{3,}|~{3,})([^\n]*)$/gm;
-  let open = null;
+const LINE_BREAK_RE = new RegExp(
+  `[\n${NEWLINE_SENTINEL}${NOBR_SENTINEL}]`,
+  "g"
+);
+
+// The source line each line of `text` starts on: `text` is the source with
+// the newlines at `insertedNewlines` added and some newlines written as
+// placeholders, which still end a source line.
+export function sourceLines(text, insertedNewlines) {
+  const lines = [0];
+  let line = 0;
+  let next = 0;
+  LINE_BREAK_RE.lastIndex = 0;
   let match;
-  while ((match = lineRe.exec(src))) {
-    const [line, marker, rest] = match;
-    if (!open) {
-      if (marker[0] !== "`" || !rest.includes("`")) {
-        open = { start: match.index, marker };
-      }
-    } else if (
-      marker[0] === open.marker[0] &&
-      marker.length >= open.marker.length &&
-      !rest.trim()
-    ) {
-      ranges.push([open.start, match.index + line.length]);
-      open = null;
+  while ((match = LINE_BREAK_RE.exec(text))) {
+    if (match[0] !== "\n") {
+      line++;
+      continue;
     }
+    if (insertedNewlines[next] === match.index) {
+      next++;
+    } else {
+      line++;
+    }
+    lines.push(line);
+  }
+  return lines;
+}
+
+const BLOCK_LITERAL_HINT_RE = /`{3}|~{3}|<(?:pre|script|style|textarea|!--)/i;
+const FENCE_OPEN_RE = /^ {0,3}(`{3,}|~{3,})(.*)$/;
+const FENCE_CLOSE_RE = /^ {0,3}(`{3,}|~{3,})[ \t]*$/;
+// HTML blocks whose content markdown leaves alone, up to their end tag
+const RAW_HTML_OPEN_RE =
+  /^ {0,3}<(?:(pre|script|style|textarea)(?=[\s>]|$)|!--)/i;
+const QUOTE_MARKERS_RE = /(?:[ \t]*>[ \t]?)*/y;
+
+// the ">"s a line starts with, and the indentation after them
+function lineIndent(src, lineStart) {
+  QUOTE_MARKERS_RE.lastIndex = lineStart;
+  const markers = QUOTE_MARKERS_RE.exec(src)[0];
+  let at = lineStart + markers.length;
+  while (src[at] === " " || src[at] === "\t") {
+    at++;
+  }
+  return {
+    quotes: markers.split(">").length - 1,
+    indent: at - lineStart - markers.length,
+    blank: src[at] === "\n" || at >= src.length,
+  };
+}
+
+// Fences and raw HTML blocks, as the block stage finds them: also behind
+// blockquote and list markers, where they end with their container.
+function blockRanges(src) {
+  const ranges = [];
+  if (!BLOCK_LITERAL_HINT_RE.test(src)) {
+    return ranges;
+  }
+  let open = null;
+  let previousEnd = 0;
+  for (let lineStart = 0; lineStart <= src.length; ) {
+    let lineEnd = src.indexOf("\n", lineStart);
+    if (lineEnd === -1) {
+      lineEnd = src.length;
+    }
+    const head = lineHead(src, lineEnd, lineStart);
+    const text = src.slice(head.end, lineEnd);
+    if (open) {
+      const { quotes, indent, blank } = lineIndent(src, lineStart);
+      const leftContainer =
+        quotes < open.quotes || (!blank && open.list && indent < open.list);
+      if (leftContainer) {
+        ranges.push([open.start, previousEnd]);
+        open = null;
+      } else if (open.closes(text)) {
+        ranges.push([open.start, lineEnd]);
+        open = null;
+        previousEnd = lineEnd;
+        lineStart = lineEnd + 1;
+        continue;
+      }
+    }
+    if (!open) {
+      const fence = FENCE_OPEN_RE.exec(text);
+      const html = !fence && RAW_HTML_OPEN_RE.exec(text);
+      let closes = null;
+      if (fence && (fence[1][0] !== "`" || !fence[2].includes("`"))) {
+        const marker = fence[1];
+        closes = (line) => {
+          const close = FENCE_CLOSE_RE.exec(line);
+          return (
+            !!close &&
+            close[1][0] === marker[0] &&
+            close[1].length >= marker.length
+          );
+        };
+      } else if (html) {
+        const endTag = html[1] ? `</${html[1].toLowerCase()}>` : "-->";
+        closes = (line) => line.toLowerCase().includes(endTag);
+      }
+      if (closes) {
+        const { quotes } = lineIndent(src, lineStart);
+        open = {
+          start: lineStart,
+          quotes,
+          list: head.listIndent,
+          closes,
+        };
+        // an HTML block can end on its own line
+        if (html && closes(text.slice(html[0].length))) {
+          ranges.push([lineStart, lineEnd]);
+          open = null;
+        }
+      }
+    }
+    previousEnd = lineEnd;
+    lineStart = lineEnd + 1;
   }
   if (open) {
     ranges.push([open.start, src.length]);
@@ -366,8 +593,10 @@ function cachedFor(src) {
 // to right, as the inline parser meets them: "`[plain]`" is code, and
 // "[plain]`[/plain]" is plain text.
 function findLiteralRanges(src) {
-  const fences = indexRanges(fenceRanges(src));
+  const fences = indexRanges(blockRanges(src));
   const found = [];
+  // once a tag's close isn't found, it isn't after any later opener either
+  const unclosed = new Set();
   literalRe.lastIndex = 0;
   let match;
   while ((match = literalRe.exec(src))) {
@@ -386,16 +615,24 @@ function findLiteralRanges(src) {
       continue;
     }
     const tag = match[2].toLowerCase();
+    const opener =
+      !unclosed.has(tag) && parseLooseTag(src, at, isLiteralTag, true);
+    if (!opener) {
+      literalRe.lastIndex = at + 1;
+      continue;
+    }
     let closeRe = literalCloseRes.get(tag);
     if (!closeRe) {
       closeRe = new RegExp(`\\[/${tag}\\]`, "gi");
       literalCloseRes.set(tag, closeRe);
     }
-    closeRe.lastIndex = literalRe.lastIndex;
+    closeRe.lastIndex = at + opener.length;
     const close = closeRe.exec(src);
     if (close) {
       found.push([at, closeRe.lastIndex]);
       literalRe.lastIndex = closeRe.lastIndex;
+    } else {
+      unclosed.add(tag);
     }
   }
   return indexRanges([...fences, ...found]);
@@ -442,6 +679,41 @@ function coverEnd(ranges, pos, strictly = false) {
   return last !== -1 && ranges.furthest[last] > pos
     ? ranges.furthest[last]
     : -1;
+}
+
+const CONTAINER_MARKER_RE = /[ \t]*(?:(>)[ \t]?|(?:[*+-]|\d{1,9}[.)])[ \t]+)/y;
+
+// The blockquote and list markers the line holding `pos` starts with. `end`
+// is where they stop, `pattern` strips them from a line the tag continues
+// on, `insert` starts a new line inside them, and `listIndent` is how far a
+// list item's own lines are indented.
+export function lineHead(
+  src,
+  pos,
+  lineStart = src.lastIndexOf("\n", pos - 1) + 1
+) {
+  const patterns = [];
+  let insert = "";
+  let end = lineStart;
+  let listIndent = 0;
+  let marker;
+  CONTAINER_MARKER_RE.lastIndex = lineStart;
+  while (
+    CONTAINER_MARKER_RE.lastIndex < pos &&
+    (marker = CONTAINER_MARKER_RE.exec(src))
+  ) {
+    end = CONTAINER_MARKER_RE.lastIndex;
+    if (marker[1]) {
+      // optional, as a lazy continuation line leaves it out
+      patterns.push(String.raw`(?:[ \t]*>[ \t]?)?`);
+      insert += marker[0];
+    } else {
+      patterns.push(`[ \\t]{0,${marker[0].length}}`);
+      insert += " ".repeat(marker[0].length);
+      listIndent += marker[0].length;
+    }
+  }
+  return { end, pattern: patterns.join(""), insert, listIndent };
 }
 
 // not among the rules that end a paragraph: markdown-it reads it from above

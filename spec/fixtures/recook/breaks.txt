@@ -1,0 +1,136 @@
+==== br
+a[br]b a[br][/br]b
+==== inline-across-blank-line
+[b]para one
+
+para two[/b]
+==== markdown-margins
+a
+
+
+# H
+
+
+b
+==== nobr
+[nobr]a
+b[/nobr]
+[b]x [nobr]a
+b[/nobr][/b]
+before
+
+[nobr]
+a
+[/nobr]
+==== trim-after
+[spoiler]secret[/spoiler]
+after
+[divide][/divide]
+x
+[center]c[/center]
+y
+==== trim-inside
+[spoiler]
+secret
+[/spoiler]
+[blockquote=Me]
+q
+[/blockquote]
+[ooc]
+o
+[/ooc]
+==== single-newlines
+a
+b
+c
+==== blank-lines
+a
+
+b
+
+
+c
+
+
+
+d
+==== leading-and-trailing-blank-lines
+
+
+a
+
+
+==== windows-newlines
+a
+b
+
+c
+==== breaks-around-block-tags
+a
+[center]c[/center]
+b
+
+[center]d[/center]
+
+e
+==== breaks-inside-block-tags
+[center]
+
+a
+
+[/center]
+==== breaks-around-inline-tags
+a
+[b]b[/b]
+c
+
+[b]d[/b]
+
+e
+==== breaks-around-markdown-blocks
+a
+# H
+b
+
+- list
+
+c
+> quote
+d
+==== breaks-after-trim-after-tags
+[spoiler]s[/spoiler]
+a
+[divide][/divide]
+
+b
+[ooc]o[/ooc]
+
+
+c
+==== breaks-trim-inside
+[spoiler]
+
+s
+
+[/spoiler]
+[blockquote]
+
+q
+
+[/blockquote]
+==== nobr-mixed
+[nobr]a
+b
+
+c[/nobr]
+d
+[nobr]
+e
+[/nobr]
+f
+==== br-tags
+a[br][/br]b[br][/br][br][/br]c
+==== trailing-spaces
+a   
+b	
+c

@@ -1,11 +1,15 @@
 import { NEWLINE_SENTINEL, NOBR_SENTINEL } from "./scanner";
 
-// one per post, so [div class=x] and [class name=x] scope the same class
+// One per post, so [div class=x] and [class name=x] scope the same class. The
+// post's id keeps a rebake's HTML unchanged; a post not saved yet has none.
 function guidFor(state) {
-  if (state.md.options.discourse?.previewing) {
+  const discourse = state.md.options.discourse;
+  if (discourse?.previewing) {
     return "preview";
   }
-  state.env.bbcodeGuid ||= "post-" + Math.random().toString(36).substring(2, 7);
+  state.env.bbcodeGuid ||= discourse?.postId
+    ? `post-${discourse.postId}`
+    : "post-" + Math.random().toString(36).substring(2, 7);
   return state.env.bbcodeGuid;
 }
 

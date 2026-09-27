@@ -1,0 +1,198 @@
+Realistic posts: the shapes people actually write, with the tags combined.
+==== character-sheet
+[center][size=6][font=Cinzel][color=#8b0000]Aldric Thorne[/color][/font][/size]
+[img]https://example.com/aldric.png[/img]
+[i]"The road remembers every step."[/i][/center]
+
+[divide][/divide]
+
+[b]Age:[/b] 34
+[b]Race:[/b] Human
+[b]Occupation:[/b] Wandering knight
+
+[fieldset=Appearance]
+Tall, scarred, with [color=gray]ash-grey[/color] hair.
+[/fieldset]
+
+[fieldset=Personality]
+- Loyal to a fault
+- Quick to anger
+- [s]Trusting[/s] Wary of strangers
+[/fieldset]
+
+[spoiler=Backstory]
+Born in the northern marches...
+
+He left home at sixteen.
+[/spoiler]
+==== tabbed-profile
+[tabs]
+[tab=Overview]
+[center][b]Mira Vale[/b][/center]
+A cartographer from the coast.
+[/tab]
+[tab=Stats]
+| Stat | Value |
+|---|---|
+| STR | 8 |
+| INT | 16 |
+[/tab]
+[tab=Relationships]
+[list]
+@system - mentor
+[/list]
+[/tab]
+[/tabs]
+==== lore-accordion
+[accordion]
+[slide=The First Age]
+Before the sun, there was the [i]Long Dark[/i].
+[/slide]
+[slide=The Sundering open]
+[quote]The mountains fell into the sea.[/quote]
+[/slide]
+{slide=Legacy format|right}Older posts wrote slides like this.{/slide}
+[/accordion]
+==== styled-card-with-class
+[class name=card]
+background: #222;
+color: #eee;
+padding: 12px;
+border-radius: 8px;
+[/class]
+[class name=card state=hover]
+background: #333;
+[/class]
+[div class=card]
+[h3]Guild Notice[/h3]
+All members report to the hall at dusk.
+[/div]
+==== text-message-conversation
+[textmessage=Jess]
+[message=them]where are you??[/message]
+[message=me]almost there[/message]
+[message=them]hurry up :sweat_smile:[/message]
+[/textmessage]
+==== dice-roll-block
+[block=dice]
+[b]Roll:[/b] 1d20 + 3 = [color=green]17[/color]
+[/block]
+[ooc]Rolling for perception, hope that's okay![/ooc]
+==== ooc-and-in-character
+[ooc]Sorry for the late post, busy week![/ooc]
+
+Rain hammered the shutters as she stepped inside.
+
+"[i]You're late,[/i]" he said.
+==== image-float-with-text
+[imagefloat=left][img]https://example.com/portrait.png[/img][/imagefloat]
+[justify]Lorem ipsum dolor sit amet, the text wraps around the portrait on the left and keeps going for several lines.[/justify]
+==== columns-layout
+[row]
+[column=span6]
+[b]Left side[/b]
+Some text.
+[/column]
+[column=span6]
+[b]Right side[/b]
+More text.
+[/column]
+[/row]
+==== nested-font-color-size
+[font=Georgia][size=4][color=#4a90d9]Chapter [b]One[/b][/color][/size][/font]
+==== newspaper-and-note
+[newspaper]
+[h1]The Daily Crier[/h1]
+[b]Dragon sighted over harbor[/b]
+[/newspaper]
+[note]Remember to buy bread.[/note]
+==== progress-stats
+[b]HP[/b] [progress=80]80/100[/progress]
+[b]MP[/b] [thinprogress=35]35/100[/thinprogress]
+==== scroll-box-log
+[scroll=200]
+Day 1: Arrived at the village.
+Day 2: Met the elder.
+Day 3: The well was poisoned.
+Day 4: Found the culprit.
+Day 5: Left at dawn.
+[/scroll]
+==== spoiler-with-heading-and-list
+[spoiler=Rules]
+## Posting rules
+1. Stay in character
+2. Use [ooc] for out of character
+3. No godmodding
+[/spoiler]
+==== linked-image
+[url=https://example.com/gallery][img]https://example.com/thumb.png[/img][/url]
+==== centered-video-link
+[center]https://www.youtube.com/watch?v=dQw4w9WgXcQ[/center]
+==== anchors-table-of-contents
+[goto=ch1]Chapter 1[/goto] | [goto=ch2]Chapter 2[/goto]
+
+[a=ch1][h2]Chapter 1[/h2][/a]
+Text.
+[a=ch2][h2]Chapter 2[/h2][/a]
+More text.
+==== reply-quoting-with-bbcode
+[quote="system, post:1, topic:1"]
+[b]Bold claim[/b] in the quote.
+[/quote]
+[color=red]I disagree![/color]
+==== mixed-markdown-and-bbcode
+**Markdown bold** and [b]bbcode bold[/b].
+- a [i]list[/i] item
+- [center]centered in a list[/center]
+
+> a quote with [u]underline[/u]
+==== forgotten-close
+[b]This bold never closes.
+[center]but this one does[/center]
+==== mismatched-close-case
+[B]bold[/b] [Color=Red]red[/COLOR]
+==== wrong-close-tag
+[b]bold[/i] text[/b]
+==== extra-spaces-in-attributes
+[color = red]a[/color] [size= 5]b[/size] [div style = "color:red"]c[/div]
+==== xenforo-style-quote-and-attach
+[QUOTE="Someone, post: 123, member: 45"]old quote[/QUOTE]
+[ATTACH=full]6789[/ATTACH]
+==== xenforo-url-and-email
+[URL='https://example.com']link[/URL] [EMAIL]a@example.com[/EMAIL]
+==== comment-for-authors
+[comment]TODO: update stats after the arc[/comment]
+Visible text.
+==== plain-and-icode-teaching
+To make text bold, write [icode][b]text[/b][/icode].
+[plain]Example: [color=red]red[/color][/plain]
+==== long-post-many-sections
+[center][h1]Session Log[/h1][/center]
+[spoiler=Part 1]
+[b]Scene:[/b] The tavern.
+[/spoiler]
+[spoiler=Part 2]
+[b]Scene:[/b] The road.
+[/spoiler]
+[spoiler=Part 3]
+[b]Scene:[/b] The castle.
+[/spoiler]
+[divide][/divide]
+[right][i]- End of log -[/i][/right]
+==== nobr-poetry
+[nobr]
+Roses are red,
+violets are blue.
+[/nobr]
+==== inline-spoilers-in-dialogue
+"The killer is [inlinespoiler]the butler[/inlinespoiler]," she whispered.
+==== mail-in-character
+[mail type=receive person="The Duke" subject="Summons"]
+You are to appear before the court at noon.
+[/mail]
+==== fa-icons-in-headers
+[h3][fa]fas fa-scroll[/fa] Quest Log[/h3]
+==== blockquote-with-speaker
+[blockquote=The Oracle]
+What was lost shall be found.
+[/blockquote]

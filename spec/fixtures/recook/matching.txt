@@ -1,0 +1,83 @@
+==== case
+[B]x[/b] [Center]y[/CENTER]
+==== close-in-autolink
+[b]<https://e.com/[/b]> y[/b]
+==== close-in-code-span
+[b]a `x[/b]` y[/b]
+
+[i]a `x
+
+y[/i]` z[/i]
+==== close-in-html-block
+[b]x
+<pre>
+[/b]
+</pre>
+y[/b]
+
+[i]x
+<div>
+[/i]
+</div>
+y[/i]
+==== close-in-html-comment
+[b]x <!-- [/b] --> y[/b]
+==== close-in-link-text
+[b][a [/b] b](https://e.com) y[/b]
+==== close-with-space
+[b]x[/b ]
+==== escapes
+\[b][i]x[/b] y[/i]
+[b]a \[b] c[/b] d[/b]
+\\[b]x[/b]
+[div=x]a \[/div] b
+==== misnested
+[b]bold [i]both[/b] italic[/i]
+[center][b]x[/center] y[/b]
+[url=https://e.com][b]x[/url] y[/b]
+==== nested-across-blank-line
+[b]outer [b]nested
+
+across[/b] more[/b]
+==== repair-core-details
+[details=a]
+[b]x
+[/details]
+y[/b]
+==== repair-core-quote-edges
+[quote]
+[b]x
+
+[/quote]
+y[/b]
+
+[quote]
+[i][b]
+[/quote][/b][/i]
+==== repair-core-quote-inline
+[quote]
+hi [b]x
+[/quote]
+after[/b]
+==== repair-core-quote
+[quote]
+[b]x
+[/quote]
+y[/b]
+==== repair-core-wrap
+[wrap=x]
+[b]x
+[/wrap]
+y[/b]
+==== repair-line-start-close
+[center]
+[b]x
+[/center]
+y[/b]
+[div=a]
+[i]x
+  [/div] z[/i]
+==== unclosed-and-unmatched
+[div=a:b]unclosed
+text [/b] more
+[b]a [b]b[/b] c

@@ -1,0 +1,108 @@
+==== alone
+<div class="bb-justify">text</div>
+==== empty
+<div class="bb-justify"></div>
+==== mid-line
+before <div class="bb-justify">text</div> after
+==== own-lines
+<div class="bb-justify">
+<br>
+text<br>
+</div>
+==== own-lines-between-text
+before<br><div class="bb-justify">
+<br>
+text<br>
+</div>
+after
+==== starts-mid-line-spans-lines
+before<div class="bb-justify">
+text<br>
+more</div>
+after
+==== blank-line-inside
+<div class="bb-justify">
+<br>
+text<br><br>second paragraph<br>
+</div>
+==== markdown-blocks-inside
+<div class="bb-justify">
+<br>
+<h2><a name="heading-1" class="anchor" href="#heading-1" aria-label="Heading link"></a>Heading</h2>
+<ul>
+<li>one</li>
+<li>two</li>
+</ul>
+<blockquote>
+quoted</blockquote>
+<br>
+</div>
+==== inline-markdown-inside
+<div class="bb-justify"><strong>bold</strong> <em>italic</em> <code>code</code> <a href="https://example.com" rel="noopener nofollow ugc">link</a> <img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji" alt=":smile:" loading="lazy" width="20" height="20"></div>
+==== in-blockquote
+<blockquote>
+<div class="bb-justify">
+<br>
+text<br>
+</div>
+</blockquote>
+==== in-list-item
+<ul>
+<li>
+<div class="bb-justify">
+<br>
+text<br>
+</div>
+</li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><div class="bb-justify">text</div></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="justifytextjustify-1" class="anchor" href="#justifytextjustify-1" aria-label="Heading link"></a><div class="bb-justify">text</div></h2>
+==== around-b
+<div class="bb-justify"><span class="bbcode-b">text</span></div>
+==== in-b
+<span class="bbcode-b">before <div class="bb-justify">text</div> after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote>
+<div class="bb-justify">text</div>
+</blockquote>
+</aside>
+==== misnested-with-i
+<div class="bb-justify"><span class="bbcode-i">text</span></div>
+tail
+==== nested-in-itself
+<div class="bb-justify">outer <div class="bb-justify">inner</div> outer</div>
+==== repeated
+<div class="bb-justify">one</div>
+<div class="bb-justify">two</div>
+<div class="bb-justify">three</div>
+==== tail-and-next-line
+<div class="bb-justify">text</div>
+tail<br>next line
+==== blank-lines-around
+before<br><br><br><div class="bb-justify">text</div>
+<br><br>after
+==== unclosed
+[justify]text
+==== unmatched-close
+text[/justify]
+==== escaped
+[justify]text[/justify]
+==== uppercase
+<div class="bb-justify">text</div>

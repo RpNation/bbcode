@@ -1,0 +1,212 @@
+==== emoji
+<div class="bb-center"><img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji only-emoji" alt=":smile:" loading="lazy" width="20" height="20"> <img src="/images/emoji/twitter/heart.png?v=15" title=":heart:" class="emoji only-emoji" alt=":heart:" loading="lazy" width="20" height="20"></div>
+==== emoji-unicode-and-shortcode-in-plain
+:smile: 😀 <img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji only-emoji" alt=":smile:" loading="lazy" width="20" height="20"> <img src="/images/emoji/twitter/grinning_face.png?v=15" title=":grinning_face:" class="emoji only-emoji" alt=":grinning_face:" loading="lazy" width="20" height="20">
+==== mentions
+<span class="bbcode-b"><a class="mention" href="/u/system">@system</a></span><div class="bb-center">
+<br>
+<a class="mention" href="/u/system">@system</a><br>
+</div>
+==== mention-in-literal
+@system <code>@system</code>
+==== hashtags
+<span class="bbcode-b"><span class="hashtag-raw">#general</span></span> <span class="hashtag-raw">#bug</span>
+==== onebox-top-level
+<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="onebox" target="_blank" rel="noopener nofollow ugc">https://www.youtube.com/watch?v=dQw4w9WgXcQ</a>
+==== onebox-in-center
+<div class="bb-center">
+<br>
+<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="onebox" target="_blank" rel="noopener nofollow ugc">https://www.youtube.com/watch?v=dQw4w9WgXcQ</a><br>
+</div>
+==== onebox-in-inline-tag
+<span class="bbcode-b"><a href="https://example.com/page" class="inline-onebox-loading" rel="noopener nofollow ugc">https://example.com/page</a></span>
+==== linkify
+<span class="bbcode-b">see <a href="http://example.com" rel="noopener nofollow ugc">example.com</a> and <a href="https://example.com/x?y=1" class="inline-onebox-loading" rel="noopener nofollow ugc">https://example.com/x?y=1</a></span>
+==== markdown-links
+<div class="bb-center"><a href="https://example.com" rel="noopener nofollow ugc">text</a> <img src="https://example.com/a.png" alt="alt"></div>
+==== image-sizes
+<div class="bb-center"><img src="https://example.com/a.png" alt="alt" width="200" height="100"></div>
+==== poll-in-center
+<div class="bb-center">
+<br>
+<div class="poll" data-poll-name="poll" data-poll-status="open">
+<div class="poll-container">
+<ul>
+<li data-poll-option-id="316fae5079f16634dfe3bcbd7a7d9563"><span class="bbcode-b">one</span></li>
+<li data-poll-option-id="6eaceb40c21dfe95cc8e17f801152174">two</li>
+</ul>
+</div>
+<div class="poll-info">
+<div class="poll-info_counts">
+<div class="poll-info_counts-count">
+<span class="info-number">0</span>
+<span class="info-label">voters</span>
+</div>
+</div>
+</div>
+</div>
+<br>
+</div>
+==== poll-around-tags
+<div class="poll" data-poll-name="poll" data-poll-status="open">
+<div class="poll-container">
+<ul>
+<li data-poll-option-id="27557de4f8c0788654995568274bacf1"><span style="color: red">red</span></li>
+<li data-poll-option-id="399fc6670871474cd7ce0458401fd299">[b]</li>
+</ul>
+</div>
+<div class="poll-info">
+<div class="poll-info_counts">
+<div class="poll-info_counts-count">
+<span class="info-number">0</span>
+<span class="info-label">voters</span>
+</div>
+</div>
+</div>
+</div>
+==== details-in-center
+<div class="bb-center">
+<br>
+<details>
+<summary>
+Summary</summary>
+body <span class="bbcode-b">bold</span></details>
+<br>
+</div>
+==== center-in-details
+<details>
+<summary>
+Summary</summary>
+<div class="bb-center">centered</div>
+</details>
+==== wrap-with-tags
+<div class="d-wrap" data-wrap="box">
+<div class="bb-center">x</div>
+</div>
+==== quote-with-attribution
+<aside class="quote no-group" data-username="system" data-post="1" data-topic="1">
+<div class="title">
+<div class="quote-controls"></div>
+<img alt="" width="24" height="24" src="//test.localhost/images/discourse-logo-sketch-small.png" class="avatar"> system:</div>
+<blockquote>
+<div class="bb-center">x</div>
+<span class="bbcode-b">y</span></blockquote>
+</aside>
+==== nested-quotes
+[quote]<br>
+outer<div class="bbcode-b">
+bold<br>[quote]<br>
+inner[/quote]</div>
+<br>[/quote]
+==== fenced-code-with-language
+<pre data-code-wrap="ruby"><code class="lang-ruby">[b]x[/b] # not bold
+</code></pre>
+==== fence-in-center
+<div class="bb-center">
+<br>
+<pre><code class="lang-auto">[b]x[/b]
+</code></pre>
+
+</div>
+==== code-tag-with-language
+<pre><code class="lang-auto">puts "[b]x[/b]"</code></pre>
+==== math-inline
+<span class="bbcode-b">$x^2$</span> and $<span class="bbcode-b">y</span>$
+==== math-block
+<div class="bb-center">
+<br>
+$$<br>
+x^2<br>
+$$<br>
+</div>
+==== table-with-tags
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th><span class="bbcode-b">head</span></th>
+<th><span style="color: red">red</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><div class="bb-center">c</div></td>
+<td>[plain]</td>
+</tr>
+</tbody>
+</table>
+</div>
+==== headings-markdown-and-tags
+<h1><a name="colorredtitlecolor-1" class="anchor" href="#colorredtitlecolor-1" aria-label="Heading link"></a><span style="color: red">Title</span></h1>
+<h2><a name="plain-2" class="anchor" href="#plain-2" aria-label="Heading link"></a>plain</h2>
+<h1>Tag heading</h1>
+==== html-inline-with-tags
+<b><span class="bbcode-i">x</span></b> <span><span class="bbcode-b">y</span></span> <kbd><span class="bbcode-u">k</span></kbd>
+==== html-block-with-tags
+<div>
+[b]x[/b]
+</div>
+==== typographer
+<span class="bbcode-b">"quotes" -- dashes... (c)</span>
+==== hard-and-soft-breaks
+<span class="bbcode-b">line one<br>
+line two<br>
+line three</span>
+==== horizontal-rules
+<div class="bb-center">
+<br>
+<hr>
+<hr>
+<br>
+</div>
+==== reference-links
+<span class="bbcode-b"><a href="https://example.com" rel="noopener nofollow ugc">ref</a></span>
+==== footnote-like
+<span class="bbcode-b">x<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></span><hr class="footnotes-sep">
+
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item">note <a href="#fnref1" class="footnote-backref">↩︎</a></li>
+</ol>
+==== censored-and-watched-words
+<span class="bbcode-b">some text</span>
+==== markdown-lists-with-tags
+<ol>
+<li><span class="bbcode-b">one</span></li>
+<li>
+<div class="bb-center">two</div>
+<ul>
+<li><span class="bbcode-i">nested</span></li>
+</ul>
+</li>
+</ol>
+==== task-like-list
+<ul>
+<li><span class="chcklst-box fa fa-square-o" data-chk-src="0:0"></span> not a tag</li>
+<li><span class="chcklst-box checked fa fa-square-check-o" data-chk-src="1:0"></span> also not a tag</li>
+<li><span class="bbcode-b">bold</span></li>
+</ul>
+==== onebox-in-spoiler
+<details class="bb-spoiler">
+<summary>
+Spoiler: Video</summary>
+<div class="bb-spoiler-content">
+<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="onebox" target="_blank" rel="noopener nofollow ugc">https://www.youtube.com/watch?v=dQw4w9WgXcQ</a></div>
+</details>
+==== onebox-after-text-line
+<div class="bb-center">
+<br>
+watch this:<br>
+<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="onebox" target="_blank" rel="noopener nofollow ugc">https://www.youtube.com/watch?v=dQw4w9WgXcQ</a><br>
+</div>
+==== onebox-sharing-a-line-stays-inline
+<div class="bb-center">
+<br>
+watch <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="inline-onebox-loading" rel="noopener nofollow ugc">https://www.youtube.com/watch?v=dQw4w9WgXcQ</a> now<br>
+</div>
+==== onebox-in-markdown-quote-stays-inline
+<blockquote>
+<div class="bb-center">
+<br>
+<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="inline-onebox-loading" rel="noopener nofollow ugc">https://www.youtube.com/watch?v=dQw4w9WgXcQ</a><br>
+</div>
+</blockquote>

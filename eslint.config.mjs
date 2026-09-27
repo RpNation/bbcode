@@ -6,6 +6,7 @@ export default defineConfig([
     "public/javascripts/**",
     "rollup.config.js",
     "bbscript-src/**",
+    "test/javascripts/recook-corpus.js",
   ]),
   ...DiscourseRecommended,
 ]);

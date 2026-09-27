@@ -1,0 +1,113 @@
+==== br
+a[br]b a<br>
+b
+==== inline-across-blank-line
+<span class="bbcode-b">para one<br>
+<br>
+para two</span>
+==== markdown-margins
+a<br><br><h1><a name="h-1" class="anchor" href="#h-1" aria-label="Heading link"></a>H</h1>
+<br>b
+==== nobr
+a
+b<br><span class="bbcode-b">x a
+b</span><br>
+before<br><br>
+a
+==== trim-after
+<details class="bb-spoiler">
+<summary>
+Spoiler</summary>
+<div class="bb-spoiler-content">secret</div>
+</details>
+after<br><div class="bb-divide" data-type=""></div>
+x<br><div class="bb-center">c</div>
+<br>y
+==== trim-inside
+<details class="bb-spoiler">
+<summary>
+Spoiler</summary>
+<div class="bb-spoiler-content">
+secret</div>
+</details>
+<div class="bb-blockquote">
+<div class="bb-blockquote-left"></div>
+<div class="bb-blockquote-content">
+q<div class="bb-blockquote-speaker">
+- Me</div>
+</div>
+<div class="bb-blockquote-right"></div>
+</div>
+<br><div class="bb-ooc">
+o</div>
+==== single-newlines
+a<br>
+b<br>
+c
+==== blank-lines
+a<br><br>b<br><br><br>c<br><br><br><br>d
+==== leading-and-trailing-blank-lines
+a
+==== windows-newlines
+a<br>
+b<br><br>c
+==== breaks-around-block-tags
+a<br><div class="bb-center">c</div>
+<br>b<br><br><div class="bb-center">d</div>
+<br><br>e
+==== breaks-inside-block-tags
+<div class="bb-center">
+<br><br>
+a<br><br>
+</div>
+==== breaks-around-inline-tags
+a<br>
+<span class="bbcode-b">b</span><br>
+c<br><br><span class="bbcode-b">d</span><br><br>e
+==== breaks-around-markdown-blocks
+a<h1><a name="h-1" class="anchor" href="#h-1" aria-label="Heading link"></a>H</h1>
+b<br><ul>
+<li>list</li>
+</ul>
+c<blockquote>
+quote<br>
+d</blockquote>
+==== breaks-after-trim-after-tags
+<details class="bb-spoiler">
+<summary>
+Spoiler</summary>
+<div class="bb-spoiler-content">s</div>
+</details>
+a<br><div class="bb-divide" data-type=""></div>
+<br>b<br><div class="bb-ooc">o</div>
+<br><br>c
+==== breaks-trim-inside
+<details class="bb-spoiler">
+<summary>
+Spoiler</summary>
+<div class="bb-spoiler-content">
+s</div>
+</details>
+<div class="bb-blockquote">
+<div class="bb-blockquote-left"></div>
+<div class="bb-blockquote-content">
+q<div class="bb-blockquote-speaker"></div>
+</div>
+<div class="bb-blockquote-right"></div>
+</div>
+==== nobr-mixed
+a
+b
+
+c<br>d<br>
+e
+<br>f
+==== br-tags
+a<br>
+b<br>
+<br>
+c
+==== trailing-spaces
+a<br>
+b	<br>
+c

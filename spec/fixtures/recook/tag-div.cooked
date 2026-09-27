@@ -1,0 +1,143 @@
+==== alone
+<div style="color:red">text</div>
+==== empty
+<div style="color:red"></div>
+==== mid-line
+before <div style="color:red">text</div> after
+==== own-lines
+<div style="color:red">
+<br>
+text<br>
+</div>
+==== own-lines-between-text
+before<br><div style="color:red">
+<br>
+text<br>
+</div>
+<br>after
+==== starts-mid-line-spans-lines
+before<div style="color:red">
+text<br>
+more</div>
+after
+==== blank-line-inside
+<div style="color:red">
+<br>
+text<br><br>second paragraph<br>
+</div>
+==== markdown-blocks-inside
+<div style="color:red">
+<br>
+<h2><a name="heading-1" class="anchor" href="#heading-1" aria-label="Heading link"></a>Heading</h2>
+<ul>
+<li>one</li>
+<li>two</li>
+</ul>
+<blockquote>
+quoted</blockquote>
+<br>
+</div>
+==== inline-markdown-inside
+<div style="color:red"><strong>bold</strong> <em>italic</em> <code>code</code> <a href="https://example.com" rel="noopener nofollow ugc">link</a> <img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji" alt=":smile:" loading="lazy" width="20" height="20"></div>
+==== in-blockquote
+<blockquote>
+<div style="color:red">
+<br>
+text<br>
+</div>
+</blockquote>
+==== in-list-item
+<ul>
+<li>
+<div style="color:red">
+<br>
+text<br>
+</div>
+</li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><div style="color:red">text</div></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="divcolorredtextdiv-1" class="anchor" href="#divcolorredtextdiv-1" aria-label="Heading link"></a><div style="color:red">text</div></h2>
+==== around-b
+<div style="color:red"><span class="bbcode-b">text</span></div>
+==== in-b
+<span class="bbcode-b">before <div style="color:red">text</div> after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote>
+<div style="color:red">text</div>
+</blockquote>
+</aside>
+==== misnested-with-i
+<div style="color:red"><span class="bbcode-i">text</span></div>
+tail
+==== nested-in-itself
+<div style="color:red">outer <div style="color:red">inner</div> outer</div>
+==== repeated
+<div style="color:red">one</div>
+<div style="color:red">two</div>
+<div style="color:red">three</div>
+==== tail-and-next-line
+<div style="color:red">text</div>
+tail<br>next line
+==== blank-lines-around
+before<br><br><br><div style="color:red">text</div>
+<br><br><br>after
+==== unclosed
+[div=color:red]text
+==== unmatched-close
+text[/div]
+==== escaped
+[div=color:red]text[/div]
+==== uppercase
+<div style="color:red">text</div>
+==== [div] alone
+<div>text</div>
+==== [div] own-lines
+<div>
+<br>
+text<br>
+</div>
+==== [div=color:red; padding: 4px] alone
+<div style="color:red; padding: 4px">text</div>
+==== [div=color:red; padding: 4px] own-lines
+<div style="color:red; padding: 4px">
+<br>
+text<br>
+</div>
+==== [div style="color:red" class="box"] alone
+<div class="box__post-GUID" style="color:red">text</div>
+==== [div style="color:red" class="box"] own-lines
+<div class="box__post-GUID" style="color:red">
+<br>
+text<br>
+</div>
+==== [div class=box] alone
+<div class="box__post-GUID">text</div>
+==== [div class=box] own-lines
+<div class="box__post-GUID">
+<br>
+text<br>
+</div>
+==== [div class="a b"] alone
+<div class="a__post-GUID b__post-GUID">text</div>
+==== [div class="a b"] own-lines
+<div class="a__post-GUID b__post-GUID">
+<br>
+text<br>
+</div>

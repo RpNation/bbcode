@@ -1,0 +1,294 @@
+==== alone
+<div class="bb-textmessage">
+<div class="bb-textmessage-name">
+Bob</div>
+<div class="bb-textmessage-overflow">
+<div class="bb-textmessage-content"><div class="bb-message-them"><div class="bb-message-content">hi</div></div><div class="bb-message-me"><div class="bb-message-content">yo</div></div></div>
+</div>
+</div>
+==== empty
+<div class="bb-textmessage">
+<div class="bb-textmessage-name">
+Bob</div>
+<div class="bb-textmessage-overflow">
+<div class="bb-textmessage-content"></div>
+</div>
+</div>
+==== mid-line
+before <div class="bb-textmessage"><div class="bb-textmessage-name">Bob</div><div class="bb-textmessage-overflow"><div class="bb-textmessage-content"><div class="bb-message-them"><div class="bb-message-content">hi</div></div><div class="bb-message-me"><div class="bb-message-content">yo</div></div></div></div></div> after
+==== own-lines
+<div class="bb-textmessage">
+<div class="bb-textmessage-name">
+Bob</div>
+<div class="bb-textmessage-overflow">
+<div class="bb-textmessage-content">
+<br>
+<div class="bb-message-them">
+<div class="bb-message-content">hi</div>
+</div>
+<div class="bb-message-me">
+<div class="bb-message-content">yo</div>
+</div>
+<br>
+</div>
+</div>
+</div>
+==== own-lines-between-text
+before<br><div class="bb-textmessage">
+<div class="bb-textmessage-name">
+Bob</div>
+<div class="bb-textmessage-overflow">
+<div class="bb-textmessage-content">
+<br>
+<div class="bb-message-them">
+<div class="bb-message-content">hi</div>
+</div>
+<div class="bb-message-me">
+<div class="bb-message-content">yo</div>
+</div>
+<br>
+</div>
+</div>
+</div>
+<br>after
+==== starts-mid-line-spans-lines
+before<div class="bb-textmessage">
+<div class="bb-textmessage-name">
+Bob</div>
+<div class="bb-textmessage-overflow">
+<div class="bb-textmessage-content">
+<div class="bb-message-them">
+<div class="bb-message-content">hi</div>
+</div>
+<div class="bb-message-me">
+<div class="bb-message-content">yo</div>
+</div>
+<br>more</div>
+</div>
+</div>
+after
+==== blank-line-inside
+<div class="bb-textmessage">
+<div class="bb-textmessage-name">
+Bob</div>
+<div class="bb-textmessage-overflow">
+<div class="bb-textmessage-content">
+<br>
+<div class="bb-message-them">
+<div class="bb-message-content">hi</div>
+</div>
+<div class="bb-message-me">
+<div class="bb-message-content">yo</div>
+</div>
+<br><br>second paragraph<br>
+</div>
+</div>
+</div>
+==== markdown-blocks-inside
+<div class="bb-textmessage">
+<div class="bb-textmessage-name">
+Bob</div>
+<div class="bb-textmessage-overflow">
+<div class="bb-textmessage-content">
+<br>
+<h2><a name="heading-1" class="anchor" href="#heading-1" aria-label="Heading link"></a>Heading</h2>
+<ul>
+<li>one</li>
+<li>two</li>
+</ul>
+<blockquote>
+quoted</blockquote>
+<br>
+</div>
+</div>
+</div>
+==== inline-markdown-inside
+<div class="bb-textmessage">
+<div class="bb-textmessage-name">
+Bob</div>
+<div class="bb-textmessage-overflow">
+<div class="bb-textmessage-content"><strong>bold</strong> <em>italic</em> <code>code</code> <a href="https://example.com" rel="noopener nofollow ugc">link</a> <img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji" alt=":smile:" loading="lazy" width="20" height="20"></div>
+</div>
+</div>
+==== in-blockquote
+<blockquote>
+<div class="bb-textmessage">
+<div class="bb-textmessage-name">
+Bob</div>
+<div class="bb-textmessage-overflow">
+<div class="bb-textmessage-content">
+<br>
+<div class="bb-message-them">
+<div class="bb-message-content">hi</div>
+</div>
+<div class="bb-message-me">
+<div class="bb-message-content">yo</div>
+</div>
+<br>
+</div>
+</div>
+</div>
+</blockquote>
+==== in-list-item
+<ul>
+<li>
+<div class="bb-textmessage">
+<div class="bb-textmessage-name">
+Bob</div>
+<div class="bb-textmessage-overflow">
+<div class="bb-textmessage-content">
+<br>
+<div class="bb-message-them">
+<div class="bb-message-content">hi</div>
+</div>
+<div class="bb-message-me">
+<div class="bb-message-content">yo</div>
+</div>
+<br>
+</div>
+</div>
+</div>
+</li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><div class="bb-textmessage"><div class="bb-textmessage-name">Bob</div><div class="bb-textmessage-overflow"><div class="bb-textmessage-content"><div class="bb-message-them"><div class="bb-message-content">hi</div></div><div class="bb-message-me"><div class="bb-message-content">yo</div></div></div></div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="textmessagebobmessagethemhimessagemessagemeyomessagetextmessage-1" class="anchor" href="#textmessagebobmessagethemhimessagemessagemeyomessagetextmessage-1" aria-label="Heading link"></a><div class="bb-textmessage"><div class="bb-textmessage-name">Bob</div><div class="bb-textmessage-overflow"><div class="bb-textmessage-content"><div class="bb-message-them"><div class="bb-message-content">hi</div></div><div class="bb-message-me"><div class="bb-message-content">yo</div></div></div></div></div></h2>
+==== around-b
+<div class="bb-textmessage">
+<div class="bb-textmessage-name">
+Bob</div>
+<div class="bb-textmessage-overflow">
+<div class="bb-textmessage-content"><span class="bbcode-b"><div class="bb-message-them"><div class="bb-message-content">hi</div></div><div class="bb-message-me"><div class="bb-message-content">yo</div></div></span></div>
+</div>
+</div>
+==== in-b
+<span class="bbcode-b">before <div class="bb-textmessage"><div class="bb-textmessage-name">Bob</div><div class="bb-textmessage-overflow"><div class="bb-textmessage-content"><div class="bb-message-them"><div class="bb-message-content">hi</div></div><div class="bb-message-me"><div class="bb-message-content">yo</div></div></div></div></div> after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote>
+<div class="bb-textmessage">
+<div class="bb-textmessage-name">
+Bob</div>
+<div class="bb-textmessage-overflow">
+<div class="bb-textmessage-content"><div class="bb-message-them"><div class="bb-message-content">hi</div></div><div class="bb-message-me"><div class="bb-message-content">yo</div></div></div>
+</div>
+</div>
+</blockquote>
+</aside>
+==== misnested-with-i
+<div class="bb-textmessage">
+<div class="bb-textmessage-name">
+Bob</div>
+<div class="bb-textmessage-overflow">
+<div class="bb-textmessage-content"><span class="bbcode-i"><div class="bb-message-them"><div class="bb-message-content">hi</div></div><div class="bb-message-me"><div class="bb-message-content">yo</div></div></span></div>
+</div>
+</div>
+tail
+==== nested-in-itself
+<div class="bb-textmessage">
+<div class="bb-textmessage-name">
+Bob</div>
+<div class="bb-textmessage-overflow">
+<div class="bb-textmessage-content">outer <div class="bb-textmessage"><div class="bb-textmessage-name">Bob</div><div class="bb-textmessage-overflow"><div class="bb-textmessage-content">inner</div></div></div> outer</div>
+</div>
+</div>
+==== repeated
+<div class="bb-textmessage">
+<div class="bb-textmessage-name">
+Bob</div>
+<div class="bb-textmessage-overflow">
+<div class="bb-textmessage-content">one</div>
+</div>
+</div>
+<div class="bb-textmessage">
+<div class="bb-textmessage-name">
+Bob</div>
+<div class="bb-textmessage-overflow">
+<div class="bb-textmessage-content">two</div>
+</div>
+</div>
+<div class="bb-textmessage">
+<div class="bb-textmessage-name">
+Bob</div>
+<div class="bb-textmessage-overflow">
+<div class="bb-textmessage-content">three</div>
+</div>
+</div>
+==== tail-and-next-line
+<div class="bb-textmessage">
+<div class="bb-textmessage-name">
+Bob</div>
+<div class="bb-textmessage-overflow">
+<div class="bb-textmessage-content"><div class="bb-message-them"><div class="bb-message-content">hi</div></div><div class="bb-message-me"><div class="bb-message-content">yo</div></div></div>
+</div>
+</div>
+tail<br>next line
+==== blank-lines-around
+before<br><br><br><div class="bb-textmessage">
+<div class="bb-textmessage-name">
+Bob</div>
+<div class="bb-textmessage-overflow">
+<div class="bb-textmessage-content"><div class="bb-message-them"><div class="bb-message-content">hi</div></div><div class="bb-message-me"><div class="bb-message-content">yo</div></div></div>
+</div>
+</div>
+<br><br><br>after
+==== unclosed
+[textmessage=Bob]<div class="bb-message-them"><div class="bb-message-content">hi</div></div><div class="bb-message-me"><div class="bb-message-content">yo</div></div>
+==== unmatched-close
+<div class="bb-message-them">
+<div class="bb-message-content">hi</div>
+</div>
+<div class="bb-message-me">
+<div class="bb-message-content">yo</div>
+</div>
+[/textmessage]
+==== escaped
+[textmessage=Bob]<div class="bb-message-them"><div class="bb-message-content">hi</div></div><div class="bb-message-me"><div class="bb-message-content">yo</div></div>[/textmessage]
+==== uppercase
+<div class="bb-textmessage">
+<div class="bb-textmessage-name">
+Bob</div>
+<div class="bb-textmessage-overflow">
+<div class="bb-textmessage-content"><div class="bb-message-them"><div class="bb-message-content">hi</div></div><div class="bb-message-me"><div class="bb-message-content">yo</div></div></div>
+</div>
+</div>
+==== [textmessage] alone
+<div class="bb-textmessage">
+<div class="bb-textmessage-name">
+Recipient</div>
+<div class="bb-textmessage-overflow">
+<div class="bb-textmessage-content"><div class="bb-message-them"><div class="bb-message-content">hi</div></div><div class="bb-message-me"><div class="bb-message-content">yo</div></div></div>
+</div>
+</div>
+==== [textmessage] own-lines
+<div class="bb-textmessage">
+<div class="bb-textmessage-name">
+Recipient</div>
+<div class="bb-textmessage-overflow">
+<div class="bb-textmessage-content">
+<br>
+<div class="bb-message-them">
+<div class="bb-message-content">hi</div>
+</div>
+<div class="bb-message-me">
+<div class="bb-message-content">yo</div>
+</div>
+<br>
+</div>
+</div>
+</div>

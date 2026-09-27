@@ -1,0 +1,76 @@
+==== alone
+<code>[b]x[/b] &lt;b&gt;y&lt;/b&gt;</code>
+==== empty
+<code></code>
+==== mid-line
+before <code>[b]x[/b] &lt;b&gt;y&lt;/b&gt;</code> after
+==== own-lines
+<code>[b]x[/b] &lt;b&gt;y&lt;/b&gt;</code>
+==== own-lines-between-text
+before<br><code>[b]x[/b] &lt;b&gt;y&lt;/b&gt;</code><br>after
+==== starts-mid-line-spans-lines
+before <code>[b]x[/b] &lt;b&gt;y&lt;/b&gt;
+more</code> after
+==== blank-line-inside
+<code>[b]x[/b] &lt;b&gt;y&lt;/b&gt;
+
+second paragraph</code>
+==== markdown-blocks-inside
+<code>## Heading
+
+- one
+- two
+
+&gt; quoted</code>
+==== inline-markdown-inside
+<code>**bold** _italic_ `code` [link](https://example.com) :smile:</code>
+==== in-blockquote
+<blockquote><code>[b]x[/b] &lt;b&gt;y&lt;/b&gt;</code></blockquote>
+==== in-list-item
+<ul>
+<li><code>[b]x[/b] &lt;b&gt;y&lt;/b&gt;</code></li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[b]x[/b] &lt;b&gt;y&lt;/b&gt;</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="icodebxb-bybicode-1" class="anchor" href="#icodebxb-bybicode-1" aria-label="Heading link"></a><code>[b]x[/b] &lt;b&gt;y&lt;/b&gt;</code></h2>
+==== around-b
+<code>[b][b]x[/b] &lt;b&gt;y&lt;/b&gt;[/b]</code>
+==== in-b
+<span class="bbcode-b">before <code>[b]x[/b] &lt;b&gt;y&lt;/b&gt;</code> after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote><code>[b]x[/b] &lt;b&gt;y&lt;/b&gt;</code></blockquote>
+</aside>
+==== misnested-with-i
+<code>[i][b]x[/b] &lt;b&gt;y&lt;/b&gt;</code> tail[/i]
+==== nested-in-itself
+<code>outer [icode]inner[/icode] outer</code>
+==== repeated
+<code>one</code><code>two</code> <code>three</code>
+==== tail-and-next-line
+<code>[b]x[/b] &lt;b&gt;y&lt;/b&gt;</code> tail<br>next line
+==== blank-lines-around
+before<br><br><br><code>[b]x[/b] &lt;b&gt;y&lt;/b&gt;</code><br><br><br>after
+==== unclosed
+[icode]<span class="bbcode-b">x</span> <b>y</b>
+==== unmatched-close
+<span class="bbcode-b">x</span> <b>y</b>[/icode]
+==== escaped
+[icode]<span class="bbcode-b">x</span> <b>y</b>[/icode]
+==== uppercase
+<code>[b]x[/b] &lt;b&gt;y&lt;/b&gt;</code>

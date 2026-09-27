@@ -1,0 +1,32 @@
+==== boxes
+[block=warning]w[/block]
+[print=line]p[/print]
+[note]n[/note]
+[fieldset=Legend]f[/fieldset]
+[progress=40]p[/progress]
+[check=x]c[/check]
+[side=right]s[/side]
+[newspaper]n[/newspaper]
+==== fonts
+[font=Georgia]a[/font] [font=Lato style=bold italic]b[/font] [font family=Roboto wdth=80 style=300]c[/font]
+==== headings
+[h]a[/h]
+[sh]b[/sh]
+[h3]c[/h3]
+[h7]d[/h7]
+==== inline
+x[sub]s[/sub][sup]t[/sup] [inlinespoiler] hidden [/inlinespoiler] [a=top]anchor[/a] [goto=top]go[/goto] [highlight]h[/highlight] [pindent]p[/pindent]
+==== textmessage
+[textmessage=Bob]
+[message=them]hi[/message]
+[message=me]yo[/message]
+[/textmessage]
+[message=me]bare[/message]
+==== wrappers
+[left]l[/left]
+[right]r[/right]
+[justify]j[/justify]
+[border=1px solid red]b[/border]
+[bg=red]g[/bg]
+[centerblock=40]c[/centerblock]
+[imagefloat=left]i[/imagefloat]

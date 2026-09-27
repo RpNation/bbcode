@@ -1,0 +1,362 @@
+==== alone
+<div class="bb-email" data-bb-email="send">
+<div class="bb-email-header"></div>
+<div class="bb-email-address">
+Bob</div>
+<div class="bb-email-subject">
+Hi</div>
+<div class="bb-email-content">text</div>
+<div class="bb-email-footer">
+<div class="bb-email-button"></div>
+</div>
+</div>
+==== empty
+<div class="bb-email" data-bb-email="send">
+<div class="bb-email-header"></div>
+<div class="bb-email-address">
+Bob</div>
+<div class="bb-email-subject">
+Hi</div>
+<div class="bb-email-content"></div>
+<div class="bb-email-footer">
+<div class="bb-email-button"></div>
+</div>
+</div>
+==== mid-line
+before <div class="bb-email" data-bb-email="send"><div class="bb-email-header"></div><div class="bb-email-address">Bob</div><div class="bb-email-subject">Hi</div><div class="bb-email-content">text</div><div class="bb-email-footer"><div class="bb-email-button"></div></div></div> after
+==== own-lines
+<div class="bb-email" data-bb-email="send">
+<div class="bb-email-header"></div>
+<div class="bb-email-address">
+Bob</div>
+<div class="bb-email-subject">
+Hi</div>
+<div class="bb-email-content">
+<br>
+text<br>
+</div>
+<div class="bb-email-footer">
+<div class="bb-email-button"></div>
+</div>
+</div>
+==== own-lines-between-text
+before<br><div class="bb-email" data-bb-email="send">
+<div class="bb-email-header"></div>
+<div class="bb-email-address">
+Bob</div>
+<div class="bb-email-subject">
+Hi</div>
+<div class="bb-email-content">
+<br>
+text<br>
+</div>
+<div class="bb-email-footer">
+<div class="bb-email-button"></div>
+</div>
+</div>
+<br>after
+==== starts-mid-line-spans-lines
+before<div class="bb-email" data-bb-email="send">
+<div class="bb-email-header"></div>
+<div class="bb-email-address">
+Bob</div>
+<div class="bb-email-subject">
+Hi</div>
+<div class="bb-email-content">
+text<br>
+more</div>
+<div class="bb-email-footer">
+<div class="bb-email-button"></div>
+</div>
+</div>
+after
+==== blank-line-inside
+<div class="bb-email" data-bb-email="send">
+<div class="bb-email-header"></div>
+<div class="bb-email-address">
+Bob</div>
+<div class="bb-email-subject">
+Hi</div>
+<div class="bb-email-content">
+<br>
+text<br><br>second paragraph<br>
+</div>
+<div class="bb-email-footer">
+<div class="bb-email-button"></div>
+</div>
+</div>
+==== markdown-blocks-inside
+<div class="bb-email" data-bb-email="send">
+<div class="bb-email-header"></div>
+<div class="bb-email-address">
+Bob</div>
+<div class="bb-email-subject">
+Hi</div>
+<div class="bb-email-content">
+<br>
+<h2><a name="heading-1" class="anchor" href="#heading-1" aria-label="Heading link"></a>Heading</h2>
+<ul>
+<li>one</li>
+<li>two</li>
+</ul>
+<blockquote>
+quoted</blockquote>
+<br>
+</div>
+<div class="bb-email-footer">
+<div class="bb-email-button"></div>
+</div>
+</div>
+==== inline-markdown-inside
+<div class="bb-email" data-bb-email="send">
+<div class="bb-email-header"></div>
+<div class="bb-email-address">
+Bob</div>
+<div class="bb-email-subject">
+Hi</div>
+<div class="bb-email-content"><strong>bold</strong> <em>italic</em> <code>code</code> <a href="https://example.com" rel="noopener nofollow ugc">link</a> <img src="/images/emoji/twitter/smile.png?v=15" title=":smile:" class="emoji" alt=":smile:" loading="lazy" width="20" height="20"></div>
+<div class="bb-email-footer">
+<div class="bb-email-button"></div>
+</div>
+</div>
+==== in-blockquote
+<blockquote>
+<div class="bb-email" data-bb-email="send">
+<div class="bb-email-header"></div>
+<div class="bb-email-address">
+Bob</div>
+<div class="bb-email-subject">
+Hi</div>
+<div class="bb-email-content">
+<br>
+text<br>
+</div>
+<div class="bb-email-footer">
+<div class="bb-email-button"></div>
+</div>
+</div>
+</blockquote>
+==== in-list-item
+<ul>
+<li>
+<div class="bb-email" data-bb-email="send">
+<div class="bb-email-header"></div>
+<div class="bb-email-address">
+Bob</div>
+<div class="bb-email-subject">
+Hi</div>
+<div class="bb-email-content">
+<br>
+text<br>
+</div>
+<div class="bb-email-footer">
+<div class="bb-email-button"></div>
+</div>
+</div>
+</li>
+<li>next</li>
+</ul>
+==== in-table-cell
+<div class="md-table">
+<table>
+<thead>
+<tr>
+<th>head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><div class="bb-email" data-bb-email="send"><div class="bb-email-header"></div><div class="bb-email-address">Bob</div><div class="bb-email-subject">Hi</div><div class="bb-email-content">text</div><div class="bb-email-footer"><div class="bb-email-button"></div></div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+==== in-heading
+<h2><a name="mail-personbob-subjecthitextmail-1" class="anchor" href="#mail-personbob-subjecthitextmail-1" aria-label="Heading link"></a><div class="bb-email" data-bb-email="send"><div class="bb-email-header"></div><div class="bb-email-address">Bob</div><div class="bb-email-subject">Hi</div><div class="bb-email-content">text</div><div class="bb-email-footer"><div class="bb-email-button"></div></div></div></h2>
+==== around-b
+<div class="bb-email" data-bb-email="send">
+<div class="bb-email-header"></div>
+<div class="bb-email-address">
+Bob</div>
+<div class="bb-email-subject">
+Hi</div>
+<div class="bb-email-content"><span class="bbcode-b">text</span></div>
+<div class="bb-email-footer">
+<div class="bb-email-button"></div>
+</div>
+</div>
+==== in-b
+<span class="bbcode-b">before <div class="bb-email" data-bb-email="send"><div class="bb-email-header"></div><div class="bb-email-address">Bob</div><div class="bb-email-subject">Hi</div><div class="bb-email-content">text</div><div class="bb-email-footer"><div class="bb-email-button"></div></div></div> after</span>
+==== in-core-quote
+<aside class="quote no-group">
+<blockquote>
+<div class="bb-email" data-bb-email="send">
+<div class="bb-email-header"></div>
+<div class="bb-email-address">
+Bob</div>
+<div class="bb-email-subject">
+Hi</div>
+<div class="bb-email-content">text</div>
+<div class="bb-email-footer">
+<div class="bb-email-button"></div>
+</div>
+</div>
+</blockquote>
+</aside>
+==== misnested-with-i
+<div class="bb-email" data-bb-email="send">
+<div class="bb-email-header"></div>
+<div class="bb-email-address">
+Bob</div>
+<div class="bb-email-subject">
+Hi</div>
+<div class="bb-email-content"><span class="bbcode-i">text</span></div>
+<div class="bb-email-footer">
+<div class="bb-email-button"></div>
+</div>
+</div>
+tail
+==== nested-in-itself
+<div class="bb-email" data-bb-email="send">
+<div class="bb-email-header"></div>
+<div class="bb-email-address">
+Bob</div>
+<div class="bb-email-subject">
+Hi</div>
+<div class="bb-email-content">outer <div class="bb-email" data-bb-email="send"><div class="bb-email-header"></div><div class="bb-email-address">Bob</div><div class="bb-email-subject">Hi</div><div class="bb-email-content">inner</div><div class="bb-email-footer"><div class="bb-email-button"></div></div></div> outer</div>
+<div class="bb-email-footer">
+<div class="bb-email-button"></div>
+</div>
+</div>
+==== repeated
+<div class="bb-email" data-bb-email="send">
+<div class="bb-email-header"></div>
+<div class="bb-email-address">
+Bob</div>
+<div class="bb-email-subject">
+Hi</div>
+<div class="bb-email-content">one</div>
+<div class="bb-email-footer">
+<div class="bb-email-button"></div>
+</div>
+</div>
+<div class="bb-email" data-bb-email="send">
+<div class="bb-email-header"></div>
+<div class="bb-email-address">
+Bob</div>
+<div class="bb-email-subject">
+Hi</div>
+<div class="bb-email-content">two</div>
+<div class="bb-email-footer">
+<div class="bb-email-button"></div>
+</div>
+</div>
+<div class="bb-email" data-bb-email="send">
+<div class="bb-email-header"></div>
+<div class="bb-email-address">
+Bob</div>
+<div class="bb-email-subject">
+Hi</div>
+<div class="bb-email-content">three</div>
+<div class="bb-email-footer">
+<div class="bb-email-button"></div>
+</div>
+</div>
+==== tail-and-next-line
+<div class="bb-email" data-bb-email="send">
+<div class="bb-email-header"></div>
+<div class="bb-email-address">
+Bob</div>
+<div class="bb-email-subject">
+Hi</div>
+<div class="bb-email-content">text</div>
+<div class="bb-email-footer">
+<div class="bb-email-button"></div>
+</div>
+</div>
+tail<br>next line
+==== blank-lines-around
+before<br><br><br><div class="bb-email" data-bb-email="send">
+<div class="bb-email-header"></div>
+<div class="bb-email-address">
+Bob</div>
+<div class="bb-email-subject">
+Hi</div>
+<div class="bb-email-content">text</div>
+<div class="bb-email-footer">
+<div class="bb-email-button"></div>
+</div>
+</div>
+<br><br><br>after
+==== unclosed
+[mail person=Bob subject=Hi]text
+==== unmatched-close
+text[/mail]
+==== escaped
+[mail person=Bob subject=Hi]text[/mail]
+==== uppercase
+<div class="bb-email" data-bb-email="send">
+<div class="bb-email-header"></div>
+<div class="bb-email-address">
+Bob</div>
+<div class="bb-email-subject">
+Hi</div>
+<div class="bb-email-content">text</div>
+<div class="bb-email-footer">
+<div class="bb-email-button"></div>
+</div>
+</div>
+==== [mail] alone
+<div class="bb-email" data-bb-email="send">
+<div class="bb-email-header"></div>
+<div class="bb-email-address">
+Unknown</div>
+<div class="bb-email-subject">
+Empty</div>
+<div class="bb-email-content">text</div>
+<div class="bb-email-footer">
+<div class="bb-email-button"></div>
+</div>
+</div>
+==== [mail] own-lines
+<div class="bb-email" data-bb-email="send">
+<div class="bb-email-header"></div>
+<div class="bb-email-address">
+Unknown</div>
+<div class="bb-email-subject">
+Empty</div>
+<div class="bb-email-content">
+<br>
+text<br>
+</div>
+<div class="bb-email-footer">
+<div class="bb-email-button"></div>
+</div>
+</div>
+==== [mail type=receive person="Bob Smith" subject="Re: hi"] alone
+<div class="bb-email" data-bb-email="receive">
+<div class="bb-email-header"></div>
+<div class="bb-email-address">
+Bob Smith</div>
+<div class="bb-email-subject">
+Re: hi</div>
+<div class="bb-email-content">text</div>
+<div class="bb-email-footer">
+<div class="bb-email-button"></div>
+</div>
+</div>
+==== [mail type=receive person="Bob Smith" subject="Re: hi"] own-lines
+<div class="bb-email" data-bb-email="receive">
+<div class="bb-email-header"></div>
+<div class="bb-email-address">
+Bob Smith</div>
+<div class="bb-email-subject">
+Re: hi</div>
+<div class="bb-email-content">
+<br>
+text<br>
+</div>
+<div class="bb-email-footer">
+<div class="bb-email-button"></div>
+</div>
+</div>

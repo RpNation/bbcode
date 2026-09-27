@@ -54,6 +54,12 @@ module("Unit | Lib | bbcode-native", function (hooks) {
       `<div class="bbcode-b">\na<div class="d-wrap" data-wrap="x">\ny</div>\nb</div>`,
       "an inline tag holding another plugin's block renders as a block"
     );
+    await assertCooks(
+      assert,
+      "> [center]\n> x\n> [/center]",
+      `<blockquote>\n<div class="bb-center">\n<br>\nx<br>\n</div>\n</blockquote>`,
+      "a block tag spanning lines stays in its blockquote"
+    );
   });
 
   test("tag matching", async function (assert) {
@@ -62,6 +68,12 @@ module("Unit | Lib | bbcode-native", function (hooks) {
       "[b]bold [i]both[/b] italic[/i]",
       `<span class="bbcode-b">bold <span class="bbcode-i">both</span></span> italic`,
       "a mis-nested tag closes with its parent"
+    );
+    await assertCooks(
+      assert,
+      "[quote]\n[b]x\n[/quote]\ny[/b]",
+      `<aside class="quote no-group">\n<blockquote>\n<span class="bbcode-b">x</span></blockquote>\n</aside>\ny`,
+      "a tag left open in a quote closes with it, and the quote still renders"
     );
     await assertCooks(
       assert,
