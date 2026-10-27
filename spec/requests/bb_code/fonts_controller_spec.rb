@@ -51,7 +51,7 @@ RSpec.describe BbCode::FontsController do
   end
 
   describe "#stylesheet" do
-    fab!(:font) { Fabricate(:bb_code_font) }
+    fab!(:font, :bb_code_font)
 
     it "serves the stylesheet as CSS" do
       get "/bbcode/fonts/inter.css"

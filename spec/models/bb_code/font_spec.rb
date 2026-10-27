@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe BbCode::Font do
-  fab!(:font) { Fabricate(:bb_code_font) }
+  fab!(:font, :bb_code_font)
 
   describe "validations" do
     it "is valid with the fabricated defaults" do
@@ -211,9 +211,9 @@ RSpec.describe BbCode::Font do
 
   describe "#all_upload_references" do
     fab!(:other_font) { Fabricate(:bb_code_font, font_id: "other") }
-    fab!(:live_upload) { Fabricate(:upload) }
-    fab!(:retired_upload) { Fabricate(:upload) }
-    fab!(:other_upload) { Fabricate(:upload) }
+    fab!(:live_upload, :upload)
+    fab!(:retired_upload, :upload)
+    fab!(:other_upload, :upload)
 
     it "returns the live and retired references of the font only" do
       live = UploadReference.create!(target: font, upload: live_upload)
@@ -268,7 +268,7 @@ RSpec.describe BbCode::Font do
   describe "#retire_stored_files" do
     fab!(:other_font) { Fabricate(:bb_code_font, font_id: "other") }
     fab!(:upload)
-    fab!(:other_upload) { Fabricate(:upload) }
+    fab!(:other_upload, :upload)
 
     def retired_references_of(record)
       UploadReference.where(target_type: described_class::RETIRED_TARGET_TYPE, target_id: record.id)

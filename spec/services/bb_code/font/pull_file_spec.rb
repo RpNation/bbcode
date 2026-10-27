@@ -9,9 +9,11 @@ RSpec.describe BbCode::Font::PullFile do
     it { is_expected.to validate_presence_of(:font_id) }
     it { is_expected.to validate_presence_of(:filename) }
     it { is_expected.not_to allow_values("Inter", "open_sans", "-inter").for(:font_id) }
+
     it do
       is_expected.to allow_values("latin-wght-normal.woff2", "0-400-italic.woff2").for(:filename)
     end
+
     it { is_expected.not_to allow_values("font.woff", "../a.woff2", "a b.woff2").for(:filename) }
   end
 

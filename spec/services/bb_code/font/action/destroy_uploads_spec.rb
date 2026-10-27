@@ -4,10 +4,10 @@ RSpec.describe BbCode::Font::Action::DestroyUploads do
   describe ".call" do
     subject(:destroy_uploads) { described_class.call(references:) }
 
-    fab!(:font) { Fabricate(:bb_code_font) }
+    fab!(:font, :bb_code_font)
     fab!(:other_font) { Fabricate(:bb_code_font, font_id: "other") }
     fab!(:upload)
-    fab!(:kept_upload) { Fabricate(:upload) }
+    fab!(:kept_upload, :upload)
 
     let(:references) { UploadReference.where(target: font) }
 

@@ -2,7 +2,7 @@
 
 require_relative "../support/fontsource_stubs"
 
-RSpec.describe "BBCode [font] post processing" do
+RSpec.describe CookedPostProcessor, "#post_process" do
   include FontsourceStubs
 
   fab!(:post) { Fabricate(:post, raw: "[font=Inter]x[/font]") }

@@ -3,7 +3,6 @@
 require "rake"
 require_relative "../support/fontsource_stubs"
 
-# rubocop:disable RSpec/DescribeClass
 RSpec.describe "bbcode:fonts rake tasks" do
   include FontsourceStubs
 

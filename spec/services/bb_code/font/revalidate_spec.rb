@@ -8,6 +8,7 @@ RSpec.describe BbCode::Font::Revalidate do
   describe described_class::Contract, type: :model do
     it { is_expected.to validate_presence_of(:font_id) }
     it { is_expected.to allow_values("inter", "open-sans", "m-plus-1p").for(:font_id) }
+
     it do
       is_expected.not_to allow_values("Inter", "open_sans", "-inter", "inter-", "a b").for(:font_id)
     end

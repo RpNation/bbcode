@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe "BBCode [font]" do
+RSpec.describe PrettyText, ".cook" do
   def cooked_span(raw)
     Nokogiri::HTML5.fragment(PrettyText.cook(raw)).at_css("span")
   end

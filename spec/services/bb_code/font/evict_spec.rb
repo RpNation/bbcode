@@ -4,6 +4,7 @@ RSpec.describe BbCode::Font::Evict do
   describe described_class::Contract, type: :model do
     it { is_expected.to validate_presence_of(:font_id) }
     it { is_expected.to allow_values("inter", "open-sans", "m-plus-1p").for(:font_id) }
+
     it do
       is_expected.not_to allow_values("Inter", "open_sans", "-inter", "inter-", "a b").for(:font_id)
     end
@@ -41,7 +42,7 @@ RSpec.describe BbCode::Font::Evict do
     end
 
     context "when forced and the font was used recently" do
-      fab!(:upload) { Fabricate(:upload) }
+      fab!(:upload)
 
       let(:dependencies) { { options: { force: true } } }
 
@@ -71,9 +72,9 @@ RSpec.describe BbCode::Font::Evict do
     end
 
     context "when the font is idle" do
-      fab!(:live_upload) { Fabricate(:upload) }
-      fab!(:retired_upload) { Fabricate(:upload) }
-      fab!(:shared_upload) { Fabricate(:upload) }
+      fab!(:live_upload, :upload)
+      fab!(:retired_upload, :upload)
+      fab!(:shared_upload, :upload)
       fab!(:other_font) { Fabricate(:bb_code_font, font_id: "other") }
 
       before do
