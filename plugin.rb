@@ -40,10 +40,9 @@ end
 
 require_relative "lib/bb_code/engine"
 require_relative "lib/bb_code/css_hotlinked_media"
+require_relative "lib/bb_code/fontsource"
 
 after_initialize do
-  require_relative "lib/bb_code/fontsource"
-
   # Code which should run after Rails has finished booting
   # should clear out the context so the initial setup logic for bbcode parser runs
   PrettyText.reset_context()
