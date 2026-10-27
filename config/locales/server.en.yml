@@ -6,3 +6,6 @@ en:
       Note that discourse_normalize_whitespace must be disabled to preserve non-breaking spaces."
     enable_bbscript: "Activate to enable BBScript support. See the github wiki for more information."
     fontawesome_kit_url: "Enter the URL of your Font Awesome kit to enable Font Awesome icons in BBCode."
+    bbcode_self_host_fonts: "Serve the Google fonts used by the font BBCode from this site instead of loading them from Google. Each font is downloaded the first time someone views a post that uses it."
+    bbcode_font_revalidate_days: "How many days a self-hosted font is kept before it is checked against the latest published version. A font that has a new version is downloaded again the next time someone needs it."
+    bbcode_font_evict_idle_days: "How many days a self-hosted font can go unused before it and its downloaded files are deleted. It is downloaded again if someone needs it later."

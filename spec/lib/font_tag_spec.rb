@@ -5,8 +5,8 @@ RSpec.describe "BBCode [font]" do
     Nokogiri::HTML5.fragment(PrettyText.cook(raw)).at_css("span")
   end
 
-  def google_font_params(span)
-    URI.parse(span["data-font"]).query
+  def face_of(span)
+    span["style"].match(/font-weight: (?<weight>\d+); font-style: (?<style>\w+)/).named_captures
   end
 
   it "renders a google font with a regular upright face and a generic fallback" do
@@ -15,59 +15,69 @@ RSpec.describe "BBCode [font]" do
     expect(span["style"]).to eq(
       "font-family: 'Roboto', sans-serif; font-weight: 400; font-style: normal;",
     )
-    expect(span["data-font"]).to eq(
-      "https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400",
-    )
+    expect(span["data-font"]).to eq("Roboto")
   end
 
   it "accepts the family from the default, family and name attributes" do
-    families =
+    spans =
       [
         '[font="Open Sans"]t[/font]',
         '[font family="Open Sans"]t[/font]',
         '[font name="Open  Sans"]t[/font]',
-      ].map { |raw| google_font_params(cooked_span(raw)) }
+      ].map { |raw| cooked_span(raw) }
 
-    expect(families).to all(eq("family=Open+Sans:ital,wght@0,400"))
+    expect(spans.map { |span| span["data-font"] }).to all(eq("Open Sans"))
   end
 
   it "reads weight and italic from the style attribute" do
-    styles = {
-      "light" => "wght@0,300",
-      "700" => "wght@0,700",
-      "italic" => "wght@1,400",
-      "bold italic" => "wght@1,700",
-      "300 italic" => "wght@1,300",
-      "1000" => "wght@0,400",
+    faces = {
+      "light" => {
+        "weight" => "300",
+        "style" => "normal",
+      },
+      "700" => {
+        "weight" => "700",
+        "style" => "normal",
+      },
+      "italic" => {
+        "weight" => "400",
+        "style" => "italic",
+      },
+      "bold italic" => {
+        "weight" => "700",
+        "style" => "italic",
+      },
+      "300 italic" => {
+        "weight" => "300",
+        "style" => "italic",
+      },
+      "1000" => {
+        "weight" => "400",
+        "style" => "normal",
+      },
     }
 
     actual =
-      styles.keys.to_h do |style|
-        span = cooked_span(%([font family="Lora" style="#{style}"]t[/font]))
-        [style, google_font_params(span)[/wght@.*/]]
+      faces.keys.to_h do |style|
+        [style, face_of(cooked_span(%([font family="Lora" style="#{style}"]t[/font])))]
       end
 
-    expect(actual).to eq(styles)
-    expect(cooked_span('[font family="Lora" style="italic"]t[/font]')["style"]).to include(
-      "font-style: italic",
-    )
+    expect(actual).to eq(faces)
   end
 
   it "applies registered axes with or without a style attribute" do
     with_style = cooked_span('[font family="Open Sans" style="regular" wdth=75]t[/font]')
     without_style = cooked_span('[font family="Open Sans" wdth=75]t[/font]')
 
-    [with_style, without_style].each do |span|
-      expect(span["style"]).to include("font-variation-settings: 'wdth' 75;")
-      expect(google_font_params(span)).to eq("family=Open+Sans:ital,wdth,wght@0,75,400")
-    end
+    expect([with_style, without_style].map { |span| span["style"] }).to all(
+      include("font-weight: 400; font-style: normal; font-variation-settings: 'wdth' 75;"),
+    )
   end
 
   it "honors ital and wght given as axes" do
     span = cooked_span('[font family="Lora" ital=1 wght=700]t[/font]')
 
-    expect(span["style"]).to include("font-weight: 700; font-style: italic;")
-    expect(google_font_params(span)).to eq("family=Lora:ital,wght@1,700")
+    expect(face_of(span)).to eq({ "weight" => "700", "style" => "italic" })
   end
 
   it "renders web safe fonts with a matching generic fallback and no google font" do

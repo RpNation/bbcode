@@ -23,7 +23,7 @@ Google behavior is unchanged.
 - `bbcode-src/tags/font.js` parses the tag and, for anything not in a small
   web-safe list, builds a Google CSS2 URL for **one** weight/style instance and
   stores it in `data-font` on the span.
-- `assets/javascripts/discourse/api-initializers/google-font.js` appends a
+- the old `google-font.js` initializer appended a
   `<link rel="stylesheet">` for each `[data-font]` **inside each post**.
 - `bbcode-src/plugins/fontProcess.js` (an `@import` injector) is not referenced.
 
@@ -68,7 +68,10 @@ Compare structure (requests, origins, dependency chain) rather than absolute tim
 3. **Cache, not permanent storage.** Idle fonts are evicted; used fonts are
    revalidated after 30 days.
 4. **Deterministic stylesheet URL** (`/bbcode/fonts/<id>.css`), so the browser
-   needs no lookup call. `data-font` carries only the family name.
+   needs no lookup call. `data-font` holds just the family name (`Open Sans`);
+   weight, italic and axes are in the span's inline style. The cooked HTML never
+   depends on the setting, so nothing is rebaked when it is toggled, and the loader
+   builds the one URL it will load.
 5. **Deterministic, lazily fetched font files.** A font file is downloaded from
    Fontsource only when a browser first asks for it.
 6. **Include every face the family has** (upright and italic, the full weight
@@ -86,7 +89,7 @@ Compare structure (requests, origins, dependency chain) rather than absolute tim
 ## Architecture
 
 ```
-cooked post:  <span data-font="Inter" style="font-family:'Inter'; ...">
+cooked post:  <span data-font="Inter" style="font-family: 'Inter', sans-serif; font-weight: 400; ...">
                     |  client decorator: one <link> per family per page, in <head>
                     v
 GET /bbcode/fonts/inter.css            Rails, CDN-cacheable
@@ -97,7 +100,7 @@ GET /bbcode/fonts/inter.css            Rails, CDN-cacheable
                     v
 stored file     -> direct upload / CDN URL      nginx, S3 or CDN, never Rails
 missing file    -> GET /bbcode/fonts/inter/<file>.woff2
-                     fetch from Fontsource, respond with the bytes, store as Upload
+                     fetch from Fontsource, store as Upload, 302 to it
 ```
 
 ### Why Rails stays in the path
@@ -145,9 +148,14 @@ reference is the clock; no extra table or column.
 
 ### Transient state (Redis)
 
-- import lock per font id (`NX`, about 10 minutes)
-- revalidation claim per font id
-- failure backoff per font id (TTL)
+- `bbcode-font-job:<job class>:<id>`: set when `Action::EnqueueOnce` queues the import or
+  the revalidation of a font, for the job's `RETRY_DELAY` (10 minutes for an import, 6
+  hours for a revalidation). It keeps one job per font in flight, and doubles as the
+  backoff before a font whose job failed is tried again.
+- `bbcode-font-file-failed:<id>:<file>`: set for 1 minute after a file couldn't be
+  downloaded.
+- the font list also leaves `bbcode-fontsource-font-list-unavailable` for 1 minute when
+  Fontsource can't be reached, so a cold cache doesn't make every request wait on it.
 
 ## Routes and caching
 
@@ -179,42 +187,63 @@ Cookies or `Vary: Cookie` would stop shared caches from storing the responses.
 1. Not in the cached Fontsource font list -> `404`, long cache. No outbound call,
    no state stored. (Partial names typed in the composer stop here.)
 2. In the list -> take the import lock, enqueue the import, return a short-cache
-   `404`. Viewers see the fallback stack until the next load.
+   `404`. Viewers see the fallback stack until the next load. The import is also
+   queued when a post using the font is cooked (`post_process_cooked`), so the
+   stylesheet usually exists before the first reader arrives.
 3. Import is metadata only: `/v1/fonts/{id}` and `/v1/variable/{id}`. It
    generates the canonical CSS and creates the row. No files are downloaded.
-4. Optionally prewarm the likely files (Latin and Latin-ext) in a job.
+4. Prewarming the likely files (Latin and Latin-ext) is not implemented yet.
 
-A failed import writes only a backoff key in Redis.
+A failed import writes only the lock key in Redis (10 minutes), which doubles as
+the backoff before the family is tried again.
 
-### Revalidation (30 days)
+### Revalidation (30 days by default)
 
-Standard stale-while-revalidate with a validator:
+Standard stale-while-revalidate with a validator (`BbCode::Font::Revalidate`):
 
-1. A request finds `checked_at` older than 30 days. It serves the current CSS
-   immediately and touches `last_used_at`.
-2. It atomically claims the revalidation (Redis lock). Only the winner enqueues.
-3. The job fetches `/v1/fonts/{id}` and compares `npmVersion`.
-   - Unchanged: set `checked_at = now`.
-   - Changed: in one transaction re-point the old references to `RetiredFont`,
-     regenerate `css`, update `version` and `checked_at`. Files are re-fetched
-     lazily on demand.
-   - Failed: keep serving the old version, set a Redis backoff, give up after a
-     cap. Nothing partial is ever visible.
-4. Revalidation never touches `last_used_at`.
+1. A request for the stylesheet finds `checked_at` older than
+   `bbcode_font_revalidate_days`. It serves the current CSS immediately and, if it wins
+   the Redis claim, enqueues `Jobs::BbCode::RevalidateFont`. Only the winner enqueues.
+2. The service fetches the family from Fontsource (`Family.fetch`) and compares its
+   `npmVersion` with the stored `version`.
+   - Unchanged: set `checked_at = now`. Nothing else changes.
+   - Changed: in one transaction retire the stored files (their references are
+     re-pointed to `BbCode::RetiredFont`, `updated_at` refreshed), then regenerate `css`
+     and `version`; then set `checked_at`. Files are pulled again as they are needed.
+     If the new stylesheet is invalid (for example over `MAX_STYLESHEET_BYTES`) the
+     transaction rolls back and the font stays on its current version.
+   - Unreachable or failed: nothing changes and the current version keeps being served.
+     The claim key keeps the font from being tried again for 6 hours. There is no
+     attempt cap: a font whose upstream stays broken is retried every 6 hours for as
+     long as it is requested.
+3. Revalidation never touches `last_used_at`.
+
+A file that is stored again unchanged after being retired (identical bytes dedupe to the
+same `Upload`) is both live and retired for the font. The next retirement keeps a single
+retired link for it and refreshes its clock, so it can't be swept while a cached
+stylesheet might still point at it, and the unique index on references isn't violated.
 
 Freshness (`checked_at`) and usage (`last_used_at`) are separate clocks, so a font
 that is in use is revalidated but never deleted.
 
-### Eviction (daily sweep)
+### Eviction (daily)
 
-- Rows with `last_used_at` older than the idle limit (default 90 days): destroy
-  their uploads immediately (no one has a live cached stylesheet) and delete the
-  row and references.
-- Retired references older than the grace period: destroy the upload, unless
-  another `UploadReference` still points at it. The grace period must exceed the
-  stylesheet `s-maxage` plus stale-while-revalidate (start at 7 days), because
-  cached stylesheets may still reference those files.
-- Clear stuck revalidation claims.
+`Jobs::BbCode::CleanUpFonts` runs once a day (and does nothing while the plugin is
+disabled):
+
+- Each font with `last_used_at` older than `bbcode_font_evict_idle_days` goes through
+  `BbCode::Font::Evict`: its uploads (current and retired) are destroyed immediately,
+  since no one has a live cached stylesheet for a font idle that long, and the row is
+  deleted. An upload that another reference still points at is kept.
+- Retired references older than `BbCode::Font::RETIRED_UPLOAD_GRACE` are removed, and
+  their uploads destroyed unless something else still refers to them. The grace is
+  derived from `BbCode::Font::SERVED_CACHE`, which also sets the cache headers of the
+  stylesheet and file routes: the longest a shared cache can keep a response (`shared`
+  plus `stale_while_revalidate`) plus a day. Today that is 14 days for the redirect of the file route (the stylesheet's
+  is 8), so 15 days.
+
+The sweep runs whether or not `bbcode_self_host_fonts` is on, so turning the feature
+off lets the stored fonts age out.
 
 `Jobs::CleanUpUploads` is only a backstop for the crash window between creating
 an upload and attaching its reference. It is enabled by default (`clean_up_uploads`
@@ -226,8 +255,8 @@ exceed 7 days, so it is not relied on.
 ### Upstream usage
 
 - `GET https://api.fontsource.org/fontlist` returns `{ "<id>": "<type>" }`
-  (about 51 KB, has an `ETag`). Cache it in `Rails.cache`, refresh with a
-  conditional request about once a day, keep only `"google"` entries.
+  (about 51 KB). Cache it in `Rails.cache` for a day, keep only `"google"`
+  entries, and never cache a failed fetch (an outage is only remembered for a minute).
   (`/v1/fontlist` is a 404; the endpoint is at the root.)
 - `GET /v1/fonts/{id}` for metadata (subsets, weights, styles, `unicodeRange`
   per subset, `npmVersion`, `variable`).
@@ -268,31 +297,56 @@ refuses if the normalized slug differs from the id in the metadata.
   weight range (`font-weight: min max`) for variable fonts and
   `font-stretch` when `wdth` is present.
 
+### Choosing the files (`BbCode::Fontsource::Family`)
+
+Fontsource marking a family `variable` is not enough to rely on. Of the 573
+variable Google families (checked against the live API), 17 have no `wght` axis and
+54 more declare one but publish no `latin-wght-*` file (for example the Playwrite
+families). So the importer probes for the default subset's `wght` file and uses the
+variable files only when it exists (502 families); otherwise it falls back to the
+static per-weight files, which exist for the other 71.
+
+- Variable: one face per subset and style, `font-weight: <min> <max>` from the
+  `wght` axis. Static: one face per weight, style and subset in the metadata.
+- Files without a unicode range are skipped (Noto Sans JP has 125 files but 124
+  ranges).
+- Every value that reaches the stylesheet is validated, since the CSS is served
+  from this site's origin: the unicode range, weight, style and file name must be
+  well formed or the face is skipped. The check accepts all 12,377 faces with a
+  range in a 267 family sample, so it doesn't drop real data.
+- File URLs use the exact published version (`<id>[:vf]@<npmVersion>/...`), which
+  Fontsource's CDN treats as immutable.
+
 ## Client
 
-Replace `google-font.js` with a loader that:
+`assets/javascripts/lib/font-links.js`, used by the `fonts.js` initializer:
 
-- collects `[data-font]` values, dedupes against what is already in the document,
-  and appends one `<link rel="stylesheet" href="/bbcode/fonts/<id>.css">` per
-  family to `document.head`, shared between posts. The decorator returns a cleanup
-  function (the post stream calls it when a post is re-rendered or removed) that
-  releases the post's fonts; a link is removed once no post uses it, after a short
-  delay so a re-rendering post does not flash in the fallback font. Use `getURL`
-  for subfolder installs.
-- recognizes legacy `data-font="https://fonts.googleapis.com/css2?family=..."`
-  values by extracting the family, so old posts need no rebake.
-- falls back to today's Google `<link>` behavior when `bbcode_self_host_fonts` is
-  off (the setting must be `client: true`).
+- reads `data-font` as a family name and accepts only the shape the tag produces
+  (ASCII letters, digits and spaces).
+- with `bbcode_self_host_fonts` on, links `/bbcode/fonts/<id>.css` (the family
+  normalized like `BbCode::Font.id_for`, through `getURLWithCDN`), so every face of a
+  family shares one stylesheet.
+- with it off, rebuilds the Google url the tag used to emit from the span's own
+  `font-weight`, `font-style` and `font-variation-settings` (axes in alphabetical
+  order), so no url from the post is ever put in a `<link>`. For 111 `[font]` tags
+  (weights, italics and axes) this gives the same url as the old tag.
+- appends one `<link rel="stylesheet">` per stylesheet to `document.head`, shared
+  between posts. The decorator returns a cleanup function (the post stream calls
+  it when a post is re-rendered or removed) that releases the post's fonts; a link
+  is removed once no post uses it, after a short delay so a re-rendering post does
+  not flash in the fallback font.
 
-The composer preview cooks as the user types and goes through the same loader.
-Catalog validation and debouncing keep partial names from causing work.
+The setting is read each time a post is decorated, so toggling it applies to posts
+rendered afterwards. The composer preview cooks as the user types and goes through
+the same loader; names that aren't in the font list stop at a cached `404`.
 
 ## Tag changes (`bbcode-src/tags/font.js`)
 
-- `data-font` carries the family name only; weight, italic and axes stay in the
-  span's inline style.
+- `data-font` is the family name only. Weight, italic and axes are in the span's
+  inline style, which is what the browser matches against the stylesheet and what
+  the loader uses to build a Google url when self-hosting is off.
 - Add a strict grammar for the family (character allowlist, length cap), which
-  also keeps the Google URL well-formed. Axis values are passed through as
+  also keeps what the loader builds well-formed. Axis values are passed through as
   written, with no number or range checks: with self-hosting they only appear in
   inline `font-variation-settings`, a bad value in user content is allowed to
   fail on its own, and sanitizing style output is a broader concern for the
@@ -312,15 +366,39 @@ Keep supported syntax as is:
 - web-safe names (`arial`, `book antiqua`, `courier new`, `georgia`, `tahoma`,
   `times new roman`, `trebuchet ms`, `verdana`) render as a plain `font-family`.
 
+## Maintenance tasks
+
+There is no admin page; a site operator manages the cache from the command line
+(`lib/tasks/bbcode_fonts.rake`). Each task acts on every site of a multisite unless
+`RAILS_DB` is set.
+
+```
+bin/rake bbcode:fonts:list                   # what is stored, and how much space it uses
+bin/rake "bbcode:fonts:refresh[open-sans]"   # check a font against Fontsource now
+bin/rake bbcode:fonts:refresh                # ...or every stored font
+bin/rake "bbcode:fonts:purge[open-sans]"     # delete a font and its files now
+bin/rake bbcode:fonts:purge                  # ...or all of them (a cleared cache refills on demand)
+```
+
+`list` shows each font's version, the number and size of its stored files (retired files
+included), when it was last used and last checked, and whether it is `due` for
+revalidation or `idle` (the next daily sweep would delete it), plus totals.
+
+`refresh` and `purge` run the same services as the automatic paths with their `force`
+option, which skips the check that a font is due or idle: `Revalidate` and `Evict`
+take `options: { force: true }`. They print what happened per font (`old -> new`,
+`up to date`, `deleted`, or `FAILED` with the steps that failed).
+
 ## Settings
 
-- `bbcode_self_host_fonts` (default false, `client: true`)
-- `bbcode_font_revalidate_days` (30)
-- `bbcode_font_evict_idle_days` (90)
-- Caps as constants to start: families stored, bytes per family, bytes total,
-  per-file size.
-
-Use the `discourse-site-settings` skill when adding them.
+- `bbcode_self_host_fonts` (default false, `client: true`).
+- `bbcode_font_revalidate_days` (default 30) and `bbcode_font_evict_idle_days`
+  (default 90): server only. They are hidden while `bbcode_self_host_fonts` is off and
+  shown inline under it when it is on (`depends_behavior: "hidden"`,
+  `dependent_setting_display: "inline"`).
+- Constants for now: `BbCode::Font::MAX_STYLESHEET_BYTES` (1 MB),
+  `Client::MAX_FILE_BYTES` (2 MB),
+  `Client::MAX_JSON_BYTES` (5 MB), `EnqueueMissingImports::MAX_FONTS_PER_POST` (10).
 
 ## Backups
 
@@ -333,6 +411,36 @@ directory (the only exclusion is `optimized/`), and S3 backups select all
 estimate at one to two days plus core review. We are deferring it: the cache is
 size-bounded, and restored sites get working fonts immediately. Revisit if backup
 size becomes a complaint.
+
+## Scale: hosting every family
+
+There is no limit on the number of stored families. Measured on 2026-10-27 across all
+1,984 Google families Fontsource serves, with the importer's variable-or-static choice
+applied (file sizes from jsDelivr's package listings, so the file figures are upper
+bounds):
+
+| | |
+|---|---|
+| Stylesheets in the database | 22.7 MB for 1,984 rows; median family 1 KB, largest 695 KB |
+| Font files, if every file were requested | about 1.07 GB in 35,924 files |
+| Largest single family | 37.6 MB (Chiron Hei HK) |
+| Median family | 72 KB of files; p95 2.2 MB |
+| Typical 500 families / the 500 largest | about 36 MB / about 978 MB |
+
+So storage is cheap; what a visitor can cost is upstream load (about 36,000 downloads
+from Fontsource's CDN if everything were requested) and backup size.
+
+Stylesheets are large for some families, which is accepted: 97 families exceed 50 KB
+raw, 48 exceed 100 KB and 15 (all static CJK families) exceed 300 KB. Gzipped, M PLUS 1p
+is about 210 KB, IBM Plex Sans JP 212 KB, Noto Sans JP 273 KB (Google serves roughly
+10 KB for these), against 1-3 KB for Inter and Roboto. A variable family stays small
+(Noto Sans JP: 99 KB raw). `BbCode::Font::MAX_STYLESHEET_BYTES` (1 MB) is the only
+ceiling; the largest stylesheet of the survey is 695 KB.
+
+Not guarded, deliberately: anonymous requests for the stylesheet of any listed family
+can still queue its import and then pull its files. Importing only from cooked posts
+and a logged-in preview, a total-bytes ceiling and per-IP rate limits on file pulls
+were considered and left out for now.
 
 ## Risks
 
@@ -357,23 +465,33 @@ size becomes a complaint.
    `style`), `italic`-only `style` fix, generic fallbacks, removal of the dead
    `fontProcess.js` and `data.fonts`, and a loader that adds one `<link>` per
    font to `<head>` (shared across posts and released when the last post using it goes away) and only accepts the exact
-   `https://fonts.googleapis.com/css2` origin and path. `data-font` still holds
-   the Google URL in this PR; it becomes the family name in PR 2, when the route
-   exists and the loader gains legacy-URL handling. Specs:
-   `spec/lib/font_tag_spec.rb`, `test/javascripts/unit/lib/google-font-links-test.js`.
-2. **PR 2: import pipeline and routes** behind the setting: Fontsource client,
-   importer service (`Service::Base`), `bbcode_fonts` migration, css and file
-   controllers, settings.
-3. **PR 3: revalidation and eviction**: stale-while-revalidate, retirement,
-   daily sweep.
-4. **PR 4 (optional)**: admin page listing cached fonts with purge and refresh.
+   `https://fonts.googleapis.com/css2` origin and path. Specs:
+   `spec/lib/font_tag_spec.rb`, and a loader test (now
+   `test/javascripts/unit/lib/font-links-test.js`).
+2. **PR 2: import pipeline and routes** (implemented, behind the setting):
+   - `bbcode_fonts` table and `BbCode::Font` model.
+   - `lib/bb_code/fontsource/` (`Client`, `FontList`, `Family`).
+   - Services `BbCode::Font::Import` (metadata only; creates the row and its
+     generated stylesheet) and `BbCode::Font::PullFile` (stores one font file as an
+     `Upload`), plus the actions `BuildStylesheet`, `StoreFile`, `EnqueueOnce` and
+     `EnqueueMissingImports`, and `Jobs::BbCode::ImportFont`.
+   - `BbCode::FontsController` with the stylesheet and file routes, and the
+     `post_process_cooked` hook.
+   - The loader's self-hosted mode (see [Client](#client)).
+3. **PR 3: revalidation and eviction** (implemented):
+   - `BbCode::Font::Revalidate` and `Jobs::BbCode::RevalidateFont`, triggered from the
+     stylesheet route through `Action::EnqueueOnce`.
+   - `BbCode::Font::Evict`, `Action::DestroyUploads` and the daily
+     `Jobs::BbCode::CleanUpFonts`.
+   - The `bbcode_font_revalidate_days` and `bbcode_font_evict_idle_days` settings.
+4. **Maintenance tasks** instead of an admin page (implemented): `bbcode:fonts:list`,
+   `refresh` and `purge`, with a `force` option on `Revalidate` and `Evict`.
 
-Tests (the plugin's `spec/` is currently empty): tag parsing and grammar specs;
-importer specs with WebMock stubs and trimmed Fontsource fixtures (include a
-CJK-shaped one with `[n]` slice keys); controller specs for each state and its
-headers; job specs for revalidation (unchanged, changed, failed, lock
-contention) and the sweep; a QUnit test for the loader (dedupe, legacy URLs,
-setting off).
+Tests: tag parsing and grammar specs; importer and file-pull specs with WebMock
+stubs and trimmed Fontsource fixtures (including a CJK-shaped one with `[n]` slice
+keys); controller request specs for each state and its headers; job specs for
+revalidation (unchanged, changed, failed, lock contention) and the sweep in PR 3;
+a QUnit test for the loader (sharing, release, self-hosted mode).
 
 ## Open items
 
@@ -385,16 +503,20 @@ Not yet verified:
   persistent profile, a private window. Only Chromium was used so far.
 - Whether `X-Accel-Redirect` is available to serve local files directly instead
   of redirecting.
-- That `UploadCreator` always preserves the filename passed for a new upload.
 - Synthetic bold/italic is expected (by the font-matching rules) when only a
   regular face is loaded; the face selection was observed, the synthesis was
   not.
 
+Resolved in PR 2:
+
+- The import runs in a job, and is also queued from `post_process_cooked`.
+- A missing file is stored and then answered with a `302` to the upload (not the
+  bytes), which keeps one code path.
+- `UploadCreator` keeps the filename it is given for a new upload (a font file
+  stored through `for_theme: true` kept `latin-wght-normal.woff2`).
+
 Needs a decision:
 
-- Whether the import runs inline in the request (it is metadata-only and fast) or
-  in a job as described, and whether to also trigger it from
-  `post_process_cooked` so the stylesheet usually exists before the first reader.
 - Extra registered axes (`opsz`, `wdth`, ...) given by a tag: the family-level CSS
   uses one file per slice, and richer files are larger (Roboto Flex Latin: 34 KB
   `wght`, 84 KB `opsz`, 326 KB `full`). Version 1 can support `wght` and `ital`
@@ -428,3 +550,9 @@ Found while investigating; not part of this work:
   cooking 398 BBCode samples through both bundles and diffing the output. A
   deliberate `@bbob` upgrade and a declared `@bbob/plugin-helper` dependency
   should be a separate change.
+- `requires_plugin PLUGIN_NAME` does not work in this plugin: `BbCode::PLUGIN_NAME` is
+  `"BbCode"` (it also feeds the engine name) but plugin.rb registers the plugin as
+  `"bbcode"`, so the lookup fails (an error in tests, a logged warning in
+  production) and the controller is never disabled with the plugin.
+  `BbCode::FontsController` uses `requires_plugin "bbcode"`;
+  `BbCode::Admin::RefreshController` still has the problem.

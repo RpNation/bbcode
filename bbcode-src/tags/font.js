@@ -72,25 +72,6 @@ const axesParser = (attrs) => {
   return axes;
 };
 
-/**
- * Create google font api url
- * @param {string} family name of font
- * @param {object<string, number>} axes custom font axes
- */
-const googleFontApiBuild = (family, axes) => {
-  family = family.replaceAll(" ", "+");
-  // google fonts requires axes names to be in alphabetical order
-  axes = Object.keys(axes)
-    .sort()
-    .reduce((obj, key) => {
-      obj[key] = axes[key];
-      return obj;
-    }, {});
-  const axesList =
-    Object.keys(axes).join(",") + "@" + Object.values(axes).join(",");
-  return "https://fonts.googleapis.com/css2?family=" + family + ":" + axesList;
-};
-
 export const font = (node, options) => {
   const attrs = preprocessAttr(node, options.data.raw);
   const family = normalizeFamily(
@@ -110,7 +91,6 @@ export const font = (node, options) => {
   }
 
   const axes = axesParser(attrs);
-  const url = googleFontApiBuild(family, axes);
 
   const italic = Number(axes.ital) === 1 ? "italic" : "normal";
 
@@ -129,7 +109,7 @@ export const font = (node, options) => {
     "span",
     {
       style: `font-family: '${family}', ${GOOGLE_FONT_FALLBACK}; font-weight: ${axes.wght}; font-style: ${italic}; ${fontVar}`,
-      "data-font": url,
+      "data-font": family,
     },
     node.content
   );
