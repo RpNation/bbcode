@@ -14,7 +14,7 @@ module ::BbCode
           render json: success_json
         rescue => e
           Rails.logger.error("Failed to warm up pretty text: #{e}")
-          render json: failed_json, status: 500
+          render json: failed_json, status: :internal_server_error
         end
       end
     end

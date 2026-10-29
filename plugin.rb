@@ -18,6 +18,18 @@ add_admin_route "bbcode.title", "bbcode", use_new_show_route: true
 
 Discourse::Application.routes.append do
   get "/admin/plugins/bbcode/reset" => "admin/plugins#index", :constraints => AdminConstraint.new
+
+  get "/bbcode/fonts/:font_id.css" => "bb_code/fonts#stylesheet",
+      :constraints => {
+        font_id: /[a-z0-9]+(-[a-z0-9]+)*/,
+      },
+      :format => false
+  get "/bbcode/fonts/:font_id/:filename" => "bb_code/fonts#file",
+      :constraints => {
+        font_id: /[a-z0-9]+(-[a-z0-9]+)*/,
+        filename: /[a-z0-9]+(-[a-z0-9]+)*\.woff2/,
+      },
+      :format => false
 end
 
 module ::BbCode
@@ -28,6 +40,7 @@ end
 
 require_relative "lib/bb_code/engine"
 require_relative "lib/bb_code/css_hotlinked_media"
+require_relative "lib/bb_code/fontsource"
 
 after_initialize do
   # Code which should run after Rails has finished booting
@@ -42,6 +55,12 @@ after_initialize do
   ::InlineUploads.singleton_class.prepend(::BbCode::CssHotlinkedMedia::RewriteRawCssUrls)
 
   on(:post_process_cooked) { |doc, post| ::BbCode::CssHotlinkedMedia.rewrite_doc!(doc, post) }
+
+  on(:post_process_cooked) do |doc, _post|
+    if SiteSetting.bbcode_self_host_fonts
+      ::BbCode::Font::Action::EnqueueMissingImports.call(cooked: doc)
+    end
+  end
 
   # overrides the default normalize_whitespaces function in discourse/lib/text_cleaner.rb
   # adds discourse_normalize_whitespace setting (defaults to false)
